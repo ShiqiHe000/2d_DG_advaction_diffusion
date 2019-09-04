@@ -1,6 +1,6 @@
 !-----------------------------------------------------------------------
 !> @brief
-!> A nodal DG 2D constructor
+!> A nodal DG 2D constructor.
 !! This constructor computes the GL nodes and weights, Lagrange interpolating
 !! polynomials at the boundaries, first order derivative matrices and 
 !! modified them.
@@ -20,6 +20,9 @@ DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:, :) :: M_FIRST_DER_Y !< MODIFIED FIRS
 CONTAINS
 
 SUBROUTINE CONSTRUCT_BASIS
+!-----------------------------------------------------------------------
+! Algorithm 91
+!-----------------------------------------------------------------------
 
     IMPLICIT NONE
     

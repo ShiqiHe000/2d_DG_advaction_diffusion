@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nodal_5f2d_5fstorage',['nodal_2d_storage',['../namespacenodal__2d__storage.html',1,'']]]
+  ['dg_5f2d_5fconstructor',['dg_2d_constructor',['../namespacedg__2d__constructor.html',1,'']]]
 ];
