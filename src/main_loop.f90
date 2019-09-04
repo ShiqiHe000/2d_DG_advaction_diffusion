@@ -1,17 +1,20 @@
-
+!-----------------------------------------------------------------------
+!> @brief 
+!> The main loop of the program
+!-----------------------------------------------------------------------
 
 PROGRAM MAIN_LOOP
 !-----------------------------------------------------------------------
 !   POISSON PROBLEM
 !-----------------------------------------------------------------------
     USE MPI
-    USE BASIS
+!    USE BASIS
     USE PARAM, ONLY: IERROR, MESHFILE
     USE SET_MPI
 !    USE MESH
 !    USE GRAPH_PARTITION
 !    USE FIELDS
-    USE ADVECTION_DIFFUSION
+!    USE ADVECTION_DIFFUSION
 
     IMPLICIT NONE
     
@@ -31,7 +34,7 @@ PROGRAM MAIN_LOOP
     
 !    PRINT *, "CHECK"
     
-    CALL DG_2D_WAVE
+!    CALL DG_2D_WAVE
     
 !    PRINT *, "CHECK"
 
