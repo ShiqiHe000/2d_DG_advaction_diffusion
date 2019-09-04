@@ -8,4 +8,3 @@ The basic model of wave propgation is the wave equation. The wave equation is:
 The variable `p` might represent the acoustic pressure and `c` would be the sound speed. In other applications, 
 the equation can represent the electric field with `c` corresponding to the speed of light. 
 
-link[link](docs/output/html/index.html)
