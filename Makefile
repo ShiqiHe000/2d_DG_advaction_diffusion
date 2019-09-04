@@ -16,9 +16,10 @@ OPT = -O3
 OG = -Og
 DEBUG = -g -fcheck=all -fimplicit-none -fbacktrace -pedantic -Wall
 
-SRC =  param.f90 \
-       mpi.f90 \
-       main_loop.f90
+SRC =  dg_param.f90 \
+       dg_mpi.f90 \
+       dg_basis.f90 \
+       dg_main_loop.f90
 #       basis.f90 \
 #       mesh.f90 \
 #       graph_partition.f90 \
