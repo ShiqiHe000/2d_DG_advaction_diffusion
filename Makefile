@@ -18,13 +18,13 @@ DEBUG = -g -fcheck=all -fimplicit-none -fbacktrace -pedantic -Wall
 
 SRC =  param.f90 \
        mpi.f90 \
-       basis.f90 \
-       mesh.f90 \
-       graph_partition.f90 \
-       write_fields.f90 \
-       user_defined.f90 \
-       DG_wave.f90 \
-       main_loop.f90 
+#       basis.f90 \
+#       mesh.f90 \
+#       graph_partition.f90 \
+#       write_fields.f90 \
+#       user_defined.f90 \
+#       DG_wave.f90 \
+#       main_loop.f90 
 
 #SOURCE = $(wildcard $(DIR)/$(makefile formatSRCDIR)/$(SRC))
 #SOURCE  = $(DIR)/$(SRCDIR)
