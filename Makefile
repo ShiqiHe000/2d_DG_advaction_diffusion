@@ -19,8 +19,8 @@ DEBUG = -g -fcheck=all -fimplicit-none -fbacktrace -pedantic -Wall
 SRC =  dg_param.f90 \
        dg_mpi.f90 \
        dg_basis.f90 \
+       dg_nodal_2d_storage.f90 \
        dg_main_loop.f90
-#       basis.f90 \
 #       mesh.f90 \
 #       graph_partition.f90 \
 #       write_fields.f90 \

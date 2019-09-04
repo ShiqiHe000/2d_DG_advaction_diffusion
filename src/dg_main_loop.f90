@@ -8,9 +8,11 @@ PROGRAM MAIN_LOOP
 !   POISSON PROBLEM
 !-----------------------------------------------------------------------
     USE MPI
-!    USE BASIS
+    USE BASIS
     USE PARAM, ONLY: IERROR, MESHFILE
     USE SET_MPI
+    USE NODAL_2D_STORAGE
+
 !    USE MESH
 !    USE GRAPH_PARTITION
 !    USE FIELDS
@@ -25,18 +27,7 @@ PROGRAM MAIN_LOOP
     CALL START_MPI
     !-------------------------------------------------------------------
     
-!    CALL READ_MESH(MESHFILE)
-    
-!    CALL BFS_NEW
-    
-!    CALL WRITE_TO_FILES
-    !-------------------------------------------------------------------
-    
-!    PRINT *, "CHECK"
-    
-!    CALL DG_2D_WAVE
-    
-!    PRINT *, "CHECK"
+    CALL GET_NODAL_2D_STORGAE
 
     
     !-------------------------------------------------------------------
