@@ -27,7 +27,7 @@ PROGRAM MAIN_LOOP
     CALL START_MPI
     !-------------------------------------------------------------------
     
-    CALL GET_NODAL_2D_STORGAE
+    CALL GET_NODAL_2D_STORGAE_BASIS
 
     
     !-------------------------------------------------------------------
