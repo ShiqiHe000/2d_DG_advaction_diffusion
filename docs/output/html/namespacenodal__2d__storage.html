@@ -71,8 +71,10 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
-<tr class="memitem:ac1f605bf2ce9dd6c99efa344420fd2bf"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#ac1f605bf2ce9dd6c99efa344420fd2bf">get_nodal_2d_storgae</a></td></tr>
-<tr class="separator:ac1f605bf2ce9dd6c99efa344420fd2bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a833597ad1841d8b36afb66d01945c217"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a833597ad1841d8b36afb66d01945c217">get_nodal_2d_storgae_basis</a></td></tr>
+<tr class="separator:a833597ad1841d8b36afb66d01945c217"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47820cd702e7ffa224508cc60abe2feb"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a47820cd702e7ffa224508cc60abe2feb">get_nodal_2d_storgae_extends</a></td></tr>
+<tr class="separator:a47820cd702e7ffa224508cc60abe2feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -92,26 +94,63 @@ Variables</h2></td></tr>
 <tr class="memdesc:acb472662bf220d86252882bb355b4c65"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIRST DERIVATIVE IN X DIRECTION.  <a href="#acb472662bf220d86252882bb355b4c65">More...</a><br /></td></tr>
 <tr class="separator:acb472662bf220d86252882bb355b4c65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e72fc62a136105388f1240bf3cb4557"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a6e72fc62a136105388f1240bf3cb4557">first_der_y</a></td></tr>
-<tr class="memdesc:a6e72fc62a136105388f1240bf3cb4557"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIRST DERIVATIVE IN X DIRECTION.  <a href="#a6e72fc62a136105388f1240bf3cb4557">More...</a><br /></td></tr>
+<tr class="memdesc:a6e72fc62a136105388f1240bf3cb4557"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIRST DERIVATIVE IN Y DIRECTION.  <a href="#a6e72fc62a136105388f1240bf3cb4557">More...</a><br /></td></tr>
 <tr class="separator:a6e72fc62a136105388f1240bf3cb4557"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ffc81f3fb208d288d1bb4171a016d92"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a5ffc81f3fb208d288d1bb4171a016d92">second_der_x</a></td></tr>
+<tr class="memdesc:a5ffc81f3fb208d288d1bb4171a016d92"><td class="mdescLeft">&#160;</td><td class="mdescRight">SECOND DERIVATIVE IN X DIRECTION.  <a href="#a5ffc81f3fb208d288d1bb4171a016d92">More...</a><br /></td></tr>
+<tr class="separator:a5ffc81f3fb208d288d1bb4171a016d92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2df08eaa1f5386d03cd2e1268e90140"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#ab2df08eaa1f5386d03cd2e1268e90140">second_der_y</a></td></tr>
+<tr class="memdesc:ab2df08eaa1f5386d03cd2e1268e90140"><td class="mdescLeft">&#160;</td><td class="mdescRight">SECOND DERIVATIVE IN Y DIRECTION.  <a href="#ab2df08eaa1f5386d03cd2e1268e90140">More...</a><br /></td></tr>
+<tr class="separator:ab2df08eaa1f5386d03cd2e1268e90140"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3084d47ed1c02ccc6bc9cb61d9f246d9"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a3084d47ed1c02ccc6bc9cb61d9f246d9">lagrange_left</a></td></tr>
+<tr class="memdesc:a3084d47ed1c02ccc6bc9cb61d9f246d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">LAGRANGE INTERPOLATING POLYNOMIAL ON THE LEFT BOUNDARY.  <a href="#a3084d47ed1c02ccc6bc9cb61d9f246d9">More...</a><br /></td></tr>
+<tr class="separator:a3084d47ed1c02ccc6bc9cb61d9f246d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ba295174431e646d153cface2d032e9"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a1ba295174431e646d153cface2d032e9">lagrange_right</a></td></tr>
+<tr class="memdesc:a1ba295174431e646d153cface2d032e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">LAGRANGE INTERPOLATING POLYNOMIAL ON THE RIGHT BOUNDARY.  <a href="#a1ba295174431e646d153cface2d032e9">More...</a><br /></td></tr>
+<tr class="separator:a1ba295174431e646d153cface2d032e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0135c6bf55707a8488bd6a1e021c70ec"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a0135c6bf55707a8488bd6a1e021c70ec">lagrange_up</a></td></tr>
+<tr class="memdesc:a0135c6bf55707a8488bd6a1e021c70ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">LAGRANGE INTERPOLATING POLYNOMIAL ON THE UPPER BOUNDARY.  <a href="#a0135c6bf55707a8488bd6a1e021c70ec">More...</a><br /></td></tr>
+<tr class="separator:a0135c6bf55707a8488bd6a1e021c70ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a84b26acd3b39afe6c4bace146951f5"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a1a84b26acd3b39afe6c4bace146951f5">lagrange_down</a></td></tr>
+<tr class="memdesc:a1a84b26acd3b39afe6c4bace146951f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">LAGRANGE INTERPOLATING POLYNOMIAL ON THE LOWER BOUNDARY.  <a href="#a1a84b26acd3b39afe6c4bace146951f5">More...</a><br /></td></tr>
+<tr class="separator:a1a84b26acd3b39afe6c4bace146951f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Storage for a nodal spectral method. Includes GL points, Gl weigths, first derivative matrices. </p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
-<a id="ac1f605bf2ce9dd6c99efa344420fd2bf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1f605bf2ce9dd6c99efa344420fd2bf">&#9670;&nbsp;</a></span>get_nodal_2d_storgae()</h2>
+<a id="a833597ad1841d8b36afb66d01945c217"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a833597ad1841d8b36afb66d01945c217">&#9670;&nbsp;</a></span>get_nodal_2d_storgae_basis()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">subroutine nodal_2d_storage::get_nodal_2d_storgae </td>
+          <td class="memname">subroutine nodal_2d_storage::get_nodal_2d_storgae_basis </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>GL POINTS AND WEIGTHS, FIRST AND SECIND DERIVATIVE MATRICES </p>
+
+</div>
+</div>
+<a id="a47820cd702e7ffa224508cc60abe2feb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47820cd702e7ffa224508cc60abe2feb">&#9670;&nbsp;</a></span>get_nodal_2d_storgae_extends()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine nodal_2d_storage::get_nodal_2d_storgae_extends </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>LAGRANGE INTERPOLATES ON THE BOUNDARIES </p>
 
 </div>
 </div>
@@ -144,7 +183,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>FIRST DERIVATIVE IN X DIRECTION. </p>
+<p>FIRST DERIVATIVE IN Y DIRECTION. </p>
 
 </div>
 </div>
@@ -209,6 +248,102 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>GL WEIGHTS IN Y DIRECTION. </p>
+
+</div>
+</div>
+<a id="a1a84b26acd3b39afe6c4bace146951f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a84b26acd3b39afe6c4bace146951f5">&#9670;&nbsp;</a></span>lagrange_down</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::lagrange_down</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LAGRANGE INTERPOLATING POLYNOMIAL ON THE LOWER BOUNDARY. </p>
+
+</div>
+</div>
+<a id="a3084d47ed1c02ccc6bc9cb61d9f246d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3084d47ed1c02ccc6bc9cb61d9f246d9">&#9670;&nbsp;</a></span>lagrange_left</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::lagrange_left</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LAGRANGE INTERPOLATING POLYNOMIAL ON THE LEFT BOUNDARY. </p>
+
+</div>
+</div>
+<a id="a1ba295174431e646d153cface2d032e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ba295174431e646d153cface2d032e9">&#9670;&nbsp;</a></span>lagrange_right</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::lagrange_right</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LAGRANGE INTERPOLATING POLYNOMIAL ON THE RIGHT BOUNDARY. </p>
+
+</div>
+</div>
+<a id="a0135c6bf55707a8488bd6a1e021c70ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0135c6bf55707a8488bd6a1e021c70ec">&#9670;&nbsp;</a></span>lagrange_up</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::lagrange_up</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>LAGRANGE INTERPOLATING POLYNOMIAL ON THE UPPER BOUNDARY. </p>
+
+</div>
+</div>
+<a id="a5ffc81f3fb208d288d1bb4171a016d92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ffc81f3fb208d288d1bb4171a016d92">&#9670;&nbsp;</a></span>second_der_x</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::second_der_x</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SECOND DERIVATIVE IN X DIRECTION. </p>
+
+</div>
+</div>
+<a id="ab2df08eaa1f5386d03cd2e1268e90140"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2df08eaa1f5386d03cd2e1268e90140">&#9670;&nbsp;</a></span>second_der_y</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::second_der_y</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>SECOND DERIVATIVE IN Y DIRECTION. </p>
 
 </div>
 </div>
