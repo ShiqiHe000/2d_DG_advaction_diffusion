@@ -20,6 +20,7 @@ SRC =  dg_param.f90 \
        dg_mpi.f90 \
        dg_basis.f90 \
        dg_nodal_2d_storage.f90 \
+       dg_constructor.f90 \
        dg_main_loop.f90
 #       mesh.f90 \
 #       graph_partition.f90 \

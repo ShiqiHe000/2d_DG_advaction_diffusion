@@ -11,7 +11,7 @@ PROGRAM MAIN_LOOP
     USE BASIS
     USE PARAM, ONLY: IERROR, MESHFILE
     USE SET_MPI
-    USE NODAL_2D_STORAGE
+    USE DG_2D_CONSTRUCTOR
 
 !    USE MESH
 !    USE GRAPH_PARTITION
@@ -27,9 +27,7 @@ PROGRAM MAIN_LOOP
     CALL START_MPI
     !-------------------------------------------------------------------
     
-    CALL GET_NODAL_2D_STORGAE_BASIS
-    
-    CALL GET_NODAL_2D_STORGAE_EXTENDS
+    CALL CONSTRUCT_BASIS
 
     
     !-------------------------------------------------------------------
