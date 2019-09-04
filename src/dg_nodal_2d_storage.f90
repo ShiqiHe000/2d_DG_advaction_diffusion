@@ -101,6 +101,8 @@ SUBROUTINE GET_NODAL_2D_STORGAE_EXTENDS
     DEALLOCATE(BARY_X, BARY_Y)
     !-------------------------------------------------------------------
     
+!    PRINT *, LAGRANGE_LEFT
+    
 END SUBROUTINE GET_NODAL_2D_STORGAE_EXTENDS
 
 
