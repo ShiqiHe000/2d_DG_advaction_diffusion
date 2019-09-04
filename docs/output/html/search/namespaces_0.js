@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['basis',['basis',['../namespacebasis.html',1,'']]]
+  ['advection_5fdiffusion',['advection_diffusion',['../namespaceadvection__diffusion.html',1,'']]]
 ];

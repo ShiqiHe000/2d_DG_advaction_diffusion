@@ -76,9 +76,9 @@ Functions/Subroutines</h2></td></tr>
 <tr class="memitem:a0e237b57c683e81eb1e9ff34df5e21e4"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebasis.html#a0e237b57c683e81eb1e9ff34df5e21e4">legendre_polynomial_and_derivative</a> (N, X, Q, DQ)</td></tr>
 <tr class="memdesc:a0e237b57c683e81eb1e9ff34df5e21e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Legendre polynomial of degree k and its derivative using the three term recursive.  <a href="#a0e237b57c683e81eb1e9ff34df5e21e4">More...</a><br /></td></tr>
 <tr class="separator:a0e237b57c683e81eb1e9ff34df5e21e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36bad337d52f34a09a883c0302825cd8"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebasis.html#a36bad337d52f34a09a883c0302825cd8">gl</a> (N, GL_POINR, GL_W)</td></tr>
-<tr class="memdesc:a36bad337d52f34a09a883c0302825cd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">COMPUTE THE GAUSS LEGENDRE NODES AND WEIGHTS.  <a href="#a36bad337d52f34a09a883c0302825cd8">More...</a><br /></td></tr>
-<tr class="separator:a36bad337d52f34a09a883c0302825cd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b23e7267f7e4ea9549652696161d86e"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebasis.html#a9b23e7267f7e4ea9549652696161d86e">gl</a> (N, GL_POINT, GL_W)</td></tr>
+<tr class="memdesc:a9b23e7267f7e4ea9549652696161d86e"><td class="mdescLeft">&#160;</td><td class="mdescRight">COMPUTE THE GAUSS LEGENDRE NODES AND WEIGHTS.  <a href="#a9b23e7267f7e4ea9549652696161d86e">More...</a><br /></td></tr>
+<tr class="separator:a9b23e7267f7e4ea9549652696161d86e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4024f9bd834f2a681bbec164724f15fd"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebasis.html#a4024f9bd834f2a681bbec164724f15fd">q_and_l_evaluation</a> (N, X, POL, DPOL, Q, DQ)</td></tr>
 <tr class="memdesc:a4024f9bd834f2a681bbec164724f15fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">combined algorithm to compute L_n (POL) L'_n (DPOL), Q = L_n+1 - L_n-1, and Q'  <a href="#a4024f9bd834f2a681bbec164724f15fd">More...</a><br /></td></tr>
 <tr class="separator:a4024f9bd834f2a681bbec164724f15fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -189,8 +189,8 @@ Functions/Subroutines</h2></td></tr>
 
 </div>
 </div>
-<a id="a36bad337d52f34a09a883c0302825cd8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36bad337d52f34a09a883c0302825cd8">&#9670;&nbsp;</a></span>gl()</h2>
+<a id="a9b23e7267f7e4ea9549652696161d86e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b23e7267f7e4ea9549652696161d86e">&#9670;&nbsp;</a></span>gl()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -204,8 +204,8 @@ Functions/Subroutines</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>GL_POINR</em>, </td>
+          <td class="paramtype">double precision, dimension(0:n)&#160;</td>
+          <td class="paramname"><em>GL_POINT</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -225,6 +225,7 @@ Functions/Subroutines</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td></td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">gl_point</td><td>GL POINTS</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">gl_w</td><td>GL WEIGTHS </td></tr>
   </table>
   </dd>
