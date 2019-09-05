@@ -22,6 +22,8 @@ SRC =  dg_param.f90 \
        dg_nodal_2d_storage.f90 \
        dg_constructor.f90 \
        dg_spactial_derivative.f90 \
+       dg_riemann_solver.f90 \
+       dg_time_derivative.f90 \
        dg_main_loop.f90
 #       mesh.f90 \
 #       graph_partition.f90 \
