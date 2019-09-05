@@ -6,13 +6,34 @@
 MODULE DG_TIME_DERIVATIVE
 
 USE MPI
+USE PARAM, ONLY: N, M, NUM_OF_EQUATION
+USE RIEMANN_SOLVER
+USE NODAL_2D_STORAGE
+USE RIEMANN_SOLVER
 
 IMPLICIT NONE
 
 CONTAINS
 
 SUBROUTINE DG_TIME_DER 
-
+!-----------------------------------------------------------------------
+! Algorithm 93
+!-----------------------------------------------------------------------
+    IMPLICIT NONE
+    
+    INTEGER :: I, J, S
+    
+    DOUBLE PRECISION :: X, Y    ! AIMED POINT
+    
+    ! X DIRECTION
+    DO J=0, M
+        Y = GL_POINT_Y(J)
+        DO S=1, NUM_OF_EQUATION
+            
+        
+        ENDDO
+    
+    ENDDO
 
 END SUBROUTINE DG_TIME_DER
 
