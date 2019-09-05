@@ -27,14 +27,23 @@ SUBROUTINE DG_TIME_DER
     DOUBLE PRECISION :: X, Y    ! AIMED POINT
     
     ALLOCATE(SOLUTION(0:N, 0:M, NUM_OF_EQUATION))
+    ALLOCATE(SOLUTION_INT_L(NUM_OF_EQUATION), SOLUTION_INT_R(NUM_OF_EQUATION))
     
     ! X DIRECTION-------------------------------------------------------
     DO J=0, M
+    
         Y = GL_POINT_Y(J)
+        
         DO S=1, NUM_OF_EQUATION
-            
+            CALL INTERPOLATE_TO_BOUNDARY(N, SOLUTION(:, J, S), &
+                                        LAGRANGE_LEFT, SOLUTION_INT_L(S))
+                                        
+            CALL INTERPOLATE_TO_BOUNDARY(N, SOLUTION(:, J, S), &
+                                        LAGRANGE_RIGHT, SOLUTION_INT_R(S))
         
         ENDDO
+        
+        
     
     ENDDO
 
