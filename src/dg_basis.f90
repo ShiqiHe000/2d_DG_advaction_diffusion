@@ -393,6 +393,34 @@ SUBROUTINE mth_Order_Polynomial_Derivative_Matrix(N,MTH_DER, X, DER)
 
 END SUBROUTINE mth_Order_Polynomial_Derivative_Matrix
 
+SUBROUTINE INTERPOLATE_TO_BOUNDARY(N, Q, LAG, INTER)
+!-----------------------------------------------------------------------
+! ALGORITHEM 61
+!> @brief
+!> INTERPOLATE THE SOLUTION ARRAY TO THE BOUNDARY USING LAGRANGE
+!! INTERPOLATING POLYNOMIAL
+!-----------------------------------------------------------------------
+
+    IMPLICIT NONE
+    
+    INTEGER, INTENT(IN) :: N
+    INTEGER :: J
+    
+    DOUBLE PRECISION :: Q(0:N)  !< SOLUTION ARRAY
+    DOUBLE PRECISION :: LAG(0:N)    !< LAGRANGE INTERPOLATING POLYNOMIAL
+    
+    DOUBLE PRECISION :: INTER   !< INTERPOLATE VALUE
+    
+    INTER = 0.0D0
+    
+    DO J=0, N
+        INTER = INTER + LAG(J) * Q(J)
+    
+    ENDDO
+    
+
+END SUBROUTINE INTERPOLATE_TO_BOUNDARY
+
 
 SUBROUTINE ALMOSTEQUAL(FLAG,A,B)
 !----------------------------------------------------------------------
