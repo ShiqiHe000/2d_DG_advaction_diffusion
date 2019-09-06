@@ -27,13 +27,9 @@ SRC =  dg_param.f90 \
        dg_external_state.f90 \
        dg_time_derivative.f90 \
        dg_step_by_RK3.f90 \
+       dg_user_defined.f90 \
+       dg_advection_diffusion_driver.f90 \
        dg_main_loop.f90
-#       mesh.f90 \
-#       graph_partition.f90 \
-#       write_fields.f90 \
-#       user_defined.f90 \
-#       DG_wave.f90 \
-#       main_loop.f90 
 
 #SOURCE = $(wildcard $(DIR)/$(makefile formatSRCDIR)/$(SRC))
 #SOURCE  = $(DIR)/$(SRCDIR)
