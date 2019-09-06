@@ -9,9 +9,10 @@
 MODULE ADVECTION_DIFFUSION_DRIVER
 
 USE MPI
-USE PARAM, ONLY: N, M, T_TOTAL, NT
+USE PARAM, ONLY: N, M, T_TOTAL, NT, NUM_OF_EQUATION
 USE DG_2D_CONSTRUCTOR
 USE TIME_STEP_BY_RK
+USE USER_DEFINES
 
 IMPLICIT NONE
 
@@ -41,14 +42,20 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     TN = 0.0D0
     !-------------------------------------------------------------------
     
-    ! INITIALZIE SOLUTION-----------------------------------------------
-    
+    ! ALLOCATE----------------------------------------------------------
+    ALLOCATE(SOLUTION(0:N, 0:M, NUM_OF_EQUATION))
     !-------------------------------------------------------------------
     
+    ! INITIALZIE SOLUTION-----------------------------------------------
+    CALL INITIAL_CONDITION(N, M, NUM_OF_EQUATION, SOLUTION, GL_POINT_X, GL_POINT_Y)
+    !-------------------------------------------------------------------
+    
+    ! TIME MARCHES ON---------------------------------------------------
     DO K = 0, NT-1
         CALL DG_STEP_BY_RK3(TN, DELTA_T)
         TN = (K+1) * DELTA_T
     ENDDO
+    !-------------------------------------------------------------------
     
 
 END SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
