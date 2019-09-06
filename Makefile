@@ -40,10 +40,10 @@ OBJ = $(addprefix $(DIR)/$(OBJDIR)/, $(notdir $(SRC:.f90=.o)))
 
 $(DIR)/$(OBJDIR)/$(TGT) : $(OBJ)
 #	$(FC) $(MOD) -o $@ $^
-	$(FC) $(Og) $(WALL) $(MOD) -o $(TGT) $^
+	$(FC) $(OPT) $(WALL) $(MOD) -o $(TGT) $^
  
 $(DIR)/$(OBJDIR)/%.o : $(DIR)/$(SRCDIR)/%.f90
-	$(FC) $(Og) $(WALL) $(MOD) -c $< -o $@
+	$(FC) $(OPT) $(WALL) $(MOD) -c $< -o $@
 
 
 
