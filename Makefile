@@ -26,6 +26,7 @@ SRC =  dg_param.f90 \
        dg_flux_vector.f90 \
        dg_external_state.f90 \
        dg_time_derivative.f90 \
+       dg_step_by_RK3.f90 \
        dg_main_loop.f90
 #       mesh.f90 \
 #       graph_partition.f90 \
