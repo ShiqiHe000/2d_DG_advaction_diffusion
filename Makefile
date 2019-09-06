@@ -29,6 +29,7 @@ SRC =  dg_param.f90 \
        dg_step_by_RK3.f90 \
        dg_user_defined.f90 \
        dg_advection_diffusion_driver.f90 \
+       dg_verification.f90 \
        dg_main_loop.f90
 
 #SOURCE = $(wildcard $(DIR)/$(makefile formatSRCDIR)/$(SRC))
