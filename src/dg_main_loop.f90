@@ -8,15 +8,8 @@ PROGRAM MAIN_LOOP
 !   POISSON PROBLEM
 !-----------------------------------------------------------------------
     USE MPI
-    USE BASIS
-    USE PARAM, ONLY: IERROR, MESHFILE
     USE SET_MPI
-    USE DG_2D_CONSTRUCTOR
-
-!    USE MESH
-!    USE GRAPH_PARTITION
-!    USE FIELDS
-!    USE ADVECTION_DIFFUSION
+    USE ADVECTION_DIFFUSION_DRIVER
 
     IMPLICIT NONE
     
@@ -27,8 +20,7 @@ PROGRAM MAIN_LOOP
     CALL START_MPI
     !-------------------------------------------------------------------
     
-!    CALL CONSTRUCT_BASIS
-
+    CALL DRIVER_FOR_DG_APPROXIMATION
     
     !-------------------------------------------------------------------
     

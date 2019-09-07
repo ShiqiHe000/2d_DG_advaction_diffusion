@@ -60,6 +60,9 @@ SUBROUTINE DG_STEP_BY_RK3(TN, DELTA_T)
                 ENDDO
             ENDDO
         ENDDO
+
+        ! DEALLOCATE
+        DEALLOCATE(SOLUTION_TIME_DER)
     ENDDO
     !-------------------------------------------------------------------
 
