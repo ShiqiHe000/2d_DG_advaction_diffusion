@@ -64,7 +64,6 @@ SUBROUTINE GET_NODAL_2D_STORGAE_BASIS
     ALLOCATE(GL_POINT_X(0:N), GL_POINT_Y(0:M))
     ALLOCATE(GL_W_X(0:N), GL_W_Y(0:M))
     ALLOCATE(FIRST_DER_X(0:N, 0:N), FIRST_DER_Y(0:M, 0:M))
-!    ALLOCATE(SECOND_DER_X(0:N, 0:N), SECOND_DER_Y(0:M, 0:M))
     !-------------------------------------------------------------------
     
     ! GET GL POINTS-----------------------------------------------------
@@ -77,10 +76,6 @@ SUBROUTINE GET_NODAL_2D_STORGAE_BASIS
     CALL mth_Order_Polynomial_Derivative_Matrix(M, 1, GL_POINT_Y, FIRST_DER_Y)
     !-------------------------------------------------------------------
     
-    ! GET SECOND DERIVATIVE MATRIX-------------------------------------
-!    CALL mth_Order_Polynomial_Derivative_Matrix(N, 2, GL_POINT_X, SECOND_DER_X)
-!    CALL mth_Order_Polynomial_Derivative_Matrix(M, 2, GL_POINT_Y, SECOND_DER_Y)
-    !-------------------------------------------------------------------
     
 !    PRINT *, GL_POINT_X
 !    PRINT *, GL_W_Y

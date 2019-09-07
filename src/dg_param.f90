@@ -32,8 +32,8 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! TIME--------------------------------------------------------------
-    DOUBLE PRECISION :: T_TOTAL = 1.0D0     !< TOTAL TIME INTEGRAL
-    INTEGER :: NT = 385                    !< TIME STEP NUMBER
+    DOUBLE PRECISION :: T_TOTAL = 2.0D0     !< TOTAL TIME INTEGRAL
+    INTEGER :: NT = 770                    !< TIME STEP NUMBER
     !-------------------------------------------------------------------
     
     ! SET ADAPATION ----------------------------------------------------
