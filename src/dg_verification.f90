@@ -12,18 +12,26 @@ USE NODAL_2D_STORAGE, ONLY: GL_POINT_X, GL_POINT_Y, SOLUTION
 
 IMPLICIT NONE
 
+DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:, :, :) :: EXACT  !< EXACT SOLUTION
+DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:, :, :) :: ERROR  !< ERRORS AT COLLOCATION POINTS
+DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:) :: L2_NORM  !< WE EVALUATE THE ERRORS AS L2 NORMS
+
 CONTAINS
 
-SUBROUTINE GET_ERROR(EXACT, ERROR, L2_NORM)
+SUBROUTINE GET_ERROR
+!-----------------------------------------------------------------------
+! OUTPUT: EXACT, ERROR, L2_NORM
+!-----------------------------------------------------------------------
 
     IMPLICIT NONE
     
     INTEGER :: I, J, K
     
-    DOUBLE PRECISION :: EXACT(0:N, 0:M, NUM_OF_EQUATION)    !< EXACT SOLUTION
-    DOUBLE PRECISION :: ERROR(0:N, 0:M, NUM_OF_EQUATION)    !< ERRORS AT COLLOCATION POINTS
-    
-    DOUBLE PRECISION :: L2_NORM(NUM_OF_EQUATION)    !< WE EVALUATE THE ERRORS AS L2 NORMS
+    !-------------------------------------------------------------------
+    ALLOCATE(EXACT(0:N, 0:M, NUM_OF_EQUATION))
+    ALLOCATE(ERROR(0:N, 0:M, NUM_OF_EQUATION))
+    ALLOCATE(L2_NORM(NUM_OF_EQUATION))
+    !-------------------------------------------------------------------
     
     ! GET EXACT SOLUTION------------------------------------------------
     CALL EXACT_SOLUTION(N, M, NUM_OF_EQUATION, GL_POINT_X, GL_POINT_Y, EXACT, T_TOTAL)

@@ -7,13 +7,15 @@ MODULE END_PROGRAM
 
 USE MPI
 USE NODAL_2D_STORAGE
+USE VERIFICATION
 
 IMPLICIT NONE
 
 CONTAINS
 
 SUBROUTINE DEALLOCATE_ALL
-
+    
+    ! dg_nodal_2d_storage.f90-------------------------------------------
     DEALLOCATE(GL_POINT_X, GL_POINT_Y)
     DEALLOCATE(GL_W_X, GL_W_Y)
     
@@ -23,6 +25,13 @@ SUBROUTINE DEALLOCATE_ALL
     DEALLOCATE(LAGRANGE_UP, LAGRANGE_DOWN)
     
     DEALLOCATE(SOLUTION)
+    !-------------------------------------------------------------------
+    
+    ! dg_verification.f90-----------------------------------------------
+    DEALLOCATE(EXACT)
+    DEALLOCATE(ERROR)
+    DEALLOCATE(L2_NORM)
+    !-------------------------------------------------------------------
 
 END SUBROUTINE DEALLOCATE_ALL
 
