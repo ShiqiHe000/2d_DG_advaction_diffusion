@@ -86,7 +86,6 @@ SUBROUTINE DG_TIME_DER
     DEALLOCATE(NFLUX_X_L, NFLUX_X_R)
     DEALLOCATE(FLUX_X)
     DEALLOCATE(FLUX_DER_X)
-    DEALLOCATE(M_FIRST_DER_X)
     !-------------------------------------------------------------------
     
     !-------------------------------------------------------------------
@@ -143,7 +142,6 @@ SUBROUTINE DG_TIME_DER
     DEALLOCATE(NFLUX_Y_D, NFLUX_Y_U)
     DEALLOCATE(FLUX_Y)
     DEALLOCATE(FLUX_DER_Y)
-    DEALLOCATE(M_FIRST_DER_Y)
     DEALLOCATE(SOLUTION_INT_L, SOLUTION_INT_R)
     DEALLOCATE(SOLUTION_EXT_L, SOLUTION_EXT_R)
     !-------------------------------------------------------------------
