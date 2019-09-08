@@ -67,7 +67,7 @@ help :
 
 
 debug : 
-	make "OPT = DEBUG"
+	make "OPT = -g -fcheck=all -fimplicit-none -fbacktrace -pedantic -Wall"
 
 clean :
 	rm -rf $(OBJ) 
