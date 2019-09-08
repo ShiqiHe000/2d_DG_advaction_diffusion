@@ -53,6 +53,10 @@ SUBROUTINE GET_ERROR
         L2_NORM(K) = NORM2(ERROR(:, :, K))
     ENDDO
     !-------------------------------------------------------------------
+    
+!    DO I=0, N
+!        PRINT *, ERROR(I, :, 1)
+!    ENDDO
 
 END SUBROUTINE GET_ERROR
 

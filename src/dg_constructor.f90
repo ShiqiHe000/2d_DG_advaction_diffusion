@@ -55,9 +55,6 @@ SUBROUTINE CONSTRUCT_BASIS
     DEALLOCATE(FIRST_DER_X, FIRST_DER_Y)
     !-------------------------------------------------------------------
     
-!    DO I=0, N
-!        PRINT *, M_FIRST_DER_Y(I, :)
-!    ENDDO
 
 END SUBROUTINE CONSTRUCT_BASIS
 
