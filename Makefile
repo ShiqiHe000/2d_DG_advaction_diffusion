@@ -60,6 +60,9 @@ all : $(DIR)/$(OBJDIR)/$(TGT)
 run : $(TGT)
 	mpirun -np 1 $(TGT)
 
+drun : $(TGT)
+	mpirun -np 1 xterm -e gdb $(TGT)
+
 help : 
 	@echo "source : $(SOURCE)"
 	@echo "src : $(SRC)"

@@ -44,7 +44,6 @@ SUBROUTINE DG_TIME_DER
         DO S=1, NUM_OF_EQUATION
             CALL INTERPOLATE_TO_BOUNDARY(N, SOLUTION(:, J, S), &
                                         LAGRANGE_LEFT, SOLUTION_INT_L(S))
-                                        
             CALL INTERPOLATE_TO_BOUNDARY(N, SOLUTION(:, J, S), &
                                         LAGRANGE_RIGHT, SOLUTION_INT_R(S))
         
@@ -53,12 +52,14 @@ SUBROUTINE DG_TIME_DER
         
         CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
                                 SOLUTION_INT_L, SOLUTION_EXT_L)
-                                
         CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
                                 SOLUTION_INT_R, SOLUTION_EXT_R)
                                 
         CALL RIEMANN(SOLUTION_INT_L, SOLUTION_EXT_L, NFLUX_X_L, K_X, K_Y)
         CALL RIEMANN(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_X_R, K_X, K_Y)
+        if(j==0 ) then
+                print *, "nflux_x_l", nflux_x_l
+        endif
         
         ! CALCULATE THE FLUX
         DO I=0, N

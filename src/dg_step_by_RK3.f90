@@ -47,7 +47,7 @@ SUBROUTINE DG_STEP_BY_RK3(TN, DELTA_T)
     DO K=1,3
     
         T=TN+BM(K)*DELTA_T
-        
+
         ! GET TIME DERIVATIVE AT CURRENT TIME POINT
         CALL DG_TIME_DER 
         

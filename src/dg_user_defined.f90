@@ -52,10 +52,6 @@ SUBROUTINE INITIAL_CONDITION(N, M, N_EQUATIONS, Q, GL_X, GL_Y)
     
     ENDDO
 
-    print *, "gl_x=", GL_X(0), "GL_Y=", GL_Y(0)
-    PRINT *, Q(0, 0, 1)
-    print *, "k_x=", k_x, "k_y=", k_y
-    print *, "d=", d
 
 END SUBROUTINE INITIAL_CONDITION
 
