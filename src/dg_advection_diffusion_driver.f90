@@ -51,8 +51,8 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     !-------------------------------------------------------------------
     
     ! TIME MARCHES ON---------------------------------------------------
-!    DO K = 0, NT-1
-    DO K=0, 0
+    DO K = 0, NT-1
+!    DO K=0, 100
         CALL DG_STEP_BY_RK3(TN, DELTA_T)
         TN = (K+1) * DELTA_T
     ENDDO

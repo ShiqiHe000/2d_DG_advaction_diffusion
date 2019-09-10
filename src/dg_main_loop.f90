@@ -15,8 +15,6 @@ PROGRAM MAIN_LOOP
 
     IMPLICIT NONE
     
-!    INTEGER :: I
-!    PRINT *, "CHECK"
     
     ! START MPI---------------------------------------------------------
     CALL START_MPI

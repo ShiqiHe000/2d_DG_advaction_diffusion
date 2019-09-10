@@ -38,7 +38,6 @@ SUBROUTINE DG_SPACTIAL_DERIVATIVE(N_TH, FLUX_LEFT, FLUX_RIGHT, &
     DOUBLE PRECISION :: LAG2(0:N_TH)    !< LAGRANGE INTERPOLATE AT RIGHT/TOP
     DOUBLE PRECISION :: WEIGHT(0:N_TH)  !< GL WEIGHTS
     
-    
     !-------------------------------------------------------------------
     DO S=1, NUM_OF_EQUATION
         CALL MATRIX_VECTOR_DERIVATIVE(N_TH, DER, FLUX(:, S), FLUX_DER(:, S))

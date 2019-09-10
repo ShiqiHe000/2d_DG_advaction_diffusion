@@ -54,9 +54,11 @@ SUBROUTINE GET_ERROR
     ENDDO
     !-------------------------------------------------------------------
     
-    DO I=0, N
-        PRINT *, ERROR(I, :, 1)
-    ENDDO
+!    DO I=0, N
+
+        PRINT *, ERROR(:, 0, 1)
+!   ENDDO
+!print *, "exact", exact(:, 20, 1)
 
 END SUBROUTINE GET_ERROR
 

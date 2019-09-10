@@ -48,6 +48,7 @@ SUBROUTINE DG_TIME_DER
                                         LAGRANGE_RIGHT, SOLUTION_INT_R(S))
         
         ENDDO
+
         
         
         CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
@@ -57,16 +58,15 @@ SUBROUTINE DG_TIME_DER
                                 
         CALL RIEMANN(SOLUTION_INT_L, SOLUTION_EXT_L, NFLUX_X_L, K_X, K_Y)
         CALL RIEMANN(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_X_R, K_X, K_Y)
-        if(j==0 ) then
-                print *, "nflux_x_l", nflux_x_l
-        endif
         
+
         ! CALCULATE THE FLUX
         DO I=0, N
             CALL XFLUX(SOLUTION(I, J, :), FLUX_X(I, :))
         
         ENDDO
         
+
         ! COMPUTE THE FLUX DERIVATIVE
         CALL DG_SPACTIAL_DERIVATIVE(N, NFLUX_X_L, NFLUX_X_R, &
                                     FLUX_X, FLUX_DER_X, M_FIRST_DER_X, &
