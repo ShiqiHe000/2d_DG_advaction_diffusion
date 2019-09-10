@@ -18,7 +18,7 @@ IMPLICIT NONE
 
 CONTAINS
 
-SUBROUTINE DG_TIME_DER 
+SUBROUTINE DG_TIME_DER(T)
 !-----------------------------------------------------------------------
 ! Algorithm 93
 !-----------------------------------------------------------------------
@@ -27,6 +27,7 @@ SUBROUTINE DG_TIME_DER
     INTEGER :: I, J, S
     
     DOUBLE PRECISION :: X, Y    ! AIMED POINT
+    DOUBLE PRECISION, INTENT(IN) :: T !< CURRENT TIME
     
     ALLOCATE(SOLUTION_INT_L(NUM_OF_EQUATION), SOLUTION_INT_R(NUM_OF_EQUATION))
     ALLOCATE(SOLUTION_EXT_L(NUM_OF_EQUATION), SOLUTION_EXT_R(NUM_OF_EQUATION))

@@ -49,13 +49,13 @@ SUBROUTINE DG_STEP_BY_RK3(TN, DELTA_T)
         T=TN+BM(K)*DELTA_T
 
         ! GET TIME DERIVATIVE AT CURRENT TIME POINT
-        CALL DG_TIME_DER 
+        CALL DG_TIME_DER(T)
         
-        DO J=0,M
-            DO I=0, N
-                DO L=1, NUM_OF_EQUATION
-                    G(I, J, L) = AM(K)*G(I, J, L) + SOLUTION_TIME_DER(I, J, L)
-                    SOLUTION(I, J, L) = SOLUTION(I, J, L) + GM(K)*DELTA_T*G(I, J, L)
+        DO L=1, NUM_OF_EQUATION
+            DO J=0,M
+                DO I=0, N
+                        G(I, J, L) = AM(K)*G(I, J, L) + SOLUTION_TIME_DER(I, J, L)
+                        SOLUTION(I, J, L) = SOLUTION(I, J, L) + GM(K)*DELTA_T*G(I, J, L)
                 ENDDO
             ENDDO
         ENDDO
