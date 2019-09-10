@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['xflux',['xflux',['../namespaceflux__vectors.html#a6bdbd84b51691f46db982feed1e34f24',1,'flux_vectors']]]
+  ['start_5fmpi',['start_mpi',['../namespaceset__mpi.html#a8a46a325afc9b62007dce3f8355b623b',1,'set_mpi']]]
 ];

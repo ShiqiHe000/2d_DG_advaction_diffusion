@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['yflux',['yflux',['../namespaceflux__vectors.html#ac02e3ac0ffc723e0b14aeb504698f240',1,'flux_vectors']]]
+  ['xflux',['xflux',['../namespaceflux__vectors.html#a6bdbd84b51691f46db982feed1e34f24',1,'flux_vectors']]]
 ];

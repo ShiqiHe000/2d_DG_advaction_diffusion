@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['riemann',['riemann',['../namespaceriemann__solver.html#a8b9d6cbb358113a470e74eac56ccedbd',1,'riemann_solver']]]
+  ['q_5fand_5fl_5fevaluation',['q_and_l_evaluation',['../namespacebasis.html#a4024f9bd834f2a681bbec164724f15fd',1,'basis']]]
 ];

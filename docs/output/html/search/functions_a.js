@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['start_5fmpi',['start_mpi',['../namespaceset__mpi.html#a8a46a325afc9b62007dce3f8355b623b',1,'set_mpi']]]
+  ['riemann',['riemann',['../namespaceriemann__solver.html#a8b9d6cbb358113a470e74eac56ccedbd',1,'riemann_solver']]]
 ];

@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['l2_5fnorm',['l2_norm',['../namespaceverification.html#ad86339d7b6cc272cf7190f9c12882f3d',1,'verification']]],
   ['lagrange_5fdown',['lagrange_down',['../namespacenodal__2d__storage.html#a1a84b26acd3b39afe6c4bace146951f5',1,'nodal_2d_storage']]],
   ['lagrange_5finterpolating_5fpolynomial',['lagrange_interpolating_polynomial',['../namespacebasis.html#af07498aca4431edab144d09a1dc2d271',1,'basis']]],
   ['lagrange_5fleft',['lagrange_left',['../namespacenodal__2d__storage.html#a3084d47ed1c02ccc6bc9cb61d9f246d9',1,'nodal_2d_storage']]],
