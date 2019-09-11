@@ -9,6 +9,7 @@ USE MPI
 USE PARAM, ONLY: N, M, NUM_OF_EQUATION, T_TOTAL
 USE USER_DEFINES
 USE NODAL_2D_STORAGE, ONLY: GL_POINT_X, GL_POINT_Y, SOLUTION
+USE WRITE_DATA
 
 IMPLICIT NONE
 
@@ -54,13 +55,8 @@ SUBROUTINE GET_ERROR
     ENDDO
     !-------------------------------------------------------------------
     
-!    DO I=0, N
-
-        PRINT *, ERROR(:, 0, 2)
-        print *, "---------------------------------------"
-!        print *, "solution(:, 0, 1)", solution(:, 0, 1)
-!   ENDDO
-!print *, "exact", exact(:, 20, 1)
+    CALL WRITE_ERROR(N, M, ERROR(:, :, 1))
+    
 
 END SUBROUTINE GET_ERROR
 

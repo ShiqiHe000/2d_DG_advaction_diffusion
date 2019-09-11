@@ -35,7 +35,8 @@ SUBROUTINE DG_TIME_DER(T)
     ALLOCATE(FLUX_X(0:N, NUM_OF_EQUATION))
     ALLOCATE(FLUX_DER_X(0:N, NUM_OF_EQUATION))
     ALLOCATE(SOLUTION_TIME_DER(0:N, 0:M, NUM_OF_EQUATION))
-!print *, "--------------------x-----------------------------------"    
+
+  
     ! X DIRECTION-------------------------------------------------------
     DO J=0, M
     
@@ -52,13 +53,14 @@ SUBROUTINE DG_TIME_DER(T)
 
         
         
-        CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
-                                SOLUTION_INT_L, SOLUTION_EXT_L)
-        CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
-                                SOLUTION_INT_R, SOLUTION_EXT_R)
-                                
-!        CALL RIEMANN(SOLUTION_INT_L, SOLUTION_EXT_L, NFLUX_X_L, K_X, K_Y)
-!        CALL RIEMANN(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_X_R, K_X, K_Y)
+!        CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
+!                                SOLUTION_INT_L, SOLUTION_EXT_L)
+!        CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
+!                                SOLUTION_INT_R, SOLUTION_EXT_R)
+
+        CALL EXTERNAL_STATE_EXACT(NUM_OF_EQUATION, SOLUTION_EXT_L, T, -1.0D0, Y)
+        CALL EXTERNAL_STATE_EXACT(NUM_OF_EQUATION, SOLUTION_EXT_R, T,  1.0D0, Y)
+    
         
         CALL RIEMANN(SOLUTION_EXT_L, SOLUTION_INT_L, NFLUX_X_L, K_X, K_Y)
         CALL RIEMANN(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_X_R, K_X, K_Y)
@@ -97,8 +99,7 @@ SUBROUTINE DG_TIME_DER(T)
     ALLOCATE(FLUX_Y(0:M, NUM_OF_EQUATION))
     ALLOCATE(FLUX_DER_Y(0:M, NUM_OF_EQUATION))
     !-------------------------------------------------------------------
-    
-!print *, "--------------------------y----------------------------------"        
+          
     ! Y DIRECTION-------------------------------------------------------
     DO I=0, N
         
@@ -114,14 +115,15 @@ SUBROUTINE DG_TIME_DER(T)
         
         ENDDO
         
-        CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
-                                SOLUTION_INT_L, SOLUTION_EXT_L)
+!        CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
+!                                SOLUTION_INT_L, SOLUTION_EXT_L)
         
-        CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
-                                SOLUTION_INT_R, SOLUTION_EXT_R)
-                                
-!        CALL RIEMANN(SOLUTION_INT_L, SOLUTION_EXT_L, NFLUX_Y_D, K_X, K_Y)
-!        CALL RIEMANN(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_Y_U, K_X, K_Y)
+!        CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
+!                                SOLUTION_INT_R, SOLUTION_EXT_R)
+
+        CALL EXTERNAL_STATE_EXACT(NUM_OF_EQUATION, SOLUTION_EXT_L, T, X, -1.0D0)
+        CALL EXTERNAL_STATE_EXACT(NUM_OF_EQUATION, SOLUTION_EXT_R, T, X, 1.0D0)
+                
         
         CALL RIEMANN(SOLUTION_EXT_L, SOLUTION_INT_L, NFLUX_Y_D, K_X, K_Y)
         CALL RIEMANN(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_Y_U, K_X, K_Y)
@@ -145,10 +147,7 @@ SUBROUTINE DG_TIME_DER(T)
         
     ENDDO
     !-------------------------------------------------------------------
-!print *, "-----------------------------------------"
-!    do i=0, n
-!   print *, "solution_time_der(i, :, 3)", solution_time_der(i, :, 3)    
-!   enddo
+
    !-------------------------------------------------------------------
     DEALLOCATE(NFLUX_Y_D, NFLUX_Y_U)
     DEALLOCATE(FLUX_Y)
