@@ -36,15 +36,6 @@ SUBROUTINE MATRIX_VECTOR_DERIVATIVE(N, D, F, DER1)
     ENDDO
     !-------------------------------------------------------------------
     
-!    DO J = 0, N
-!        T=0.0D0
-        
-!        DO I=0, N
-!            T = T+ D(I, J)*F(I)
-!        ENDDO
-!        DER1(J) = T
-    
-!    ENDDO
     
     
 END SUBROUTINE MATRIX_VECTOR_DERIVATIVE

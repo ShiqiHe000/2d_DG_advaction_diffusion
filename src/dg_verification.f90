@@ -56,7 +56,9 @@ SUBROUTINE GET_ERROR
     
 !    DO I=0, N
 
-        PRINT *, ERROR(:, 0, 1)
+        PRINT *, ERROR(:, 0, 2)
+        print *, "---------------------------------------"
+!        print *, "solution(:, 0, 1)", solution(:, 0, 1)
 !   ENDDO
 !print *, "exact", exact(:, 20, 1)
 
