@@ -71,7 +71,7 @@ SUBROUTINE DG_TIME_DER(T)
         
 
         ! COMPUTE THE FLUX DERIVATIVE
-        CALL DG_SPACTIAL_DERIVATIVE(N, NFLUX_X_L, NFLUX_X_R, &
+        CALL DG_SPATIAL_DERIVATIVE(N, NFLUX_X_L, NFLUX_X_R, &
                                     FLUX_X, FLUX_DER_X, M_FIRST_DER_X, &
                                     LAGRANGE_LEFT, LAGRANGE_RIGHT, &
                                     GL_W_X)
@@ -130,7 +130,7 @@ SUBROUTINE DG_TIME_DER(T)
         
         ENDDO
     
-        CALL DG_SPACTIAL_DERIVATIVE(M, NFLUX_Y_D, NFLUX_Y_U, &
+        CALL DG_SPATIAL_DERIVATIVE(M, NFLUX_Y_D, NFLUX_Y_U, &
                                     FLUX_Y, FLUX_DER_Y, M_FIRST_DER_Y, &
                                     LAGRANGE_DOWN, LAGRANGE_UP, &
                                     GL_W_Y)
