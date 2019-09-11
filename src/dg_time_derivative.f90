@@ -35,7 +35,7 @@ SUBROUTINE DG_TIME_DER(T)
     ALLOCATE(FLUX_X(0:N, NUM_OF_EQUATION))
     ALLOCATE(FLUX_DER_X(0:N, NUM_OF_EQUATION))
     ALLOCATE(SOLUTION_TIME_DER(0:N, 0:M, NUM_OF_EQUATION))
-    
+!print *, "--------------------x-----------------------------------"    
     ! X DIRECTION-------------------------------------------------------
     DO J=0, M
     
@@ -98,6 +98,7 @@ SUBROUTINE DG_TIME_DER(T)
     ALLOCATE(FLUX_DER_Y(0:M, NUM_OF_EQUATION))
     !-------------------------------------------------------------------
     
+!print *, "--------------------------y----------------------------------"        
     ! Y DIRECTION-------------------------------------------------------
     DO I=0, N
         
@@ -144,8 +145,11 @@ SUBROUTINE DG_TIME_DER(T)
         
     ENDDO
     !-------------------------------------------------------------------
-    
-    !-------------------------------------------------------------------
+!print *, "-----------------------------------------"
+!    do i=0, n
+!   print *, "solution_time_der(i, :, 3)", solution_time_der(i, :, 3)    
+!   enddo
+   !-------------------------------------------------------------------
     DEALLOCATE(NFLUX_Y_D, NFLUX_Y_U)
     DEALLOCATE(FLUX_Y)
     DEALLOCATE(FLUX_DER_Y)

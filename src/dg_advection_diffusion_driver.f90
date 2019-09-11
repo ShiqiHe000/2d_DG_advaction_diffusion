@@ -57,8 +57,9 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
         TN = (K+1) * DELTA_T
     ENDDO
     !-------------------------------------------------------------------
-    
-
+!    do k=0, n
+!    print *, solution(k, :, 1)    
+!    enddo
 END SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
 
 END MODULE ADVECTION_DIFFUSION_DRIVER

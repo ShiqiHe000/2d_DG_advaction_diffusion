@@ -64,7 +64,9 @@ SUBROUTINE DG_STEP_BY_RK3(TN, DELTA_T)
         DEALLOCATE(SOLUTION_TIME_DER)
     ENDDO
     !-------------------------------------------------------------------
-
+!    do i=0, n
+!        print *, solution(i, :, 3)
+!    enddo
 
 END SUBROUTINE DG_STEP_BY_RK3
 

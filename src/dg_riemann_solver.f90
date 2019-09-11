@@ -41,7 +41,9 @@ SUBROUTINE RIEMANN(Q_L, Q_R, N_FLUX, ALPHA, BETA)
     N_FLUX(1) = C * (W_L - W_R) / 2
     N_FLUX(2) = ALPHA * (W_L + W_R) / 2
     N_FLUX(3) = BETA * (W_L + W_R) / 2
-    
+
+!print *, "u_l", u_l, "u_r", u_r
+!print *, "v_l", v_l, "v_r", v_r
 !    print *, "w-", w_l, "w+", w_r
 !    print *, "n_flux", n_flux
 

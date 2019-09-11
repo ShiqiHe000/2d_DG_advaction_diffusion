@@ -10,6 +10,8 @@
 MODULE EXTERNAL_STATE
 
 USE MPI
+USE USER_DEFINES
+USE PARAM, ONLY: C, K_X, K_Y
 
 IMPLICIT NONE
 
@@ -26,14 +28,43 @@ SUBROUTINE GET_EXTERNAL_STATE(NUM_OF_EQUATION, ALPHA, BETA, Q_INT, Q_EXT)
     DOUBLE PRECISION, INTENT(IN) :: ALPHA, BETA !< TWO CONSTANT RELATED WITH WAVEVECTOR 
     DOUBLE PRECISION :: Q_INT(NUM_OF_EQUATION)  !< INTERIOR SOLUTIONS ON THE BOUNDARY
     DOUBLE PRECISION :: Q_EXT(NUM_OF_EQUATION)  !< EXTERNAL STATES AT THE BOUNDARY
-    
+        
+    Q_EXT(:) = 0.0D0    
+
     Q_EXT(1) = Q_INT(1)
     Q_EXT(2) = Q_INT(2) * (BETA**2 - ALPHA**2) - 2.0D0 * ALPHA * BETA * Q_INT(3)
     Q_EXT(3) = -2.0D0 * ALPHA * BETA * Q_INT(2) + (ALPHA**2 - BETA**2) * Q_INT(3) 
     
 !    print *, "q_int", q_int
-!    print *, "q_ext", q_ext
+!    print *, "q_ext", q_ext, q_int(2) + q_ext(2)
 
 END SUBROUTINE GET_EXTERNAL_STATE
+
+SUBROUTINE EXTERNAL_STATE_EXACT(NUM_OF_EQUATION, Q_EXT, T, X, Y)
+!-----------------------------------------------------------------------
+! IMPLIMENT EXACT SOLUTION ON THE 4 SIDES OF THE BOUNDARIES
+!-----------------------------------------------------------------------
+    IMPLICIT NONE
+    
+    INTEGER, INTENT(IN) :: NUM_OF_EQUATION    !< NUMBER OF EQUATION
+     
+    DOUBLE PRECISION :: Q_EXT(NUM_OF_EQUATION)  !< EXTERNAL STATES AT THE BOUNDARY
+    DOUBLE PRECISION, INTENT(IN) :: T   !< CURRENT TIME 
+    DOUBLE PRECISION, INTENT(IN) :: X, Y    !< COORDINATE ON THE BOUNDARY
+    
+    DOUBLE PRECISION :: INTER   ! INTERMIDIATE VARIABLE
+    
+    INTER = DEXP( - (K_X * (X - X0) + &
+                            K_Y * (Y - Y0) - C * T)**2 / D**2)
+            
+    Q_EXT(1) = INTER 
+    
+    Q_EXT(2) = K_X / C * INTER 
+    
+    Q_EXT(3) = K_Y / C * INTER 
+    
+END SUBROUTINE EXTERNAL_STATE_EXACT
+
+
 
 END MODULE EXTERNAL_STATE
