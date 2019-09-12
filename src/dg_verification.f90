@@ -34,6 +34,12 @@ SUBROUTINE GET_ERROR
     ALLOCATE(L2_NORM(NUM_OF_EQUATION))
     !-------------------------------------------------------------------
     
+    !-------------------------------------------------------------------
+    EXACT = 0.0D0
+    ERROR = 0.0D0
+    L2_NORM = 0.0D0
+    !-------------------------------------------------------------------
+    
     ! GET EXACT SOLUTION------------------------------------------------
 !    CALL EXACT_SOLUTION(N, M, NUM_OF_EQUATION, GL_POINT_X, GL_POINT_Y, EXACT, T_TOTAL)
     CALL SIN_EXACT(N, M, NUM_OF_EQUATION, GL_POINT_X, GL_POINT_Y, EXACT, T_TOTAL)
@@ -56,7 +62,8 @@ SUBROUTINE GET_ERROR
     ENDDO
     !-------------------------------------------------------------------
     
-    CALL WRITE_ERROR(N, M, ERROR(:, :, 1))
+    CALL WRITE_ERROR(N, M, ERROR(:, :, 0))
+    CALL WRITE_RESULTS(N, M, EXACT(:, :, 0), SOLUTION(:, :, 0))
     
 
 END SUBROUTINE GET_ERROR

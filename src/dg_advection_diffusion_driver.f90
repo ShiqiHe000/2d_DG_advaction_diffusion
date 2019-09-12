@@ -44,6 +44,7 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     
     ! ALLOCATE----------------------------------------------------------
     ALLOCATE(SOLUTION(0:N, 0:M, NUM_OF_EQUATION))
+    SOLUTION = 0.0D0
     !-------------------------------------------------------------------
     
     ! INITIALZIE SOLUTION-----------------------------------------------
