@@ -52,9 +52,6 @@ SUBROUTINE INITIAL_CONDITION(N, M, N_EQUATIONS, Q, GL_X, GL_Y)
     
     ENDDO
 
-!    Q(:, :, :) = 0.0D0
-
-
 END SUBROUTINE INITIAL_CONDITION
 
 SUBROUTINE EXACT_SOLUTION(N, M, N_EQUATIONS, GL_X, GL_Y, E, T)
@@ -93,9 +90,70 @@ SUBROUTINE EXACT_SOLUTION(N, M, N_EQUATIONS, GL_X, GL_Y, E, T)
     
     ENDDO
 
-!E(:, :, :) = 0.0D0
 
 END SUBROUTINE EXACT_SOLUTION
 
+
+SUBROUTINE INITIAL_SINUSOIDAL(N, M, N_EQUATIONS, Q, GL_X, GL_Y)
+
+    USE PARAM, ONLY: PI
+
+    IMPLICIT NONE
+    
+    INTEGER, INTENT(IN) :: N, M !< POLY ORDER
+    INTEGER, INTENT(IN) :: N_EQUATIONS  !< NUMBER OF EQUATION   
+    
+    INTEGER :: I, J
+    
+    DOUBLE PRECISION :: Q(0:N, 0:M, N_EQUATIONS)   !< INITIAL SOLUTION
+    DOUBLE PRECISION :: GL_X(0:N), GL_Y(0:M)    !< GL_POINTS
+    
+    DOUBLE PRECISION :: X, Y    ! COLLOCATION POINTS COORDINATES
+
+    DO J=0, M
+        Y = GL_Y(J)
+        DO I=0, N
+            X = GL_X(I)
+            
+            Q(I, J, 1) = -C * PI * DCOS(PI * X)
+            Q(I, J, 2) = PI * DCOS(PI * X)
+            Q(I, J, 3) = 0.0D0
+        
+        ENDDO
+    
+    ENDDO
+
+END SUBROUTINE INITIAL_SINUSOIDAL
+
+SUBROUTINE SIN_EXACT(N, M, N_EQUATIONS, GL_X, GL_Y, E, T)
+
+    USE PARAM, ONLY: PI
+
+    IMPLICIT NONE
+    
+    INTEGER, INTENT(IN) :: N, M !< POLY ORDER
+    INTEGER, INTENT(IN) :: N_EQUATIONS  !< NUMBER OF EQUATION 
+    INTEGER :: I, J
+    
+    DOUBLE PRECISION :: E(0:N, 0:M, N_EQUATIONS)   !< EXACT SOLUTION AT TIME T
+    DOUBLE PRECISION :: GL_X(0:N), GL_Y(0:M)    !< GL_POINTS
+    DOUBLE PRECISION :: T   !< CURRENT TIME
+    
+    DOUBLE PRECISION :: X, Y    ! COLLOCATION POINTS COORDINATES
+    
+    DO J=0, M
+        Y = GL_Y(J)
+        DO I=0, N
+            X = GL_X(I)
+            
+            E(I, J, 1) = -C * PI * DCOS(PI * (X + C * T))
+            E(I, J, 2) = PI * DCOS(PI * (X + C * T))
+            E(I, J, 3) = 0.0D0
+        
+        ENDDO
+    ENDDO
+
+
+END SUBROUTINE SIN_EXACT
 
 END MODULE USER_DEFINES
