@@ -35,8 +35,7 @@ SUBROUTINE GET_EXTERNAL_STATE(NUM_OF_EQUATION, ALPHA, BETA, Q_INT, Q_EXT)
     Q_EXT(2) = Q_INT(2) * (BETA**2 - ALPHA**2) - 2.0D0 * ALPHA * BETA * Q_INT(3)
     Q_EXT(3) = -2.0D0 * ALPHA * BETA * Q_INT(2) + (ALPHA**2 - BETA**2) * Q_INT(3) 
     
-!    print *, "q_int", q_int
-!    print *, "q_ext", q_ext, q_int(2) + q_ext(2)
+
 
 END SUBROUTINE GET_EXTERNAL_STATE
 
