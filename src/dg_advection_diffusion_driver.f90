@@ -47,19 +47,17 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     !-------------------------------------------------------------------
     
     ! INITIALZIE SOLUTION-----------------------------------------------
-    CALL INITIAL_CONDITION(N, M, NUM_OF_EQUATION, SOLUTION, GL_POINT_X, GL_POINT_Y)
+!    CALL INITIAL_CONDITION(N, M, NUM_OF_EQUATION, SOLUTION, GL_POINT_X, GL_POINT_Y)
+    CALL INITIAL_SINUSOIDAL(N, M, NUM_OF_EQUATION, SOLUTION, GL_POINT_X, GL_POINT_Y)
     !-------------------------------------------------------------------
     
     ! TIME MARCHES ON---------------------------------------------------
     DO K = 0, NT-1
-!    DO K=0, 1
         CALL DG_STEP_BY_RK3(TN, DELTA_T)
         TN = (K+1) * DELTA_T
     ENDDO
     !-------------------------------------------------------------------
-!    do k=0, n
-!    print *, solution(k, :, 1)    
-!    enddo
+
 END SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
 
 END MODULE ADVECTION_DIFFUSION_DRIVER
