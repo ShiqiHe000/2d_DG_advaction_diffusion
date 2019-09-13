@@ -51,7 +51,9 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
 !    CALL INITIAL_CONDITION(N, M, NUM_OF_EQUATION, SOLUTION, GL_POINT_X, GL_POINT_Y)
     CALL INITIAL_SINUSOIDAL(N, M, NUM_OF_EQUATION, SOLUTION, GL_POINT_X, GL_POINT_Y)
     !-------------------------------------------------------------------
-    
+!do k=0, n
+!    print *, solution(k, :, 1)
+!enddo
     ! TIME MARCHES ON---------------------------------------------------
     DO K = 0, NT-1
         CALL DG_STEP_BY_RK3(TN, DELTA_T)

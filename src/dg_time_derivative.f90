@@ -47,7 +47,7 @@ SUBROUTINE DG_TIME_DER(T)
     DO J=0, M
     
         Y = GL_POINT_Y(J)
-        
+       
         ! INTERPOLATE SOLUTION TO THE BOUNDARIES
         DO S=1, NUM_OF_EQUATION
             CALL INTERPOLATE_TO_BOUNDARY(N, SOLUTION(:, J, S), &
@@ -56,9 +56,9 @@ SUBROUTINE DG_TIME_DER(T)
                                         LAGRANGE_RIGHT, SOLUTION_INT_R(S))
         
         ENDDO
-
         
         
+    
 !        CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
 !                                SOLUTION_INT_L, SOLUTION_EXT_L)
 !        CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
@@ -69,8 +69,7 @@ SUBROUTINE DG_TIME_DER(T)
 
         CALL EXTERNAL_SINU(NUM_OF_EQUATION, SOLUTION_EXT_L ,-1.0D0, Y, T)
         CALL EXTERNAL_SINU(NUM_OF_EQUATION, SOLUTION_EXT_R , 1.0D0, Y, T)
-    
-        
+       
         CALL RIEMANN(SOLUTION_EXT_L, SOLUTION_INT_L, NFLUX_X_L, K_X, K_Y)
         CALL RIEMANN(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_X_R, K_X, K_Y)
 
@@ -79,7 +78,6 @@ SUBROUTINE DG_TIME_DER(T)
             CALL XFLUX(SOLUTION(I, J, :), FLUX_X(I, :))
         
         ENDDO
-        
 
         ! COMPUTE THE FLUX DERIVATIVE
         CALL DG_SPATIAL_DERIVATIVE(N, NFLUX_X_L, NFLUX_X_R, &
@@ -95,6 +93,7 @@ SUBROUTINE DG_TIME_DER(T)
         ENDDO
     
     ENDDO
+
     !-------------------------------------------------------------------
     
     !-------------------------------------------------------------------
@@ -118,54 +117,55 @@ SUBROUTINE DG_TIME_DER(T)
     !-------------------------------------------------------------------
           
     ! Y DIRECTION-------------------------------------------------------
-    DO I=0, N
+!    DO I=0, N
         
-        X = GL_POINT_X(I)
+!        X = GL_POINT_X(I)
         
-        DO S=1, NUM_OF_EQUATION
-            CALL INTERPOLATE_TO_BOUNDARY(M, SOLUTION(I, :, S), &
-                                        LAGRANGE_DOWN, SOLUTION_INT_L(S))
+!        DO S=1, NUM_OF_EQUATION
+!            CALL INTERPOLATE_TO_BOUNDARY(M, SOLUTION(I, :, S), &
+!                                        LAGRANGE_DOWN, SOLUTION_INT_L(S))
                                         
                                         
-            CALL INTERPOLATE_TO_BOUNDARY(M, SOLUTION(I, :, S), &
-                                        LAGRANGE_UP, SOLUTION_INT_R(S))
+!            CALL INTERPOLATE_TO_BOUNDARY(M, SOLUTION(I, :, S), &
+!                                        LAGRANGE_UP, SOLUTION_INT_R(S))
         
-        ENDDO
+!        ENDDO
         
-!        CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
-!                                SOLUTION_INT_L, SOLUTION_EXT_L)
+!!        CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
+!!                                SOLUTION_INT_L, SOLUTION_EXT_L)
         
-!        CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
-!                                SOLUTION_INT_R, SOLUTION_EXT_R)
+!!        CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
+!!                                SOLUTION_INT_R, SOLUTION_EXT_R)
 
-!        CALL EXTERNAL_STATE_EXACT(NUM_OF_EQUATION, SOLUTION_EXT_L, T, X, -1.0D0)
-!        CALL EXTERNAL_STATE_EXACT(NUM_OF_EQUATION, SOLUTION_EXT_R, T, X, 1.0D0)
+!!        CALL EXTERNAL_STATE_EXACT(NUM_OF_EQUATION, SOLUTION_EXT_L, T, X, -1.0D0)
+!!        CALL EXTERNAL_STATE_EXACT(NUM_OF_EQUATION, SOLUTION_EXT_R, T, X, 1.0D0)
 
-        CALL EXTERNAL_SINU(NUM_OF_EQUATION, SOLUTION_EXT_L , X, -1.0D0, T)
-        CALL EXTERNAL_SINU(NUM_OF_EQUATION, SOLUTION_EXT_R , X, 1.0D0, T)
-                
+!        CALL EXTERNAL_SINU(NUM_OF_EQUATION, SOLUTION_EXT_L , X, -1.0D0, T)
+!        CALL EXTERNAL_SINU(NUM_OF_EQUATION, SOLUTION_EXT_R , X, 1.0D0, T)
+
         
-        CALL RIEMANN(SOLUTION_EXT_L, SOLUTION_INT_L, NFLUX_Y_D, K_X, K_Y)
-        CALL RIEMANN(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_Y_U, K_X, K_Y)
+!        CALL RIEMANN(SOLUTION_EXT_L, SOLUTION_INT_L, NFLUX_Y_D, K_X, K_Y)
+!        CALL RIEMANN(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_Y_U, K_X, K_Y)
+
+!        DO J=0, M
+!            CALL  YFLUX(SOLUTION(I, J, :), FLUX_Y(J, :))
         
-        DO J=0, M
-            CALL  YFLUX(SOLUTION(I, J, :), FLUX_Y(J, :))
+!        ENDDO
+   
+!        CALL DG_SPATIAL_DERIVATIVE(M, NFLUX_Y_D, NFLUX_Y_U, &
+!                                    FLUX_Y, FLUX_DER_Y, M_FIRST_DER_Y, &
+!                                    LAGRANGE_DOWN, LAGRANGE_UP, &
+!                                    GL_W_Y)
+                            
+
+!        DO J=0, M
+!            DO S=1, NUM_OF_EQUATION
+!                SOLUTION_TIME_DER(I, J, S) = SOLUTION_TIME_DER(I, J, S) &
+!                                            - FLUX_DER_Y(J, S)
+!            ENDDO
+!        ENDDO
         
-        ENDDO
-    
-        CALL DG_SPATIAL_DERIVATIVE(M, NFLUX_Y_D, NFLUX_Y_U, &
-                                    FLUX_Y, FLUX_DER_Y, M_FIRST_DER_Y, &
-                                    LAGRANGE_DOWN, LAGRANGE_UP, &
-                                    GL_W_Y)
-                                    
-        DO J=0, M
-            DO S=1, NUM_OF_EQUATION
-                SOLUTION_TIME_DER(I, J, S) = SOLUTION_TIME_DER(I, J, S) &
-                                            - FLUX_DER_Y(J, S)
-            ENDDO
-        ENDDO
-        
-    ENDDO
+!    ENDDO
     !-------------------------------------------------------------------
 
    !-------------------------------------------------------------------

@@ -27,6 +27,7 @@ SUBROUTINE XFLUX(Q, XF)
     XF(1) = C**2 * Q(2)
     XF(2) = Q(1)
     XF(3) = 0.0D0
+
     
 
 END SUBROUTINE XFLUX
@@ -44,6 +45,8 @@ SUBROUTINE YFLUX(Q, YF)
     YF(1) = C**2 * Q(3)
     YF(2) = 0.0D0
     YF(3) = Q(1)
+    
+!    print *, yf
 
 END SUBROUTINE YFLUX
 

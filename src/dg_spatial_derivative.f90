@@ -43,7 +43,7 @@ SUBROUTINE DG_SPATIAL_DERIVATIVE(N_TH, FLUX_LEFT, FLUX_RIGHT, &
         CALL MATRIX_VECTOR_DERIVATIVE(N_TH, DER, FLUX(:, S), FLUX_DER(:, S))
     ENDDO
     !-------------------------------------------------------------------
-    
+
     !-------------------------------------------------------------------
     DO J=0, N_TH
         DO S=1, NUM_OF_EQUATION
@@ -53,6 +53,8 @@ SUBROUTINE DG_SPATIAL_DERIVATIVE(N_TH, FLUX_LEFT, FLUX_RIGHT, &
         ENDDO
     ENDDO
     !-------------------------------------------------------------------
+    
+
 
 END SUBROUTINE DG_SPATIAL_DERIVATIVE
 

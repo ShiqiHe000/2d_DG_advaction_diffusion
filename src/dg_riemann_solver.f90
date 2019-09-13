@@ -44,7 +44,7 @@ SUBROUTINE RIEMANN(Q_L, Q_R, N_FLUX, ALPHA, BETA)
 
 !print *, "u_l", u_l, "u_r", u_r
 !print *, "v_l", v_l, "v_r", v_r
-!    print *, "w-", w_l, "w+", w_r
+!!    print *, "w_l", w_l, "w_r", w_r
 !    print *, "n_flux", n_flux
 
 END SUBROUTINE RIEMANN

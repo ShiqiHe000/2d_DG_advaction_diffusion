@@ -13,8 +13,8 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! SET POLYNOMIAL ORDER----------------------------------------------
-    INTEGER :: N = 5    !< POLYNOMIAL DEGREE IN X DIRECTION
-    INTEGER :: M = 5    !< POLYNOMIAL DEGREE IN Y DIRECTION
+    INTEGER :: N = 20    !< POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: M = 20    !< POLYNOMIAL DEGREE IN Y DIRECTION
     INTEGER :: MNMAX = 12   !< MAXIMUM POLYNOMIAL DEGREE
     !-------------------------------------------------------------------
     
@@ -27,15 +27,17 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     !-------------------------------------------------------------------
-    DOUBLE PRECISION :: K_X = DSQRT(2.0D0)/2.0D0    !< WAVE VECTOR IN X DIRECTION
-    DOUBLE PRECISION :: K_Y = DSQRT(2.0D0)/2.0D0    !< WAVE VECTOR IN Y DIRECTION
+!    DOUBLE PRECISION :: K_X = DSQRT(2.0D0)/2.0D0    !< WAVE VECTOR IN X DIRECTION
+!    DOUBLE PRECISION :: K_Y = DSQRT(2.0D0)/2.0D0    !< WAVE VECTOR IN Y DIRECTION
+    DOUBLE PRECISION :: K_X = 1.0D0    !< WAVE VECTOR IN X DIRECTION
+    DOUBLE PRECISION :: K_Y = 0.0D0    !< WAVE VECTOR IN Y DIRECTION
     !-------------------------------------------------------------------
     
     ! TIME--------------------------------------------------------------
-!    DOUBLE PRECISION :: T_TOTAL = (2.6e-3)*5     !< TOTAL TIME INTEGRAL
-!    INTEGER :: NT = 5                    !< TIME STEP NUMBER
-    DOUBLE PRECISION :: T_TOTAL = 2.0D0     !< TOTAL TIME INTEGRAL
-    INTEGER :: NT = 770                    !< TIME STEP NUMBER
+    DOUBLE PRECISION :: T_TOTAL = (2.6e-3)     !< TOTAL TIME INTEGRAL
+    INTEGER :: NT = 1                    !< TIME STEP NUMBER
+!    DOUBLE PRECISION :: T_TOTAL = 2.0D0     !< TOTAL TIME INTEGRAL
+!    INTEGER :: NT = 770                    !< TIME STEP NUMBER
     !-------------------------------------------------------------------
     
     ! SET ADAPATION ----------------------------------------------------
