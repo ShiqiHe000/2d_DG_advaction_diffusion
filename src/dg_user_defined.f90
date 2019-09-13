@@ -110,10 +110,10 @@ SUBROUTINE INITIAL_SINUSOIDAL(N, M, N_EQUATIONS, Q, GL_X, GL_Y)
     
     DOUBLE PRECISION :: X, Y    ! COLLOCATION POINTS COORDINATES
 
-    DO J=0, N
-        X = GL_X(J)
-        DO I=0, M
-            Y = GL_Y(I)
+    DO J=0, M
+        Y = GL_Y(J)
+        DO I=0, N
+            X = GL_X(I)
             
             Q(I, J, 1) = -C * PI * DCOS(PI * X)
             Q(I, J, 2) = PI * DCOS(PI * X)
@@ -141,10 +141,10 @@ SUBROUTINE SIN_EXACT(N, M, N_EQUATIONS, GL_X, GL_Y, E, T)
     
     DOUBLE PRECISION :: X, Y    ! COLLOCATION POINTS COORDINATES
     
-    DO J=0, N
-        X = GL_X(J)
-        DO I=0, M
-            Y = GL_Y(I)
+    DO J=0, M
+        Y = GL_Y(J)
+        DO I=0, N
+            X = GL_X(I)
             
             E(I, J, 1) = -C * PI * DCOS(PI * (X + C * T))
             E(I, J, 2) = PI * DCOS(PI * (X + C * T))

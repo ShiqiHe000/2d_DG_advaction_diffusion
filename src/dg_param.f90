@@ -13,8 +13,8 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! SET POLYNOMIAL ORDER----------------------------------------------
-    INTEGER :: N = 20    !< POLYNOMIAL DEGREE IN X DIRECTION
-    INTEGER :: M = 20    !< POLYNOMIAL DEGREE IN Y DIRECTION
+    INTEGER :: N = 2    !< POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: M = 2    !< POLYNOMIAL DEGREE IN Y DIRECTION
     INTEGER :: MNMAX = 12   !< MAXIMUM POLYNOMIAL DEGREE
     !-------------------------------------------------------------------
     
