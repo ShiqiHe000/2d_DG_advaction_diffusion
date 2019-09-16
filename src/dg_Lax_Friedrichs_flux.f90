@@ -30,7 +30,8 @@ SUBROUTINE LAX_FRIEDRICHES_FLUX(Q_L, Q_R, N_FLUX, ALPHA, NORMAL)
     DO I=1, NUM_OF_EQUATION
         N_FLUX(I) = 0.5D0 * C * NORMAL * (Q_L(I) + Q_R(I) + &
                         NORMAL * (1.0D0 - ALPHA) * (Q_L(I) - Q_R(I)))
-    
+!        N_FLUX(I) = 0.5D0 * C * (NORMAL * (Q_L(I) + Q_R(I)) + &
+!                    (Q_L(I) - Q_R(I)))
     ENDDO
 
     

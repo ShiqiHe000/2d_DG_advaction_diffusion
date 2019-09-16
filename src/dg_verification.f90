@@ -62,10 +62,12 @@ SUBROUTINE GET_ERROR
     ENDDO
     !-------------------------------------------------------------------
     
-    CALL WRITE_ERROR(N, M, ERROR(:, :, 1))
-    CALL WRITE_RESULTS(N, M, EXACT(:, :, 1), SOLUTION(:, :, 1))
+    CALL WRITE_ERROR(N, M, ERROR(:, :, 2))
+    CALL WRITE_RESULTS(N, M, EXACT(:, :, 2), SOLUTION(:, :, 2))
     
-
+    print *, maxval(ERROR(:, 0, 2))
+    print *, L2_NORM(2) 
+    
 END SUBROUTINE GET_ERROR
 
 
