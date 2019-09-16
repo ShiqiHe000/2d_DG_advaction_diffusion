@@ -1,20 +1,19 @@
 !-----------------------------------------------------------------------
-!> @brief
-!> The central flux is the average of the solutions on the two side of 
-!! the interface 
+!> @ brief
+!> Lax-Friedrichs flux
 !-----------------------------------------------------------------------
 
-MODULE CENTRAL_FLUX
+MODULE LAX_FRIEDRICHES
 
 USE MPI
 USE PARAM, ONLY: NUM_OF_EQUATION, C
 
+
 IMPLICIT NONE
 
+CONTAINS
 
-CONTAINS 
-
-SUBROUTINE CENTRAL_NUMERICAL_FLUX(Q_L, Q_R, N_FLUX, NORMAL)
+SUBROUTINE LAX_FRIEDRICHES_FLUX(Q_L, Q_R, N_FLUX, ALPHA, NORMAL)
 
     IMPLICIT NONE
     
@@ -25,15 +24,19 @@ SUBROUTINE CENTRAL_NUMERICAL_FLUX(Q_L, Q_R, N_FLUX, NORMAL)
     
     DOUBLE PRECISION :: N_FLUX(NUM_OF_EQUATION) !< NUMERICAL FLUX
     
+    DOUBLE PRECISION :: ALPHA   !< PARAMETER: 0 <= ALPHA <= 1.0
     DOUBLE PRECISION :: NORMAL  !< NORMAL VECTOR, POINTING OUTWARDS OF THE BOUNDARY
     
     DO I=1, NUM_OF_EQUATION
-        N_FLUX(I) = 0.5D0 * (Q_L(I) + Q_R(I)) * NORMAL
+        N_FLUX(I) = 0.5D0 * C * NORMAL * (Q_L(I) + Q_R(I) + &
+                            NORMAL * (Q_L(I) - Q_R(I)))
     
     ENDDO
 
-END SUBROUTINE CENTRAL_NUMERICAL_FLUX
+    
+    
+
+END SUBROUTINE LAX_FRIEDRICHES_FLUX
 
 
-
-END MODULE CENTRAL_FLUX
+END MODULE LAX_FRIEDRICHES

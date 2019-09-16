@@ -24,6 +24,7 @@ SRC =  dg_param.f90 \
        dg_spatial_derivative.f90 \
        dg_riemann_solver.f90 \
        dg_central_flux.f90 \
+       dg_Lax_Friedrichs_flux.f90 \
        dg_flux_vector.f90 \
        dg_user_defined.f90 \
        dg_external_state.f90 \
