@@ -60,7 +60,6 @@ SUBROUTINE DG_TIME_DER(T)
         
         ENDDO  
     
-    
 !        CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
 !                                SOLUTION_INT_L, SOLUTION_EXT_L)
 !        CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
@@ -68,18 +67,20 @@ SUBROUTINE DG_TIME_DER(T)
 
 !        CALL EXTERNAL_STATE_EXACT(NUM_OF_EQUATION, SOLUTION_EXT_L, T, -1.0D0, Y)
 !        CALL EXTERNAL_STATE_EXACT(NUM_OF_EQUATION, SOLUTION_EXT_R, T,  1.0D0, Y)
-
+        
+        ! USE EXACT SOLUTION AT THE BOUNDARIES--------------------------
         CALL EXTERNAL_SINU(NUM_OF_EQUATION, SOLUTION_EXT_L ,-1.0D0, Y, T)
         CALL EXTERNAL_SINU(NUM_OF_EQUATION, SOLUTION_EXT_R , 1.0D0, Y, T)
+        !---------------------------------------------------------------
         
-!        CALL LAX_FRIEDRICHES_FLUX(SOLUTION_EXT_L, SOLUTION_INT_L,&
-!                                    NFLUX_X_L, 0.0D0, -1.0D0)
+        CALL LAX_FRIEDRICHES_FLUX(SOLUTION_EXT_L, SOLUTION_INT_L,&
+                                    NFLUX_X_L, 0.0D0, -1.0D0)
                                     
-!        CALL LAX_FRIEDRICHES_FLUX(SOLUTION_INT_R, SOLUTION_EXT_R,&
-!                                    NFLUX_X_R, 0.0D0,  1.0D0)
+        CALL LAX_FRIEDRICHES_FLUX(SOLUTION_INT_R, SOLUTION_EXT_R,&
+                                    NFLUX_X_R, 0.0D0,  1.0D0)
         
-        CALL CENTRAL_NUMERICAL_FLUX(SOLUTION_EXT_L, SOLUTION_INT_L, NFLUX_X_L, -1.0D0)
-        CALL CENTRAL_NUMERICAL_FLUX(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_X_R,  1.0D0)
+!        CALL CENTRAL_NUMERICAL_FLUX(SOLUTION_EXT_L, SOLUTION_INT_L, NFLUX_X_L, -1.0D0)
+!        CALL CENTRAL_NUMERICAL_FLUX(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_X_R,  1.0D0)
 
 !        CALL RIEMANN(SOLUTION_EXT_L, SOLUTION_INT_L, NFLUX_X_L, -1.0D0*K_X, K_Y)
 !        CALL RIEMANN(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_X_R, 1.0D0*K_X, K_Y)
@@ -95,14 +96,13 @@ SUBROUTINE DG_TIME_DER(T)
                                     FLUX_X, FLUX_DER_X, M_FIRST_DER_X, &
                                     LAGRANGE_LEFT, LAGRANGE_RIGHT, &
                                     GL_W_X)
-
-        DO I=0, N
-            DO S=1, NUM_OF_EQUATION
+        DO S=1, NUM_OF_EQUATION
+            DO I=0, N
                 SOLUTION_TIME_DER(I, J, S) = - FLUX_DER_X(I, S)
             ENDDO
         
         ENDDO
- 
+
 !    ENDDO
 
     !-------------------------------------------------------------------

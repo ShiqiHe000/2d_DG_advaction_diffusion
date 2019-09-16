@@ -45,14 +45,13 @@ SUBROUTINE DG_SPATIAL_DERIVATIVE(N_TH, FLUX_LEFT, FLUX_RIGHT, &
     !-------------------------------------------------------------------
 
     !-------------------------------------------------------------------
-    DO J=0, N_TH
-        DO S=1, NUM_OF_EQUATION
+    DO S=1, NUM_OF_EQUATION
+        DO J=0, N_TH
             FLUX_DER(J, S) = FLUX_DER(J, S) + &
                                 (FLUX_RIGHT(S) * LAG2(J) + &
                                 FLUX_LEFT(S) * LAG1(J)) / WEIGHT(J)
                                 
         ENDDO
-  
     ENDDO
     !-------------------------------------------------------------------
     
