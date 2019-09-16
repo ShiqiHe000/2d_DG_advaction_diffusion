@@ -68,8 +68,7 @@ SUBROUTINE EXTERNAL_SINU(NUM_OF_EQUATION, Q_EXT ,X, Y, T)
 !-----------------------------------------------------------------------
 ! EXTERNAL STATE FOR SINUSOIDAL CASE
 !-----------------------------------------------------------------------
-    USE PARAM, ONLY: PI
-    
+
     IMPLICIT NONE
     
     INTEGER, INTENT(IN) :: NUM_OF_EQUATION    !< NUMBER OF EQUATION
@@ -78,8 +77,8 @@ SUBROUTINE EXTERNAL_SINU(NUM_OF_EQUATION, Q_EXT ,X, Y, T)
     DOUBLE PRECISION, INTENT(IN) :: T   !< CURRENT TIME 
     DOUBLE PRECISION, INTENT(IN) :: X, Y    !< COORDINATE ON THE BOUNDARY
     
-    Q_EXT(1) = -C * PI * DCOS(PI * (X + C*T))
-    Q_EXT(2) = PI * DCOS(PI * (X + C*T))
+    Q_EXT(1) = C * DCOS(X - C*T)
+    Q_EXT(2) = DCOS(X - C*T)
     Q_EXT(3) = 0.0D0
     
 

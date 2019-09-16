@@ -44,8 +44,8 @@ SUBROUTINE DG_TIME_DER(T)
     SOLUTION_TIME_DER = 0.0D0
 
     ! X DIRECTION-------------------------------------------------------
-    DO J=0, M
-    
+!    DO J=0, M
+        J=0
         Y = GL_POINT_Y(J)
        
         ! INTERPOLATE SOLUTION TO THE BOUNDARIES
@@ -55,9 +55,8 @@ SUBROUTINE DG_TIME_DER(T)
             CALL INTERPOLATE_TO_BOUNDARY(N, SOLUTION(:, J, S), &
                                         LAGRANGE_RIGHT, SOLUTION_INT_R(S))
         
-        ENDDO
-        
-        
+        ENDDO  
+    
     
 !        CALL GET_EXTERNAL_STATE(NUM_OF_EQUATION, K_X, K_Y, &
 !                                SOLUTION_INT_L, SOLUTION_EXT_L)
@@ -69,14 +68,14 @@ SUBROUTINE DG_TIME_DER(T)
 
         CALL EXTERNAL_SINU(NUM_OF_EQUATION, SOLUTION_EXT_L ,-1.0D0, Y, T)
         CALL EXTERNAL_SINU(NUM_OF_EQUATION, SOLUTION_EXT_R , 1.0D0, Y, T)
-       
-        CALL RIEMANN(SOLUTION_EXT_L, SOLUTION_INT_L, NFLUX_X_L, K_X, K_Y)
-        CALL RIEMANN(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_X_R, K_X, K_Y)
+
+        CALL RIEMANN(SOLUTION_EXT_L, SOLUTION_INT_L, NFLUX_X_L, -1.0D0*K_X, K_Y)
+        CALL RIEMANN(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_X_R, 1.0D0*K_X, K_Y)
 
         ! CALCULATE THE FLUX
         DO I=0, N
             CALL XFLUX(SOLUTION(I, J, :), FLUX_X(I, :))
-        
+
         ENDDO
 
         ! COMPUTE THE FLUX DERIVATIVE
@@ -84,15 +83,15 @@ SUBROUTINE DG_TIME_DER(T)
                                     FLUX_X, FLUX_DER_X, M_FIRST_DER_X, &
                                     LAGRANGE_LEFT, LAGRANGE_RIGHT, &
                                     GL_W_X)
-                                    
+
         DO I=0, N
             DO S=1, NUM_OF_EQUATION
                 SOLUTION_TIME_DER(I, J, S) = - FLUX_DER_X(I, S)
             ENDDO
         
         ENDDO
-    
-    ENDDO
+ 
+!    ENDDO
 
     !-------------------------------------------------------------------
     
