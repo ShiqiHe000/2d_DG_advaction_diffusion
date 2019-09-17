@@ -29,7 +29,34 @@ Or:
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\overrightarrow{q}_t&space;&plus;&space;B&space;\overrightarrow{q}_x&space;&plus;&space;C&space;\overrightarrow{q}_y=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overrightarrow{q}_t&space;&plus;&space;B&space;\overrightarrow{q}_x&space;&plus;&space;C&space;\overrightarrow{q}_y=0" title="\overrightarrow{q}_t + B \overrightarrow{q}_x + C \overrightarrow{q}_y=0" /></a>
 
+## Test case: 1D wave equation
+### Governing equation
+<a href="https://www.codecogs.com/eqnedit.php?latex=p_{tt}&plus;c^2p_{xx}=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_{tt}&plus;c^2p_{xx}=0" title="p_{tt}+c^2p_{xx}=0" /></a>
 
+With <a href="https://www.codecogs.com/eqnedit.php?latex=u_t&space;=&space;-&space;p_x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?u_t&space;=&space;-&space;p_x" title="u_t = - p_x" /></a>
+
+The solution is:
+<a href="https://www.codecogs.com/eqnedit.php?latex=p&space;=&space;ccos(x-ct)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p&space;=&space;ccos(x-ct)" title="p = ccos(x-ct)" /></a>
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=u&space;=&space;cos(x-ct)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?u&space;=&space;cos(x-ct)" title="u = cos(x-ct)" /></a>
+
+We can write the system in conservation law form
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\overrightarrow{q_t}&plus;\bigtriangledown&space;\cdot&space;\overrightarrow{F}=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overrightarrow{q_t}&plus;\bigtriangledown&space;\cdot&space;\overrightarrow{F}=0" title="\overrightarrow{q_t}+\bigtriangledown \cdot \overrightarrow{F}=0" /></a>
+
+### Boundary condition
+Exact solution is imposed on both side of the boundaries.
+
+### Numerical fluxes
+For wave equation, the natural choice of flux is Lax-Friedrichs flux
+<a href="https://www.codecogs.com/eqnedit.php?latex=(F)^{*}=c\frac{u^{-}&plus;u^{&plus;}}{2}&plus;\left&space;|&space;c&space;\right&space;|\frac{1-\alpha&space;}{2}(u^{-}\cdot&space;\widehat{n}^{-}&plus;u^{&plus;}&space;\cdot&space;\widehat{n}^{&plus;})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(F)^{*}=c\frac{u^{-}&plus;u^{&plus;}}{2}&plus;\left&space;|&space;c&space;\right&space;|\frac{1-\alpha&space;}{2}(u^{-}\cdot&space;\widehat{n}^{-}&plus;u^{&plus;}&space;\cdot&space;\widehat{n}^{&plus;})" title="(F)^{*}=c\frac{u^{-}+u^{+}}{2}+\left | c \right |\frac{1-\alpha }{2}(u^{-}\cdot \widehat{n}^{-}+u^{+} \cdot \widehat{n}^{+})" /></a>
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=0\leq&space;\alpha&space;\leq&space;1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?0\leq&space;\alpha&space;\leq&space;1" title="0\leq \alpha \leq 1" /></a>
+
+If <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha&space;=1" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha&space;=1" title="\alpha =1" /></a>, the numerical flux is the average of the two solutions, known as central flux. For <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha&space;=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\alpha&space;=0" title="\alpha =0" /></a>, we recover a flux which always takes information from where it is coming; that is, it is an upwind flux.
+
+In this case the Lax-Friedrichs flux yelds to
+<a href="https://www.codecogs.com/eqnedit.php?latex=(F)^{*}=\widehat{n}&space;\cdot&space;c(\frac{u^{-}&plus;u^{&plus;}}{2}&plus;\frac{1-\alpha&space;}{2}(u^{-}-u^{&plus;}))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(F)^{*}=\widehat{n}&space;\cdot&space;c(\frac{u^{-}&plus;u^{&plus;}}{2}&plus;\frac{1-\alpha&space;}{2}(u^{-}-u^{&plus;}))" title="(F)^{*}=\widehat{n} \cdot c(\frac{u^{-}+u^{+}}{2}+\frac{1-\alpha }{2}(u^{-}-u^{+}))" /></a>
 
 ## Documentation from the source code
 [Source code documentation]( https://shiqihe000.github.io/2d_DG_advaction_diffusion/output/html/index.html)
