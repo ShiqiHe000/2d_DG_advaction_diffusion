@@ -58,6 +58,9 @@ If <a href="https://www.codecogs.com/eqnedit.php?latex=\alpha&space;=1" target="
 In this case the Lax-Friedrichs flux yelds to
 <a href="https://www.codecogs.com/eqnedit.php?latex=(F)^{*}=\widehat{n}&space;\cdot&space;c(\frac{u^{-}&plus;u^{&plus;}}{2}&plus;\frac{1-\alpha&space;}{2}(u^{-}-u^{&plus;}))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?(F)^{*}=\widehat{n}&space;\cdot&space;c(\frac{u^{-}&plus;u^{&plus;}}{2}&plus;\frac{1-\alpha&space;}{2}(u^{-}-u^{&plus;}))" title="(F)^{*}=\widehat{n} \cdot c(\frac{u^{-}+u^{+}}{2}+\frac{1-\alpha }{2}(u^{-}-u^{+}))" /></a>
 
+### Test case Performance
+![1d_advection_error](pics/1d_advection_error.png)
+
 ## Documentation from the source code
 [Source code documentation]( https://shiqihe000.github.io/2d_DG_advaction_diffusion/output/html/index.html)
 
