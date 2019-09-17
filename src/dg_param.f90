@@ -27,10 +27,10 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     !-------------------------------------------------------------------
-!    DOUBLE PRECISION :: K_X = DSQRT(2.0D0)/2.0D0    !< WAVE VECTOR IN X DIRECTION
-!    DOUBLE PRECISION :: K_Y = DSQRT(2.0D0)/2.0D0    !< WAVE VECTOR IN Y DIRECTION
-    DOUBLE PRECISION :: K_X = 1.0D0    !< WAVE VECTOR IN X DIRECTION
-    DOUBLE PRECISION :: K_Y = 0.0D0    !< WAVE VECTOR IN Y DIRECTION
+    DOUBLE PRECISION :: K_X = DSQRT(2.0D0)/2.0D0    !< WAVE VECTOR IN X DIRECTION
+    DOUBLE PRECISION :: K_Y = DSQRT(2.0D0)/2.0D0    !< WAVE VECTOR IN Y DIRECTION
+!    DOUBLE PRECISION :: K_X = 1.0D0    !< WAVE VECTOR IN X DIRECTION
+!    DOUBLE PRECISION :: K_Y = 1.0D0    !< WAVE VECTOR IN Y DIRECTION
     !-------------------------------------------------------------------
     
     ! TIME--------------------------------------------------------------

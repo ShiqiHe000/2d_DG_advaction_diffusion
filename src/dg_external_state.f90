@@ -17,7 +17,8 @@ IMPLICIT NONE
 
 CONTAINS
 
-SUBROUTINE GET_EXTERNAL_STATE(NUM_OF_EQUATION, ALPHA, BETA, Q_INT, Q_EXT)
+SUBROUTINE EXTERNAL_STATE_GAUSSIAN_REFLECT(NUM_OF_EQUATION, ALPHA,&
+                                            BETA, Q_INT, Q_EXT)
 !-----------------------------------------------------------------------
 ! PAGE 212
 !-----------------------------------------------------------------------
@@ -37,9 +38,9 @@ SUBROUTINE GET_EXTERNAL_STATE(NUM_OF_EQUATION, ALPHA, BETA, Q_INT, Q_EXT)
     
 
 
-END SUBROUTINE GET_EXTERNAL_STATE
+END SUBROUTINE EXTERNAL_STATE_GAUSSIAN_REFLECT
 
-SUBROUTINE EXTERNAL_STATE_EXACT(NUM_OF_EQUATION, Q_EXT, T, X, Y)
+SUBROUTINE EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, Q_EXT, T, X, Y)
 !-----------------------------------------------------------------------
 ! IMPLIMENT EXACT SOLUTION ON THE 4 SIDES OF THE BOUNDARIES
 !-----------------------------------------------------------------------
@@ -62,7 +63,7 @@ SUBROUTINE EXTERNAL_STATE_EXACT(NUM_OF_EQUATION, Q_EXT, T, X, Y)
     
     Q_EXT(3) = K_Y / C * INTER 
     
-END SUBROUTINE EXTERNAL_STATE_EXACT
+END SUBROUTINE EXTERNAL_STATE_GAUSSIAN_EXACT
 
 SUBROUTINE EXTERNAL_SINU(NUM_OF_EQUATION, Q_EXT ,X, Y, T)
 !-----------------------------------------------------------------------
