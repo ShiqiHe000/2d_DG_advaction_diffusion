@@ -103,7 +103,8 @@ SUBROUTINE GL(N, GL_POINT, GL_W)
     TOL = 4.0D0*EPSILON(1.0D0)
     Q = 0.0D0
     DQ = 0.0D0
-    
+print *, "TOL",TOL
+print *, "eps", EPSILON(1.0D0)
     IF(N==0)THEN
         GL_POINT(0)=0.0D0
         GL_W(0)=2.0D0
@@ -291,7 +292,7 @@ SUBROUTINE LAGRANGE_INTERPOLATING_POLYNOMIAL(N, POINT_X, X, BARY, LAGRANGE)
 ! INPUT : GL_POINTS AND BARYCENTRIC WEIGHTS
 ! ALGORITHM 34
 !----------------------------------------------------------------------
-    
+     
     IMPLICIT NONE
     
     INTEGER :: N    !< PLOY ORDER
