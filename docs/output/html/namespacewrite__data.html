@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>2D_DG_advaction_diffution: spactial_derivative Module Reference</title>
+<title>2D_DG_advaction_diffution: write_data Module Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,80 +61,46 @@ $(function() {
   <div class="summary">
 <a href="#func-members">Functions/Subroutines</a>  </div>
   <div class="headertitle">
-<div class="title">spactial_derivative Module Reference</div>  </div>
+<div class="title">write_data Module Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Compute the first spacial derivative given by the interior points and two boundary solutions.  
+<p>Write data to files.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
-<tr class="memitem:a7e7e7d31d4dac99ada310d5642f62ef8"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacespactial__derivative.html#a7e7e7d31d4dac99ada310d5642f62ef8">dg_spatial_derivative</a> (N_TH, FLUX_LEFT, FLUX_RIGHT, FLUX, FLUX_DER, DER, LAG1, LAG2, WEIGHT)</td></tr>
-<tr class="separator:a7e7e7d31d4dac99ada310d5642f62ef8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a747021d7c359cc89cb2309cbc8196a"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewrite__data.html#a1a747021d7c359cc89cb2309cbc8196a">write_error</a> (N, M, ER)</td></tr>
+<tr class="separator:a1a747021d7c359cc89cb2309cbc8196a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10aed56341cb1ca730b16b0e2f12171e"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewrite__data.html#a10aed56341cb1ca730b16b0e2f12171e">write_results</a> (N, M, EX, RESULTS)</td></tr>
+<tr class="separator:a10aed56341cb1ca730b16b0e2f12171e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Compute the first spacial derivative given by the interior points and two boundary solutions. </p>
+<div class="textblock"><p>Write data to files. </p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
-<a id="a7e7e7d31d4dac99ada310d5642f62ef8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e7e7d31d4dac99ada310d5642f62ef8">&#9670;&nbsp;</a></span>dg_spatial_derivative()</h2>
+<a id="a1a747021d7c359cc89cb2309cbc8196a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a747021d7c359cc89cb2309cbc8196a">&#9670;&nbsp;</a></span>write_error()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">subroutine spactial_derivative::dg_spatial_derivative </td>
+          <td class="memname">subroutine write_data::write_error </td>
           <td>(</td>
           <td class="paramtype">integer, intent(in)&#160;</td>
-          <td class="paramname"><em>N_TH</em>, </td>
+          <td class="paramname"><em>N</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double precision, dimension(num_of_equation)&#160;</td>
-          <td class="paramname"><em>FLUX_LEFT</em>, </td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>M</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double precision, dimension(num_of_equation)&#160;</td>
-          <td class="paramname"><em>FLUX_RIGHT</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double precision, dimension(0:n_th, num_of_equation)&#160;</td>
-          <td class="paramname"><em>FLUX</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double precision, dimension(0:n_th, num_of_equation)&#160;</td>
-          <td class="paramname"><em>FLUX_DER</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double precision, dimension(0:n_th, 0:n_th)&#160;</td>
-          <td class="paramname"><em>DER</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double precision, dimension(0:n_th)&#160;</td>
-          <td class="paramname"><em>LAG1</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double precision, dimension(0:n_th)&#160;</td>
-          <td class="paramname"><em>LAG2</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double precision, dimension(0:n_th)&#160;</td>
-          <td class="paramname"><em>WEIGHT</em>&#160;</td>
+          <td class="paramtype">double precision, dimension(0:n, 0:m)&#160;</td>
+          <td class="paramname"><em>ER</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -145,14 +111,56 @@ Functions/Subroutines</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">n_th</td><td>N-TH ORDER POLYNOMIAL</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">flux_left</td><td>NUMERICAL FLUX AT THE END OF BOUNDARY</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">flux_right</td><td>NUMERICAL FLUX AT THE END OF BOUNDARY</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">flux_der</td><td>FLUX DERIVATIVE</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">der</td><td>FIRST DERIVATIVE MATRIX</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">lag1</td><td>LAGRANGE INTERPOLATE AT LEFT/BOTTOM</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">lag2</td><td>LAGRANGE INTERPOLATE AT RIGHT/TOP</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">weight</td><td>GL WEIGHTS </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">m</td><td>POLY ORDER</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">er</td><td>ERROR ON NODES </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a10aed56341cb1ca730b16b0e2f12171e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10aed56341cb1ca730b16b0e2f12171e">&#9670;&nbsp;</a></span>write_results()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine write_data::write_results </td>
+          <td>(</td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>N</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>M</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(0:n, 0:m)&#160;</td>
+          <td class="paramname"><em>EX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(0:n, 0:m)&#160;</td>
+          <td class="paramname"><em>RESULTS</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">m</td><td>POLY ORDER</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">ex</td><td>EXACT SOLUTION</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">results</td><td>COMPUTED RESULTS </td></tr>
   </table>
   </dd>
 </dl>

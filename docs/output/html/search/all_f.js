@@ -1,6 +1,7 @@
 var searchData=
 [
   ['set_5fmpi',['set_mpi',['../namespaceset__mpi.html',1,'']]],
+  ['sin_5fexact',['sin_exact',['../namespaceuser__defines.html#a93d3e342371a348b072c161a3c86ac80',1,'user_defines']]],
   ['solution',['solution',['../namespacenodal__2d__storage.html#a5a20c30615d144143752873e63e6d51d',1,'nodal_2d_storage']]],
   ['solution_5fext_5fl',['solution_ext_l',['../namespacenodal__2d__storage.html#ad0a886e5977d6a5c0bfab106c9f6d1bd',1,'nodal_2d_storage']]],
   ['solution_5fext_5fr',['solution_ext_r',['../namespacenodal__2d__storage.html#a5a43724885113474f4b368fbd9ba7ed5',1,'nodal_2d_storage']]],

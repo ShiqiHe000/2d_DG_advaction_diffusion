@@ -70,14 +70,18 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
-<tr class="memitem:a8b9d6cbb358113a470e74eac56ccedbd"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceriemann__solver.html#a8b9d6cbb358113a470e74eac56ccedbd">riemann</a> (Q_L, Q_R, N_FLUX, ALPHA, BETA)</td></tr>
-<tr class="separator:a8b9d6cbb358113a470e74eac56ccedbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d6e557eb79660952909e5fe54b3cbfe"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceriemann__solver.html#a2d6e557eb79660952909e5fe54b3cbfe">riemann</a> (Q_L, Q_R, N_FLUX, UNIT_VECTOR, OUTWARD)</td></tr>
+<tr class="separator:a2d6e557eb79660952909e5fe54b3cbfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0b532626cde4882aed31dfb2c37903b"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceriemann__solver.html#ab0b532626cde4882aed31dfb2c37903b">riemann_x</a> (Q_L, Q_R, N_FLUX, NORMAL)</td></tr>
+<tr class="separator:ab0b532626cde4882aed31dfb2c37903b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23809f34172df5e80f26b12e34afb8b1"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceriemann__solver.html#a23809f34172df5e80f26b12e34afb8b1">riemann_y</a> (Q_L, Q_R, N_FLUX, NORMAL)</td></tr>
+<tr class="separator:a23809f34172df5e80f26b12e34afb8b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Riemann solver. Solve the numerical flux at the boundary. </p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
-<a id="a8b9d6cbb358113a470e74eac56ccedbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8b9d6cbb358113a470e74eac56ccedbd">&#9670;&nbsp;</a></span>riemann()</h2>
+<a id="a2d6e557eb79660952909e5fe54b3cbfe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d6e557eb79660952909e5fe54b3cbfe">&#9670;&nbsp;</a></span>riemann()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -103,14 +107,14 @@ Functions/Subroutines</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double precision, intent(in)&#160;</td>
-          <td class="paramname"><em>ALPHA</em>, </td>
+          <td class="paramtype">double precision, dimension(2)&#160;</td>
+          <td class="paramname"><em>UNIT_VECTOR</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double precision, intent(in)&#160;</td>
-          <td class="paramname"><em>BETA</em>&#160;</td>
+          <td class="paramtype">double precision&#160;</td>
+          <td class="paramname"><em>OUTWARD</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -121,10 +125,107 @@ Functions/Subroutines</h2></td></tr>
 </div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">beta</td><td>TWO CONSTANT RELATED WITH WAVEVECTOR</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">q_l</td><td>SOLUTION AT LEFT</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">q_r</td><td>SOLUTION AT RIGHT</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">n_flux</td><td>NUMERICAL FLUX </td></tr>
+    <tr><td class="paramname">q_l</td><td>SOLUTION AT LEFT</td></tr>
+    <tr><td class="paramname">q_r</td><td>SOLUTION AT RIGHT</td></tr>
+    <tr><td class="paramname">n_flux</td><td>NUMERICAL FLUX</td></tr>
+    <tr><td class="paramname">unit_vector</td><td>COORDINATE AXIS UNIT VECTOR, E.G: X-AXIS (1.0D0, 0)</td></tr>
+    <tr><td class="paramname">outward</td><td>BOUNDARY OUTWARD DIRECTION, ON THE LEFT = 1.0D0, ON THE RIGTH = 1.0D0 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab0b532626cde4882aed31dfb2c37903b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0b532626cde4882aed31dfb2c37903b">&#9670;&nbsp;</a></span>riemann_x()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine riemann_solver::riemann_x </td>
+          <td>(</td>
+          <td class="paramtype">double precision, dimension(num_of_equation)&#160;</td>
+          <td class="paramname"><em>Q_L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(num_of_equation)&#160;</td>
+          <td class="paramname"><em>Q_R</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(num_of_equation)&#160;</td>
+          <td class="paramname"><em>N_FLUX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision&#160;</td>
+          <td class="paramname"><em>NORMAL</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">q_l</td><td>SOLUTION AT LEFT</td></tr>
+    <tr><td class="paramname">q_r</td><td>SOLUTION AT RIGHT</td></tr>
+    <tr><td class="paramname">n_flux</td><td>NUMERICAL FLUX </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a23809f34172df5e80f26b12e34afb8b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23809f34172df5e80f26b12e34afb8b1">&#9670;&nbsp;</a></span>riemann_y()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine riemann_solver::riemann_y </td>
+          <td>(</td>
+          <td class="paramtype">double precision, dimension(num_of_equation)&#160;</td>
+          <td class="paramname"><em>Q_L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(num_of_equation)&#160;</td>
+          <td class="paramname"><em>Q_R</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(num_of_equation)&#160;</td>
+          <td class="paramname"><em>N_FLUX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision&#160;</td>
+          <td class="paramname"><em>NORMAL</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">q_l</td><td>SOLUTION AT LEFT</td></tr>
+    <tr><td class="paramname">q_r</td><td>SOLUTION AT RIGHT</td></tr>
+    <tr><td class="paramname">n_flux</td><td>NUMERICAL FLUX </td></tr>
   </table>
   </dd>
 </dl>

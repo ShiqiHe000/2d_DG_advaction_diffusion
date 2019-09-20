@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['y0',['y0',['../namespaceuser__defines.html#a8dd533eed291cb00052bfa38362a4ab8',1,'user_defines']]],
-  ['yflux',['yflux',['../namespaceflux__vectors.html#ac02e3ac0ffc723e0b14aeb504698f240',1,'flux_vectors']]]
+  ['x0',['x0',['../namespaceuser__defines.html#afe3afc56634049f67ab7c7d371b6f730',1,'user_defines']]],
+  ['xflux',['xflux',['../namespaceflux__vectors.html#a6bdbd84b51691f46db982feed1e34f24',1,'flux_vectors']]]
 ];

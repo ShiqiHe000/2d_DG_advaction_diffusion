@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>2D_DG_advaction_diffution: /home/shiqihe/Documents/amr/code/poisson/2d_advection_diffusion/2d_advection_diffusion_new/src/dg_riemann_solver.f90 File Reference</title>
+<title>2D_DG_advaction_diffution: /home/shiqihe/Documents/amr/code/poisson/2d_advection_diffusion/2d_advection_diffusion_new/src/dg_Lax_Friedrichs_flux.f90 File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,24 +66,20 @@ $(function() {
 <a href="#namespaces">Modules</a> &#124;
 <a href="#func-members">Functions/Subroutines</a>  </div>
   <div class="headertitle">
-<div class="title">dg_riemann_solver.f90 File Reference</div>  </div>
+<div class="title">dg_Lax_Friedrichs_flux.f90 File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Modules</h2></td></tr>
-<tr class="memitem:namespaceriemann__solver"><td class="memItemLeft" align="right" valign="top">module &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceriemann__solver.html">riemann_solver</a></td></tr>
-<tr class="memdesc:namespaceriemann__solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Riemann solver. Solve the numerical flux at the boundary. <br /></td></tr>
+<tr class="memitem:namespacelax__friedriches"><td class="memItemLeft" align="right" valign="top">module &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacelax__friedriches.html">lax_friedriches</a></td></tr>
+<tr class="memdesc:namespacelax__friedriches"><td class="mdescLeft">&#160;</td><td class="mdescRight">@ brief Lax-Friedrichs flux <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
-<tr class="memitem:a2d6e557eb79660952909e5fe54b3cbfe"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceriemann__solver.html#a2d6e557eb79660952909e5fe54b3cbfe">riemann_solver::riemann</a> (Q_L, Q_R, N_FLUX, UNIT_VECTOR, OUTWARD)</td></tr>
-<tr class="separator:a2d6e557eb79660952909e5fe54b3cbfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0b532626cde4882aed31dfb2c37903b"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceriemann__solver.html#ab0b532626cde4882aed31dfb2c37903b">riemann_solver::riemann_x</a> (Q_L, Q_R, N_FLUX, NORMAL)</td></tr>
-<tr class="separator:ab0b532626cde4882aed31dfb2c37903b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23809f34172df5e80f26b12e34afb8b1"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceriemann__solver.html#a23809f34172df5e80f26b12e34afb8b1">riemann_solver::riemann_y</a> (Q_L, Q_R, N_FLUX, NORMAL)</td></tr>
-<tr class="separator:a23809f34172df5e80f26b12e34afb8b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33157c1d955a1fb2c68666fb07cb81bf"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacelax__friedriches.html#a33157c1d955a1fb2c68666fb07cb81bf">lax_friedriches::lax_friedriches_flux</a> (Q_L, Q_R, N_FLUX, ALPHA, NORMAL)</td></tr>
+<tr class="separator:a33157c1d955a1fb2c68666fb07cb81bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

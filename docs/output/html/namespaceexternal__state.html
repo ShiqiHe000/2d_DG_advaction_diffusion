@@ -70,20 +70,24 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
-<tr class="memitem:a613769e0361d1dcd32e27c7d02397a86"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceexternal__state.html#a613769e0361d1dcd32e27c7d02397a86">get_external_state</a> (NUM_OF_EQUATION, ALPHA, BETA, Q_INT, Q_EXT)</td></tr>
-<tr class="separator:a613769e0361d1dcd32e27c7d02397a86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64941d2bff70203c4d15f8701b16f28e"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceexternal__state.html#a64941d2bff70203c4d15f8701b16f28e">external_state_gaussian_reflect</a> (NUM_OF_EQUATION, Q_INT, Q_EXT, UNIT_VECTOR)</td></tr>
+<tr class="separator:a64941d2bff70203c4d15f8701b16f28e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70623158d678d9e41caf3f20a5a8e280"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceexternal__state.html#a70623158d678d9e41caf3f20a5a8e280">external_state_gaussian_exact</a> (NUM_OF_EQUATION, Q_EXT, T, X, Y)</td></tr>
+<tr class="separator:a70623158d678d9e41caf3f20a5a8e280"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69a670150591f8ca0b090acf5ea2a63d"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceexternal__state.html#a69a670150591f8ca0b090acf5ea2a63d">external_sinu</a> (NUM_OF_EQUATION, Q_EXT, X, Y, T)</td></tr>
+<tr class="separator:a69a670150591f8ca0b090acf5ea2a63d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The external state reflects a wall/reflection boundary. The reflection boundary is the mirror image of the internal state. Meaning w- wave is created by reflecting the w+ wave at the boundary, i.e. w- = w+. The reflection implies that the normal velocity is zero. </p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
-<a id="a613769e0361d1dcd32e27c7d02397a86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a613769e0361d1dcd32e27c7d02397a86">&#9670;&nbsp;</a></span>get_external_state()</h2>
+<a id="a69a670150591f8ca0b090acf5ea2a63d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69a670150591f8ca0b090acf5ea2a63d">&#9670;&nbsp;</a></span>external_sinu()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">subroutine external_state::get_external_state </td>
+          <td class="memname">subroutine external_state::external_sinu </td>
           <td>(</td>
           <td class="paramtype">integer, intent(in)&#160;</td>
           <td class="paramname"><em>NUM_OF_EQUATION</em>, </td>
@@ -91,26 +95,26 @@ Functions/Subroutines</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double precision, intent(in)&#160;</td>
-          <td class="paramname"><em>ALPHA</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double precision, intent(in)&#160;</td>
-          <td class="paramname"><em>BETA</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">double precision, dimension(num_of_equation)&#160;</td>
-          <td class="paramname"><em>Q_INT</em>, </td>
+          <td class="paramname"><em>Q_EXT</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">double precision, dimension(num_of_equation)&#160;</td>
-          <td class="paramname"><em>Q_EXT</em>&#160;</td>
+          <td class="paramtype">double precision, intent(in)&#160;</td>
+          <td class="paramname"><em>X</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, intent(in)&#160;</td>
+          <td class="paramname"><em>Y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, intent(in)&#160;</td>
+          <td class="paramname"><em>T</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -122,9 +126,113 @@ Functions/Subroutines</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">num_of_equation</td><td>NUMBER OF EQUATION</td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">beta</td><td>TWO CONSTANT RELATED WITH WAVEVECTOR</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">q_ext</td><td>EXTERNAL STATES AT THE BOUNDARY</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">t</td><td>CURRENT TIME</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>COORDINATE ON THE BOUNDARY </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a70623158d678d9e41caf3f20a5a8e280"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70623158d678d9e41caf3f20a5a8e280">&#9670;&nbsp;</a></span>external_state_gaussian_exact()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine external_state::external_state_gaussian_exact </td>
+          <td>(</td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>NUM_OF_EQUATION</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(num_of_equation)&#160;</td>
+          <td class="paramname"><em>Q_EXT</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, intent(in)&#160;</td>
+          <td class="paramname"><em>T</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, intent(in)&#160;</td>
+          <td class="paramname"><em>X</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, intent(in)&#160;</td>
+          <td class="paramname"><em>Y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">num_of_equation</td><td>NUMBER OF EQUATION</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">q_ext</td><td>EXTERNAL STATES AT THE BOUNDARY</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">t</td><td>CURRENT TIME</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y</td><td>COORDINATE ON THE BOUNDARY </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a64941d2bff70203c4d15f8701b16f28e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a64941d2bff70203c4d15f8701b16f28e">&#9670;&nbsp;</a></span>external_state_gaussian_reflect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine external_state::external_state_gaussian_reflect </td>
+          <td>(</td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>NUM_OF_EQUATION</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(num_of_equation)&#160;</td>
+          <td class="paramname"><em>Q_INT</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(num_of_equation)&#160;</td>
+          <td class="paramname"><em>Q_EXT</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(2)&#160;</td>
+          <td class="paramname"><em>UNIT_VECTOR</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">num_of_equation</td><td>NUMBER OF EQUATION</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">q_int</td><td>INTERIOR SOLUTIONS ON THE BOUNDARY</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">q_ext</td><td>EXTERNAL STATES AT THE BOUNDARY </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">q_ext</td><td>EXTERNAL STATES AT THE BOUNDARY</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">unit_vector</td><td>BOUNDARY NORMAL UNIT VECTOR, DO NOT NEED TO CONSIDER POINTING TO OUTWARD </td></tr>
   </table>
   </dd>
 </dl>

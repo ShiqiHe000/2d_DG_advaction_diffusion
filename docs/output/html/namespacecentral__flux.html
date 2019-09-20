@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>2D_DG_advaction_diffution: /home/shiqihe/Documents/amr/code/poisson/2d_advection_diffusion/2d_advection_diffusion_new/src/dg_riemann_solver.f90 File Reference</title>
+<title>2D_DG_advaction_diffution: central_flux Module Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -56,35 +56,75 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
-</div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Modules</a> &#124;
 <a href="#func-members">Functions/Subroutines</a>  </div>
   <div class="headertitle">
-<div class="title">dg_riemann_solver.f90 File Reference</div>  </div>
+<div class="title">central_flux Module Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The central flux is the average of the solutions on the two side of the interface.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Modules</h2></td></tr>
-<tr class="memitem:namespaceriemann__solver"><td class="memItemLeft" align="right" valign="top">module &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceriemann__solver.html">riemann_solver</a></td></tr>
-<tr class="memdesc:namespaceriemann__solver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Riemann solver. Solve the numerical flux at the boundary. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
-<tr class="memitem:a2d6e557eb79660952909e5fe54b3cbfe"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceriemann__solver.html#a2d6e557eb79660952909e5fe54b3cbfe">riemann_solver::riemann</a> (Q_L, Q_R, N_FLUX, UNIT_VECTOR, OUTWARD)</td></tr>
-<tr class="separator:a2d6e557eb79660952909e5fe54b3cbfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0b532626cde4882aed31dfb2c37903b"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceriemann__solver.html#ab0b532626cde4882aed31dfb2c37903b">riemann_solver::riemann_x</a> (Q_L, Q_R, N_FLUX, NORMAL)</td></tr>
-<tr class="separator:ab0b532626cde4882aed31dfb2c37903b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23809f34172df5e80f26b12e34afb8b1"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceriemann__solver.html#a23809f34172df5e80f26b12e34afb8b1">riemann_solver::riemann_y</a> (Q_L, Q_R, N_FLUX, NORMAL)</td></tr>
-<tr class="separator:a23809f34172df5e80f26b12e34afb8b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb873c5e3abd842c0df58e42598a8040"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecentral__flux.html#aeb873c5e3abd842c0df58e42598a8040">central_numerical_flux</a> (Q_L, Q_R, N_FLUX, NORMAL)</td></tr>
+<tr class="separator:aeb873c5e3abd842c0df58e42598a8040"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The central flux is the average of the solutions on the two side of the interface. </p>
+</div><h2 class="groupheader">Function/Subroutine Documentation</h2>
+<a id="aeb873c5e3abd842c0df58e42598a8040"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb873c5e3abd842c0df58e42598a8040">&#9670;&nbsp;</a></span>central_numerical_flux()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine central_flux::central_numerical_flux </td>
+          <td>(</td>
+          <td class="paramtype">double precision, dimension(num_of_equation)&#160;</td>
+          <td class="paramname"><em>Q_L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(num_of_equation)&#160;</td>
+          <td class="paramname"><em>Q_R</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(num_of_equation)&#160;</td>
+          <td class="paramname"><em>N_FLUX</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision&#160;</td>
+          <td class="paramname"><em>NORMAL</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">q_l</td><td>SOLUTION AT LEFT</td></tr>
+    <tr><td class="paramname">q_r</td><td>SOLUTION AT RIGHT</td></tr>
+    <tr><td class="paramname">n_flux</td><td>NUMERICAL FLUX</td></tr>
+    <tr><td class="paramname">normal</td><td>NORMAL VECTOR, POINTING OUTWARDS OF THE BOUNDARY </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
