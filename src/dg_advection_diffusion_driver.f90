@@ -48,9 +48,9 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     !-------------------------------------------------------------------
     
     ! INITIALZIE SOLUTION-----------------------------------------------
-!    CALL INITIAL_CONDITION_GAUSSIAN(N, M, NUM_OF_EQUATION, SOLUTION, &
-!                                    GL_POINT_X, GL_POINT_Y)
-    CALL INITIAL_SINUSOIDAL(N, M, NUM_OF_EQUATION, SOLUTION, GL_POINT_X, GL_POINT_Y)
+    CALL INITIAL_CONDITION_GAUSSIAN(N, M, NUM_OF_EQUATION, SOLUTION, &
+                                    GL_POINT_X, GL_POINT_Y)
+!    CALL INITIAL_SINUSOIDAL(N, M, NUM_OF_EQUATION, SOLUTION, GL_POINT_X, GL_POINT_Y)
     !-------------------------------------------------------------------
 
     ! TIME MARCHES ON---------------------------------------------------

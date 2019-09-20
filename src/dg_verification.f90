@@ -41,9 +41,9 @@ SUBROUTINE GET_ERROR
     !-------------------------------------------------------------------
     
     ! GET EXACT SOLUTION------------------------------------------------
-!    CALL EXACT_SOLUTION_GAUSSIAN(N, M, NUM_OF_EQUATION, GL_POINT_X, &
-!                                    GL_POINT_Y, EXACT, T_TOTAL)
-    CALL SIN_EXACT(N, M, NUM_OF_EQUATION, GL_POINT_X, GL_POINT_Y, EXACT, T_TOTAL)
+    CALL EXACT_SOLUTION_GAUSSIAN(N, M, NUM_OF_EQUATION, GL_POINT_X, &
+                                    GL_POINT_Y, EXACT, T_TOTAL)
+!    CALL SIN_EXACT(N, M, NUM_OF_EQUATION, GL_POINT_X, GL_POINT_Y, EXACT, T_TOTAL)
     !-------------------------------------------------------------------
     
     ! COMPUET ERROR-----------------------------------------------------
@@ -67,7 +67,7 @@ SUBROUTINE GET_ERROR
     CALL WRITE_RESULTS(N, M, EXACT(:, :, 2), SOLUTION(:, :, 2))
     
 !    print *, maxval(ERROR(:, 0, 2))
-    print *, L2_NORM(2) 
+    print *, "ERROR", L2_NORM(2) 
     
 END SUBROUTINE GET_ERROR
 

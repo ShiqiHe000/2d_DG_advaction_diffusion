@@ -13,8 +13,8 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! SET POLYNOMIAL ORDER----------------------------------------------
-    INTEGER :: N = 14    !< POLYNOMIAL DEGREE IN X DIRECTION
-    INTEGER :: M = 10    !< POLYNOMIAL DEGREE IN Y DIRECTION
+    INTEGER :: N = 20    !< POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: M = 20    !< POLYNOMIAL DEGREE IN Y DIRECTION
     INTEGER :: MNMAX = 12   !< MAXIMUM POLYNOMIAL DEGREE
     !-------------------------------------------------------------------
     
@@ -29,12 +29,10 @@ MODULE PARAM
     !-------------------------------------------------------------------
     DOUBLE PRECISION :: K_X = DSQRT(2.0D0)/2.0D0    !< WAVE VECTOR IN X DIRECTION
     DOUBLE PRECISION :: K_Y = DSQRT(2.0D0)/2.0D0    !< WAVE VECTOR IN Y DIRECTION
-!    DOUBLE PRECISION :: K_X = 1.0D0    !< WAVE VECTOR IN X DIRECTION
-!    DOUBLE PRECISION :: K_Y = 1.0D0    !< WAVE VECTOR IN Y DIRECTION
     !-------------------------------------------------------------------
     
     ! TIME--------------------------------------------------------------
-!    DOUBLE PRECISION :: T_TOTAL = (2.6d-3)     !< TOTAL TIME INTEGRAL
+!    DOUBLE PRECISION :: T_TOTAL = (2.0e-3)     !< TOTAL TIME INTEGRAL
 !    INTEGER :: NT = 1                    !< TIME STEP NUMBER
     DOUBLE PRECISION :: T_TOTAL = 2.0D0     !< TOTAL TIME INTEGRAL
     INTEGER :: NT = 10000                   !< TIME STEP NUMBER

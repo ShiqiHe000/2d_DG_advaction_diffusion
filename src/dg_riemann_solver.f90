@@ -94,8 +94,8 @@ SUBROUTINE RIEMANN_Y(Q_L, Q_R, N_FLUX, NORMAL)
     P_L = Q_L(1); U_L = Q_L(2); V_L = Q_L(3);
     P_R = Q_R(1); U_R = Q_R(2); V_R = Q_R(3);
     
-    W_L = (P_L + C * U_L) / 2.0D0
-    W_R = (P_R - C * U_R) / 2.0D0
+    W_L = (P_L + C * V_L) / 2.0D0
+    W_R = (P_R - C * V_R) / 2.0D0
     
     N_FLUX(1) = C * (W_L - W_R) * NORMAL
     N_FLUX(2) = 0.0D0

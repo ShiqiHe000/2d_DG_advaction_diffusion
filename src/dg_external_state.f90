@@ -42,7 +42,7 @@ END SUBROUTINE EXTERNAL_STATE_GAUSSIAN_REFLECT
 
 SUBROUTINE EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, Q_EXT, T, X, Y)
 !-----------------------------------------------------------------------
-! IMPLIMENT EXACT SOLUTION ON THE 4 SIDES OF THE BOUNDARIES
+! IMPLEMENT EXACT SOLUTION ON THE 4 SIDES OF THE BOUNDARIES
 !-----------------------------------------------------------------------
     IMPLICIT NONE
     
