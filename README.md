@@ -49,6 +49,9 @@ Where,
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\left&space;\|&space;q&space;\right&space;\|&space;=&space;q^L\cdot&space;n^-&plus;q^R\cdot&space;n^&plus;&space;=&space;q^L-q^R" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\left&space;\|&space;q&space;\right&space;\|&space;=&space;q^L\cdot&space;n^-&plus;q^R\cdot&space;n^&plus;&space;=&space;q^L-q^R" title="\left \| q \right \| = q^L\cdot n^-+q^R\cdot n^+ = q^L-q^R" /></a>
 
+## Performance
+![2d_advection_error](pics/2d_Gaussian_wave.png)
+
 ## Test case: 1D wave equation
 ### Governing equation
 <a href="https://www.codecogs.com/eqnedit.php?latex=p_{tt}&plus;c^2p_{xx}=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_{tt}&plus;c^2p_{xx}=0" title="p_{tt}+c^2p_{xx}=0" /></a>
