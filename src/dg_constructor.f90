@@ -30,9 +30,9 @@ SUBROUTINE CONSTRUCT_BASIS
     !-------------------------------------------------------------------
     
     !-------------------------------------------------------------------
-    CALL GET_NODAL_2D_STORGAE_BASIS
+    CALL GET_NODAL_2D_STORAGE_BASIS
     
-    CALL GET_NODAL_2D_STORGAE_EXTENDS
+    CALL GET_NODAL_2D_STORAGE_EXTENDS
     !-------------------------------------------------------------------
     
     ! MODIFY THE FIRST ORDER DERIVATIVE ATRICES-------------------------
