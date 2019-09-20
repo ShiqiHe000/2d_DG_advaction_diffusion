@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['n',['n',['../namespaceparam.html#a94879b2aae97e8439642bb7780fed987',1,'param']]],
-  ['nt',['nt',['../namespaceparam.html#a165e97a6861882fa3aaba3c90b5e0a47',1,'param']]],
-  ['num_5fof_5fequation',['num_of_equation',['../namespaceparam.html#a2c92fcdd6bb2ebc2c31fabee85bba0a5',1,'param']]],
-  ['num_5fproc',['num_proc',['../namespaceparam.html#a6d9d416b210c5f1d3429ed956f681355',1,'param']]]
+  ['gl_5fpoint_5fx',['gl_point_x',['../namespacenodal__2d__storage.html#acbac3675ee253811b2a3cf8e895d069b',1,'nodal_2d_storage']]],
+  ['gl_5fpoint_5fy',['gl_point_y',['../namespacenodal__2d__storage.html#ac8c8aec94dd7f9e3c488fe52e8eca645',1,'nodal_2d_storage']]],
+  ['gl_5fw_5fx',['gl_w_x',['../namespacenodal__2d__storage.html#a8f14ffa9c12880c637e13cd5eb62e477',1,'nodal_2d_storage']]],
+  ['gl_5fw_5fy',['gl_w_y',['../namespacenodal__2d__storage.html#a8cb3cd1ebd38dbebe21a96b79356b811',1,'nodal_2d_storage']]]
 ];

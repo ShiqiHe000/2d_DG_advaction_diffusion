@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['matrix_5fvector_5fderivative',['matrix_vector_derivative',['../namespacebasis.html#ac7d91d76a385aac8ae4831499654d3e9',1,'basis']]],
-  ['mth_5forder_5fpolynomial_5fderivative_5fmatrix',['mth_order_polynomial_derivative_matrix',['../namespacebasis.html#ab07c0a05884dc69e5d120f9e8849b3d7',1,'basis']]]
+  ['exact_5fsolution_5fgaussian',['exact_solution_gaussian',['../namespaceuser__defines.html#a7da71cc598dcc51f421cfabd53a7c635',1,'user_defines']]],
+  ['external_5fsinu',['external_sinu',['../namespaceexternal__state.html#a69a670150591f8ca0b090acf5ea2a63d',1,'external_state']]],
+  ['external_5fstate_5fgaussian_5fexact',['external_state_gaussian_exact',['../namespaceexternal__state.html#a70623158d678d9e41caf3f20a5a8e280',1,'external_state']]],
+  ['external_5fstate_5fgaussian_5freflect',['external_state_gaussian_reflect',['../namespaceexternal__state.html#a64941d2bff70203c4d15f8701b16f28e',1,'external_state']]]
 ];

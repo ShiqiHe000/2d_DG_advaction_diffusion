@@ -16,15 +16,25 @@ OPT = -O3
 OG = -Og
 DEBUG = -g -fcheck=all -fimplicit-none -fbacktrace -pedantic -Wall
 
-SRC =  param.f90 \
-       mpi.f90 \
-       basis.f90 \
-       mesh.f90 \
-       graph_partition.f90 \
-       write_fields.f90 \
-       user_defined.f90 \
-       DG_wave.f90 \
-       main_loop.f90 
+SRC =  dg_param.f90 \
+       dg_mpi.f90 \
+       dg_basis.f90 \
+       dg_nodal_2d_storage.f90 \
+       dg_constructor.f90 \
+       dg_spatial_derivative.f90 \
+       dg_riemann_solver.f90 \
+       dg_central_flux.f90 \
+       dg_Lax_Friedrichs_flux.f90 \
+       dg_flux_vector.f90 \
+       dg_user_defined.f90 \
+       dg_external_state.f90 \
+       dg_time_derivative.f90 \
+       dg_step_by_RK3.f90 \
+       dg_advection_diffusion_driver.f90 \
+       dg_write_data.f90 \
+       dg_verification.f90 \
+       dg_end_games.f90 \
+       dg_main_loop.f90
 
 #SOURCE = $(wildcard $(DIR)/$(makefile formatSRCDIR)/$(SRC))
 #SOURCE  = $(DIR)/$(SRCDIR)
@@ -35,10 +45,10 @@ OBJ = $(addprefix $(DIR)/$(OBJDIR)/, $(notdir $(SRC:.f90=.o)))
 
 $(DIR)/$(OBJDIR)/$(TGT) : $(OBJ)
 #	$(FC) $(MOD) -o $@ $^
-	$(FC) $(Og) $(WALL) $(MOD) -o $(TGT) $^
+	$(FC) $(OPT) $(WALL) $(MOD) -o $(TGT) $^
  
 $(DIR)/$(OBJDIR)/%.o : $(DIR)/$(SRCDIR)/%.f90
-	$(FC) $(Og) $(WALL) $(MOD) -c $< -o $@
+	$(FC) $(OPT) $(WALL) $(MOD) -c $< -o $@
 
 
 
@@ -53,6 +63,9 @@ all : $(DIR)/$(OBJDIR)/$(TGT)
 run : $(TGT)
 	mpirun -np 1 $(TGT)
 
+drun : $(TGT)
+	mpirun -np 1 xterm -e gdb $(TGT)
+
 help : 
 	@echo "source : $(SOURCE)"
 	@echo "src : $(SRC)"
@@ -60,7 +73,7 @@ help :
 
 
 debug : 
-	make "OPT = DEBUG"
+	make "OPT = -g -fcheck=all -fimplicit-none -fbacktrace -pedantic -Wall"
 
 clean :
 	rm -rf $(OBJ) 

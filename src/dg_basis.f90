@@ -21,7 +21,7 @@ SUBROUTINE MATRIX_VECTOR_DERIVATIVE(N, D, F, DER1)
     DOUBLE PRECISION :: D(0:N, 0:N) !< DERVATIVE MATRIX
     DOUBLE PRECISION :: F(0:N)  !< VECTOR
     DOUBLE PRECISION :: T   !< INTERMIDIATE VARIABLE
-    DOUBLE PRECISION :: DER1(0:N)
+    DOUBLE PRECISION :: DER1(0:N) !< THE DERIVATIVE OF THE INTEPOLATE
     
     !-------------------------------------------------------------------
     DO I=0, N
@@ -35,6 +35,7 @@ SUBROUTINE MATRIX_VECTOR_DERIVATIVE(N, D, F, DER1)
         
     ENDDO
     !-------------------------------------------------------------------
+    
     
     
 END SUBROUTINE MATRIX_VECTOR_DERIVATIVE
@@ -81,7 +82,7 @@ SUBROUTINE LEGENDRE_POLYNOMIAL_AND_DERIVATIVE(N,X,Q,DQ)
 
 END SUBROUTINE LEGENDRE_POLYNOMIAL_AND_DERIVATIVE
 
-SUBROUTINE GL(N, GL_POINR, GL_W)
+SUBROUTINE GL(N, GL_POINT, GL_W)
 !----------------------------------------------------------------------
 !> @brief
 !> COMPUTE THE GAUSS LEGENDRE NODES AND WEIGHTS
@@ -102,7 +103,7 @@ SUBROUTINE GL(N, GL_POINR, GL_W)
     TOL = 4.0D0*EPSILON(1.0D0)
     Q = 0.0D0
     DQ = 0.0D0
-    
+
     IF(N==0)THEN
         GL_POINT(0)=0.0D0
         GL_W(0)=2.0D0
@@ -290,7 +291,7 @@ SUBROUTINE LAGRANGE_INTERPOLATING_POLYNOMIAL(N, POINT_X, X, BARY, LAGRANGE)
 ! INPUT : GL_POINTS AND BARYCENTRIC WEIGHTS
 ! ALGORITHM 34
 !----------------------------------------------------------------------
-    
+     
     IMPLICIT NONE
     
     INTEGER :: N    !< PLOY ORDER
@@ -392,6 +393,33 @@ SUBROUTINE mth_Order_Polynomial_Derivative_Matrix(N,MTH_DER, X, DER)
 
 
 END SUBROUTINE mth_Order_Polynomial_Derivative_Matrix
+
+SUBROUTINE INTERPOLATE_TO_BOUNDARY(N, Q, LAG, INTER)
+!-----------------------------------------------------------------------
+! ALGORITHEM 61
+!> @brief
+!> INTERPOLATE THE SOLUTION ARRAY TO THE BOUNDARY USING LAGRANGE
+!! INTERPOLATING POLYNOMIAL
+!-----------------------------------------------------------------------
+
+    IMPLICIT NONE
+    
+    INTEGER, INTENT(IN) :: N
+    INTEGER :: J
+    
+    DOUBLE PRECISION, INTENT(IN) :: Q(0:N)  !< SOLUTION ARRAY
+    DOUBLE PRECISION :: LAG(0:N)    !< LAGRANGE INTERPOLATING POLYNOMIAL
+    
+    DOUBLE PRECISION :: INTER   !< INTERPOLATE VALUE
+    
+    INTER = 0.0D0
+    
+    DO J=0, N
+        INTER = INTER + LAG(J) * Q(J)
+    
+    ENDDO
+
+END SUBROUTINE INTERPOLATE_TO_BOUNDARY
 
 
 SUBROUTINE ALMOSTEQUAL(FLAG,A,B)
