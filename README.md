@@ -29,6 +29,26 @@ Or:
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\overrightarrow{q}_t&space;&plus;&space;B&space;\overrightarrow{q}_x&space;&plus;&space;C&space;\overrightarrow{q}_y=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overrightarrow{q}_t&space;&plus;&space;B&space;\overrightarrow{q}_x&space;&plus;&space;C&space;\overrightarrow{q}_y=0" title="\overrightarrow{q}_t + B \overrightarrow{q}_x + C \overrightarrow{q}_y=0" /></a>
 
+## Numerical flux
+We intent to use upwind flux. Which is the upwind side is determined by the sign of the wave speed. Positive wave speed(with respect to x direction) means that the boundary condition is forced on the left. Luckly, the systerm describes the wave equation couples three wave speeds, positive, negative, and zero, with respect to the direction vector <a href="https://www.codecogs.com/eqnedit.php?latex=n_x\widehat{x}&plus;n_y\widehat{y}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?n_x\widehat{x}&plus;n_y\widehat{y}" title="n_x\widehat{x}+n_y\widehat{y}" /></a>. By decoupling the wave components into right going, left going and stationary waves, the outgoing waves are approximated by the interior solution(upwind), and the incoming waves are specified from the external state(also upwind). The derivation of the boundary fluxes is known as **_Riemann problem_**
+
+**Numerical flux** is computed from the internal and external states(with the designation determined relative to the normal at the boundary) as:
+<a href="https://www.codecogs.com/eqnedit.php?latex=\overrightarrow{F^*}(Q^L,&space;Q^R;&space;\widehat{n})=A^&plus;Q^L&plus;A^-Q^R" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overrightarrow{F^*}(Q^L,&space;Q^R;&space;\widehat{n})=A^&plus;Q^L&plus;A^-Q^R" title="\overrightarrow{F^*}(Q^L, Q^R; \widehat{n})=A^+Q^L+A^-Q^R" /></a>
+
+One would be able to derive the numerical flux either by diagonlizing the coefficient matrix A, or by using **_Rankine-Hugonist Condition_**, which yields to:
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\widehat{A}\overrightarrow{q^*}=\widehat{A}\left&space;\{&space;\left&space;\{&space;q&space;\right&space;\}&space;\right&space;\}&plus;\frac{1}{2}\left&space;|&space;\widehat{A}&space;\right&space;|\left&space;\|&space;q&space;\right&space;\|" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\widehat{A}\overrightarrow{q^*}=\widehat{A}\left&space;\{&space;\left&space;\{&space;q&space;\right&space;\}&space;\right&space;\}&plus;\frac{1}{2}\left&space;|&space;\widehat{A}&space;\right&space;|\left&space;\|&space;q&space;\right&space;\|" title="\widehat{A}\overrightarrow{q^*}=\widehat{A}\left \{ \left \{ q \right \} \right \}+\frac{1}{2}\left | \widehat{A} \right |\left \| q \right \|" /></a>
+
+Where,
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\widehat{A}=\widehat{n_x}A_x&plus;\widehat{n_y}A_y" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\widehat{A}=\widehat{n_x}A_x&plus;\widehat{n_y}A_y" title="\widehat{A}=\widehat{n_x}A_x+\widehat{n_y}A_y" /></a>
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\left&space;|&space;\widehat{A}&space;\right&space;|&space;=&space;S\left&space;|&space;\Lambda&space;\right&space;|S^{-1}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\left&space;|&space;\widehat{A}&space;\right&space;|&space;=&space;S\left&space;|&space;\Lambda&space;\right&space;|S^{-1}" title="\left | \widehat{A} \right | = S\left | \Lambda \right |S^{-1}" /></a>
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\left&space;\{&space;\left&space;\{&space;q&space;\right&space;\}&space;\right&space;\}&space;=&space;\frac{q^L&space;&plus;&space;q^R}{2}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\left&space;\{&space;\left&space;\{&space;q&space;\right&space;\}&space;\right&space;\}&space;=&space;\frac{q^L&space;&plus;&space;q^R}{2}" title="\left \{ \left \{ q \right \} \right \} = \frac{q^L + q^R}{2}" /></a>
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\left&space;\|&space;q&space;\right&space;\|&space;=&space;q^L\cdot&space;n^-&plus;q^R\cdot&space;n^&plus;&space;=&space;q^L-q^R" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\left&space;\|&space;q&space;\right&space;\|&space;=&space;q^L\cdot&space;n^-&plus;q^R\cdot&space;n^&plus;&space;=&space;q^L-q^R" title="\left \| q \right \| = q^L\cdot n^-+q^R\cdot n^+ = q^L-q^R" /></a>
+
 ## Test case: 1D wave equation
 ### Governing equation
 <a href="https://www.codecogs.com/eqnedit.php?latex=p_{tt}&plus;c^2p_{xx}=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_{tt}&plus;c^2p_{xx}=0" title="p_{tt}+c^2p_{xx}=0" /></a>
