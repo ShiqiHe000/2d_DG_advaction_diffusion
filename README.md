@@ -92,6 +92,7 @@ In this case the Lax-Friedrichs flux yelds to
 
 ### Test case Performance
 ![1d_advection_error](pics/1d_advection_error.png)
+![1d_two_elements](pics/1d_2elem.png)
 
 ## Documentation from the source code
 [Source code documentation]( https://shiqihe000.github.io/2d_DG_advaction_diffusion/output/html/index.html)
