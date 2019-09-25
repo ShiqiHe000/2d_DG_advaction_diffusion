@@ -24,6 +24,9 @@ MODULE PARAM
     DOUBLE PRECISION :: GX_L = 1.0D0     !< LEFT DOMAIN BOUNDARY
     DOUBLE PRECISION :: GX_R = 2.0D0     !< LEFT DOMAIN BOUNDARY
     
+    DOUBLE PRECISION :: GY_L = 1.0D0     !< LEFT DOMAIN BOUNDARY
+    DOUBLE PRECISION :: GY_R = 2.0D0     !< LEFT DOMAIN BOUNDARY
+    
 !    DOUBLE PRECISION :: GX_L = -1.0D0     !< LEFT DOMAIN BOUNDARY
 !    DOUBLE PRECISION :: GX_R =  1.0D0     !< LEFT DOMAIN BOUNDARY
     !-------------------------------------------------------------------
