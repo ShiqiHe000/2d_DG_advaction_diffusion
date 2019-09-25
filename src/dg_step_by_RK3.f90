@@ -2,6 +2,7 @@
 !> @brief
 !> The integration in time by using low storage third order Runge-Kutta. 
 !! The 3rd order Runge-Kutta methond is an explicit time time integration 
+!!The 3rd order Runge-Kutta methond is an explicit time time integration 
 !! method. So there is a time step limitation, which depends on the
 !! eigenvalues of the derivative matrix. 
 !-----------------------------------------------------------------------
