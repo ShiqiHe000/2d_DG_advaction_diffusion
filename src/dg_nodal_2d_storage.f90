@@ -12,6 +12,10 @@ USE BASIS
 
 IMPLICIT NONE
 
+INTEGER :: NUM_OF_ELEMENT   !< TOTAL NUMBER OF ELEMENT
+
+INTEGER, ALLOCATABLE, DIMENSION(:, :) ::    ELEM_POINTER 
+
 DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:) :: GL_POINT_X   !< GL POINTS IN X DIRECTION
 DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:) :: GL_POINT_Y   !< GL POINTS IN Y DIRECTION
 DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:) :: GL_W_X       !< GL WEIGHTS IN X DIRECTION
@@ -75,11 +79,6 @@ SUBROUTINE GET_NODAL_2D_STORAGE_BASIS
     CALL mth_Order_Polynomial_Derivative_Matrix(N, 1, GL_POINT_X, FIRST_DER_X)
     CALL mth_Order_Polynomial_Derivative_Matrix(M, 1, GL_POINT_Y, FIRST_DER_Y)
     !-------------------------------------------------------------------
-    
-    
-!    PRINT *, GL_POINT_X
-!    PRINT *, GL_W_Y
-!    print *, FIRST_DER_X
 
 
 END SUBROUTINE GET_NODAL_2D_STORAGE_BASIS
@@ -116,8 +115,7 @@ SUBROUTINE GET_NODAL_2D_STORAGE_EXTENDS
     !-------------------------------------------------------------------
     DEALLOCATE(BARY_X, BARY_Y)
     !-------------------------------------------------------------------
-    
-!    PRINT *, LAGRANGE_LEFT
+
     
 END SUBROUTINE GET_NODAL_2D_STORAGE_EXTENDS
 

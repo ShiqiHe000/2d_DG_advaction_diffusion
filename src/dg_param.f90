@@ -32,7 +32,8 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! NUMBER OF ELEMENT-------------------------------------------------
-    INTEGER :: NUM_OF_ELEMENT = 10       !< NUMBER OF ELEMENT
+    INTEGER :: NUM_OF_ELEMENT_X = 10       !< NUMBER OF ELEMENT IN X DIRECTION
+    INTEGER :: NUM_OF_ELEMENT_Y = 10       !< NUMBER OF ELEMENT IN Y DIRECTION
     !-------------------------------------------------------------------
     
     !< WAVE SPEED ------------------------------------------------------
