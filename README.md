@@ -59,6 +59,7 @@ Where,
 With <a href="https://www.codecogs.com/eqnedit.php?latex=u_t&space;=&space;-&space;p_x" target="_blank"><img src="https://latex.codecogs.com/gif.latex?u_t&space;=&space;-&space;p_x" title="u_t = - p_x" /></a>
 
 The solution is:
+
 <a href="https://www.codecogs.com/eqnedit.php?latex=p&space;=&space;ccos(x-ct)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p&space;=&space;ccos(x-ct)" title="p = ccos(x-ct)" /></a>
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=u&space;=&space;cos(x-ct)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?u&space;=&space;cos(x-ct)" title="u = cos(x-ct)" /></a>
@@ -66,6 +67,14 @@ The solution is:
 We can write the system in conservation law form
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\overrightarrow{q_t}&plus;\bigtriangledown&space;\cdot&space;\overrightarrow{F}=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\overrightarrow{q_t}&plus;\bigtriangledown&space;\cdot&space;\overrightarrow{F}=0" title="\overrightarrow{q_t}+\bigtriangledown \cdot \overrightarrow{F}=0" /></a>
+
+With proper initial conditions,
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=p_t&plus;c^2u_x=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?p_t&plus;c^2u_x=0" title="p_t+c^2u_x=0" /></a>
+
+Then we obtain the system of equations by grouping the equations for the pressure and velocity:
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\begin{bmatrix}&space;p\\&space;u&space;\end{bmatrix}_t&space;&plus;&space;\begin{bmatrix}&space;0&space;&&space;c^2\\&space;1&space;&&space;0&space;\end{bmatrix}&space;\begin{bmatrix}&space;p\\&space;u&space;\end{bmatrix}_x&space;=0" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\begin{bmatrix}&space;p\\&space;u&space;\end{bmatrix}_t&space;&plus;&space;\begin{bmatrix}&space;0&space;&&space;c^2\\&space;1&space;&&space;0&space;\end{bmatrix}&space;\begin{bmatrix}&space;p\\&space;u&space;\end{bmatrix}_x&space;=0" title="\begin{bmatrix} p\\ u \end{bmatrix}_t + \begin{bmatrix} 0 & c^2\\ 1 & 0 \end{bmatrix} \begin{bmatrix} p\\ u \end{bmatrix}_x =0" /></a>
 
 ### Boundary condition
 Exact solution is imposed on both side of the boundaries.
