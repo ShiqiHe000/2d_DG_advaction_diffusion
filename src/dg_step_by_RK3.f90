@@ -54,8 +54,8 @@ SUBROUTINE DG_STEP_BY_RK3(TN, DELTA_T)
         DO L=1, NUM_OF_EQUATION
             DO J=0,M
                 DO I=0, N
-                        G(I, J, L) = AM(K)*G(I, J, L) + SOLUTION_TIME_DER(I, J, L)
-                        SOLUTION(I, J, L) = SOLUTION(I, J, L) + GM(K)*DELTA_T*G(I, J, L)
+                    G(I, J, L) = AM(K)*G(I, J, L) + SOLUTION_TIME_DER(I, J, L)
+                    SOLUTION(I, J, L) = SOLUTION(I, J, L) + GM(K)*DELTA_T*G(I, J, L)
                 ENDDO
             ENDDO
         ENDDO
