@@ -13,7 +13,6 @@ USE PARAM, ONLY: N, M, T_TOTAL, NT, NUM_OF_EQUATION
 USE DG_2D_CONSTRUCTOR
 USE TIME_STEP_BY_RK
 USE USER_DEFINES
-USE GLOBAL_MESH
 
 IMPLICIT NONE
 
@@ -32,7 +31,7 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     DOUBLE PRECISION :: TN          !< CURRENT TIME
     
     ! CONSTRUCT DG BASIS------------------------------------------------
-    CALL GLOBAL_MESH_CONSTRUCT    ! NOW WE DG BASIS, ELEMENT_POINTERS
+    CALL CONSTRUCT_BASIS    ! NOW WE HAVE GL POINTS, WEIGHTS, M_FIRST DERIVATIVE MATRICES
     !-------------------------------------------------------------------
     
     ! TIME STEP---------------------------------------------------------
