@@ -20,6 +20,7 @@ SRC =  dg_param.f90 \
        dg_mpi.f90 \
        dg_basis.f90 \
        dg_nodal_2d_storage.f90 \
+       dg_read_mesh_2d.f90 \
        dg_constructor.f90 \
        dg_spatial_derivative.f90 \
        dg_riemann_solver.f90 \
