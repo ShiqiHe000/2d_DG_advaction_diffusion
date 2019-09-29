@@ -1,5 +1,8 @@
 # 2d_DG_advaction_diffusion
 
+## Detailed documentation
+A detailed documentation an be found at [https://2d-advection.readthedocs.io/en/latest/]
+
 ## Approximation of wave equation
 The basic model of wave propgation is the wave equation. The wave equation is:
 
