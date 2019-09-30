@@ -9,6 +9,7 @@ USE MPI
 USE NODAL_2D_STORAGE
 USE hilbert
 USE PARAM, ONLY: EXP_X 
+USE WRITE_DATA
 
 IMPLICIT NONE
 
@@ -31,9 +32,12 @@ SUBROUTINE HIBERT_SORT_2D
     
     !-------------------------------------------------------------------
     DO K=1, NUM_OF_ELEMENT
+!    DO K=1, 1
     
         I = DUAL_COORD(1, K)
         J = DUAL_COORD(2, K)
+        
+!        print *, I, J
         
         CALL xy2d ( EXP_X, I, J, D )
         
@@ -47,6 +51,8 @@ SUBROUTINE HIBERT_SORT_2D
     DEALLOCATE(ELEM_X_POSITION, ELEM_Y_POSITION)
     DEALLOCATE(DUAL_COORD)
     !-------------------------------------------------------------------
+    
+    call WRITE_VISUAL(NUM_OF_ELEMENT, X_HILBERT, Y_HILBERT)
 
 END SUBROUTINE HIBERT_SORT_2D
 
