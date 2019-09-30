@@ -19,6 +19,7 @@ DEBUG = -g -fcheck=all -fimplicit-none -fbacktrace -pedantic -Wall
 SRC =  dg_param.f90 \
        dg_mpi.f90 \
        dg_basis.f90 \
+       dg_hilbert_curve.f90 \
        dg_nodal_2d_storage.f90 \
        dg_get_dual_coord.f90 \
        dg_gen_dual_graph.f90 \
