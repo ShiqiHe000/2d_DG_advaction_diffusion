@@ -92,6 +92,7 @@ SUBROUTINE WRITE_VISUAL(NEL_TOTAL, X_GLOBAL, Y_GLOBAL)
             ELEM = ELEM+1
             
             WRITE(4, 40) X_GLOBAL(1, IEL), Y_GLOBAL(1, IEL)
+            WRITE(4, 40) X_GLOBAL(2, IEL), Y_GLOBAL(2, IEL)
             WRITE(4, 40) X_GLOBAL(4, IEL), Y_GLOBAL(4, IEL)
             WRITE(4, 40) X_GLOBAL(3, IEL), Y_GLOBAL(3, IEL)
             
