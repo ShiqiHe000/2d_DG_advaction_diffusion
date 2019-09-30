@@ -190,16 +190,11 @@ SUBROUTINE SORT_NODE_ORDERING(TOTAL_NODE, TOTAL_QUAD, &
     !-------------------------------------------------------------------
     
     DO K=1, TOTAL_QUAD
-!    DO K=2, 2
         CALL GET_STANDARD(NODE_XY(:, QUAD_NODE(1, K)), &
                           NODE_XY(:, QUAD_NODE(3, K)), &
                           X_MAX, X_MIN, Y_MAX, Y_MIN)
                           
-!        PRINT *, X_MAX , X_MIN, Y_MAX , Y_MIN
-                          
-        
         DO I=1, 4
-!        DO I=2,2
             CALL GET_SCORES(X_MAX, Y_MAX, &
                             NODE_XY(:, QUAD_NODE(I, K)), &
                             SCORE, X_SCORES, Y_SCORES)
