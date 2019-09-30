@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['initial_5fcondition_5fgaussian',['initial_condition_gaussian',['../namespaceuser__defines.html#a551bf87c8cc1c98c30f90f097f164f37',1,'user_defines']]],
-  ['initial_5fsinusoidal',['initial_sinusoidal',['../namespaceuser__defines.html#ac1c683029912ef531329ae26956a057c',1,'user_defines']]],
-  ['interpolate_5fto_5fboundary',['interpolate_to_boundary',['../namespacebasis.html#a45cb87ce2e5526511dcf2acf36b9955a',1,'basis']]]
+  ['hibert_5fsort_5f2d',['hibert_sort_2d',['../namespacehilbert__sort.html#af9e4f7976e23d9195829706b6c5ff63d',1,'hilbert_sort']]],
+  ['hilbert_5fnumbering',['hilbert_numbering',['../namespaceprepare__hilbert__scheme.html#ab3a68c56f106397e15575d00e44b35c9',1,'prepare_hilbert_scheme']]]
 ];
