@@ -14,6 +14,8 @@ USE DG_2D_CONSTRUCTOR
 USE TIME_STEP_BY_RK
 USE USER_DEFINES
 USE READ_MESH
+USE GEN_DUAL_GRAPH
+
 
 IMPLICIT NONE
 
@@ -33,6 +35,10 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     
     ! READ MESH FILE----------------------------------------------------
     CALL READ_MESH_2D
+    !-------------------------------------------------------------------
+    
+    ! GENERATE DUAL GRAPH-----------------------------------------------
+    CALL GEN_DUAL_GRAPH_2D
     !-------------------------------------------------------------------
     
     ! CONSTRUCT DG BASIS------------------------------------------------
