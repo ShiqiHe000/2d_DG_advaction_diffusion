@@ -21,7 +21,7 @@ SRC =  dg_param.f90 \
        dg_basis.f90 \
        dg_nodal_2d_storage.f90 \
        dg_get_dual_coord.f90 \
-       dg_get_dual_graph.f90 \
+       dg_gen_dual_graph.f90 \
        dg_write_data.f90 \
        dg_read_mesh_2d.f90 \
        dg_constructor.f90 \
