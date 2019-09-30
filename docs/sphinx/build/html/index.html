@@ -43,7 +43,8 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Chapter1" href="chapter1.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,15 +88,11 @@
               
             
             
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Discontinuous Galerkin Method</a><ul>
-<li><a class="reference internal" href="#approximating-wave-propagation">Approximating Wave Propagation</a></li>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapter1.html">Chapter1</a></li>
 </ul>
-</li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
-</ul>
-</div>
+
             
           
         </div>
@@ -165,9 +162,15 @@
 <p>Motivation:</p>
 <p>When solving a partial diferencial equation numerically, one has quite a number of difference methods of doing so. Three most widely used numerical methods are finite difference (FDM), finite volume (FVM) and finite element method (FEM). They are different techniques to discerert spatial derivatives. And combine them with an time integration method of an ordinary differential equation, we are able to advance the equation in time.</p>
 <p>Finite difference method, though it is simple and intuitive, it has the weakness to handle local one-dimensional polynomial. Moreover, when discontinuous interal layers (e.g., discontinuous material coefficients) are involved, or complicated geometric is needed, the method becomes ill-suited. If we want to combine the geometric flexibility (finite volume) and high-order accuracy (finite element) , Discontinuous Galerkin method is one of your ideal choice.</p>
+<img alt="_images/Legendre_polynomial.png" src="_images/Legendre_polynomial.png" />
 <p>Discontinuous Galerkin, or DG, overcomes the limitation on achieving high-order accuracy on general grids, compared with FVM. Whereas DG’s structure is quite similar to FEM, it’s mass matrix is local rather than global, thus, it is less costly to invert that. Additionally, the numerical flux is designed to reflect the underlying dynamics, one has more choices than FEM to ensure the stability for wave dominated problem.</p>
 <p>Here, we present a 2D DG solver for a classic wave propagation problem.</p>
+<p>Contents:</p>
 <div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="chapter1.html">Chapter1</a></li>
+</ul>
 </div>
 </div>
 </div>
@@ -185,6 +188,13 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="chapter1.html" class="btn btn-neutral float-right" title="Chapter1" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
   
 
   <hr/>

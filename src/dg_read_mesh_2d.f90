@@ -129,8 +129,8 @@ SUBROUTINE READ_MESH_2D
         ENDDO
         !---------------------------------------------------------------
         
-!        CALL SORT_NODE_ORDERING(NUM_OF_ELEMENT, TOTAL_QUAD, &
-!                                    QUAD_NODE(:, 1:TOTAL_QUAD), NODE_XY)
+        CALL SORT_NODE_ORDERING(TOTAL_NODE, NUM_OF_ELEMENT, TOTAL_QUAD, &
+                                    QUAD_NODE(:, 1:TOTAL_QUAD), NODE_XY)
 
 !        CALL SORT_NODE_ORDERING(NUM_OF_ELEMENT, TOTAL_QUAD, &   
 !                                    QUAD_NODE, NODE_XY)
