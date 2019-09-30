@@ -28,6 +28,7 @@ SUBROUTINE READ_MESH_2D
 !-----------------------------------------------------------------------
     
     USE PARAM, ONLY: MESHFILE, RANK
+!    USE WRITE_DATA
     
     IMPLICIT NONE 
     
@@ -56,7 +57,7 @@ SUBROUTINE READ_MESH_2D
         
         ! SKIP DUMMY LINES----------------------------------------------
         DO WHILE (.TRUE.)
-          READ(1, *) CHARLINE
+          READ(3, *) CHARLINE
           CHARLINE = TRIM(CHARLINE)
           IF(CHARLINE == "$PhysicalNames") EXIT
         ENDDO
@@ -107,7 +108,7 @@ SUBROUTINE READ_MESH_2D
         
         ! READ ELEMENT NODES--------------------------------------------
         DO I=1, NUM_OF_ELEMENT
-            READ(1, '(A)') LINE     ! STORE THE WHOLE LINE AS A STRING
+            READ(3, '(A)') LINE     ! STORE THE WHOLE LINE AS A STRING
                 
             LINE = TRIM(LINE)
             
@@ -124,19 +125,16 @@ SUBROUTINE READ_MESH_2D
                             QUAD_NODE(4, TOTAL_QUAD)
             ENDIF 
             
-           
-        
         ENDDO
         !---------------------------------------------------------------
         
         CALL SORT_NODE_ORDERING(TOTAL_NODE, NUM_OF_ELEMENT, TOTAL_QUAD, &
                                     QUAD_NODE(:, 1:TOTAL_QUAD), NODE_XY)
 
-!        CALL SORT_NODE_ORDERING(NUM_OF_ELEMENT, TOTAL_QUAD, &   
-!                                    QUAD_NODE, NODE_XY)
-        
         DEALLOCATE(QUAD_NODE)
         DEALLOCATE(NODE_XY)
+        
+!        CALL WRITE_VISUAL(TOTAL_QUAD, ELEM_X_POSITION, Y_GLOBAL)
         
     ENDIF
     
@@ -155,6 +153,7 @@ SUBROUTINE SORT_NODE_ORDERING(TOTAL_NODE, NUM_OF_ELEMENT, TOTAL_QUAD, &
 ! 1--------2
 !-----------------------------------------------------------------------
     USE NODAL_2D_STORAGE, ONLY: ELEM_X_POSITION, ELEM_Y_POSITION
+    USE WRITE_DATA
     
     IMPLICIT NONE 
     
@@ -196,10 +195,14 @@ SUBROUTINE SORT_NODE_ORDERING(TOTAL_NODE, NUM_OF_ELEMENT, TOTAL_QUAD, &
         CALL GET_STANDARD(NODE_XY(:, QUAD_NODE(1, K)), &
                           NODE_XY(:, QUAD_NODE(3, K)), &
                           X_MAX, X_MIN, Y_MAX, Y_MIN)
+                          
+!        PRINT *, X_MAX, X_MIN, Y_MAX , Y_MIN
+                          
+        
         DO I=1, 4
             CALL GET_SCORES(X_MAX, Y_MAX, &
                             NODE_XY(:, QUAD_NODE(I, K)), &
-                            SCORE, X_SCORES)
+                            SCORE, X_SCORES, Y_SCORES)
         
         
             IF(SCORE == NODE1) THEN
@@ -229,6 +232,8 @@ SUBROUTINE SORT_NODE_ORDERING(TOTAL_NODE, NUM_OF_ELEMENT, TOTAL_QUAD, &
         
         
     ENDDO
+    
+    CALL WRITE_VISUAL(TOTAL_QUAD, ELEM_X_POSITION, ELEM_Y_POSITION)
     
 
 END SUBROUTINE SORT_NODE_ORDERING
@@ -271,7 +276,7 @@ SUBROUTINE GET_STANDARD(NODE_XY1, NODE_XY3, X_MAX, X_MIN, Y_MAX, Y_MIN)
     
 END SUBROUTINE GET_STANDARD
 
-SUBROUTINE GET_SCORES(X_MAX, Y_MAX, NODE_XY1, SCORE, X_SCORES)
+SUBROUTINE GET_SCORES(X_MAX, Y_MAX, NODE_XY1, SCORE, X_SCORES, Y_SCORES)
 
     USE BASIS
 
@@ -279,7 +284,7 @@ SUBROUTINE GET_SCORES(X_MAX, Y_MAX, NODE_XY1, SCORE, X_SCORES)
 
     INTEGER :: SCORE 
     
-    INTEGER :: X_SCORES(2), Y_SCORES(2) ! SCORES FOR THE RELATIVE POSITION
+    INTEGER, INTENT(IN) :: X_SCORES(2), Y_SCORES(2) ! SCORES FOR THE RELATIVE POSITION
     
     DOUBLE PRECISION :: X_MAX, Y_MAX
     

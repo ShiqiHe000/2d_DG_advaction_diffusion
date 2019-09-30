@@ -13,6 +13,7 @@ USE PARAM, ONLY: N, M, T_TOTAL, NT, NUM_OF_EQUATION
 USE DG_2D_CONSTRUCTOR
 USE TIME_STEP_BY_RK
 USE USER_DEFINES
+USE READ_MESH
 
 IMPLICIT NONE
 
@@ -29,6 +30,10 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     
     DOUBLE PRECISION :: DELTA_T     !< TIME STEP 
     DOUBLE PRECISION :: TN          !< CURRENT TIME
+    
+    ! READ MESH FILE----------------------------------------------------
+    CALL READ_MESH_2D
+    !-------------------------------------------------------------------
     
     ! CONSTRUCT DG BASIS------------------------------------------------
     CALL CONSTRUCT_BASIS    ! NOW WE HAVE GL POINTS, WEIGHTS, M_FIRST DERIVATIVE MATRICES

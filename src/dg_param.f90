@@ -11,7 +11,7 @@ MODULE PARAM
     ! variables you could change =======================================
     
     !< INITIAL MESH FILE------------------------------------------------
-    CHARACTER(LEN=*), PARAMETER :: MESHFILE = "two_boundary.msh"    
+    CHARACTER(LEN=*), PARAMETER :: MESHFILE = "4_elements.msh"    
     !-------------------------------------------------------------------
     
     ! SET POLYNOMIAL ORDER----------------------------------------------

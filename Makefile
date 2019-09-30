@@ -20,6 +20,7 @@ SRC =  dg_param.f90 \
        dg_mpi.f90 \
        dg_basis.f90 \
        dg_nodal_2d_storage.f90 \
+       dg_write_data.f90 \
        dg_read_mesh_2d.f90 \
        dg_constructor.f90 \
        dg_spatial_derivative.f90 \
@@ -32,7 +33,6 @@ SRC =  dg_param.f90 \
        dg_time_derivative.f90 \
        dg_step_by_RK3.f90 \
        dg_advection_diffusion_driver.f90 \
-       dg_write_data.f90 \
        dg_verification.f90 \
        dg_end_games.f90 \
        dg_main_loop.f90
