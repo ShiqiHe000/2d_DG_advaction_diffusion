@@ -133,8 +133,7 @@ SUBROUTINE READ_MESH_2D
 
         DEALLOCATE(QUAD_NODE)
         DEALLOCATE(NODE_XY)
-        
-!        CALL WRITE_VISUAL(TOTAL_QUAD, ELEM_X_POSITION, Y_GLOBAL)
+
         
     ENDIF
     
@@ -190,7 +189,8 @@ SUBROUTINE SORT_NODE_ORDERING(TOTAL_NODE, TOTAL_QUAD, &
     ELEM_X_POSITION = 0.0D0; ELEM_Y_POSITION = 0.0D0
     !-------------------------------------------------------------------
     
-    DO K=1, TOTAL_QUAD
+!    DO K=1, TOTAL_QUAD
+    DO K=2, 2
         CALL GET_STANDARD(NODE_XY(:, QUAD_NODE(1, K)), &
                           NODE_XY(:, QUAD_NODE(3, K)), &
                           X_MAX, X_MIN, Y_MAX, Y_MIN)
@@ -198,13 +198,16 @@ SUBROUTINE SORT_NODE_ORDERING(TOTAL_NODE, TOTAL_QUAD, &
 !        PRINT *, X_MAX , X_MIN, Y_MAX , Y_MIN
                           
         
-        DO I=1, 4
+!        DO I=1, 4
+        DO I=2,2
             CALL GET_SCORES(X_MAX, Y_MAX, &
                             NODE_XY(:, QUAD_NODE(I, K)), &
                             SCORE, X_SCORES, Y_SCORES)
-        if (k == 2) then
-            print *, score
-        endif
+!        if (k == 2) then
+!            print *, score
+!        endif
+        
+!        IF (K==2) print *, NODE_XY(:, QUAD_NODE(2, 2))
         
             IF(SCORE == NODE1) THEN
                 ELEM_X_POSITION(1, K) = NODE_XY(1, QUAD_NODE(I, K))
@@ -279,7 +282,7 @@ END SUBROUTINE GET_STANDARD
 
 SUBROUTINE GET_SCORES(X_MAX, Y_MAX, NODE_XY1, SCORE, X_SCORES, Y_SCORES)
 
-    USE BASIS
+!    USE BASIS
 
     IMPLICIT NONE 
 
@@ -295,8 +298,14 @@ SUBROUTINE GET_SCORES(X_MAX, Y_MAX, NODE_XY1, SCORE, X_SCORES, Y_SCORES)
     
     SCORE = 0
     
-    CALL ALMOSTEQUAL(FLAG1, NODE_XY1(1), X_MAX)
-    CALL ALMOSTEQUAL(FLAG2, NODE_XY1(2), Y_MAX)
+    CALL ALMOSTEQUAL_2(FLAG1, NODE_XY1(1), X_MAX)
+    CALL ALMOSTEQUAL_2(FLAG2, NODE_XY1(2), Y_MAX)
+    
+!    PRINT *, Y_MAX
+!    PRINT *, NODE_XY1(2)
+!    PRINT *, DABS(NODE_XY1(2) - Y_MAX)
+!    PRINT *, EPSILON(NODE_XY1(2))*DABS(NODE_XY1(2)), EPSILON(Y_MAX)*DABS(Y_MAX)
+!    print *, FLAG2
     
     IF(FLAG1) THEN
         SCORE = SCORE + X_SCORES(1)
@@ -313,5 +322,28 @@ SUBROUTINE GET_SCORES(X_MAX, Y_MAX, NODE_XY1, SCORE, X_SCORES, Y_SCORES)
 
 
 END SUBROUTINE GET_SCORES
+
+SUBROUTINE ALMOSTEQUAL_2(FLAG, A, B)
+!-----------------------------------------------------------------------
+! DETERMINE WHETHER TWO FLOATING POINT NUMBER A AND B ARE EQUAL OR NOT
+! RETURN LOGICAL FLAG
+!-----------------------------------------------------------------------
+
+    IMPLICIT NONE 
+    
+    DOUBLE PRECISION, INTENT(IN) :: A, B    ! TWO TARGETS TO COMPARE
+    DOUBLE PRECISION, PARAMETER :: THRESHOLD = 1.0E-11
+    
+    LOGICAL :: FLAG 
+    
+    
+    IF ( DABS(A - B) <= THRESHOLD ) THEN
+        FLAG = .TRUE.
+    ELSE 
+        FLAG = .FALSE.
+    ENDIF
+
+
+END SUBROUTINE ALMOSTEQUAL_2
 
 END MODULE READ_MESH
