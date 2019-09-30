@@ -59,7 +59,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions/Subroutines</a>  </div>
+<a href="#func-members">Functions/Subroutines</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">write_data Module Reference</div>  </div>
 </div><!--header-->
@@ -74,6 +75,13 @@ Functions/Subroutines</h2></td></tr>
 <tr class="separator:a1a747021d7c359cc89cb2309cbc8196a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10aed56341cb1ca730b16b0e2f12171e"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewrite__data.html#a10aed56341cb1ca730b16b0e2f12171e">write_results</a> (N, M, EX, RESULTS)</td></tr>
 <tr class="separator:a10aed56341cb1ca730b16b0e2f12171e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0cdd2f564102b62c7a3b0e5d5cc539fa"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewrite__data.html#a0cdd2f564102b62c7a3b0e5d5cc539fa">write_visual</a> (NEL_TOTAL, X_GLOBAL, Y_GLOBAL)</td></tr>
+<tr class="separator:a0cdd2f564102b62c7a3b0e5d5cc539fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a1c4d93e34fbbd494b8bfdad8eeb18b33"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewrite__data.html#a1c4d93e34fbbd494b8bfdad8eeb18b33">frame</a> = 1</td></tr>
+<tr class="separator:a1c4d93e34fbbd494b8bfdad8eeb18b33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Write data to files. </p>
@@ -164,6 +172,63 @@ Functions/Subroutines</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a0cdd2f564102b62c7a3b0e5d5cc539fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cdd2f564102b62c7a3b0e5d5cc539fa">&#9670;&nbsp;</a></span>write_visual()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">subroutine write_data::write_visual </td>
+          <td>(</td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>NEL_TOTAL</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(4, nel_total)&#160;</td>
+          <td class="paramname"><em>X_GLOBAL</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(4, nel_total)&#160;</td>
+          <td class="paramname"><em>Y_GLOBAL</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nel_total</td><td>TOTAL NUMBER OF ELEMENT</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">x_global</td><td>ELEMENT X COORDINATES</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">y_global</td><td>ELEMENT Y COORDINATES </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a1c4d93e34fbbd494b8bfdad8eeb18b33"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c4d93e34fbbd494b8bfdad8eeb18b33">&#9670;&nbsp;</a></span>frame</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer write_data::frame = 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

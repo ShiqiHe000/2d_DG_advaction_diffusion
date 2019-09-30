@@ -188,6 +188,7 @@ SUBROUTINE SORT_NODE_ORDERING(TOTAL_NODE, TOTAL_QUAD, &
     ELEM_X_POSITION = 0.0D0; ELEM_Y_POSITION = 0.0D0
     !-------------------------------------------------------------------
     
+    !-------------------------------------------------------------------
     DO K=1, TOTAL_QUAD
         CALL GET_STANDARD(NODE_XY(:, QUAD_NODE(1, K)), &
                           NODE_XY(:, QUAD_NODE(3, K)), &
@@ -222,9 +223,8 @@ SUBROUTINE SORT_NODE_ORDERING(TOTAL_NODE, TOTAL_QUAD, &
         
         ENDDO
         
-        
-        
     ENDDO
+    !-------------------------------------------------------------------
     
 !    CALL WRITE_VISUAL(TOTAL_QUAD, ELEM_X_POSITION, ELEM_Y_POSITION)
     

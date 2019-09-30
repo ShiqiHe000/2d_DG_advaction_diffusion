@@ -1,7 +1,10 @@
 var searchData=
 [
   ['d',['d',['../namespaceuser__defines.html#a45ac7e16e134512e8e0d044baceabc9b',1,'user_defines']]],
+  ['d2xy',['d2xy',['../namespacehilbert.html#a0bb7f9b428d3fdfabbfc3b4885729199',1,'hilbert']]],
   ['deallocate_5fall',['deallocate_all',['../namespaceend__program.html#a0a33fe9db238c035809de4f8f3184e90',1,'end_program']]],
+  ['delta_5fx',['delta_x',['../namespacenodal__2d__storage.html#a3d1e79b12c447c6996bffbe6df8ebd61',1,'nodal_2d_storage']]],
+  ['delta_5fy',['delta_y',['../namespacenodal__2d__storage.html#a53270e7f2a064b4ce64c0ba10ca30660',1,'nodal_2d_storage']]],
   ['dg_5f2d_5fconstructor',['dg_2d_constructor',['../namespacedg__2d__constructor.html',1,'']]],
   ['dg_5fadvection_5fdiffusion_5fdriver_2ef90',['dg_advection_diffusion_driver.f90',['../dg__advection__diffusion__driver_8f90.html',1,'']]],
   ['dg_5fbasis_2ef90',['dg_basis.f90',['../dg__basis_8f90.html',1,'']]],
@@ -10,11 +13,16 @@ var searchData=
   ['dg_5fend_5fgames_2ef90',['dg_end_games.f90',['../dg__end__games_8f90.html',1,'']]],
   ['dg_5fexternal_5fstate_2ef90',['dg_external_state.f90',['../dg__external__state_8f90.html',1,'']]],
   ['dg_5fflux_5fvector_2ef90',['dg_flux_vector.f90',['../dg__flux__vector_8f90.html',1,'']]],
+  ['dg_5fgen_5fdual_5fgraph_2ef90',['dg_gen_dual_graph.f90',['../dg__gen__dual__graph_8f90.html',1,'']]],
+  ['dg_5fget_5fdual_5fcoord_2ef90',['dg_get_dual_coord.f90',['../dg__get__dual__coord_8f90.html',1,'']]],
+  ['dg_5fglobal_5fmesh_5fprocedures_2ef90',['dg_global_mesh_procedures.f90',['../dg__global__mesh__procedures_8f90.html',1,'']]],
+  ['dg_5fhilbert_5fcurve_2ef90',['dg_hilbert_curve.f90',['../dg__hilbert__curve_8f90.html',1,'']]],
   ['dg_5flax_5ffriedrichs_5fflux_2ef90',['dg_Lax_Friedrichs_flux.f90',['../dg__Lax__Friedrichs__flux_8f90.html',1,'']]],
   ['dg_5fmain_5floop_2ef90',['dg_main_loop.f90',['../dg__main__loop_8f90.html',1,'']]],
   ['dg_5fmpi_2ef90',['dg_mpi.f90',['../dg__mpi_8f90.html',1,'']]],
   ['dg_5fnodal_5f2d_5fstorage_2ef90',['dg_nodal_2d_storage.f90',['../dg__nodal__2d__storage_8f90.html',1,'']]],
   ['dg_5fparam_2ef90',['dg_param.f90',['../dg__param_8f90.html',1,'']]],
+  ['dg_5fread_5fmesh_5f2d_2ef90',['dg_read_mesh_2d.f90',['../dg__read__mesh__2d_8f90.html',1,'']]],
   ['dg_5friemann_5fsolver_2ef90',['dg_riemann_solver.f90',['../dg__riemann__solver_8f90.html',1,'']]],
   ['dg_5fspatial_5fderivative',['dg_spatial_derivative',['../namespacespactial__derivative.html#a7e7e7d31d4dac99ada310d5642f62ef8',1,'spactial_derivative']]],
   ['dg_5fspatial_5fderivative_2ef90',['dg_spatial_derivative.f90',['../dg__spatial__derivative_8f90.html',1,'']]],
@@ -26,5 +34,6 @@ var searchData=
   ['dg_5fuser_5fdefined_2ef90',['dg_user_defined.f90',['../dg__user__defined_8f90.html',1,'']]],
   ['dg_5fverification_2ef90',['dg_verification.f90',['../dg__verification_8f90.html',1,'']]],
   ['dg_5fwrite_5fdata_2ef90',['dg_write_data.f90',['../dg__write__data_8f90.html',1,'']]],
-  ['driver_5ffor_5fdg_5fapproximation',['driver_for_dg_approximation',['../namespaceadvection__diffusion__driver.html#ad4adb5e099cae836e6761c1aae953dc2',1,'advection_diffusion_driver']]]
+  ['driver_5ffor_5fdg_5fapproximation',['driver_for_dg_approximation',['../namespaceadvection__diffusion__driver.html#ad4adb5e099cae836e6761c1aae953dc2',1,'advection_diffusion_driver']]],
+  ['dual_5fcoord',['dual_coord',['../namespacenodal__2d__storage.html#a8dc7f6b0745efcac3a30da942a62d9ea',1,'nodal_2d_storage']]]
 ];

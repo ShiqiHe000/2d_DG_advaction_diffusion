@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['k_5fx',['k_x',['../namespaceparam.html#aaec5946dd306beb57c5c861d73c89d19',1,'param']]],
-  ['k_5fy',['k_y',['../namespaceparam.html#a4783ae2350037e4d59a67b9ec9d8cb66',1,'param']]]
+  ['k_5fx',['k_x',['../namespaceuser__defines.html#a1c7f978470814d70077cd5ffc6fc7cce',1,'user_defines']]],
+  ['k_5fy',['k_y',['../namespaceuser__defines.html#a911a8f6715a34653079b25db0a8a475d',1,'user_defines']]]
 ];

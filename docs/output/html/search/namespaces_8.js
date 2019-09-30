@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['param',['param',['../namespaceparam.html',1,'']]]
+  ['lax_5ffriedriches',['lax_friedriches',['../namespacelax__friedriches.html',1,'']]]
 ];

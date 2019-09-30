@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['k_5fx',['k_x',['../namespaceparam.html#aaec5946dd306beb57c5c861d73c89d19',1,'param']]],
-  ['k_5fy',['k_y',['../namespaceparam.html#a4783ae2350037e4d59a67b9ec9d8cb66',1,'param']]]
+  ['ierror',['ierror',['../namespaceparam.html#afa446f9b12bb30c55fe259cf870d7f33',1,'param']]],
+  ['initial_5fcondition_5fgaussian',['initial_condition_gaussian',['../namespaceuser__defines.html#a551bf87c8cc1c98c30f90f097f164f37',1,'user_defines']]],
+  ['initial_5fsinusoidal',['initial_sinusoidal',['../namespaceuser__defines.html#ac1c683029912ef531329ae26956a057c',1,'user_defines']]],
+  ['interpolate_5fto_5fboundary',['interpolate_to_boundary',['../namespacebasis.html#a45cb87ce2e5526511dcf2acf36b9955a',1,'basis']]]
 ];

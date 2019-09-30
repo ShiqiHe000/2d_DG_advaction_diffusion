@@ -11,12 +11,12 @@ MODULE PARAM
     ! variables you could change =======================================
     
     !< INITIAL MESH FILE------------------------------------------------
-    CHARACTER(LEN=*), PARAMETER :: MESHFILE = "4_elements.msh"    
+    CHARACTER(LEN=*), PARAMETER :: MESHFILE = "64_elements.msh"    
     !-------------------------------------------------------------------
     
     ! SET POLYNOMIAL ORDER----------------------------------------------
-    INTEGER :: N = 8    !< POLYNOMIAL DEGREE IN X DIRECTION
-    INTEGER :: M = 8    !< POLYNOMIAL DEGREE IN Y DIRECTION
+    INTEGER :: N = 2    !< POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: M = 2    !< POLYNOMIAL DEGREE IN Y DIRECTION
     INTEGER :: MNMAX = 12   !< MAXIMUM POLYNOMIAL DEGREE
     !-------------------------------------------------------------------
     
@@ -32,8 +32,8 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! NUMBER OF ELEMENT-------------------------------------------------
-    INTEGER :: EXP_X = 1       !< WRITE ELEMENT NUMBER IN X DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_X)
-    INTEGER :: EXP_Y = 1       !< WRITE ELEMENT NUMBER IN Y DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_Y)
+    INTEGER :: EXP_X = 3       !< WRITE ELEMENT NUMBER IN X DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_X)
+    INTEGER :: EXP_Y = 3       !< WRITE ELEMENT NUMBER IN Y DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_Y)
     !-------------------------------------------------------------------
     
     !< WAVE SPEED ------------------------------------------------------

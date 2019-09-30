@@ -1,12 +1,11 @@
 var searchData=
 [
-  ['n',['n',['../namespaceparam.html#a94879b2aae97e8439642bb7780fed987',1,'param']]],
-  ['nflux_5fx_5fl',['nflux_x_l',['../namespacenodal__2d__storage.html#a7c58a6e0edbbc62c7e99ee0785c7b27c',1,'nodal_2d_storage']]],
-  ['nflux_5fx_5fr',['nflux_x_r',['../namespacenodal__2d__storage.html#abfb486208a5e6edc575b7d847130c647',1,'nodal_2d_storage']]],
-  ['nflux_5fy_5fd',['nflux_y_d',['../namespacenodal__2d__storage.html#a53ad43c31585dea6f92ee63e65896991',1,'nodal_2d_storage']]],
-  ['nflux_5fy_5fu',['nflux_y_u',['../namespacenodal__2d__storage.html#ad65a883c99d115b2288e8bce68c84f03',1,'nodal_2d_storage']]],
-  ['nodal_5f2d_5fstorage',['nodal_2d_storage',['../namespacenodal__2d__storage.html',1,'']]],
-  ['nt',['nt',['../namespaceparam.html#a165e97a6861882fa3aaba3c90b5e0a47',1,'param']]],
-  ['num_5fof_5fequation',['num_of_equation',['../namespaceparam.html#a2c92fcdd6bb2ebc2c31fabee85bba0a5',1,'param']]],
-  ['num_5fproc',['num_proc',['../namespaceparam.html#a6d9d416b210c5f1d3429ed956f681355',1,'param']]]
+  ['m',['m',['../namespaceparam.html#ae265f845eefb37ce941db4f0f66c73cf',1,'param']]],
+  ['m_5ffirst_5fder_5fx',['m_first_der_x',['../namespacenodal__2d__storage.html#a1e8e83f1d5e81612fe3354d777c6f22f',1,'nodal_2d_storage']]],
+  ['m_5ffirst_5fder_5fy',['m_first_der_y',['../namespacenodal__2d__storage.html#aa11cec4917f68d83228a14df8cff1ed0',1,'nodal_2d_storage']]],
+  ['main_5floop',['main_loop',['../dg__main__loop_8f90.html#a977d5d0704c860d08ed942c0c1fe0cc3',1,'dg_main_loop.f90']]],
+  ['matrix_5fvector_5fderivative',['matrix_vector_derivative',['../namespacebasis.html#ac7d91d76a385aac8ae4831499654d3e9',1,'basis']]],
+  ['meshfile',['meshfile',['../namespaceparam.html#a334b342eea7fef5aa9db275ab085ad11',1,'param']]],
+  ['mnmax',['mnmax',['../namespaceparam.html#aa41de4c3300b44192aaba38e29b10c13',1,'param']]],
+  ['mth_5forder_5fpolynomial_5fderivative_5fmatrix',['mth_order_polynomial_derivative_matrix',['../namespacebasis.html#ab07c0a05884dc69e5d120f9e8849b3d7',1,'basis']]]
 ];

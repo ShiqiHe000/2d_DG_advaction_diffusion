@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['verification',['verification',['../namespaceverification.html',1,'']]]
+  ['user_5fdefines',['user_defines',['../namespaceuser__defines.html',1,'']]]
 ];
