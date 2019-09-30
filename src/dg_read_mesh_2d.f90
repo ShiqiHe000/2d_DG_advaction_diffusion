@@ -128,7 +128,7 @@ SUBROUTINE READ_MESH_2D
         ENDDO
         !---------------------------------------------------------------
         
-        CALL SORT_NODE_ORDERING(TOTAL_NODE, NUM_OF_ELEMENT, TOTAL_QUAD, &
+        CALL SORT_NODE_ORDERING(TOTAL_NODE, TOTAL_QUAD, &
                                     QUAD_NODE(:, 1:TOTAL_QUAD), NODE_XY)
 
         DEALLOCATE(QUAD_NODE)
@@ -141,7 +141,7 @@ SUBROUTINE READ_MESH_2D
 
 END SUBROUTINE READ_MESH_2D
 
-SUBROUTINE SORT_NODE_ORDERING(TOTAL_NODE, NUM_OF_ELEMENT, TOTAL_QUAD, &
+SUBROUTINE SORT_NODE_ORDERING(TOTAL_NODE, TOTAL_QUAD, &
                                 QUAD_NODE, NODE_XY)
 !-----------------------------------------------------------------------
 ! SORTING THE NODE-ORDERING FORMAT. WARRENT EACH ELEMENT NODE IS ORDERING
@@ -157,7 +157,6 @@ SUBROUTINE SORT_NODE_ORDERING(TOTAL_NODE, NUM_OF_ELEMENT, TOTAL_QUAD, &
     
     IMPLICIT NONE 
     
-    INTEGER, INTENT(IN) :: NUM_OF_ELEMENT
     INTEGER, INTENT(IN) :: TOTAL_QUAD
     INTEGER, INTENT(IN) :: TOTAL_NODE
     
@@ -196,14 +195,16 @@ SUBROUTINE SORT_NODE_ORDERING(TOTAL_NODE, NUM_OF_ELEMENT, TOTAL_QUAD, &
                           NODE_XY(:, QUAD_NODE(3, K)), &
                           X_MAX, X_MIN, Y_MAX, Y_MIN)
                           
-!        PRINT *, X_MAX, X_MIN, Y_MAX , Y_MIN
+!        PRINT *, X_MAX , X_MIN, Y_MAX , Y_MIN
                           
         
         DO I=1, 4
             CALL GET_SCORES(X_MAX, Y_MAX, &
                             NODE_XY(:, QUAD_NODE(I, K)), &
                             SCORE, X_SCORES, Y_SCORES)
-        
+        if (k == 2) then
+            print *, score
+        endif
         
             IF(SCORE == NODE1) THEN
                 ELEM_X_POSITION(1, K) = NODE_XY(1, QUAD_NODE(I, K))
