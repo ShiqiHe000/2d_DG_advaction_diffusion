@@ -27,8 +27,7 @@ SUBROUTINE READ_MESH_2D
 ! NOTE: THE ELEMENT SEQUENCE IN .MSH FILE DOES NOT MATTER.
 !-----------------------------------------------------------------------
     
-    USE PARAM, ONLY: MESHFILE, RANK
-!    USE WRITE_DATA
+    USE PARAM, ONLY: MESHFILE, RANK, FILEPLACE
     
     IMPLICIT NONE 
     
@@ -53,7 +52,7 @@ SUBROUTINE READ_MESH_2D
         PRINT *, "START READ MESH FILE"
         PRINT *, "------------------------------------------------------"
         
-        OPEN(UNIT = 3, FILE = MESHFILE, STATUS = 'OLD')
+        OPEN(UNIT = 3, FILE = FILEPLACE//MESHFILE, STATUS = 'OLD')
         
         ! SKIP DUMMY LINES----------------------------------------------
         DO WHILE (.TRUE.)
@@ -152,7 +151,7 @@ SUBROUTINE SORT_NODE_ORDERING(TOTAL_NODE, TOTAL_QUAD, &
 ! 1--------2
 !-----------------------------------------------------------------------
     USE NODAL_2D_STORAGE, ONLY: ELEM_X_POSITION, ELEM_Y_POSITION
-    USE WRITE_DATA
+!    USE WRITE_DATA
     
     IMPLICIT NONE 
     
