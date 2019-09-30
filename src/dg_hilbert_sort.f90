@@ -23,7 +23,8 @@ SUBROUTINE HIBERT_SORT_2D
     INTEGER :: D        ! HILBERT COORDINATE
     
     !-------------------------------------------------------------------
-    ALLOCATE(X_HILBERT(4, NUM_OF_ELEMENT), Y_HILBERT(4, NUM_OF_ELEMENT))
+    ALLOCATE(X_HILBERT(4, 0:NUM_OF_ELEMENT-1), &
+             Y_HILBERT(4, 0:NUM_OF_ELEMENT-1))
     
     X_HILBERT = 0.0D0; Y_HILBERT = 0.0D0
     !-------------------------------------------------------------------
@@ -36,8 +37,8 @@ SUBROUTINE HIBERT_SORT_2D
         
         CALL xy2d ( EXP_X, I, J, D )
         
-        X_HILBERT(:, D) = ELEM_X_POSITION(4, K)
-        Y_HILBERT(:, D) = ELEM_Y_POSITION(4, K)
+        X_HILBERT(:, D) = ELEM_X_POSITION(:, K)
+        Y_HILBERT(:, D) = ELEM_Y_POSITION(:, K)
     
     ENDDO
     !-------------------------------------------------------------------
