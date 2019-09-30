@@ -24,6 +24,8 @@ SRC =  dg_param.f90 \
        dg_gen_dual_graph.f90 \
        dg_write_data.f90 \
        dg_read_mesh_2d.f90 \
+       dg_hilbert_sort.f90 \
+       dg_prepare_hilbert_scheme.f90 \
        dg_constructor.f90 \
        dg_spatial_derivative.f90 \
        dg_riemann_solver.f90 \

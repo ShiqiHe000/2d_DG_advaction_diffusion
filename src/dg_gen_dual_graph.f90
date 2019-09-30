@@ -41,6 +41,8 @@ SUBROUTINE GEN_DUAL_GRAPH_2D
         CALL GET_DUAL_COORD_2D(ELEM_X_POSITION(1, K), &
                                ELEM_Y_POSITION(1, K), &
                                DELTA_X, DELTA_Y, DUAL_COORD(:, K))
+                               
+        
     ENDDO
     
 
