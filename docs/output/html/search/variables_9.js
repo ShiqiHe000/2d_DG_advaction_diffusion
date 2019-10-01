@@ -5,6 +5,7 @@ var searchData=
   ['nflux_5fx_5fr',['nflux_x_r',['../namespacenodal__2d__storage.html#abfb486208a5e6edc575b7d847130c647',1,'nodal_2d_storage']]],
   ['nflux_5fy_5fd',['nflux_y_d',['../namespacenodal__2d__storage.html#a53ad43c31585dea6f92ee63e65896991',1,'nodal_2d_storage']]],
   ['nflux_5fy_5fu',['nflux_y_u',['../namespacenodal__2d__storage.html#ad65a883c99d115b2288e8bce68c84f03',1,'nodal_2d_storage']]],
+  ['nmax',['nmax',['../namespaceparam.html#a6feed35b458eeba5c1b474eabaf96fc3',1,'param']]],
   ['none_5fl',['none_l',['../namespaceparam.html#a0e19c591a8f93739925fe1395e3b4b96',1,'param']]],
   ['none_5fr',['none_r',['../namespaceparam.html#a3e669071bcf2e6fbd9d7d524ebd69d3d',1,'param']]],
   ['nt',['nt',['../namespaceparam.html#a165e97a6861882fa3aaba3c90b5e0a47',1,'param']]],

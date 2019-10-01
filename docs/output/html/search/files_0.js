@@ -17,6 +17,7 @@ var searchData=
   ['dg_5fmpi_2ef90',['dg_mpi.f90',['../dg__mpi_8f90.html',1,'']]],
   ['dg_5fnodal_5f2d_5fstorage_2ef90',['dg_nodal_2d_storage.f90',['../dg__nodal__2d__storage_8f90.html',1,'']]],
   ['dg_5fparam_2ef90',['dg_param.f90',['../dg__param_8f90.html',1,'']]],
+  ['dg_5fploy_5flevel_5fand_5forder_2ef90',['dg_ploy_level_and_order.f90',['../dg__ploy__level__and__order_8f90.html',1,'']]],
   ['dg_5fprepare_5fhilbert_5fscheme_2ef90',['dg_prepare_hilbert_scheme.f90',['../dg__prepare__hilbert__scheme_8f90.html',1,'']]],
   ['dg_5fread_5fmesh_5f2d_2ef90',['dg_read_mesh_2d.f90',['../dg__read__mesh__2d_8f90.html',1,'']]],
   ['dg_5friemann_5fsolver_2ef90',['dg_riemann_solver.f90',['../dg__riemann__solver_8f90.html',1,'']]],
