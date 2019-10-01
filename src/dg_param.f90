@@ -11,29 +11,30 @@ MODULE PARAM
     ! variables you could change =======================================
     
     !< INITIAL MESH FILE------------------------------------------------
-    CHARACTER(LEN=*), PARAMETER :: MESHFILE = "64_elements.msh"    
+    CHARACTER(LEN=*), PARAMETER :: MESHFILE = "4_elements.msh"    
     !-------------------------------------------------------------------
     
     ! SET POLYNOMIAL ORDER----------------------------------------------
     INTEGER :: N = 2    !< POLYNOMIAL DEGREE IN X DIRECTION
     INTEGER :: M = 2    !< POLYNOMIAL DEGREE IN Y DIRECTION
-    INTEGER :: MNMAX = 12   !< MAXIMUM POLYNOMIAL DEGREE
+    INTEGER :: NMAX = 4   !< MAXIMUM POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: MMAX = 4   !< MAXIMUM POLYNOMIAL DEGREE IN Y DIRECTION
     !-------------------------------------------------------------------
     
     ! DOMIAN BOUNDARY---------------------------------------------------
     DOUBLE PRECISION :: GX_L = 0.0D0     !< LEFT DOMAIN BOUNDARY
-    DOUBLE PRECISION :: GX_R = 8.0D0     !< LEFT DOMAIN BOUNDARY
+    DOUBLE PRECISION :: GX_R = 2.0D0     !< LEFT DOMAIN BOUNDARY
     
     DOUBLE PRECISION :: GY_L = 0.0D0     !< LEFT DOMAIN BOUNDARY
-    DOUBLE PRECISION :: GY_R = 8.0D0     !< LEFT DOMAIN BOUNDARY
+    DOUBLE PRECISION :: GY_R = 2.0D0     !< LEFT DOMAIN BOUNDARY
     
 !    DOUBLE PRECISION :: GX_L = -1.0D0     !< LEFT DOMAIN BOUNDARY
 !    DOUBLE PRECISION :: GX_R =  1.0D0     !< LEFT DOMAIN BOUNDARY
     !-------------------------------------------------------------------
     
     ! NUMBER OF ELEMENT-------------------------------------------------
-    INTEGER :: EXP_X = 3       !< WRITE ELEMENT NUMBER IN X DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_X)
-    INTEGER :: EXP_Y = 3       !< WRITE ELEMENT NUMBER IN Y DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_Y)
+    INTEGER :: EXP_X = 1       !< WRITE ELEMENT NUMBER IN X DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_X)
+    INTEGER :: EXP_Y = 1       !< WRITE ELEMENT NUMBER IN Y DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_Y)
     !-------------------------------------------------------------------
     
     !< WAVE SPEED ------------------------------------------------------
@@ -56,8 +57,13 @@ MODULE PARAM
     
     ! variables you do not need to adjust ==============================
     
-    !< NUMBER OF EQUATION-----------------------------------------------
-    INTEGER :: NUM_OF_EQUATION = 3
+    ! POLY LEVEL -------------------------------------------------------
+    INTEGER :: PLEVEL_X = 1     !< POLYNOMIAL LEVEL IN X(CAN BE TRANSFORM TO POLY ORDER)
+    INTEGER :: PLEVEL_Y = 1     !< POLYNOMIAL LEVEL IN Y(CAN BE TRANSFORM TO POLY ORDER)
+    !-------------------------------------------------------------------
+    
+    ! ------------------------------------------------------------------
+    INTEGER :: NUM_OF_EQUATION = 3  !< NUMBER OF EQUATION
     !-------------------------------------------------------------------
     
     ! BOUNDARY FLAGS----------------------------------------------------
