@@ -9,10 +9,12 @@
 MODULE ADVECTION_DIFFUSION_DRIVER
 
 USE MPI
-USE PARAM, ONLY: N, M, T_TOTAL, NT, NUM_OF_EQUATION
+USE PARAM, ONLY: N, M, T_TOTAL, NT, NUM_OF_EQUATION, NMAX, MMAX
 USE DG_2D_CONSTRUCTOR
 USE TIME_STEP_BY_RK
-USE USER_DEFINES
+USE USER_DEFINE
+USE NODAL_2D_STORAGE, ONLY: NUM_OF_ELEMENT
+USE POLY_LEVEL_AND_ORDER
 
 IMPLICIT NONE
 
@@ -26,6 +28,7 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     IMPLICIT NONE
     
     INTEGER :: K
+    INTEGER :: N_NOW, M_NOW !< CURRENT POLY ORDER
     
     DOUBLE PRECISION :: DELTA_T     !< TIME STEP 
     DOUBLE PRECISION :: TN          !< CURRENT TIME
@@ -43,13 +46,21 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     !-------------------------------------------------------------------
     
     ! ALLOCATE----------------------------------------------------------
-    ALLOCATE(SOLUTION(0:N, 0:M, NUM_OF_EQUATION))
+    ALLOCATE(SOLUTION(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
     SOLUTION = 0.0D0
     !-------------------------------------------------------------------
     
     ! INITIALZIE SOLUTION-----------------------------------------------
-    CALL INITIAL_CONDITION_GAUSSIAN(N, M, NUM_OF_EQUATION, SOLUTION, &
-                                    GL_POINT_X, GL_POINT_Y)
+    DO K = 0, NUM_OF_ELEMENT-1
+        
+        CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(K), N_NOW) ! X DIRECTION POLY ORDER
+        CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(K), M_NOW) ! Y DIRECTION POLY ORDER
+        
+        CALL INITIAL_CONDITION_GAUSSIAN(N_NOW, M_NOW, NUM_OF_EQUATION, &
+                                        SOLUTION(0:N_NOW, 0:M_NOW, NUM_OF_EQUATION, K), &
+                                        GL_POINT_X_T(0:N_NOW, PLEVEL_X(K)), &
+                                        GL_POINT_Y_T(0:M_NOW, PLEVEL_Y(K)))
+    ENDDO
 !    CALL INITIAL_SINUSOIDAL(N, M, NUM_OF_EQUATION, SOLUTION, GL_POINT_X, GL_POINT_Y)
     !-------------------------------------------------------------------
 

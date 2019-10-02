@@ -20,6 +20,9 @@ SUBROUTINE GEN_DUAL_GRAPH_2D
     
     INTEGER :: K
     
+    DOUBLE PRECISION :: DELTA_X_INI     ! INITIAL ELEMENT SIZE 
+    DOUBLE PRECISION :: DELTA_Y_INI     ! INITIAL ELEMENT SIZE 
+    
     !-------------------------------------------------------------------
     NUM_OF_ELEMENT_X = 2**EXP_X
     NUM_OF_ELEMENT_Y = 2**EXP_Y
@@ -33,14 +36,21 @@ SUBROUTINE GEN_DUAL_GRAPH_2D
     !-------------------------------------------------------------------
     
     ! ELEMENT SIZE START WITH UNIFORM-----------------------------------
-    DELTA_X = (GX_R - GX_L) / DBLE(NUM_OF_ELEMENT_X)
-    DELTA_Y = (GY_R - GY_L) / DBLE(NUM_OF_ELEMENT_Y)
+    DELTA_X_INI = (GX_R - GX_L) / DBLE(NUM_OF_ELEMENT_X)
+    DELTA_Y_INI = (GY_R - GY_L) / DBLE(NUM_OF_ELEMENT_Y)
+    !-------------------------------------------------------------------
+    
+    !-------------------------------------------------------------------
+    ALLOCATE(DELTA_X(0:NUM_OF_ELEMENT-1))
+    ALLOCATE(DELTA_Y(0:NUM_OF_ELEMENT-1))
+    
+    DELTA_X = DELTA_X_INI; DELTA_Y = DELTA_Y_INI
     !-------------------------------------------------------------------
     
     DO K = 1, NUM_OF_ELEMENT
         CALL GET_DUAL_COORD_2D(ELEM_X_POSITION(1, K), &
                                ELEM_Y_POSITION(1, K), &
-                               DELTA_X, DELTA_Y, DUAL_COORD(:, K))
+                               DELTA_X_INI, DELTA_Y_INI, DUAL_COORD(:, K))
                                
         
     ENDDO
