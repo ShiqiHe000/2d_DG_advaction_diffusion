@@ -13,7 +13,6 @@ PROGRAM MAIN_LOOP
 !    USE VERIFICATION
     USE END_PROGRAM
     USE PREPARE_HILBERT_SCHEME
-    use BASIS_STORAGE
 
     IMPLICIT NONE
     
@@ -25,10 +24,7 @@ PROGRAM MAIN_LOOP
     ! PREPARE HILBERT CURVE---------------------------------------------
     CALL HILBERT_NUMBERING
     !-------------------------------------------------------------------
-    
-    ! CONOSTRUCT DG BASIS-----------------------------------------------
-    CALL CONSTRUCT_BASIS_STORAGE
-    !-------------------------------------------------------------------
+
     
     ! START GAMES-------------------------------------------------------
 !    CALL DRIVER_FOR_DG_APPROXIMATION

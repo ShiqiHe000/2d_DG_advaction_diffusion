@@ -25,6 +25,8 @@ SUBROUTINE DEALLOCATE_ALL
     DEALLOCATE(LAGRANGE_UP_T, LAGRANGE_DOWN_T)
     
     DEALLOCATE(SOLUTION)
+    
+    DEALLOCATE(PLEVEL_X, PLEVEL_Y)
     !-------------------------------------------------------------------
     
     ! dg_verification.f90-----------------------------------------------
