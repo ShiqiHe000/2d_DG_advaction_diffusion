@@ -57,11 +57,6 @@ MODULE PARAM
     
     ! variables you do not need to adjust ==============================
     
-    ! POLY LEVEL -------------------------------------------------------
-    INTEGER :: PLEVEL_X = 1     !< POLYNOMIAL LEVEL IN X(CAN BE TRANSFORM TO POLY ORDER)
-    INTEGER :: PLEVEL_Y = 1     !< POLYNOMIAL LEVEL IN Y(CAN BE TRANSFORM TO POLY ORDER)
-    !-------------------------------------------------------------------
-    
     ! ------------------------------------------------------------------
     INTEGER :: NUM_OF_EQUATION = 3  !< NUMBER OF EQUATION
     !-------------------------------------------------------------------

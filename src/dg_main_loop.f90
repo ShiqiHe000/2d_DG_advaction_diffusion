@@ -9,9 +9,10 @@ PROGRAM MAIN_LOOP
 !-----------------------------------------------------------------------
     USE MPI
     USE SET_MPI
-    USE ADVECTION_DIFFUSION_DRIVER
-    USE VERIFICATION
-    USE END_PROGRAM
+!    USE ADVECTION_DIFFUSION_DRIVER
+!    USE VERIFICATION
+!    USE END_PROGRAM
+    USE PREPARE_HILBERT_SCHEME
 
     IMPLICIT NONE
     
@@ -20,16 +21,20 @@ PROGRAM MAIN_LOOP
     CALL START_MPI
     !-------------------------------------------------------------------
     
+    ! PREPARE HILBERT CURVE---------------------------------------------
+    CALL HILBERT_NUMBERING
+    !-------------------------------------------------------------------
+    
     ! START GAMES-------------------------------------------------------
-    CALL DRIVER_FOR_DG_APPROXIMATION
+!    CALL DRIVER_FOR_DG_APPROXIMATION
     !-------------------------------------------------------------------
     
     ! VERIFICATION------------------------------------------------------
-    CALL GET_ERROR
+!    CALL GET_ERROR
     !-------------------------------------------------------------------
     
     ! FREE STORAGES-----------------------------------------------------
-    CALL DEALLOCATE_ALL
+!    CALL DEALLOCATE_ALL
     !-------------------------------------------------------------------
     
     

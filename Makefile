@@ -28,20 +28,22 @@ SRC =  dg_param.f90 \
        dg_read_mesh_2d.f90 \
        dg_hilbert_sort.f90 \
        dg_prepare_hilbert_scheme.f90 \
-       dg_constructor.f90 \
-       dg_spatial_derivative.f90 \
-       dg_riemann_solver.f90 \
-       dg_central_flux.f90 \
-       dg_Lax_Friedrichs_flux.f90 \
-       dg_flux_vector.f90 \
-       dg_user_defined.f90 \
-       dg_external_state.f90 \
-       dg_time_derivative.f90 \
-       dg_step_by_RK3.f90 \
-       dg_advection_diffusion_driver.f90 \
-       dg_verification.f90 \
-       dg_end_games.f90 \
+       dg_basis_storage.f90 \
        dg_main_loop.f90
+#       dg_constructor.f90 \
+#       dg_spatial_derivative.f90 \
+#       dg_riemann_solver.f90 \
+#       dg_central_flux.f90 \
+#       dg_Lax_Friedrichs_flux.f90 \
+#       dg_flux_vector.f90 \
+#       dg_user_defined.f90 \
+#       dg_external_state.f90 \
+#       dg_time_derivative.f90 \
+#       dg_step_by_RK3.f90 \
+#       dg_advection_diffusion_driver.f90 \
+#       dg_verification.f90 \
+#       dg_end_games.f90 \
+#       dg_main_loop.f90
 
 #SOURCE = $(wildcard $(DIR)/$(makefile formatSRCDIR)/$(SRC))
 #SOURCE  = $(DIR)/$(SRCDIR)

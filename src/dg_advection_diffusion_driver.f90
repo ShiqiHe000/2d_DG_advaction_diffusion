@@ -13,8 +13,6 @@ USE PARAM, ONLY: N, M, T_TOTAL, NT, NUM_OF_EQUATION
 USE DG_2D_CONSTRUCTOR
 USE TIME_STEP_BY_RK
 USE USER_DEFINES
-USE PREPARE_HILBERT_SCHEME
-
 
 IMPLICIT NONE
 
@@ -31,10 +29,6 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     
     DOUBLE PRECISION :: DELTA_T     !< TIME STEP 
     DOUBLE PRECISION :: TN          !< CURRENT TIME
-    
-    ! PREPARE HILBERT CURVE---------------------------------------------
-    CALL HILBERT_NUMBERING
-    !-------------------------------------------------------------------
 
     ! CONSTRUCT DG BASIS------------------------------------------------
     CALL CONSTRUCT_BASIS    ! NOW WE HAVE GL POINTS, WEIGHTS, M_FIRST DERIVATIVE MATRICES
