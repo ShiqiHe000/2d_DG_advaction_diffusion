@@ -30,12 +30,13 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     ! X DIRECTION-------------------------------------------------------
     
-    !FIRST GET FLUX ON THE INFERFACES GLOBALLY--------------------------
+    !FIRST GET FLUX ON THE INFERFACES GLOBALLY
     ALLOCATE(SOLUTION_INT_L(0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
     ALLOCATE(SOLUTION_INT_R(0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
     
     SOLUTION_INT_L = 0.0D0; SOLUTION_INT_R = 0.0D0
     
+    ! THEN INTERPOLATES TO BOUNDARY
     DO K = 0, NUM_OF_ELEMENT-1
     
         CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(K), PORDER_X)
@@ -50,6 +51,10 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
         
     
     ENDDO
+    
+    ! NEXT STEP COMPUTE NUMERICAL FLUXES
+    
+    
     !-------------------------------------------------------------------
     
     ! Y ----------------------------------------------------------------

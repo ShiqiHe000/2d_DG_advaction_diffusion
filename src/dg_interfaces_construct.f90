@@ -56,11 +56,6 @@ SUBROUTINE CONSTRUCT_INTERFACES_X(N1, M1, N_EQU, SOLUTION, &
         ENDDO
     ENDDO
     !-------------------------------------------------------------------
-    
-    ! USE EXACT SOLUTION AT THE BOUNDARIES------------------------------
-!    CALL EXTERNAL_SINU(N_EQU, SOLUTION_EXT_L, GX_L, T)
-!    CALL EXTERNAL_SINU(N_EQU, SOLUTION_EXT_R, GX_R, T)
-    !-------------------------------------------------------------------
 
 END SUBROUTINE CONSTRUCT_INTERFACES_X
 
