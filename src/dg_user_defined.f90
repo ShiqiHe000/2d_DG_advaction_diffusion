@@ -20,7 +20,12 @@ DOUBLE PRECISION, PARAMETER :: Y0 = -0.8D0  !< PARAMETER
 
 CONTAINS
 
-SUBROUTINE INITIAL_CONDITION_GAUSSIAN(N, M, N_EQUATIONS, Q, GL_X, GL_Y)
+!-----------------------------------------------------------------------
+!> This suroutine initialize only one element.
+!! In both x and y direction.
+!-----------------------------------------------------------------------
+SUBROUTINE INITIAL_CONDITION_GAUSSIAN(N, M, N_EQUATIONS, Q, GL_X, GL_Y, &
+                                      X_L, Y_D, DEL_X, DEL_Y)
 
     IMPLICIT NONE
     
@@ -32,16 +37,22 @@ SUBROUTINE INITIAL_CONDITION_GAUSSIAN(N, M, N_EQUATIONS, Q, GL_X, GL_Y)
     DOUBLE PRECISION :: Q(0:N, 0:M, N_EQUATIONS)   !< INITIAL SOLUTION
     DOUBLE PRECISION :: GL_X(0:N), GL_Y(0:M)    !< GL_POINTS
     
+    DOUBLE PRECISION, INTENT(IN) :: X_L     !< ELEMENT LEFT BOUNDARY
+    DOUBLE PRECISION, INTENT(IN) :: Y_D     !< ELEMENT LEFT BOUNDARY
+    
+    DOUBLE PRECISION, INTENT(IN) :: DEL_X   !< ELEMENT SIZE IN X DIRECTION
+    DOUBLE PRECISION, INTENT(IN) :: DEL_Y   !< ELEMENT SIZE IN Y DIRECTION
+    
     DOUBLE PRECISION :: INTER   !INTERMEDIATE
     DOUBLE PRECISION :: X, Y    ! COLLOCATION POINTS COORDINATES
 
     DO J=0, M
     
-        Y = GL_Y(J)
+        CALL AFFINE_MAPPING(GL_Y(J), Y, Y_D, DEL_Y)
     
         DO I=0, N
         
-            X = GL_X(I)
+            CALL AFFINE_MAPPING(GL_X(I), X, X_L, DEL_X)
             
             INTER = DEXP( - (K_X * (X - X0) + &
                             K_Y * (Y - Y0))**2 / D**2)

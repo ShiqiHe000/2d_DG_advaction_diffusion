@@ -59,7 +59,10 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
         CALL INITIAL_CONDITION_GAUSSIAN(N_NOW, M_NOW, NUM_OF_EQUATION, &
                                         SOLUTION(0:N_NOW, 0:M_NOW, NUM_OF_EQUATION, K), &
                                         GL_POINT_X_T(0:N_NOW, PLEVEL_X(K)), &
-                                        GL_POINT_Y_T(0:M_NOW, PLEVEL_Y(K)))
+                                        GL_POINT_Y_T(0:M_NOW, PLEVEL_Y(K)), &
+                                        X_HILBERT(1, K), Y_HILBERT(1, K), &
+                                        DELTA_X(K), DELTA_Y(K))
+                                      
     ENDDO
 !    CALL INITIAL_SINUSOIDAL(N, M, NUM_OF_EQUATION, SOLUTION, GL_POINT_X, GL_POINT_Y)
     !-------------------------------------------------------------------
