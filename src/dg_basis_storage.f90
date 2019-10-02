@@ -50,7 +50,7 @@ SUBROUTINE CONSTRUCT_BASIS_STORAGE
     M_FIRST_DER_X_T = 0.0D0; M_FIRST_DER_Y_T = 0.0D0
     
     ALLOCATE(LAGRANGE_LEFT_T(0:NMAX, LEVEL_MAX_X))
-    ALLOCATE(LAGRANGE_LEFT_T(0:NMAX, LEVEL_MAX_X))
+    ALLOCATE(LAGRANGE_RIGHT_T(0:NMAX, LEVEL_MAX_X))
     
     LAGRANGE_LEFT_T = 0.0D0; LAGRANGE_RIGHT_T = 0.0D0
     
@@ -75,14 +75,17 @@ SUBROUTINE CONSTRUCT_BASIS_STORAGE
                                           LAGRANGE_RIGHT_T(0:PORDER, K), &
                                           GL_POINT_X_T(0:PORDER, K))
                                           
+                                          
         DO J=0, PORDER
             DO I=0, PORDER
                 M_FIRST_DER_X_T(I, J, K) = &
                 - FIRST_DER_X_T(J, I, K) * GL_W_X_T(J, K) / GL_W_X_T(I, K)
             ENDDO
         ENDDO
+        
     ENDDO
     !-------------------------------------------------------------------
+    
     
     ! Y DIRECTION-------------------------------------------------------
     DO K=1, LEVEL_MAX_Y
