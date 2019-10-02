@@ -11,7 +11,7 @@ PROGRAM MAIN_LOOP
     USE SET_MPI
 !    USE ADVECTION_DIFFUSION_DRIVER
 !    USE VERIFICATION
-!    USE END_PROGRAM
+    USE END_PROGRAM
     USE PREPARE_HILBERT_SCHEME
     use BASIS_STORAGE
 
@@ -26,7 +26,9 @@ PROGRAM MAIN_LOOP
     CALL HILBERT_NUMBERING
     !-------------------------------------------------------------------
     
-    call CONSTRUCT_BASIS_STORAGE
+    ! CONOSTRUCT DG BASIS-----------------------------------------------
+    CALL CONSTRUCT_BASIS_STORAGE
+    !-------------------------------------------------------------------
     
     ! START GAMES-------------------------------------------------------
 !    CALL DRIVER_FOR_DG_APPROXIMATION
@@ -37,7 +39,7 @@ PROGRAM MAIN_LOOP
     !-------------------------------------------------------------------
     
     ! FREE STORAGES-----------------------------------------------------
-!    CALL DEALLOCATE_ALL
+    CALL DEALLOCATE_ALL
     !-------------------------------------------------------------------
     
     

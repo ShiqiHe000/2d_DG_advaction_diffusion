@@ -29,6 +29,7 @@ SRC =  dg_param.f90 \
        dg_hilbert_sort.f90 \
        dg_prepare_hilbert_scheme.f90 \
        dg_basis_storage.f90 \
+       dg_end_games.f90 \
        dg_main_loop.f90
 #       dg_constructor.f90 \
 #       dg_spatial_derivative.f90 \
