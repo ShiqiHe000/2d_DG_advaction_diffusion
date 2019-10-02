@@ -64,7 +64,6 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
                                         DELTA_X(K), DELTA_Y(K))
                                       
     ENDDO
-!    CALL INITIAL_SINUSOIDAL(N, M, NUM_OF_EQUATION, SOLUTION, GL_POINT_X, GL_POINT_Y)
     !-------------------------------------------------------------------
 
     ! TIME MARCHES ON---------------------------------------------------

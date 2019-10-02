@@ -28,12 +28,12 @@ SUBROUTINE DG_STEP_BY_RK3(TN, DELTA_T)
 
     IMPLICIT NONE
     
-    INTEGER :: I, J, K, L
+    INTEGER :: I, J, K, L, ELEM_K
     
     DOUBLE PRECISION :: TN  !< CURRENT TIME
     DOUBLE PRECISION :: T
     
-    DOUBLE PRECISION :: G(0:N, 0:M, NUM_OF_EQUATION)  ! EQUIVALENT TO K
+    DOUBLE PRECISION :: G(0:N, 0:M, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT)  ! EQUIVALENT TO K
     DOUBLE PRECISION :: AM(3), BM(3), GM(3) ! COEFFICIENT
 
     DOUBLE PRECISION :: DELTA_T !< TIME STEP SIZE
@@ -52,11 +52,17 @@ SUBROUTINE DG_STEP_BY_RK3(TN, DELTA_T)
         ! GET TIME DERIVATIVE AT CURRENT TIME POINT
         CALL DG_TIME_DER(T)
         
-        DO L=1, NUM_OF_EQUATION
-            DO J=0,M
-                DO I=0, N
-                    G(I, J, L) = AM(K)*G(I, J, L) + SOLUTION_TIME_DER(I, J, L)
-                    SOLUTION(I, J, L) = SOLUTION(I, J, L) + GM(K)*DELTA_T*G(I, J, L)
+        
+        DO ELEM_K = 0, NUM_OF_ELEMENT-1
+            DO L=1, NUM_OF_EQUATION
+                DO J=0,M
+                    DO I=0, N
+                        G(I, J, L, ELEM_K) = AM(K)*G(I, J, L, ELEM_K) & 
+                                            + SOLUTION_TIME_DER(I, J, L, ELEM_K)
+                                            
+                        SOLUTION(I, J, L, ELEM_K) = SOLUTION(I, J, L, ELEM_K) &
+                                            + GM(K)*DELTA_T*G(I, J, L, ELEM_K)
+                    ENDDO
                 ENDDO
             ENDDO
         ENDDO

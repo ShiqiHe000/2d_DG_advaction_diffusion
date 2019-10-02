@@ -32,6 +32,8 @@ SRC =  dg_param.f90 \
        dg_prepare_hilbert_scheme.f90 \
        dg_basis_storage.f90 \
        dg_constructor.f90 \
+       dg_interfaces_construct.f90 \
+       dg_time_derivative_global.f90 \
        dg_end_games.f90 \
        dg_main_loop.f90
 #       dg_constructor.f90 \
