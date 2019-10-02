@@ -25,8 +25,8 @@ SUBROUTINE CONSTRUCT_BASIS
    !-------------------------------------------------------------------
    
    ! INITIALIZE EACH ELEMENT WITH POLY LEVEL 1--------------------------
-   ALLOCATE(PLEVEL_X(NUM_OF_ELEMENT))
-   ALLOCATE(PLEVEL_Y(NUM_OF_ELEMENT))
+   ALLOCATE(PLEVEL_X(0:NUM_OF_ELEMENT-1))   ! element number start from 0 (use Hilbert scheme)
+   ALLOCATE(PLEVEL_Y(0:NUM_OF_ELEMENT-1))
    
    PLEVEL_X = 1; PLEVEL_Y = 1
    !--------------------------------------------------------------------
