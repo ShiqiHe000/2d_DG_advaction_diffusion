@@ -35,7 +35,10 @@ SRC =  dg_param.f90 \
        dg_constructor.f90 \
        dg_riemann_solver.f90 \
        dg_interfaces_construct.f90 \
+       dg_flux_vector.f90 \
        dg_numerical_flux.f90 \
+       dg_spatial_derivative.f90 \
+       dg_a_times_spatial_der.f90 \
        dg_time_derivative_global.f90 \
        dg_end_games.f90 \
        dg_main_loop.f90

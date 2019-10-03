@@ -11,6 +11,7 @@ USE PARAM, ONLY: NUM_OF_EQUATION, NMAX, MMAX, N, M
 USE POLY_LEVEL_AND_ORDER
 USE INTERFACES_CONSTRUCT
 USE NUMERICAL_FLUX
+USE A_TIMES_SPATIAL_DER
 
 IMPLICIT NONE
 
@@ -29,7 +30,7 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     DOUBLE PRECISION, INTENT(IN) :: T   !< CURRENT TIME STEP
     
-    ! X DIRECTION-------------------------------------------------------
+    ! X DIRECTION=======================================================
     
     !FIRST GET FLUX ON THE INFERFACES GLOBALLY
     ALLOCATE(SOLUTION_INT_L(0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
@@ -37,7 +38,7 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     SOLUTION_INT_L = 0.0D0; SOLUTION_INT_R = 0.0D0
     
-    ! THEN INTERPOLATES TO BOUNDARY
+    ! THEN INTERPOLATES TO BOUNDARY-------------------------------------
     DO K = 0, NUM_OF_ELEMENT-1
     
         CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(K), PORDER_X)
@@ -52,25 +53,47 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
         
     
     ENDDO
+    !-------------------------------------------------------------------
     
-    ! NEXT STEP COMPUTE NUMERICAL FLUXES
+    ! NEXT STEP COMPUTE NUMERICAL FLUXES--------------------------------
     ALLOCATE(NFLUX_X_L(0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
     ALLOCATE(NFLUX_X_R(0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
     
     NFLUX_X_L = 0.0D0; NFLUX_X_R = 0.0D0
     
+    
     DO K = 0, NUM_OF_ELEMENT-1
         CALL NUMERICAL_FLUX_X(K, T)
     ENDDO
-    
     !-------------------------------------------------------------------
     
-    ! Y ----------------------------------------------------------------
+    ! SPACIAL DERIVATIVE------------------------------------------------
+    ALLOCATE(FLUX_X(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
+    
+    FLUX_X = 0.0D0
+    
+    ALLOCATE(FLUX_DER_X(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0: NUM_OF_ELEMENT-1))
+    
+    FLUX_DER_X = 0.0D0
+    
+    ALLOCATE(SOLUTION_TIME_DER(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
+    
+    SOLUTION_TIME_DER = 0.0D0
+    
     DO K = 0, NUM_OF_ELEMENT-1
-        
+        CALL A_TIMES_SPATIAL_DERIRATIVE(K)
     
     ENDDO
     !-------------------------------------------------------------------
+    
+    !===================================================================
+    
+    
+    ! Y ================================================================
+    DO K = 0, NUM_OF_ELEMENT-1
+        
+    ENDDO
+    !===================================================================
 
 
 END SUBROUTINE DG_TIME_DER_COMBINE
