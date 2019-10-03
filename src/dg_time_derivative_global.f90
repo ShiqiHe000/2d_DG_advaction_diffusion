@@ -32,13 +32,13 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     ! X DIRECTION=======================================================
     
-    !FIRST GET FLUX ON THE INFERFACES GLOBALLY
+    !FIRST GET FLUX ON THE INFERFACES GLOBALLY--------------------------
     ALLOCATE(SOLUTION_INT_L(0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
     ALLOCATE(SOLUTION_INT_R(0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
     
     SOLUTION_INT_L = 0.0D0; SOLUTION_INT_R = 0.0D0
     
-    ! THEN INTERPOLATES TO BOUNDARY-------------------------------------
+    
     DO K = 0, NUM_OF_ELEMENT-1
     
         CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(K), PORDER_X)
@@ -86,13 +86,38 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     ENDDO
     !-------------------------------------------------------------------
     
+    !-------------------------------------------------------------------
+    DEALLOCATE(SOLUTION_INT_L, SOLUTION_INT_R)
+    DEALLOCATE(NFLUX_X_L, NFLUX_X_R)
+    DEALLOCATE(FLUX_X, FLUX_DER_X)
+    !-------------------------------------------------------------------
+    
     !===================================================================
     
     
     ! Y ================================================================
+    !FIRST GET FLUX ON THE INFERFACES GLOBALLY--------------------------
+    ALLOCATE(SOLUTION_INT_L(0:NMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
+    ALLOCATE(SOLUTION_INT_R(0:NMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
+    
+    SOLUTION_INT_L = 0.0D0; SOLUTION_INT_R = 0.0D0
+    
+    
     DO K = 0, NUM_OF_ELEMENT-1
+    
+        CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(K), PORDER_X)
+        CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(K), PORDER_Y)
         
+        CALL CONSTRUCT_INTERFACES_X(PORDER_X, PORDER_Y, NUM_OF_EQUATION, &
+                                    SOLUTION(0:PORDER_X, 0:PORDER_Y, NUM_OF_EQUATION, K), &
+                                    LAGRANGE_LEFT_T(0:PORDER_X, PLEVEL_X(K)), &
+                                    LAGRANGE_RIGHT_T(0:PORDER_X, PLEVEL_X(K)), &
+                                    SOLUTION_INT_L(0:PORDER_Y, NUM_OF_EQUATION, K), &
+                                    SOLUTION_INT_R(0:PORDER_Y, NUM_OF_EQUATION, K) )
+        
+    
     ENDDO
+    !-------------------------------------------------------------------
     !===================================================================
 
 
