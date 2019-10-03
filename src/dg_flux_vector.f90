@@ -14,10 +14,10 @@ IMPLICIT NONE
 
 CONTAINS
 
-SUBROUTINE XFLUX(Q, XF)
 !-----------------------------------------------------------------------
 ! ALGORITHM 94
 !-----------------------------------------------------------------------
+SUBROUTINE XFLUX(Q, XF)
 
     IMPLICIT NONE
     
@@ -32,10 +32,10 @@ SUBROUTINE XFLUX(Q, XF)
 
 END SUBROUTINE XFLUX
 
-SUBROUTINE YFLUX(Q, YF)
 !-----------------------------------------------------------------------
 ! ALGORITHM 94
 !-----------------------------------------------------------------------
+SUBROUTINE YFLUX(Q, YF)
 
     IMPLICIT NONE
     

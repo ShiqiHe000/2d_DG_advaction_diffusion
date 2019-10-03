@@ -27,7 +27,7 @@ IMPLICIT NONE
 CONTAINS
 
 !-----------------------------------------------------------------------
-! Compute the numerical flux of current element k
+! Compute the numerical flux of current element k (direction x)
 !-----------------------------------------------------------------------
 SUBROUTINE NUMERICAL_FLUX_X(ELEM_K, T)
     
@@ -124,8 +124,15 @@ SUBROUTINE NUMERICAL_FLUX_X(ELEM_K, T)
 
 END SUBROUTINE NUMERICAL_FLUX_X
 
+!-----------------------------------------------------------------------
+!> Compute the numerical flux on the left side of the element, and 
+!! pass the value of the numerical flux to the corresponding neignbor
+!! right boundary with a minus sign. 
+!-----------------------------------------------------------------------
 SUBROUTINE RIEMANN1(ELEM_K, I, J, MY)
 
+    IMPLICIT NONE 
+    
     IMPLICIT NONE 
     
     INTEGER, INTENT(IN) :: ELEM_K
@@ -149,5 +156,104 @@ SUBROUTINE RIEMANN1(ELEM_K, I, J, MY)
     ENDDO
     
 END SUBROUTINE RIEMANN1
+
+
+!-----------------------------------------------------------------------
+! Compute the numerical flux of current element k (direction y)
+!-----------------------------------------------------------------------
+SUBROUTINE NUMERICAL_FLUX_Y(ELEM_K, T)
+    
+    IMPLICIT NONE
+    
+    INTEGER, INTENT(IN) :: ELEM_K   !< ELEMENT NUMBER
+    
+    INTEGER :: NX   ! POLY ORDER IN X
+    INTEGER :: MY   ! POLY ORDER IN Y
+    
+    INTEGER :: I, J, S
+    
+    DOUBLE PRECISION :: T   !< CURRENT TIME STEP
+    
+    DOUBLE PRECISION :: XI  ! REFERENCE POINT
+    
+    DOUBLE PRECISION :: Y, Y_L
+    
+    DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:, :) :: SOLUTION_EXT ! BOUNDARY CONDITION
+    
+    ! GET POLY ORDER
+    CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(ELEM_K), NX)
+    CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(ELEM_K), MY)
+    
+    ! GET DUAL COORDINATE
+    CALL d2xy ( EXP_X, ELEM_K, I, J )
+    
+    !-------------------------------------------------------------------
+    IF (J > 0 .AND. J< NUM_OF_ELEMENT_X-1) THEN
+    
+        ! NOT ON THE BOUNDARY
+        CALL RIEMANN1(ELEM_K, I, J, MY)
+        
+    ELSEIF(I == 0) THEN !-----------------------------------------------
+        ! ON THE BOTTOM BOUNDARY
+        
+        ALLOCATE(SOLUTION_EXT(0:MY, NUM_OF_EQUATION))
+        SOLUTION_EXT = 0.0D0
+        
+        
+        DO S = 0, MY
+        
+            XI = GL_POINT_Y_T(S, PLEVEL_Y(ELEM_K))
+            
+            Y_L = Y_HILBERT(1, ELEM_K)
+            
+            CALL AFFINE_MAPPING(XI, Y, Y_L, DELTA_Y(ELEM_K))
+        
+            CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
+                                               SOLUTION_EXT(S, :), T, &
+                                               GX_L, Y)
+                                               
+            CALL RIEMANN_X(SOLUTION_EXT(S, :), &
+                           SOLUTION_INT_L(S, :, ELEM_K), &
+                           NFLUX_X_L(S, :, ELEM_K), -1.0D0)
+        ENDDO
+    
+        DEALLOCATE(SOLUTION_EXT)
+        
+    ELSEIF(I == NUM_OF_ELEMENT_X-1) THEN !------------------------------
+    
+        ! ON THE TOP BOUNDARY
+        CALL RIEMANN1(ELEM_K, I, J, MY)
+        
+        ALLOCATE(SOLUTION_EXT(0:MY, NUM_OF_EQUATION))
+        SOLUTION_EXT = 0.0D0
+        
+        DO S = 0, MY
+        
+            XI = GL_POINT_Y_T(S, PLEVEL_Y(ELEM_K))
+            
+            Y_L = Y_HILBERT(1, ELEM_K)
+            
+            CALL AFFINE_MAPPING(XI, Y, Y_L, DELTA_Y(ELEM_K))
+        
+            CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
+                                               SOLUTION_EXT(S, :), T, &
+                                               GX_R, Y)
+                                               
+            CALL RIEMANN_X(SOLUTION_INT_R(S, :, ELEM_K), &
+                            SOLUTION_EXT(S, :), &
+                            NFLUX_X_R(S, :, ELEM_K), 1.0D0)
+        
+        ENDDO
+        
+        DEALLOCATE(SOLUTION_EXT)
+    
+    ELSE 
+    
+    
+    ENDIF
+    !-------------------------------------------------------------------
+    
+
+END SUBROUTINE NUMERICAL_FLUX_Y
 
 END MODULE NUMERICAL_FLUX

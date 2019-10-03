@@ -108,16 +108,29 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
         CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(K), PORDER_X)
         CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(K), PORDER_Y)
         
-        CALL CONSTRUCT_INTERFACES_X(PORDER_X, PORDER_Y, NUM_OF_EQUATION, &
+        CALL CONSTRUCT_INTERFACES_Y(PORDER_X, PORDER_Y, NUM_OF_EQUATION, &
                                     SOLUTION(0:PORDER_X, 0:PORDER_Y, NUM_OF_EQUATION, K), &
-                                    LAGRANGE_LEFT_T(0:PORDER_X, PLEVEL_X(K)), &
-                                    LAGRANGE_RIGHT_T(0:PORDER_X, PLEVEL_X(K)), &
-                                    SOLUTION_INT_L(0:PORDER_Y, NUM_OF_EQUATION, K), &
-                                    SOLUTION_INT_R(0:PORDER_Y, NUM_OF_EQUATION, K) )
+                                    LAGRANGE_DOWN_T(0:PORDER_Y, PLEVEL_Y(K)), &
+                                    LAGRANGE_UP_T(0:PORDER_Y, PLEVEL_Y(K)), &
+                                    SOLUTION_INT_L(0:PORDER_X, NUM_OF_EQUATION, K), &
+                                    SOLUTION_INT_R(0:PORDER_X, NUM_OF_EQUATION, K) )
         
     
     ENDDO
     !-------------------------------------------------------------------
+    
+    ! NEXT STEP COMPUTE NUMERICAL FLUXES--------------------------------
+    ALLOCATE(NFLUX_Y_D(0:NMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
+    ALLOCATE(NFLUX_Y_U(0:NMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
+    
+    NFLUX_Y_D = 0.0D0; NFLUX_Y_U = 0.0D0
+    
+    
+    DO K = 0, NUM_OF_ELEMENT-1
+        CALL NUMERICAL_FLUX_X(K, T)
+    ENDDO
+    !-------------------------------------------------------------------
+    
     !===================================================================
 
 
