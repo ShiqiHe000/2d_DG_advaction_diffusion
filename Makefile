@@ -21,6 +21,7 @@ SRC =  dg_param.f90 \
        dg_affine_map.f90 \
        dg_basis.f90 \
        dg_user_defined.f90 \
+       dg_external_state.f90 \
        dg_poly_level_and_order.f90 \
        dg_hilbert_curve.f90 \
        dg_nodal_2d_storage.f90 \
@@ -32,7 +33,9 @@ SRC =  dg_param.f90 \
        dg_prepare_hilbert_scheme.f90 \
        dg_basis_storage.f90 \
        dg_constructor.f90 \
+       dg_riemann_solver.f90 \
        dg_interfaces_construct.f90 \
+       dg_numerical_flux.f90 \
        dg_time_derivative_global.f90 \
        dg_end_games.f90 \
        dg_main_loop.f90

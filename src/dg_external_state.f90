@@ -18,11 +18,12 @@ IMPLICIT NONE
 
 CONTAINS
 
-SUBROUTINE EXTERNAL_STATE_GAUSSIAN_REFLECT(NUM_OF_EQUATION, &
-                                            Q_INT, Q_EXT, UNIT_VECTOR)
 !-----------------------------------------------------------------------
 ! PAGE 212
 !-----------------------------------------------------------------------
+SUBROUTINE EXTERNAL_STATE_GAUSSIAN_REFLECT(NUM_OF_EQUATION, &
+                                            Q_INT, Q_EXT, UNIT_VECTOR)
+
     IMPLICIT NONE
     
     INTEGER, INTENT(IN) :: NUM_OF_EQUATION    !< NUMBER OF EQUATION
@@ -40,10 +41,11 @@ SUBROUTINE EXTERNAL_STATE_GAUSSIAN_REFLECT(NUM_OF_EQUATION, &
 
 END SUBROUTINE EXTERNAL_STATE_GAUSSIAN_REFLECT
 
-SUBROUTINE EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, Q_EXT, T, X, Y)
 !-----------------------------------------------------------------------
 ! IMPLEMENT EXACT SOLUTION ON THE 4 SIDES OF THE BOUNDARIES
 !-----------------------------------------------------------------------
+SUBROUTINE EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, Q_EXT, T, X, Y)
+
     IMPLICIT NONE
     
     INTEGER, INTENT(IN) :: NUM_OF_EQUATION    !< NUMBER OF EQUATION
@@ -65,10 +67,11 @@ SUBROUTINE EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, Q_EXT, T, X, Y)
     
 END SUBROUTINE EXTERNAL_STATE_GAUSSIAN_EXACT
 
-SUBROUTINE EXTERNAL_SINU(NUM_OF_EQUATION, Q_EXT ,X, Y, T)
 !-----------------------------------------------------------------------
 ! EXTERNAL STATE FOR SINUSOIDAL CASE
 !-----------------------------------------------------------------------
+SUBROUTINE EXTERNAL_SINU(NUM_OF_EQUATION, Q_EXT ,X, Y, T)
+
 
     IMPLICIT NONE
     
