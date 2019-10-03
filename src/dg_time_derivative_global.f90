@@ -81,7 +81,7 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     SOLUTION_TIME_DER = 0.0D0
     
     DO K = 0, NUM_OF_ELEMENT-1
-        CALL A_TIMES_SPATIAL_DERIRATIVE(K)
+        CALL A_TIMES_SPATIAL_DERIRATIVE_X(K)
     
     ENDDO
     !-------------------------------------------------------------------
@@ -129,6 +129,27 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     DO K = 0, NUM_OF_ELEMENT-1
         CALL NUMERICAL_FLUX_Y(K, T)
     ENDDO
+    !-------------------------------------------------------------------
+    
+    ! SPACIAL DERIVATIVE------------------------------------------------
+    ALLOCATE(FLUX_Y(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
+    
+    FLUX_Y = 0.0D0
+    
+    ALLOCATE(FLUX_DER_Y(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0: NUM_OF_ELEMENT-1))
+    
+    FLUX_DER_Y = 0.0D0
+    
+    DO K = 0, NUM_OF_ELEMENT-1
+        CALL A_TIMES_SPATIAL_DERIRATIVE_Y(K)
+    
+    ENDDO
+    !-------------------------------------------------------------------
+    
+    !-------------------------------------------------------------------
+    DEALLOCATE(SOLUTION_INT_L, SOLUTION_INT_R)
+    DEALLOCATE(NFLUX_Y_D, NFLUX_Y_U)
+    DEALLOCATE(FLUX_Y, FLUX_DER_Y)
     !-------------------------------------------------------------------
     
     !===================================================================
