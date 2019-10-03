@@ -15,7 +15,7 @@ MODULE NUMERICAL_FLUX
 USE MPI
 USE NODAL_2D_STORAGE
 USE INTERFACES_CONSTRUCT
-USE PARAM, ONLY: N, M, EXP_X, NUM_OF_EQUATION, GX_L, GX_R
+USE PARAM, ONLY: N, M, EXP_X, NUM_OF_EQUATION, GX_L, GX_R, GY_L, GY_R
 USE hilbert
 USE RIEMANN_SOLVER
 USE AFFINE_MAP
@@ -127,12 +127,9 @@ END SUBROUTINE NUMERICAL_FLUX_X
 !-----------------------------------------------------------------------
 !> Compute the numerical flux on the left side of the element, and 
 !! pass the value of the numerical flux to the corresponding neignbor
-!! right boundary with a minus sign. 
+!! right boundary with a minus sign. Use this subroutine in x direction.
 !-----------------------------------------------------------------------
 SUBROUTINE RIEMANN1(ELEM_K, I, J, MY)
-
-    IMPLICIT NONE 
-    
     IMPLICIT NONE 
     
     INTEGER, INTENT(IN) :: ELEM_K
@@ -176,7 +173,7 @@ SUBROUTINE NUMERICAL_FLUX_Y(ELEM_K, T)
     
     DOUBLE PRECISION :: XI  ! REFERENCE POINT
     
-    DOUBLE PRECISION :: Y, Y_L
+    DOUBLE PRECISION :: X, X_L
     
     DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:, :) :: SOLUTION_EXT ! BOUNDARY CONDITION
     
@@ -191,57 +188,57 @@ SUBROUTINE NUMERICAL_FLUX_Y(ELEM_K, T)
     IF (J > 0 .AND. J< NUM_OF_ELEMENT_X-1) THEN
     
         ! NOT ON THE BOUNDARY
-        CALL RIEMANN1(ELEM_K, I, J, MY)
+        CALL RIEMANN2(ELEM_K, I, J, NX)
         
-    ELSEIF(I == 0) THEN !-----------------------------------------------
+    ELSEIF(J == 0) THEN !-----------------------------------------------
         ! ON THE BOTTOM BOUNDARY
         
-        ALLOCATE(SOLUTION_EXT(0:MY, NUM_OF_EQUATION))
+        ALLOCATE(SOLUTION_EXT(0:NX, NUM_OF_EQUATION))
         SOLUTION_EXT = 0.0D0
         
         
-        DO S = 0, MY
+        DO S = 0, NX
         
-            XI = GL_POINT_Y_T(S, PLEVEL_Y(ELEM_K))
+            XI = GL_POINT_X_T(S, PLEVEL_X(ELEM_K))
             
-            Y_L = Y_HILBERT(1, ELEM_K)
+            X_L = X_HILBERT(1, ELEM_K)
             
-            CALL AFFINE_MAPPING(XI, Y, Y_L, DELTA_Y(ELEM_K))
+            CALL AFFINE_MAPPING(XI, X, X_L, DELTA_X(ELEM_K))
         
             CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
                                                SOLUTION_EXT(S, :), T, &
-                                               GX_L, Y)
+                                               GY_L, X)
                                                
-            CALL RIEMANN_X(SOLUTION_EXT(S, :), &
+            CALL RIEMANN_Y(SOLUTION_EXT(S, :), &
                            SOLUTION_INT_L(S, :, ELEM_K), &
-                           NFLUX_X_L(S, :, ELEM_K), -1.0D0)
+                           NFLUX_Y_D(S, :, ELEM_K), -1.0D0)
         ENDDO
     
         DEALLOCATE(SOLUTION_EXT)
         
-    ELSEIF(I == NUM_OF_ELEMENT_X-1) THEN !------------------------------
+    ELSEIF(J == NUM_OF_ELEMENT_X-1) THEN !------------------------------
     
         ! ON THE TOP BOUNDARY
-        CALL RIEMANN1(ELEM_K, I, J, MY)
+        CALL RIEMANN2(ELEM_K, I, J, NX)
         
-        ALLOCATE(SOLUTION_EXT(0:MY, NUM_OF_EQUATION))
+        ALLOCATE(SOLUTION_EXT(0:NX, NUM_OF_EQUATION))
         SOLUTION_EXT = 0.0D0
         
-        DO S = 0, MY
+        DO S = 0, NX
         
-            XI = GL_POINT_Y_T(S, PLEVEL_Y(ELEM_K))
+            XI = GL_POINT_X_T(S, PLEVEL_X(ELEM_K))
             
-            Y_L = Y_HILBERT(1, ELEM_K)
+            X_L = X_HILBERT(1, ELEM_K)
             
-            CALL AFFINE_MAPPING(XI, Y, Y_L, DELTA_Y(ELEM_K))
+            CALL AFFINE_MAPPING(XI, X, X_L, DELTA_X(ELEM_K))
         
             CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
                                                SOLUTION_EXT(S, :), T, &
-                                               GX_R, Y)
+                                               GY_R, X)
                                                
-            CALL RIEMANN_X(SOLUTION_INT_R(S, :, ELEM_K), &
+            CALL RIEMANN_Y(SOLUTION_INT_R(S, :, ELEM_K), &
                             SOLUTION_EXT(S, :), &
-                            NFLUX_X_R(S, :, ELEM_K), 1.0D0)
+                            NFLUX_Y_U(S, :, ELEM_K), 1.0D0)
         
         ENDDO
         
@@ -255,5 +252,38 @@ SUBROUTINE NUMERICAL_FLUX_Y(ELEM_K, T)
     
 
 END SUBROUTINE NUMERICAL_FLUX_Y
+
+!-----------------------------------------------------------------------
+!> Compute the numerical flux on the left side of the element, and 
+!! pass the value of the numerical flux to the corresponding neignbor
+!! right boundary with a minus sign. Use this subroutine in y direction.
+!-----------------------------------------------------------------------
+SUBROUTINE RIEMANN2(ELEM_K, I, J, MX)
+
+    IMPLICIT NONE 
+    
+    INTEGER, INTENT(IN) :: ELEM_K
+    INTEGER, INTENT(IN) :: I, J
+    INTEGER, INTENT(IN) :: MX
+    
+    INTEGER :: S
+    INTEGER :: IDL, IDR ! ELEM NUMBER ON THE TWO SIDE OF THE INTERFACE
+    
+    IDR = ELEM_K    ! ID ON THE RIGHT SIDE OF THE INTERFACE
+        
+    CALL xy2d ( EXP_X, I, J-1, IDL )    ! ID ON THE LEFT SIDE OF THE INTERFACE
+
+    DO S = 0, MX
+        CALL RIEMANN_Y(SOLUTION_INT_R(S, :, IDL), &
+                       SOLUTION_INT_L(S, :, IDR), &
+                       NFLUX_Y_D(S, :, IDR), -1.0D0)
+                       
+                       
+        NFLUX_Y_U(S, :, IDL) = - NFLUX_Y_D(S, :, IDR)
+        
+    ENDDO
+    
+END SUBROUTINE RIEMANN2
+
 
 END MODULE NUMERICAL_FLUX

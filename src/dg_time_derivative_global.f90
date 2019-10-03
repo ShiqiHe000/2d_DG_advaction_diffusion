@@ -127,7 +127,7 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     
     DO K = 0, NUM_OF_ELEMENT-1
-        CALL NUMERICAL_FLUX_X(K, T)
+        CALL NUMERICAL_FLUX_Y(K, T)
     ENDDO
     !-------------------------------------------------------------------
     
