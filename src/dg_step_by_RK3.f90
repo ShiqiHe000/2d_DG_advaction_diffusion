@@ -21,12 +21,12 @@ IMPLICIT NONE
 
 CONTAINS
 
-SUBROUTINE DG_STEP_BY_RK3(TN, DELTA_T)
 ! ----------------------------------------------------------------------
 ! THRID ORDER RUNGE-KUTTA INTEGRATION 
 ! INPUT: TN: CURRENT TIME; TIME_DER: DG TIME DERIVATIVE
 ! ALGORITHM 62
 !-----------------------------------------------------------------------
+SUBROUTINE DG_STEP_BY_RK3(TN, DELTA_T)
 
     IMPLICIT NONE
     

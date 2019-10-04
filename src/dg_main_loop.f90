@@ -3,14 +3,14 @@
 !> The main loop of the program
 !-----------------------------------------------------------------------
 
+!-----------------------------------------------------------------------
+!   2D linear advaction problem
+!-----------------------------------------------------------------------
 PROGRAM MAIN_LOOP
-!-----------------------------------------------------------------------
-!   POISSON PROBLEM
-!-----------------------------------------------------------------------
     USE MPI
     USE SET_MPI
     USE ADVECTION_DIFFUSION_DRIVER
-!    USE VERIFICATION
+    USE VERIFICATION
     USE END_PROGRAM
     USE PREPARE_HILBERT_SCHEME
 

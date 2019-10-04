@@ -16,12 +16,12 @@ IMPLICIT NONE
 
 CONTAINS
 
-SUBROUTINE DG_SPATIAL_DERIVATIVE(N_TH, FLUX_LEFT, FLUX_RIGHT, &
-                                    FLUX, FLUX_DER, DER, LAG1, LAG2, WEIGHT)
 !-----------------------------------------------------------------------
 ! ALGORITHM 92
 ! RETURN: FLUX_DER
 !-----------------------------------------------------------------------
+SUBROUTINE DG_SPATIAL_DERIVATIVE(N_TH, FLUX_LEFT, FLUX_RIGHT, &
+                                    FLUX, FLUX_DER, DER, LAG1, LAG2, WEIGHT)
     IMPLICIT NONE
     
     INTEGER :: J, S

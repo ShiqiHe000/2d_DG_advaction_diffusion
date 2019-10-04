@@ -6,13 +6,13 @@ MODULE BASIS
 
 CONTAINS
 
-SUBROUTINE MATRIX_VECTOR_DERIVATIVE(N, D, F, DER1)
 !----------------------------------------------------------------------
 !> @brief 
 !> COMPUTE THE DERIVATIVE BY MATRIX MULTIPLICATION
 !
 !  ALGORITHM 19
 !----------------------------------------------------------------------
+SUBROUTINE MATRIX_VECTOR_DERIVATIVE(N, D, F, DER1)
     IMPLICIT NONE
     
     INTEGER, INTENT(IN) :: N    !< POLY ORDER
@@ -40,13 +40,14 @@ SUBROUTINE MATRIX_VECTOR_DERIVATIVE(N, D, F, DER1)
     
 END SUBROUTINE MATRIX_VECTOR_DERIVATIVE
 
-SUBROUTINE LEGENDRE_POLYNOMIAL_AND_DERIVATIVE(N,X,Q,DQ)
 !--------------------------------------------------------------------
 !       Algorithm 22 Kopriva - compute L_n (Q) and L_n' (DQ)
 !> @brief
 !> Legendre polynomial of degree k and its derivative using the three
 !>                        term recursive.
 !--------------------------------------------------------------------
+SUBROUTINE LEGENDRE_POLYNOMIAL_AND_DERIVATIVE(N,X,Q,DQ)
+
     IMPLICIT NONE
 
     INTEGER, INTENT(IN) :: N    !< POLY ORDER
@@ -82,12 +83,13 @@ SUBROUTINE LEGENDRE_POLYNOMIAL_AND_DERIVATIVE(N,X,Q,DQ)
 
 END SUBROUTINE LEGENDRE_POLYNOMIAL_AND_DERIVATIVE
 
-SUBROUTINE GL(N, GL_POINT, GL_W)
 !----------------------------------------------------------------------
 !> @brief
 !> COMPUTE THE GAUSS LEGENDRE NODES AND WEIGHTS
 ! ALGORITHM 23
 !----------------------------------------------------------------------
+SUBROUTINE GL(N, GL_POINT, GL_W)
+
     USE PARAM, ONLY : PI
     
     IMPLICIT NONE
@@ -141,8 +143,6 @@ SUBROUTINE GL(N, GL_POINT, GL_W)
 
 END SUBROUTINE GL
 
-
-SUBROUTINE q_And_L_Evaluation(N, X,POL,DPOL,Q,DQ)
 !--------------------------------------------------------------------
 !       Algorithm 24 Kopriva 
 !> @brief 
@@ -150,6 +150,8 @@ SUBROUTINE q_And_L_Evaluation(N, X,POL,DPOL,Q,DQ)
 !! L'_n (DPOL), Q = L_n+1 - L_n-1, and Q'
 !
 !--------------------------------------------------------------------
+SUBROUTINE q_And_L_Evaluation(N, X,POL,DPOL,Q,DQ)
+
     IMPLICIT NONE
 
     INTEGER :: N
@@ -189,12 +191,13 @@ SUBROUTINE q_And_L_Evaluation(N, X,POL,DPOL,Q,DQ)
 
 END SUBROUTINE q_And_L_Evaluation
 
-SUBROUTINE GLL(N, GLL_POINT, GLL_W)
 !----------------------------------------------------------------------
 !> @brief
 !>       Compute Gauss Legendre Lobatto nodes and weights. 
 !       Algorithm taken from algorithm 25 in Kopriva 
 !----------------------------------------------------------------------
+SUBROUTINE GLL(N, GLL_POINT, GLL_W)
+
     USE PARAM, ONLY: PI
     IMPLICIT NONE
 
@@ -250,12 +253,13 @@ SUBROUTINE GLL(N, GLL_POINT, GLL_W)
 
 END SUBROUTINE GLL
 
-SUBROUTINE BARW(N, X, BARY)
 !--------------------------------------------------------------------
 !> @brief
 !>      Barycentric weights for Lagrange Iterpolation
 !       Algorithm 30 in Kopriva
 !-------------------------------------------------------------------
+SUBROUTINE BARW(N, X, BARY)
+
     IMPLICIT NONE
 
     INTEGER, INTENT(IN) :: N    !< POLY ORDER
@@ -284,14 +288,13 @@ SUBROUTINE BARW(N, X, BARY)
     
 END SUBROUTINE BARW
 
-SUBROUTINE LAGRANGE_INTERPOLATING_POLYNOMIAL(N, POINT_X, X, BARY, LAGRANGE)
 !---------------------------------------------------------------------
 !> @brief
 !> LAGRANGE INTERPOLATING POLYNOMIAL VALUES AT POINT X
 ! INPUT : GL_POINTS AND BARYCENTRIC WEIGHTS
 ! ALGORITHM 34
 !----------------------------------------------------------------------
-     
+SUBROUTINE LAGRANGE_INTERPOLATING_POLYNOMIAL(N, POINT_X, X, BARY, LAGRANGE)
     IMPLICIT NONE
     
     INTEGER :: N    !< PLOY ORDER
@@ -336,12 +339,13 @@ SUBROUTINE LAGRANGE_INTERPOLATING_POLYNOMIAL(N, POINT_X, X, BARY, LAGRANGE)
 
 END SUBROUTINE LAGRANGE_INTERPOLATING_POLYNOMIAL
 
-SUBROUTINE mth_Order_Polynomial_Derivative_Matrix(N,MTH_DER, X, DER)
 !----------------------------------------------------------------------
 !> @brief
 !> M-th order derivative matrix
 !       Algorithm 37-38 in Kopriva
-!--------------------------------------------------------------------        
+!--------------------------------------------------------------------   
+SUBROUTINE mth_Order_Polynomial_Derivative_Matrix(N,MTH_DER, X, DER)
+      
     IMPLICIT NONE
 
     INTEGER :: I,J,K
@@ -394,13 +398,14 @@ SUBROUTINE mth_Order_Polynomial_Derivative_Matrix(N,MTH_DER, X, DER)
 
 END SUBROUTINE mth_Order_Polynomial_Derivative_Matrix
 
-SUBROUTINE INTERPOLATE_TO_BOUNDARY(N, Q, LAG, INTER)
 !-----------------------------------------------------------------------
 ! ALGORITHEM 61
 !> @brief
 !> INTERPOLATE THE SOLUTION ARRAY TO THE BOUNDARY USING LAGRANGE
 !! INTERPOLATING POLYNOMIAL
 !-----------------------------------------------------------------------
+SUBROUTINE INTERPOLATE_TO_BOUNDARY(N, Q, LAG, INTER)
+
 
     IMPLICIT NONE
     
@@ -421,13 +426,12 @@ SUBROUTINE INTERPOLATE_TO_BOUNDARY(N, Q, LAG, INTER)
 
 END SUBROUTINE INTERPOLATE_TO_BOUNDARY
 
-
-SUBROUTINE ALMOSTEQUAL(FLAG,A,B)
 !----------------------------------------------------------------------
 !> @brief
 !> TESTING EQUALITY OF TWO FLOATING POINT NUMBER
 ! ALGORITHM 139
 !----------------------------------------------------------------------
+SUBROUTINE ALMOSTEQUAL(FLAG,A,B)
     IMPLICIT NONE
 
     LOGICAL :: FLAG !< LOGICAL OPERATOR

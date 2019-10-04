@@ -136,12 +136,6 @@ SUBROUTINE GET_NODAL_2D_STORAGE_EXTENDS(N1, LAG_L, LAG_R, GL_P)
     CALL LAGRANGE_INTERPOLATING_POLYNOMIAL(N1,  1.0D0, GL_P, BARY_X, LAG_R)
     !-------------------------------------------------------------------
     
-    ! UPPER AND LOWER BOUNDARY------------------------------------------
-!    CALL BARW(M, GL_POINT_Y, BARY_Y)
-!    CALL LAGRANGE_INTERPOLATING_POLYNOMIAL(M, -1.0D0, GL_POINT_Y, BARY_Y, LAGRANGE_DOWN)
-!    CALL LAGRANGE_INTERPOLATING_POLYNOMIAL(M,  1.0D0, GL_POINT_Y, BARY_Y, LAGRANGE_UP)
-    !-------------------------------------------------------------------
-
     !-------------------------------------------------------------------
     DEALLOCATE(BARY_X)
     !-------------------------------------------------------------------

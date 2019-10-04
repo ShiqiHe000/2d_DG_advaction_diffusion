@@ -12,7 +12,6 @@ IMPLICIT NONE
 
 CONTAINS
 
-SUBROUTINE READ_MESH_2D
 !-----------------------------------------------------------------------
 ! READ .MSH FILE, RECORD THE XY COORDINATE OF EACH ELEMENT.
 ! SORTING THE NODE-ORDERING FORMAT. WARRENT EACH ELEMENT NODE IS ORDERING
@@ -26,6 +25,8 @@ SUBROUTINE READ_MESH_2D
 ! GET ELEMENT IJ COORDINDATE.
 ! NOTE: THE ELEMENT SEQUENCE IN .MSH FILE DOES NOT MATTER.
 !-----------------------------------------------------------------------
+SUBROUTINE READ_MESH_2D
+
     
     USE PARAM, ONLY: MESHFILE, RANK, FILEPLACE
     
@@ -139,8 +140,6 @@ SUBROUTINE READ_MESH_2D
 
 END SUBROUTINE READ_MESH_2D
 
-SUBROUTINE SORT_NODE_ORDERING(TOTAL_NODE, TOTAL_QUAD, &
-                                QUAD_NODE, NODE_XY)
 !-----------------------------------------------------------------------
 ! SORTING THE NODE-ORDERING FORMAT. WARRENT EACH ELEMENT NODE IS ORDERING
 ! AS THE FORMAT:
@@ -150,8 +149,10 @@ SUBROUTINE SORT_NODE_ORDERING(TOTAL_NODE, TOTAL_QUAD, &
 ! |        |
 ! 1--------2
 !-----------------------------------------------------------------------
+SUBROUTINE SORT_NODE_ORDERING(TOTAL_NODE, TOTAL_QUAD, &
+                                QUAD_NODE, NODE_XY)
+
     USE NODAL_2D_STORAGE, ONLY: ELEM_X_POSITION, ELEM_Y_POSITION
-!    USE WRITE_DATA
     
     IMPLICIT NONE 
     
@@ -304,11 +305,11 @@ SUBROUTINE GET_SCORES(X_MAX, Y_MAX, NODE_XY1, SCORE, X_SCORES, Y_SCORES)
 
 END SUBROUTINE GET_SCORES
 
-SUBROUTINE ALMOSTEQUAL_2(FLAG, A, B)
 !-----------------------------------------------------------------------
 ! DETERMINE WHETHER TWO FLOATING POINT NUMBER A AND B ARE EQUAL OR NOT
 ! RETURN LOGICAL FLAG
 !-----------------------------------------------------------------------
+SUBROUTINE ALMOSTEQUAL_2(FLAG, A, B)
 
     IMPLICIT NONE 
     

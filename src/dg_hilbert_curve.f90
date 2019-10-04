@@ -3,28 +3,29 @@ module hilbert
 
 contains
 
-subroutine d2xy ( m, d, x, y )
 
 !*****************************************************************************80
 !
-!! D2XY converts a 1D Hilbert coordinate to a 2D Cartesian coordinate.
+!> D2XY converts a 1D Hilbert coordinate to a 2D Cartesian coordinate.
 !
 !  Modified:
 !
 !    05 December 2015
 !
-!  Parameters:
+!>  Parameters:
 !
-!    Input, integer ( kind = 4 ) M, the index of the Hilbert curve.
-!    The number of cells is N=2^M.
-!    0 < M.
+!>    Input, integer ( kind = 4 ) M, the index of the Hilbert curve.
+!>    The number of cells is N=2^M.
+!>    0 < M.
 !
-!    Input, integer ( kind = 4 ) D, the Hilbert coordinate of the cell.
-!    0 <= D < N * N.
+!>    Input, integer ( kind = 4 ) D, the Hilbert coordinate of the cell.
+!>    0 <= D < N * N.
+!>
+!>    Output, integer ( kind = 4 ) X, Y, the Cartesian coordinates of the cell.
+!>    0 <= X, Y < N.
 !
-!    Output, integer ( kind = 4 ) X, Y, the Cartesian coordinates of the cell.
-!    0 <= X, Y < N.
-!
+subroutine d2xy ( m, d, x, y )
+
   implicit none
 
   integer ( kind = 4 ) d
@@ -188,36 +189,39 @@ subroutine timestamp ( )
 
   return
 end
-subroutine xy2d ( m, x, y, d )
+
+
 
 !*****************************************************************************80
 !
-!! XY2D converts a 2D Cartesian coordinate to a 1D Hilbert coordinate.
+!> XY2D converts a 2D Cartesian coordinate to a 1D Hilbert coordinate.
 !
-!  Discussion:
+!>  Discussion:
+!>
+!>    It is assumed that a square has been divided into an NxN array of cells,
+!>    where N is a power of 2.
+!>
+!>    Cell (0,0) is in the lower left corner, and (N-1,N-1) in the upper 
+!>    right corner.
+!>
+!>  Modified:
+!>
+!>    02 January 2016
+!>
+!>  Parameters:
+!>
+!>    Input, integer ( kind = 4 ) M, the index of the Hilbert curve.
+!>    The number of cells is N=2^M.
+!>    0 < M.
+!>
+!>    Input, integer ( kind = 4 ) X, Y, the Cartesian coordinates of a cell.
+!>    0 <= X, Y < N.
+!>
+!>    Output, integer ( kind = 4 ) D, the Hilbert coordinate of the cell.
+!>    0 <= D < N * N.
 !
-!    It is assumed that a square has been divided into an NxN array of cells,
-!    where N is a power of 2.
-!
-!    Cell (0,0) is in the lower left corner, and (N-1,N-1) in the upper 
-!    right corner.
-!
-!  Modified:
-!
-!    02 January 2016
-!
-!  Parameters:
-!
-!    Input, integer ( kind = 4 ) M, the index of the Hilbert curve.
-!    The number of cells is N=2^M.
-!    0 < M.
-!
-!    Input, integer ( kind = 4 ) X, Y, the Cartesian coordinates of a cell.
-!    0 <= X, Y < N.
-!
-!    Output, integer ( kind = 4 ) D, the Hilbert coordinate of the cell.
-!    0 <= D < N * N.
-!
+subroutine xy2d ( m, x, y, d )
+
   implicit none
 
   integer ( kind = 4 ) d

@@ -12,11 +12,12 @@ IMPLICIT NONE
 
 CONTAINS
 
-SUBROUTINE RIEMANN(Q_L, Q_R, N_FLUX, UNIT_VECTOR, OUTWARD)
+
 !-----------------------------------------------------------------------
 ! ALGORITHM 88
 ! THE DERIVATION OF THE NUMERICAL FLUX IS KNOWN AS RIEMANN PROBLEM
 !-----------------------------------------------------------------------
+SUBROUTINE RIEMANN(Q_L, Q_R, N_FLUX, UNIT_VECTOR, OUTWARD)
 
     IMPLICIT NONE
 
@@ -45,11 +46,11 @@ SUBROUTINE RIEMANN(Q_L, Q_R, N_FLUX, UNIT_VECTOR, OUTWARD)
 
 END SUBROUTINE RIEMANN
 
-SUBROUTINE RIEMANN_X(Q_L, Q_R, N_FLUX, NORMAL)
 !-----------------------------------------------------------------------
 ! Riemann solver in x direction
 ! Use upwind fluxes
 !-----------------------------------------------------------------------
+SUBROUTINE RIEMANN_X(Q_L, Q_R, N_FLUX, NORMAL)
     IMPLICIT NONE
     
     DOUBLE PRECISION :: Q_L(NUM_OF_EQUATION)    !< SOLUTION AT LEFT
@@ -76,12 +77,12 @@ SUBROUTINE RIEMANN_X(Q_L, Q_R, N_FLUX, NORMAL)
     
 END SUBROUTINE RIEMANN_X
 
-
-SUBROUTINE RIEMANN_Y(Q_L, Q_R, N_FLUX, NORMAL)
 !-----------------------------------------------------------------------
 ! Riemann solver in y direction
 ! Use upwind fluxes
 !-----------------------------------------------------------------------
+SUBROUTINE RIEMANN_Y(Q_L, Q_R, N_FLUX, NORMAL)
+!------------------------------------------------------k-
 
     IMPLICIT NONE
     

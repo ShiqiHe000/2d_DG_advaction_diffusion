@@ -20,10 +20,10 @@ IMPLICIT NONE
 
 CONTAINS
 
-SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
 !-----------------------------------------------------------------------
 ! ALGORITHM 51
 !-----------------------------------------------------------------------
+SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
 
     IMPLICIT NONE
     

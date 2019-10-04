@@ -32,12 +32,10 @@ SUBROUTINE HIBERT_SORT_2D
     
     !-------------------------------------------------------------------
     DO K=1, NUM_OF_ELEMENT
-!    DO K=1, 1
     
         I = DUAL_COORD(1, K)
         J = DUAL_COORD(2, K)
         
-!        print *, I, J
         
         CALL xy2d ( EXP_X, I, J, D )
         

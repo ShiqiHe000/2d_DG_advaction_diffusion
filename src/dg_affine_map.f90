@@ -12,11 +12,11 @@ IMPLICIT NONE
 
 CONTAINS
 
-SUBROUTINE AFFINE_MAPPING(XI, X, XK_1, DELTA_X)
 !-----------------------------------------------------------------------
 ! OUTPUT: PHYSICAL LOCATION X
 ! INPUT: OTHERS
 !-----------------------------------------------------------------------
+SUBROUTINE AFFINE_MAPPING(XI, X, XK_1, DELTA_X)
 
     IMPLICIT NONE
     

@@ -20,10 +20,10 @@ DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:) :: L2_NORM  !< WE EVALUATE THE ERROR
 
 CONTAINS
 
-SUBROUTINE GET_ERROR
 !-----------------------------------------------------------------------
 ! OUTPUT: EXACT, ERROR, L2_NORM
 !-----------------------------------------------------------------------
+SUBROUTINE GET_ERROR
 
     IMPLICIT NONE
     
