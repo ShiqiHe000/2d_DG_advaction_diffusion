@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['time_5fstep_5fby_5frk',['time_step_by_rk',['../namespacetime__step__by__rk.html',1,'']]]
+  ['set_5fmpi',['set_mpi',['../namespaceset__mpi.html',1,'']]],
+  ['spactial_5fderivative',['spactial_derivative',['../namespacespactial__derivative.html',1,'']]]
 ];

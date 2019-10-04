@@ -1,10 +1,10 @@
 var searchData=
 [
   ['n',['n',['../namespaceparam.html#a94879b2aae97e8439642bb7780fed987',1,'param']]],
-  ['nflux_5fx_5fl',['nflux_x_l',['../namespacenodal__2d__storage.html#a7c58a6e0edbbc62c7e99ee0785c7b27c',1,'nodal_2d_storage']]],
-  ['nflux_5fx_5fr',['nflux_x_r',['../namespacenodal__2d__storage.html#abfb486208a5e6edc575b7d847130c647',1,'nodal_2d_storage']]],
-  ['nflux_5fy_5fd',['nflux_y_d',['../namespacenodal__2d__storage.html#a53ad43c31585dea6f92ee63e65896991',1,'nodal_2d_storage']]],
-  ['nflux_5fy_5fu',['nflux_y_u',['../namespacenodal__2d__storage.html#ad65a883c99d115b2288e8bce68c84f03',1,'nodal_2d_storage']]],
+  ['nflux_5fx_5fl',['nflux_x_l',['../namespacenodal__2d__storage.html#a4c181d290e8996f555f15e6c205fb17f',1,'nodal_2d_storage']]],
+  ['nflux_5fx_5fr',['nflux_x_r',['../namespacenodal__2d__storage.html#a86934ab28f80d95770c0f07425c1ba3b',1,'nodal_2d_storage']]],
+  ['nflux_5fy_5fd',['nflux_y_d',['../namespacenodal__2d__storage.html#a69983c362313e4b939a81c722b3fa675',1,'nodal_2d_storage']]],
+  ['nflux_5fy_5fu',['nflux_y_u',['../namespacenodal__2d__storage.html#a28a4964d55c23b92f6e12e171dcb0d2e',1,'nodal_2d_storage']]],
   ['nmax',['nmax',['../namespaceparam.html#a6feed35b458eeba5c1b474eabaf96fc3',1,'param']]],
   ['nodal_5f2d_5fstorage',['nodal_2d_storage',['../namespacenodal__2d__storage.html',1,'']]],
   ['none_5fl',['none_l',['../namespaceparam.html#a0e19c591a8f93739925fe1395e3b4b96',1,'param']]],
@@ -14,5 +14,8 @@ var searchData=
   ['num_5fof_5felement_5fx',['num_of_element_x',['../namespacenodal__2d__storage.html#ad44a11454cfa51e06eae4c27287bef41',1,'nodal_2d_storage']]],
   ['num_5fof_5felement_5fy',['num_of_element_y',['../namespacenodal__2d__storage.html#a51efb426cb80bf2b7361a0666ae5750e',1,'nodal_2d_storage']]],
   ['num_5fof_5fequation',['num_of_equation',['../namespaceparam.html#a2c92fcdd6bb2ebc2c31fabee85bba0a5',1,'param']]],
-  ['num_5fproc',['num_proc',['../namespaceparam.html#a6d9d416b210c5f1d3429ed956f681355',1,'param']]]
+  ['num_5fproc',['num_proc',['../namespaceparam.html#a6d9d416b210c5f1d3429ed956f681355',1,'param']]],
+  ['numerical_5fflux',['numerical_flux',['../namespacenumerical__flux.html',1,'']]],
+  ['numerical_5fflux_5fx',['numerical_flux_x',['../namespacenumerical__flux.html#a764ea1fc4d114553703cac6f6f5a2d46',1,'numerical_flux']]],
+  ['numerical_5fflux_5fy',['numerical_flux_y',['../namespacenumerical__flux.html#a86db0d7afc31c57fe3650d57f57e0135',1,'numerical_flux']]]
 ];

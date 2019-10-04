@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['poly_5flevel_5fto_5forder',['poly_level_to_order',['../namespacepoly__level__and__order.html#a359fff22e938b5a60234a2b853dd7b0f',1,'poly_level_and_order']]],
-  ['poly_5forder_5fto_5flevel',['poly_order_to_level',['../namespacepoly__level__and__order.html#a48564f460fe57c462cae490ce5680e46',1,'poly_level_and_order']]]
+  ['numerical_5fflux_5fx',['numerical_flux_x',['../namespacenumerical__flux.html#a764ea1fc4d114553703cac6f6f5a2d46',1,'numerical_flux']]],
+  ['numerical_5fflux_5fy',['numerical_flux_y',['../namespacenumerical__flux.html#a86db0d7afc31c57fe3650d57f57e0135',1,'numerical_flux']]]
 ];

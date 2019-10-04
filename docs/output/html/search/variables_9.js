@@ -1,10 +1,10 @@
 var searchData=
 [
   ['n',['n',['../namespaceparam.html#a94879b2aae97e8439642bb7780fed987',1,'param']]],
-  ['nflux_5fx_5fl',['nflux_x_l',['../namespacenodal__2d__storage.html#a7c58a6e0edbbc62c7e99ee0785c7b27c',1,'nodal_2d_storage']]],
-  ['nflux_5fx_5fr',['nflux_x_r',['../namespacenodal__2d__storage.html#abfb486208a5e6edc575b7d847130c647',1,'nodal_2d_storage']]],
-  ['nflux_5fy_5fd',['nflux_y_d',['../namespacenodal__2d__storage.html#a53ad43c31585dea6f92ee63e65896991',1,'nodal_2d_storage']]],
-  ['nflux_5fy_5fu',['nflux_y_u',['../namespacenodal__2d__storage.html#ad65a883c99d115b2288e8bce68c84f03',1,'nodal_2d_storage']]],
+  ['nflux_5fx_5fl',['nflux_x_l',['../namespacenodal__2d__storage.html#a4c181d290e8996f555f15e6c205fb17f',1,'nodal_2d_storage']]],
+  ['nflux_5fx_5fr',['nflux_x_r',['../namespacenodal__2d__storage.html#a86934ab28f80d95770c0f07425c1ba3b',1,'nodal_2d_storage']]],
+  ['nflux_5fy_5fd',['nflux_y_d',['../namespacenodal__2d__storage.html#a69983c362313e4b939a81c722b3fa675',1,'nodal_2d_storage']]],
+  ['nflux_5fy_5fu',['nflux_y_u',['../namespacenodal__2d__storage.html#a28a4964d55c23b92f6e12e171dcb0d2e',1,'nodal_2d_storage']]],
   ['nmax',['nmax',['../namespaceparam.html#a6feed35b458eeba5c1b474eabaf96fc3',1,'param']]],
   ['none_5fl',['none_l',['../namespaceparam.html#a0e19c591a8f93739925fe1395e3b4b96',1,'param']]],
   ['none_5fr',['none_r',['../namespaceparam.html#a3e669071bcf2e6fbd9d7d524ebd69d3d',1,'param']]],

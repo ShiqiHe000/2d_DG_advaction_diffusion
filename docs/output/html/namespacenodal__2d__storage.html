@@ -71,10 +71,12 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
-<tr class="memitem:a594efbf453e1e387014c4880fa4f8f6a"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a594efbf453e1e387014c4880fa4f8f6a">get_nodal_2d_storage_basis</a></td></tr>
-<tr class="separator:a594efbf453e1e387014c4880fa4f8f6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d266a91749a5a05d60c06a1bb7e8d50"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a4d266a91749a5a05d60c06a1bb7e8d50">get_nodal_2d_storage_extends</a></td></tr>
-<tr class="separator:a4d266a91749a5a05d60c06a1bb7e8d50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8aad74ef31f1d609d22fbad03973b82a"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a8aad74ef31f1d609d22fbad03973b82a">get_nodal_2d_storage_basis</a> (N1, GL_P, GL_WEIGHT, FIRST_DER)</td></tr>
+<tr class="memdesc:a8aad74ef31f1d609d22fbad03973b82a"><td class="mdescLeft">&#160;</td><td class="mdescRight">GL POINTS AND WEIGTHS, FIRST AND SECIND DERIVATIVE MATRICES.  <a href="#a8aad74ef31f1d609d22fbad03973b82a">More...</a><br /></td></tr>
+<tr class="separator:a8aad74ef31f1d609d22fbad03973b82a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10c63e5dcd43ed6001f15637fae24592"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a10c63e5dcd43ed6001f15637fae24592">get_nodal_2d_storage_extends</a> (N1, LAG_L, LAG_R, GL_P)</td></tr>
+<tr class="memdesc:a10c63e5dcd43ed6001f15637fae24592"><td class="mdescLeft">&#160;</td><td class="mdescRight">LAGRANGE INTERPOLATES ON THE BOUNDARIES.  <a href="#a10c63e5dcd43ed6001f15637fae24592">More...</a><br /></td></tr>
+<tr class="separator:a10c63e5dcd43ed6001f15637fae24592"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -90,6 +92,18 @@ Variables</h2></td></tr>
 <tr class="memitem:a8dc7f6b0745efcac3a30da942a62d9ea"><td class="memItemLeft" align="right" valign="top">integer, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a8dc7f6b0745efcac3a30da942a62d9ea">dual_coord</a></td></tr>
 <tr class="memdesc:a8dc7f6b0745efcac3a30da942a62d9ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">DUAL GRAPH COORDINATES.  <a href="#a8dc7f6b0745efcac3a30da942a62d9ea">More...</a><br /></td></tr>
 <tr class="separator:a8dc7f6b0745efcac3a30da942a62d9ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2243cd869565a637eac6d2c5b0df5e8"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#ac2243cd869565a637eac6d2c5b0df5e8">plevel_x</a></td></tr>
+<tr class="memdesc:ac2243cd869565a637eac6d2c5b0df5e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">POLYNOMIAL LEVEL IN X(CAN BE TRANSFORM TO POLY ORDER)  <a href="#ac2243cd869565a637eac6d2c5b0df5e8">More...</a><br /></td></tr>
+<tr class="separator:ac2243cd869565a637eac6d2c5b0df5e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a028bafd9e4d373b834ecd43fadf8aff6"><td class="memItemLeft" align="right" valign="top">integer, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a028bafd9e4d373b834ecd43fadf8aff6">plevel_y</a></td></tr>
+<tr class="memdesc:a028bafd9e4d373b834ecd43fadf8aff6"><td class="mdescLeft">&#160;</td><td class="mdescRight">POLYNOMIAL LEVEL IN Y(CAN BE TRANSFORM TO POLY ORDER)  <a href="#a028bafd9e4d373b834ecd43fadf8aff6">More...</a><br /></td></tr>
+<tr class="separator:a028bafd9e4d373b834ecd43fadf8aff6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94feb2c2a74ffebccc369f8f3da578c2"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a94feb2c2a74ffebccc369f8f3da578c2">level_max_x</a></td></tr>
+<tr class="memdesc:a94feb2c2a74ffebccc369f8f3da578c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">MAXIMUM POLYNOMIAL LEVEL IN X.  <a href="#a94feb2c2a74ffebccc369f8f3da578c2">More...</a><br /></td></tr>
+<tr class="separator:a94feb2c2a74ffebccc369f8f3da578c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23a037d052fd922d8a203a6507bd525b"><td class="memItemLeft" align="right" valign="top">integer&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a23a037d052fd922d8a203a6507bd525b">level_max_y</a></td></tr>
+<tr class="memdesc:a23a037d052fd922d8a203a6507bd525b"><td class="mdescLeft">&#160;</td><td class="mdescRight">MAXIMUM POLYNOMIAL LEVEL IN Y.  <a href="#a23a037d052fd922d8a203a6507bd525b">More...</a><br /></td></tr>
+<tr class="separator:a23a037d052fd922d8a203a6507bd525b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae96ba24f195fa9ed9d1949a4236f102f"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#ae96ba24f195fa9ed9d1949a4236f102f">elem_x_position</a></td></tr>
 <tr class="memdesc:ae96ba24f195fa9ed9d1949a4236f102f"><td class="mdescLeft">&#160;</td><td class="mdescRight">ELEMENT K'S X COORDINATES IN DESIGNED SEQUENCE.  <a href="#ae96ba24f195fa9ed9d1949a4236f102f">More...</a><br /></td></tr>
 <tr class="separator:ae96ba24f195fa9ed9d1949a4236f102f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -102,96 +116,90 @@ Variables</h2></td></tr>
 <tr class="memitem:a1273fe7ed1e1173377d1276e183d4b5c"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a1273fe7ed1e1173377d1276e183d4b5c">y_hilbert</a></td></tr>
 <tr class="memdesc:a1273fe7ed1e1173377d1276e183d4b5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Y COORDINATE OF ELEMENT K ON HILBER CURVE.  <a href="#a1273fe7ed1e1173377d1276e183d4b5c">More...</a><br /></td></tr>
 <tr class="separator:a1273fe7ed1e1173377d1276e183d4b5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d1e79b12c447c6996bffbe6df8ebd61"><td class="memItemLeft" align="right" valign="top">double precision&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a3d1e79b12c447c6996bffbe6df8ebd61">delta_x</a></td></tr>
-<tr class="memdesc:a3d1e79b12c447c6996bffbe6df8ebd61"><td class="mdescLeft">&#160;</td><td class="mdescRight">ELEMENT SIZE IN X DIRECTION.  <a href="#a3d1e79b12c447c6996bffbe6df8ebd61">More...</a><br /></td></tr>
-<tr class="separator:a3d1e79b12c447c6996bffbe6df8ebd61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53270e7f2a064b4ce64c0ba10ca30660"><td class="memItemLeft" align="right" valign="top">double precision&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a53270e7f2a064b4ce64c0ba10ca30660">delta_y</a></td></tr>
-<tr class="memdesc:a53270e7f2a064b4ce64c0ba10ca30660"><td class="mdescLeft">&#160;</td><td class="mdescRight">ELEMENT SIZE IN Y DIRECTION.  <a href="#a53270e7f2a064b4ce64c0ba10ca30660">More...</a><br /></td></tr>
-<tr class="separator:a53270e7f2a064b4ce64c0ba10ca30660"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acbac3675ee253811b2a3cf8e895d069b"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#acbac3675ee253811b2a3cf8e895d069b">gl_point_x</a></td></tr>
-<tr class="memdesc:acbac3675ee253811b2a3cf8e895d069b"><td class="mdescLeft">&#160;</td><td class="mdescRight">GL POINTS IN X DIRECTION.  <a href="#acbac3675ee253811b2a3cf8e895d069b">More...</a><br /></td></tr>
-<tr class="separator:acbac3675ee253811b2a3cf8e895d069b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8c8aec94dd7f9e3c488fe52e8eca645"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#ac8c8aec94dd7f9e3c488fe52e8eca645">gl_point_y</a></td></tr>
-<tr class="memdesc:ac8c8aec94dd7f9e3c488fe52e8eca645"><td class="mdescLeft">&#160;</td><td class="mdescRight">GL POINTS IN Y DIRECTION.  <a href="#ac8c8aec94dd7f9e3c488fe52e8eca645">More...</a><br /></td></tr>
-<tr class="separator:ac8c8aec94dd7f9e3c488fe52e8eca645"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f14ffa9c12880c637e13cd5eb62e477"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a8f14ffa9c12880c637e13cd5eb62e477">gl_w_x</a></td></tr>
-<tr class="memdesc:a8f14ffa9c12880c637e13cd5eb62e477"><td class="mdescLeft">&#160;</td><td class="mdescRight">GL WEIGHTS IN X DIRECTION.  <a href="#a8f14ffa9c12880c637e13cd5eb62e477">More...</a><br /></td></tr>
-<tr class="separator:a8f14ffa9c12880c637e13cd5eb62e477"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cb3cd1ebd38dbebe21a96b79356b811"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a8cb3cd1ebd38dbebe21a96b79356b811">gl_w_y</a></td></tr>
-<tr class="memdesc:a8cb3cd1ebd38dbebe21a96b79356b811"><td class="mdescLeft">&#160;</td><td class="mdescRight">GL WEIGHTS IN Y DIRECTION.  <a href="#a8cb3cd1ebd38dbebe21a96b79356b811">More...</a><br /></td></tr>
-<tr class="separator:a8cb3cd1ebd38dbebe21a96b79356b811"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb472662bf220d86252882bb355b4c65"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#acb472662bf220d86252882bb355b4c65">first_der_x</a></td></tr>
-<tr class="memdesc:acb472662bf220d86252882bb355b4c65"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIRST DERIVATIVE IN X DIRECTION.  <a href="#acb472662bf220d86252882bb355b4c65">More...</a><br /></td></tr>
-<tr class="separator:acb472662bf220d86252882bb355b4c65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e72fc62a136105388f1240bf3cb4557"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a6e72fc62a136105388f1240bf3cb4557">first_der_y</a></td></tr>
-<tr class="memdesc:a6e72fc62a136105388f1240bf3cb4557"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIRST DERIVATIVE IN Y DIRECTION.  <a href="#a6e72fc62a136105388f1240bf3cb4557">More...</a><br /></td></tr>
-<tr class="separator:a6e72fc62a136105388f1240bf3cb4557"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e8e83f1d5e81612fe3354d777c6f22f"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a1e8e83f1d5e81612fe3354d777c6f22f">m_first_der_x</a></td></tr>
-<tr class="memdesc:a1e8e83f1d5e81612fe3354d777c6f22f"><td class="mdescLeft">&#160;</td><td class="mdescRight">MODIFIED FIRST DERIVATIVE MATRIX.  <a href="#a1e8e83f1d5e81612fe3354d777c6f22f">More...</a><br /></td></tr>
-<tr class="separator:a1e8e83f1d5e81612fe3354d777c6f22f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa11cec4917f68d83228a14df8cff1ed0"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#aa11cec4917f68d83228a14df8cff1ed0">m_first_der_y</a></td></tr>
-<tr class="memdesc:aa11cec4917f68d83228a14df8cff1ed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">MODIFIED FIRST DERIVATIVE MATRIX.  <a href="#aa11cec4917f68d83228a14df8cff1ed0">More...</a><br /></td></tr>
-<tr class="separator:aa11cec4917f68d83228a14df8cff1ed0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3084d47ed1c02ccc6bc9cb61d9f246d9"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a3084d47ed1c02ccc6bc9cb61d9f246d9">lagrange_left</a></td></tr>
-<tr class="memdesc:a3084d47ed1c02ccc6bc9cb61d9f246d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">LAGRANGE INTERPOLATING POLYNOMIAL ON THE LEFT BOUNDARY.  <a href="#a3084d47ed1c02ccc6bc9cb61d9f246d9">More...</a><br /></td></tr>
-<tr class="separator:a3084d47ed1c02ccc6bc9cb61d9f246d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ba295174431e646d153cface2d032e9"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a1ba295174431e646d153cface2d032e9">lagrange_right</a></td></tr>
-<tr class="memdesc:a1ba295174431e646d153cface2d032e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">LAGRANGE INTERPOLATING POLYNOMIAL ON THE RIGHT BOUNDARY.  <a href="#a1ba295174431e646d153cface2d032e9">More...</a><br /></td></tr>
-<tr class="separator:a1ba295174431e646d153cface2d032e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0135c6bf55707a8488bd6a1e021c70ec"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a0135c6bf55707a8488bd6a1e021c70ec">lagrange_up</a></td></tr>
-<tr class="memdesc:a0135c6bf55707a8488bd6a1e021c70ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">LAGRANGE INTERPOLATING POLYNOMIAL ON THE UPPER BOUNDARY.  <a href="#a0135c6bf55707a8488bd6a1e021c70ec">More...</a><br /></td></tr>
-<tr class="separator:a0135c6bf55707a8488bd6a1e021c70ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a84b26acd3b39afe6c4bace146951f5"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a1a84b26acd3b39afe6c4bace146951f5">lagrange_down</a></td></tr>
-<tr class="memdesc:a1a84b26acd3b39afe6c4bace146951f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">LAGRANGE INTERPOLATING POLYNOMIAL ON THE LOWER BOUNDARY.  <a href="#a1a84b26acd3b39afe6c4bace146951f5">More...</a><br /></td></tr>
-<tr class="separator:a1a84b26acd3b39afe6c4bace146951f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c58a6e0edbbc62c7e99ee0785c7b27c"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a7c58a6e0edbbc62c7e99ee0785c7b27c">nflux_x_l</a></td></tr>
-<tr class="memdesc:a7c58a6e0edbbc62c7e99ee0785c7b27c"><td class="mdescLeft">&#160;</td><td class="mdescRight">NUMERICAL FLUX AT LEFT BOUNDARY.  <a href="#a7c58a6e0edbbc62c7e99ee0785c7b27c">More...</a><br /></td></tr>
-<tr class="separator:a7c58a6e0edbbc62c7e99ee0785c7b27c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abfb486208a5e6edc575b7d847130c647"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#abfb486208a5e6edc575b7d847130c647">nflux_x_r</a></td></tr>
-<tr class="memdesc:abfb486208a5e6edc575b7d847130c647"><td class="mdescLeft">&#160;</td><td class="mdescRight">NUMERICAL FLUX AT RIGHT BOUNDARY.  <a href="#abfb486208a5e6edc575b7d847130c647">More...</a><br /></td></tr>
-<tr class="separator:abfb486208a5e6edc575b7d847130c647"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53ad43c31585dea6f92ee63e65896991"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a53ad43c31585dea6f92ee63e65896991">nflux_y_d</a></td></tr>
-<tr class="memdesc:a53ad43c31585dea6f92ee63e65896991"><td class="mdescLeft">&#160;</td><td class="mdescRight">NUMERICAL FLUX AT BOTTOM.  <a href="#a53ad43c31585dea6f92ee63e65896991">More...</a><br /></td></tr>
-<tr class="separator:a53ad43c31585dea6f92ee63e65896991"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad65a883c99d115b2288e8bce68c84f03"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#ad65a883c99d115b2288e8bce68c84f03">nflux_y_u</a></td></tr>
-<tr class="memdesc:ad65a883c99d115b2288e8bce68c84f03"><td class="mdescLeft">&#160;</td><td class="mdescRight">NUMERICAL FLUX AT TOP.  <a href="#ad65a883c99d115b2288e8bce68c84f03">More...</a><br /></td></tr>
-<tr class="separator:ad65a883c99d115b2288e8bce68c84f03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7129303f18453f9cd4c06aa22e2460a0"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a7129303f18453f9cd4c06aa22e2460a0">flux_x</a></td></tr>
-<tr class="memdesc:a7129303f18453f9cd4c06aa22e2460a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">FLUX.  <a href="#a7129303f18453f9cd4c06aa22e2460a0">More...</a><br /></td></tr>
-<tr class="separator:a7129303f18453f9cd4c06aa22e2460a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad297cd6fd741db0816b6db7e19a2f21f"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#ad297cd6fd741db0816b6db7e19a2f21f">flux_y</a></td></tr>
-<tr class="memdesc:ad297cd6fd741db0816b6db7e19a2f21f"><td class="mdescLeft">&#160;</td><td class="mdescRight">FLUX.  <a href="#ad297cd6fd741db0816b6db7e19a2f21f">More...</a><br /></td></tr>
-<tr class="separator:ad297cd6fd741db0816b6db7e19a2f21f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b1ac25de53046711602eb13f047bc37"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a4b1ac25de53046711602eb13f047bc37">flux_der_x</a></td></tr>
-<tr class="memdesc:a4b1ac25de53046711602eb13f047bc37"><td class="mdescLeft">&#160;</td><td class="mdescRight">FLUX DERIVATIVE.  <a href="#a4b1ac25de53046711602eb13f047bc37">More...</a><br /></td></tr>
-<tr class="separator:a4b1ac25de53046711602eb13f047bc37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75dd887ba6631a30ae22bc40a97b985e"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a75dd887ba6631a30ae22bc40a97b985e">flux_der_y</a></td></tr>
-<tr class="memdesc:a75dd887ba6631a30ae22bc40a97b985e"><td class="mdescLeft">&#160;</td><td class="mdescRight">FLUX DERIVATIVE.  <a href="#a75dd887ba6631a30ae22bc40a97b985e">More...</a><br /></td></tr>
-<tr class="separator:a75dd887ba6631a30ae22bc40a97b985e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a20c30615d144143752873e63e6d51d"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a5a20c30615d144143752873e63e6d51d">solution</a></td></tr>
-<tr class="memdesc:a5a20c30615d144143752873e63e6d51d"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOLUTION(PRESSURE, VELOCITIES IN TWO DIRECTION)  <a href="#a5a20c30615d144143752873e63e6d51d">More...</a><br /></td></tr>
-<tr class="separator:a5a20c30615d144143752873e63e6d51d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89c16d864e37f8c5ecd81fdb38f19c0b"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a89c16d864e37f8c5ecd81fdb38f19c0b">solution_int_l</a></td></tr>
-<tr class="memdesc:a89c16d864e37f8c5ecd81fdb38f19c0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">INTERIOR SOLUTION AT LEFT BOUNDARY.  <a href="#a89c16d864e37f8c5ecd81fdb38f19c0b">More...</a><br /></td></tr>
-<tr class="separator:a89c16d864e37f8c5ecd81fdb38f19c0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6dcc0967f51770ffd52f7d46d42e81da"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a6dcc0967f51770ffd52f7d46d42e81da">solution_int_r</a></td></tr>
-<tr class="memdesc:a6dcc0967f51770ffd52f7d46d42e81da"><td class="mdescLeft">&#160;</td><td class="mdescRight">INTERIOR SOLUTION AT RIGHT BOUNDARY.  <a href="#a6dcc0967f51770ffd52f7d46d42e81da">More...</a><br /></td></tr>
-<tr class="separator:a6dcc0967f51770ffd52f7d46d42e81da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0a886e5977d6a5c0bfab106c9f6d1bd"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#ad0a886e5977d6a5c0bfab106c9f6d1bd">solution_ext_l</a></td></tr>
-<tr class="memdesc:ad0a886e5977d6a5c0bfab106c9f6d1bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">EXTERNAL SOLUTION AT LEFT BOUNDARY.  <a href="#ad0a886e5977d6a5c0bfab106c9f6d1bd">More...</a><br /></td></tr>
-<tr class="separator:ad0a886e5977d6a5c0bfab106c9f6d1bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a43724885113474f4b368fbd9ba7ed5"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a5a43724885113474f4b368fbd9ba7ed5">solution_ext_r</a></td></tr>
-<tr class="memdesc:a5a43724885113474f4b368fbd9ba7ed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">EXTERNAL SOLUTION AT RIGHT BOUNDARY.  <a href="#a5a43724885113474f4b368fbd9ba7ed5">More...</a><br /></td></tr>
-<tr class="separator:a5a43724885113474f4b368fbd9ba7ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7adb753b5e4bd49c584cf77c4e5c7356"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a7adb753b5e4bd49c584cf77c4e5c7356">solution_time_der</a></td></tr>
-<tr class="memdesc:a7adb753b5e4bd49c584cf77c4e5c7356"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOLUTION TIME DERIVATIVE.  <a href="#a7adb753b5e4bd49c584cf77c4e5c7356">More...</a><br /></td></tr>
-<tr class="separator:a7adb753b5e4bd49c584cf77c4e5c7356"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9d51fe90bc39c230ab75e52ddfa2296"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#af9d51fe90bc39c230ab75e52ddfa2296">delta_x</a></td></tr>
+<tr class="memdesc:af9d51fe90bc39c230ab75e52ddfa2296"><td class="mdescLeft">&#160;</td><td class="mdescRight">ELEMENT SIZE IN X DIRECTION.  <a href="#af9d51fe90bc39c230ab75e52ddfa2296">More...</a><br /></td></tr>
+<tr class="separator:af9d51fe90bc39c230ab75e52ddfa2296"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47d15cd418d11f751c2c82832b71f935"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a47d15cd418d11f751c2c82832b71f935">delta_y</a></td></tr>
+<tr class="memdesc:a47d15cd418d11f751c2c82832b71f935"><td class="mdescLeft">&#160;</td><td class="mdescRight">ELEMENT SIZE IN Y DIRECTION.  <a href="#a47d15cd418d11f751c2c82832b71f935">More...</a><br /></td></tr>
+<tr class="separator:a47d15cd418d11f751c2c82832b71f935"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1e3e506eab686cafabbb6a76777b5a2"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#ac1e3e506eab686cafabbb6a76777b5a2">gl_point_x_t</a></td></tr>
+<tr class="memdesc:ac1e3e506eab686cafabbb6a76777b5a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">GL POINTS TABLE IN X DIRECTION.  <a href="#ac1e3e506eab686cafabbb6a76777b5a2">More...</a><br /></td></tr>
+<tr class="separator:ac1e3e506eab686cafabbb6a76777b5a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e2aa5974adb902f3c70a327c78489ba"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a9e2aa5974adb902f3c70a327c78489ba">gl_point_y_t</a></td></tr>
+<tr class="memdesc:a9e2aa5974adb902f3c70a327c78489ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">GL POINTS TABLE IN Y DIRECTION.  <a href="#a9e2aa5974adb902f3c70a327c78489ba">More...</a><br /></td></tr>
+<tr class="separator:a9e2aa5974adb902f3c70a327c78489ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a4f44d22cf0f0ec12798615cfae8801"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a9a4f44d22cf0f0ec12798615cfae8801">gl_w_x_t</a></td></tr>
+<tr class="memdesc:a9a4f44d22cf0f0ec12798615cfae8801"><td class="mdescLeft">&#160;</td><td class="mdescRight">GL WEIGHTS TABLE IN X DIRECTION.  <a href="#a9a4f44d22cf0f0ec12798615cfae8801">More...</a><br /></td></tr>
+<tr class="separator:a9a4f44d22cf0f0ec12798615cfae8801"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a014f682327f0aac15a518aebc22af18c"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a014f682327f0aac15a518aebc22af18c">gl_w_y_t</a></td></tr>
+<tr class="memdesc:a014f682327f0aac15a518aebc22af18c"><td class="mdescLeft">&#160;</td><td class="mdescRight">GL WEIGHTS TABLE IN Y DIRECTION.  <a href="#a014f682327f0aac15a518aebc22af18c">More...</a><br /></td></tr>
+<tr class="separator:a014f682327f0aac15a518aebc22af18c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a566bb7648e4403609257e3468495f80c"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a566bb7648e4403609257e3468495f80c">first_der_x_t</a></td></tr>
+<tr class="memdesc:a566bb7648e4403609257e3468495f80c"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIRST DERIVATIVE TABLE IN X DIRECTION.  <a href="#a566bb7648e4403609257e3468495f80c">More...</a><br /></td></tr>
+<tr class="separator:a566bb7648e4403609257e3468495f80c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79156d24eff87821aebd3a0987b77f27"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a79156d24eff87821aebd3a0987b77f27">first_der_y_t</a></td></tr>
+<tr class="memdesc:a79156d24eff87821aebd3a0987b77f27"><td class="mdescLeft">&#160;</td><td class="mdescRight">FIRST DERIVATIVE TABLE IN Y DIRECTION.  <a href="#a79156d24eff87821aebd3a0987b77f27">More...</a><br /></td></tr>
+<tr class="separator:a79156d24eff87821aebd3a0987b77f27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c43ebbd39ee46427153eed9b633ec2e"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a8c43ebbd39ee46427153eed9b633ec2e">m_first_der_x_t</a></td></tr>
+<tr class="memdesc:a8c43ebbd39ee46427153eed9b633ec2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">MODIFIED FIRST DERIVATIVE MATRIX TABLE.  <a href="#a8c43ebbd39ee46427153eed9b633ec2e">More...</a><br /></td></tr>
+<tr class="separator:a8c43ebbd39ee46427153eed9b633ec2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b290439aa89cb6e539c4721f49916ba"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a7b290439aa89cb6e539c4721f49916ba">m_first_der_y_t</a></td></tr>
+<tr class="memdesc:a7b290439aa89cb6e539c4721f49916ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">MODIFIED FIRST DERIVATIVE MATRIX TABLE.  <a href="#a7b290439aa89cb6e539c4721f49916ba">More...</a><br /></td></tr>
+<tr class="separator:a7b290439aa89cb6e539c4721f49916ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41b2e70b93abc5512a9492fd2f94bf5b"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a41b2e70b93abc5512a9492fd2f94bf5b">lagrange_left_t</a></td></tr>
+<tr class="memdesc:a41b2e70b93abc5512a9492fd2f94bf5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">LAGRANGE INTERPOLATING POLYNOMIAL TABLE ON THE LEFT BOUNDARY.  <a href="#a41b2e70b93abc5512a9492fd2f94bf5b">More...</a><br /></td></tr>
+<tr class="separator:a41b2e70b93abc5512a9492fd2f94bf5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9fabd9eca3980f804cd9b20d1f7946e"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#ae9fabd9eca3980f804cd9b20d1f7946e">lagrange_right_t</a></td></tr>
+<tr class="memdesc:ae9fabd9eca3980f804cd9b20d1f7946e"><td class="mdescLeft">&#160;</td><td class="mdescRight">LAGRANGE INTERPOLATING POLYNOMIAL TABLE ON THE RIGHT BOUNDARY.  <a href="#ae9fabd9eca3980f804cd9b20d1f7946e">More...</a><br /></td></tr>
+<tr class="separator:ae9fabd9eca3980f804cd9b20d1f7946e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a588023bbdff8de6589db7cf6eeffc43f"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a588023bbdff8de6589db7cf6eeffc43f">lagrange_up_t</a></td></tr>
+<tr class="memdesc:a588023bbdff8de6589db7cf6eeffc43f"><td class="mdescLeft">&#160;</td><td class="mdescRight">LAGRANGE INTERPOLATING POLYNOMIAL TABLE ON THE UPPER BOUNDARY.  <a href="#a588023bbdff8de6589db7cf6eeffc43f">More...</a><br /></td></tr>
+<tr class="separator:a588023bbdff8de6589db7cf6eeffc43f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0eef9d0ed399a829bb42c43f7fd38081"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a0eef9d0ed399a829bb42c43f7fd38081">lagrange_down_t</a></td></tr>
+<tr class="memdesc:a0eef9d0ed399a829bb42c43f7fd38081"><td class="mdescLeft">&#160;</td><td class="mdescRight">LAGRANGE INTERPOLATING POLYNOMIAL TABLE ON THE LOWER BOUNDARY.  <a href="#a0eef9d0ed399a829bb42c43f7fd38081">More...</a><br /></td></tr>
+<tr class="separator:a0eef9d0ed399a829bb42c43f7fd38081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c181d290e8996f555f15e6c205fb17f"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a4c181d290e8996f555f15e6c205fb17f">nflux_x_l</a></td></tr>
+<tr class="memdesc:a4c181d290e8996f555f15e6c205fb17f"><td class="mdescLeft">&#160;</td><td class="mdescRight">NUMERICAL FLUX AT LEFT BOUNDARY.  <a href="#a4c181d290e8996f555f15e6c205fb17f">More...</a><br /></td></tr>
+<tr class="separator:a4c181d290e8996f555f15e6c205fb17f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86934ab28f80d95770c0f07425c1ba3b"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a86934ab28f80d95770c0f07425c1ba3b">nflux_x_r</a></td></tr>
+<tr class="memdesc:a86934ab28f80d95770c0f07425c1ba3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">NUMERICAL FLUX AT RIGHT BOUNDARY.  <a href="#a86934ab28f80d95770c0f07425c1ba3b">More...</a><br /></td></tr>
+<tr class="separator:a86934ab28f80d95770c0f07425c1ba3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69983c362313e4b939a81c722b3fa675"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a69983c362313e4b939a81c722b3fa675">nflux_y_d</a></td></tr>
+<tr class="memdesc:a69983c362313e4b939a81c722b3fa675"><td class="mdescLeft">&#160;</td><td class="mdescRight">NUMERICAL FLUX AT BOTTOM.  <a href="#a69983c362313e4b939a81c722b3fa675">More...</a><br /></td></tr>
+<tr class="separator:a69983c362313e4b939a81c722b3fa675"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28a4964d55c23b92f6e12e171dcb0d2e"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a28a4964d55c23b92f6e12e171dcb0d2e">nflux_y_u</a></td></tr>
+<tr class="memdesc:a28a4964d55c23b92f6e12e171dcb0d2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">NUMERICAL FLUX AT TOP.  <a href="#a28a4964d55c23b92f6e12e171dcb0d2e">More...</a><br /></td></tr>
+<tr class="separator:a28a4964d55c23b92f6e12e171dcb0d2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95de4c10af271719dd09bb0a5800f1fa"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a95de4c10af271719dd09bb0a5800f1fa">flux_x</a></td></tr>
+<tr class="memdesc:a95de4c10af271719dd09bb0a5800f1fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">FLUX.  <a href="#a95de4c10af271719dd09bb0a5800f1fa">More...</a><br /></td></tr>
+<tr class="separator:a95de4c10af271719dd09bb0a5800f1fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b33de2c16c3b1c8e84acbf55367b0b1"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a3b33de2c16c3b1c8e84acbf55367b0b1">flux_y</a></td></tr>
+<tr class="memdesc:a3b33de2c16c3b1c8e84acbf55367b0b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">FLUX.  <a href="#a3b33de2c16c3b1c8e84acbf55367b0b1">More...</a><br /></td></tr>
+<tr class="separator:a3b33de2c16c3b1c8e84acbf55367b0b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a824459871cea84d1de49ce3c3ac16104"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a824459871cea84d1de49ce3c3ac16104">flux_der_x</a></td></tr>
+<tr class="memdesc:a824459871cea84d1de49ce3c3ac16104"><td class="mdescLeft">&#160;</td><td class="mdescRight">FLUX DERIVATIVE.  <a href="#a824459871cea84d1de49ce3c3ac16104">More...</a><br /></td></tr>
+<tr class="separator:a824459871cea84d1de49ce3c3ac16104"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac537f56bccb3c10f142fa43d0f389a7f"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#ac537f56bccb3c10f142fa43d0f389a7f">flux_der_y</a></td></tr>
+<tr class="memdesc:ac537f56bccb3c10f142fa43d0f389a7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">FLUX DERIVATIVE.  <a href="#ac537f56bccb3c10f142fa43d0f389a7f">More...</a><br /></td></tr>
+<tr class="separator:ac537f56bccb3c10f142fa43d0f389a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1cb57fcf24871f5ab575282f67208463"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a1cb57fcf24871f5ab575282f67208463">solution</a></td></tr>
+<tr class="memdesc:a1cb57fcf24871f5ab575282f67208463"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOLUTION(PRESSURE, VELOCITIES IN TWO DIRECTION)  <a href="#a1cb57fcf24871f5ab575282f67208463">More...</a><br /></td></tr>
+<tr class="separator:a1cb57fcf24871f5ab575282f67208463"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e72b77b6fc5521c39b253d407f6c11c"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a6e72b77b6fc5521c39b253d407f6c11c">solution_int_l</a></td></tr>
+<tr class="memdesc:a6e72b77b6fc5521c39b253d407f6c11c"><td class="mdescLeft">&#160;</td><td class="mdescRight">INTERIOR SOLUTION AT LEFT BOUNDARY.  <a href="#a6e72b77b6fc5521c39b253d407f6c11c">More...</a><br /></td></tr>
+<tr class="separator:a6e72b77b6fc5521c39b253d407f6c11c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abeaff9eee117232a81f6d18698cb095d"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#abeaff9eee117232a81f6d18698cb095d">solution_int_r</a></td></tr>
+<tr class="memdesc:abeaff9eee117232a81f6d18698cb095d"><td class="mdescLeft">&#160;</td><td class="mdescRight">INTERIOR SOLUTION AT RIGHT BOUNDARY.  <a href="#abeaff9eee117232a81f6d18698cb095d">More...</a><br /></td></tr>
+<tr class="separator:abeaff9eee117232a81f6d18698cb095d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49e049b7d448ecfa7e54a49cec2cef63"><td class="memItemLeft" align="right" valign="top">double precision, dimension(:, :, :, :), allocatable&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacenodal__2d__storage.html#a49e049b7d448ecfa7e54a49cec2cef63">solution_time_der</a></td></tr>
+<tr class="memdesc:a49e049b7d448ecfa7e54a49cec2cef63"><td class="mdescLeft">&#160;</td><td class="mdescRight">SOLUTION TIME DERIVATIVE.  <a href="#a49e049b7d448ecfa7e54a49cec2cef63">More...</a><br /></td></tr>
+<tr class="separator:a49e049b7d448ecfa7e54a49cec2cef63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Storage for a nodal spectral method. Includes GL points, Gl weigths, first derivative matrices. </p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
-<a id="a594efbf453e1e387014c4880fa4f8f6a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a594efbf453e1e387014c4880fa4f8f6a">&#9670;&nbsp;</a></span>get_nodal_2d_storage_basis()</h2>
+<a id="a8aad74ef31f1d609d22fbad03973b82a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8aad74ef31f1d609d22fbad03973b82a">&#9670;&nbsp;</a></span>get_nodal_2d_storage_basis()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,17 +207,49 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">subroutine nodal_2d_storage::get_nodal_2d_storage_basis </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>N1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double precision, dimension(0:n1)&#160;</td>
+          <td class="paramname"><em>GL_P</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(0:n1)&#160;</td>
+          <td class="paramname"><em>GL_WEIGHT</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(0:n1, 0:n1)&#160;</td>
+          <td class="paramname"><em>FIRST_DER</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>GL POINTS AND WEIGTHS, FIRST AND SECIND DERIVATIVE MATRICES </p>
+
+<p>GL POINTS AND WEIGTHS, FIRST AND SECIND DERIVATIVE MATRICES. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">n1</td><td>POLY ORDER</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">gl_p</td><td>GL POINTS</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">gl_weight</td><td>GL WEIGHTS </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<a id="a4d266a91749a5a05d60c06a1bb7e8d50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d266a91749a5a05d60c06a1bb7e8d50">&#9670;&nbsp;</a></span>get_nodal_2d_storage_extends()</h2>
+<a id="a10c63e5dcd43ed6001f15637fae24592"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10c63e5dcd43ed6001f15637fae24592">&#9670;&nbsp;</a></span>get_nodal_2d_storage_extends()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -217,24 +257,57 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">subroutine nodal_2d_storage::get_nodal_2d_storage_extends </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">integer, intent(in)&#160;</td>
+          <td class="paramname"><em>N1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double precision, dimension(0:n1)&#160;</td>
+          <td class="paramname"><em>LAG_L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(0:n1)&#160;</td>
+          <td class="paramname"><em>LAG_R</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, dimension(0:n1)&#160;</td>
+          <td class="paramname"><em>GL_P</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>LAGRANGE INTERPOLATES ON THE BOUNDARIES </p>
+
+<p>LAGRANGE INTERPOLATES ON THE BOUNDARIES. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">n1</td><td>POLY ORDER</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">lag_l</td><td>LAGRANGE INTERPOLATE ON THE LEFT BOUNDARY</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">lag_r</td><td>LAGRANGE INTERPOLATE ON THE RIGHT BOUNDARY</td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">gl_p</td><td>GL POINTS </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a3d1e79b12c447c6996bffbe6df8ebd61"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d1e79b12c447c6996bffbe6df8ebd61">&#9670;&nbsp;</a></span>delta_x</h2>
+<a id="af9d51fe90bc39c230ab75e52ddfa2296"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9d51fe90bc39c230ab75e52ddfa2296">&#9670;&nbsp;</a></span>delta_x</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision nodal_2d_storage::delta_x</td>
+          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::delta_x</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -243,14 +316,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a53270e7f2a064b4ce64c0ba10ca30660"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53270e7f2a064b4ce64c0ba10ca30660">&#9670;&nbsp;</a></span>delta_y</h2>
+<a id="a47d15cd418d11f751c2c82832b71f935"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47d15cd418d11f751c2c82832b71f935">&#9670;&nbsp;</a></span>delta_y</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision nodal_2d_storage::delta_y</td>
+          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::delta_y</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -307,62 +380,46 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="acb472662bf220d86252882bb355b4c65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb472662bf220d86252882bb355b4c65">&#9670;&nbsp;</a></span>first_der_x</h2>
+<a id="a566bb7648e4403609257e3468495f80c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a566bb7648e4403609257e3468495f80c">&#9670;&nbsp;</a></span>first_der_x_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::first_der_x</td>
+          <td class="memname">double precision, dimension(:, :, :), allocatable nodal_2d_storage::first_der_x_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>FIRST DERIVATIVE IN X DIRECTION. </p>
+<p>FIRST DERIVATIVE TABLE IN X DIRECTION. </p>
 
 </div>
 </div>
-<a id="a6e72fc62a136105388f1240bf3cb4557"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e72fc62a136105388f1240bf3cb4557">&#9670;&nbsp;</a></span>first_der_y</h2>
+<a id="a79156d24eff87821aebd3a0987b77f27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79156d24eff87821aebd3a0987b77f27">&#9670;&nbsp;</a></span>first_der_y_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::first_der_y</td>
+          <td class="memname">double precision, dimension(:, :, :), allocatable nodal_2d_storage::first_der_y_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>FIRST DERIVATIVE IN Y DIRECTION. </p>
+<p>FIRST DERIVATIVE TABLE IN Y DIRECTION. </p>
 
 </div>
 </div>
-<a id="a4b1ac25de53046711602eb13f047bc37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b1ac25de53046711602eb13f047bc37">&#9670;&nbsp;</a></span>flux_der_x</h2>
+<a id="a824459871cea84d1de49ce3c3ac16104"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a824459871cea84d1de49ce3c3ac16104">&#9670;&nbsp;</a></span>flux_der_x</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::flux_der_x</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>FLUX DERIVATIVE. </p>
-
-</div>
-</div>
-<a id="a75dd887ba6631a30ae22bc40a97b985e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75dd887ba6631a30ae22bc40a97b985e">&#9670;&nbsp;</a></span>flux_der_y</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::flux_der_y</td>
+          <td class="memname">double precision, dimension(:, :, :, :), allocatable nodal_2d_storage::flux_der_x</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -371,14 +428,30 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a7129303f18453f9cd4c06aa22e2460a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7129303f18453f9cd4c06aa22e2460a0">&#9670;&nbsp;</a></span>flux_x</h2>
+<a id="ac537f56bccb3c10f142fa43d0f389a7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac537f56bccb3c10f142fa43d0f389a7f">&#9670;&nbsp;</a></span>flux_der_y</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::flux_x</td>
+          <td class="memname">double precision, dimension(:, :, :, :), allocatable nodal_2d_storage::flux_der_y</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>FLUX DERIVATIVE. </p>
+
+</div>
+</div>
+<a id="a95de4c10af271719dd09bb0a5800f1fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95de4c10af271719dd09bb0a5800f1fa">&#9670;&nbsp;</a></span>flux_x</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double precision, dimension(:, :, :, :), allocatable nodal_2d_storage::flux_x</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -387,14 +460,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ad297cd6fd741db0816b6db7e19a2f21f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad297cd6fd741db0816b6db7e19a2f21f">&#9670;&nbsp;</a></span>flux_y</h2>
+<a id="a3b33de2c16c3b1c8e84acbf55367b0b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b33de2c16c3b1c8e84acbf55367b0b1">&#9670;&nbsp;</a></span>flux_y</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::flux_y</td>
+          <td class="memname">double precision, dimension(:, :, :, :), allocatable nodal_2d_storage::flux_y</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -403,174 +476,206 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="acbac3675ee253811b2a3cf8e895d069b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acbac3675ee253811b2a3cf8e895d069b">&#9670;&nbsp;</a></span>gl_point_x</h2>
+<a id="ac1e3e506eab686cafabbb6a76777b5a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1e3e506eab686cafabbb6a76777b5a2">&#9670;&nbsp;</a></span>gl_point_x_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::gl_point_x</td>
+          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::gl_point_x_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>GL POINTS IN X DIRECTION. </p>
+<p>GL POINTS TABLE IN X DIRECTION. </p>
 
 </div>
 </div>
-<a id="ac8c8aec94dd7f9e3c488fe52e8eca645"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8c8aec94dd7f9e3c488fe52e8eca645">&#9670;&nbsp;</a></span>gl_point_y</h2>
+<a id="a9e2aa5974adb902f3c70a327c78489ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e2aa5974adb902f3c70a327c78489ba">&#9670;&nbsp;</a></span>gl_point_y_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::gl_point_y</td>
+          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::gl_point_y_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>GL POINTS IN Y DIRECTION. </p>
+<p>GL POINTS TABLE IN Y DIRECTION. </p>
 
 </div>
 </div>
-<a id="a8f14ffa9c12880c637e13cd5eb62e477"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f14ffa9c12880c637e13cd5eb62e477">&#9670;&nbsp;</a></span>gl_w_x</h2>
+<a id="a9a4f44d22cf0f0ec12798615cfae8801"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a4f44d22cf0f0ec12798615cfae8801">&#9670;&nbsp;</a></span>gl_w_x_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::gl_w_x</td>
+          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::gl_w_x_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>GL WEIGHTS IN X DIRECTION. </p>
+<p>GL WEIGHTS TABLE IN X DIRECTION. </p>
 
 </div>
 </div>
-<a id="a8cb3cd1ebd38dbebe21a96b79356b811"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cb3cd1ebd38dbebe21a96b79356b811">&#9670;&nbsp;</a></span>gl_w_y</h2>
+<a id="a014f682327f0aac15a518aebc22af18c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a014f682327f0aac15a518aebc22af18c">&#9670;&nbsp;</a></span>gl_w_y_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::gl_w_y</td>
+          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::gl_w_y_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>GL WEIGHTS IN Y DIRECTION. </p>
+<p>GL WEIGHTS TABLE IN Y DIRECTION. </p>
 
 </div>
 </div>
-<a id="a1a84b26acd3b39afe6c4bace146951f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a84b26acd3b39afe6c4bace146951f5">&#9670;&nbsp;</a></span>lagrange_down</h2>
+<a id="a0eef9d0ed399a829bb42c43f7fd38081"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0eef9d0ed399a829bb42c43f7fd38081">&#9670;&nbsp;</a></span>lagrange_down_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::lagrange_down</td>
+          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::lagrange_down_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>LAGRANGE INTERPOLATING POLYNOMIAL ON THE LOWER BOUNDARY. </p>
+<p>LAGRANGE INTERPOLATING POLYNOMIAL TABLE ON THE LOWER BOUNDARY. </p>
 
 </div>
 </div>
-<a id="a3084d47ed1c02ccc6bc9cb61d9f246d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3084d47ed1c02ccc6bc9cb61d9f246d9">&#9670;&nbsp;</a></span>lagrange_left</h2>
+<a id="a41b2e70b93abc5512a9492fd2f94bf5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41b2e70b93abc5512a9492fd2f94bf5b">&#9670;&nbsp;</a></span>lagrange_left_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::lagrange_left</td>
+          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::lagrange_left_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>LAGRANGE INTERPOLATING POLYNOMIAL ON THE LEFT BOUNDARY. </p>
+<p>LAGRANGE INTERPOLATING POLYNOMIAL TABLE ON THE LEFT BOUNDARY. </p>
 
 </div>
 </div>
-<a id="a1ba295174431e646d153cface2d032e9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ba295174431e646d153cface2d032e9">&#9670;&nbsp;</a></span>lagrange_right</h2>
+<a id="ae9fabd9eca3980f804cd9b20d1f7946e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9fabd9eca3980f804cd9b20d1f7946e">&#9670;&nbsp;</a></span>lagrange_right_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::lagrange_right</td>
+          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::lagrange_right_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>LAGRANGE INTERPOLATING POLYNOMIAL ON THE RIGHT BOUNDARY. </p>
+<p>LAGRANGE INTERPOLATING POLYNOMIAL TABLE ON THE RIGHT BOUNDARY. </p>
 
 </div>
 </div>
-<a id="a0135c6bf55707a8488bd6a1e021c70ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0135c6bf55707a8488bd6a1e021c70ec">&#9670;&nbsp;</a></span>lagrange_up</h2>
+<a id="a588023bbdff8de6589db7cf6eeffc43f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a588023bbdff8de6589db7cf6eeffc43f">&#9670;&nbsp;</a></span>lagrange_up_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::lagrange_up</td>
+          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::lagrange_up_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>LAGRANGE INTERPOLATING POLYNOMIAL ON THE UPPER BOUNDARY. </p>
+<p>LAGRANGE INTERPOLATING POLYNOMIAL TABLE ON THE UPPER BOUNDARY. </p>
 
 </div>
 </div>
-<a id="a1e8e83f1d5e81612fe3354d777c6f22f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e8e83f1d5e81612fe3354d777c6f22f">&#9670;&nbsp;</a></span>m_first_der_x</h2>
+<a id="a94feb2c2a74ffebccc369f8f3da578c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94feb2c2a74ffebccc369f8f3da578c2">&#9670;&nbsp;</a></span>level_max_x</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::m_first_der_x</td>
+          <td class="memname">integer nodal_2d_storage::level_max_x</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>MODIFIED FIRST DERIVATIVE MATRIX. </p>
+<p>MAXIMUM POLYNOMIAL LEVEL IN X. </p>
 
 </div>
 </div>
-<a id="aa11cec4917f68d83228a14df8cff1ed0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa11cec4917f68d83228a14df8cff1ed0">&#9670;&nbsp;</a></span>m_first_der_y</h2>
+<a id="a23a037d052fd922d8a203a6507bd525b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23a037d052fd922d8a203a6507bd525b">&#9670;&nbsp;</a></span>level_max_y</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:, :), allocatable nodal_2d_storage::m_first_der_y</td>
+          <td class="memname">integer nodal_2d_storage::level_max_y</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>MODIFIED FIRST DERIVATIVE MATRIX. </p>
+<p>MAXIMUM POLYNOMIAL LEVEL IN Y. </p>
 
 </div>
 </div>
-<a id="a7c58a6e0edbbc62c7e99ee0785c7b27c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c58a6e0edbbc62c7e99ee0785c7b27c">&#9670;&nbsp;</a></span>nflux_x_l</h2>
+<a id="a8c43ebbd39ee46427153eed9b633ec2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c43ebbd39ee46427153eed9b633ec2e">&#9670;&nbsp;</a></span>m_first_der_x_t</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::nflux_x_l</td>
+          <td class="memname">double precision, dimension(:, :, :), allocatable nodal_2d_storage::m_first_der_x_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>MODIFIED FIRST DERIVATIVE MATRIX TABLE. </p>
+
+</div>
+</div>
+<a id="a7b290439aa89cb6e539c4721f49916ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b290439aa89cb6e539c4721f49916ba">&#9670;&nbsp;</a></span>m_first_der_y_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double precision, dimension(:, :, :), allocatable nodal_2d_storage::m_first_der_y_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>MODIFIED FIRST DERIVATIVE MATRIX TABLE. </p>
+
+</div>
+</div>
+<a id="a4c181d290e8996f555f15e6c205fb17f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c181d290e8996f555f15e6c205fb17f">&#9670;&nbsp;</a></span>nflux_x_l</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double precision, dimension(:, :, :), allocatable nodal_2d_storage::nflux_x_l</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -579,14 +684,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="abfb486208a5e6edc575b7d847130c647"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abfb486208a5e6edc575b7d847130c647">&#9670;&nbsp;</a></span>nflux_x_r</h2>
+<a id="a86934ab28f80d95770c0f07425c1ba3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86934ab28f80d95770c0f07425c1ba3b">&#9670;&nbsp;</a></span>nflux_x_r</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::nflux_x_r</td>
+          <td class="memname">double precision, dimension(:, :, :), allocatable nodal_2d_storage::nflux_x_r</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -595,14 +700,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a53ad43c31585dea6f92ee63e65896991"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53ad43c31585dea6f92ee63e65896991">&#9670;&nbsp;</a></span>nflux_y_d</h2>
+<a id="a69983c362313e4b939a81c722b3fa675"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69983c362313e4b939a81c722b3fa675">&#9670;&nbsp;</a></span>nflux_y_d</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::nflux_y_d</td>
+          <td class="memname">double precision, dimension(:, :, :), allocatable nodal_2d_storage::nflux_y_d</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -611,14 +716,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ad65a883c99d115b2288e8bce68c84f03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad65a883c99d115b2288e8bce68c84f03">&#9670;&nbsp;</a></span>nflux_y_u</h2>
+<a id="a28a4964d55c23b92f6e12e171dcb0d2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28a4964d55c23b92f6e12e171dcb0d2e">&#9670;&nbsp;</a></span>nflux_y_u</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::nflux_y_u</td>
+          <td class="memname">double precision, dimension(:, :, :), allocatable nodal_2d_storage::nflux_y_u</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -675,14 +780,46 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a5a20c30615d144143752873e63e6d51d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a20c30615d144143752873e63e6d51d">&#9670;&nbsp;</a></span>solution</h2>
+<a id="ac2243cd869565a637eac6d2c5b0df5e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2243cd869565a637eac6d2c5b0df5e8">&#9670;&nbsp;</a></span>plevel_x</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:, :, :), allocatable nodal_2d_storage::solution</td>
+          <td class="memname">integer, dimension(:), allocatable nodal_2d_storage::plevel_x</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>POLYNOMIAL LEVEL IN X(CAN BE TRANSFORM TO POLY ORDER) </p>
+
+</div>
+</div>
+<a id="a028bafd9e4d373b834ecd43fadf8aff6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a028bafd9e4d373b834ecd43fadf8aff6">&#9670;&nbsp;</a></span>plevel_y</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">integer, dimension(:), allocatable nodal_2d_storage::plevel_y</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>POLYNOMIAL LEVEL IN Y(CAN BE TRANSFORM TO POLY ORDER) </p>
+
+</div>
+</div>
+<a id="a1cb57fcf24871f5ab575282f67208463"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cb57fcf24871f5ab575282f67208463">&#9670;&nbsp;</a></span>solution</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double precision, dimension(:, :, :, :), allocatable nodal_2d_storage::solution</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -691,46 +828,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ad0a886e5977d6a5c0bfab106c9f6d1bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0a886e5977d6a5c0bfab106c9f6d1bd">&#9670;&nbsp;</a></span>solution_ext_l</h2>
+<a id="a6e72b77b6fc5521c39b253d407f6c11c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e72b77b6fc5521c39b253d407f6c11c">&#9670;&nbsp;</a></span>solution_int_l</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::solution_ext_l</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>EXTERNAL SOLUTION AT LEFT BOUNDARY. </p>
-
-</div>
-</div>
-<a id="a5a43724885113474f4b368fbd9ba7ed5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a43724885113474f4b368fbd9ba7ed5">&#9670;&nbsp;</a></span>solution_ext_r</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::solution_ext_r</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>EXTERNAL SOLUTION AT RIGHT BOUNDARY. </p>
-
-</div>
-</div>
-<a id="a89c16d864e37f8c5ecd81fdb38f19c0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89c16d864e37f8c5ecd81fdb38f19c0b">&#9670;&nbsp;</a></span>solution_int_l</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::solution_int_l</td>
+          <td class="memname">double precision, dimension(:, :, :), allocatable nodal_2d_storage::solution_int_l</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -739,14 +844,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a6dcc0967f51770ffd52f7d46d42e81da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6dcc0967f51770ffd52f7d46d42e81da">&#9670;&nbsp;</a></span>solution_int_r</h2>
+<a id="abeaff9eee117232a81f6d18698cb095d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abeaff9eee117232a81f6d18698cb095d">&#9670;&nbsp;</a></span>solution_int_r</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:), allocatable nodal_2d_storage::solution_int_r</td>
+          <td class="memname">double precision, dimension(:, :, :), allocatable nodal_2d_storage::solution_int_r</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -755,14 +860,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a7adb753b5e4bd49c584cf77c4e5c7356"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7adb753b5e4bd49c584cf77c4e5c7356">&#9670;&nbsp;</a></span>solution_time_der</h2>
+<a id="a49e049b7d448ecfa7e54a49cec2cef63"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49e049b7d448ecfa7e54a49cec2cef63">&#9670;&nbsp;</a></span>solution_time_der</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double precision, dimension(:, :, :), allocatable nodal_2d_storage::solution_time_der</td>
+          <td class="memname">double precision, dimension(:, :, :, :), allocatable nodal_2d_storage::solution_time_der</td>
         </tr>
       </table>
 </div><div class="memdoc">

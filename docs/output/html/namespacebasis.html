@@ -92,6 +92,7 @@ Functions/Subroutines</h2></td></tr>
 <tr class="memdesc:af07498aca4431edab144d09a1dc2d271"><td class="mdescLeft">&#160;</td><td class="mdescRight">LAGRANGE INTERPOLATING POLYNOMIAL VALUES AT POINT X.  <a href="#af07498aca4431edab144d09a1dc2d271">More...</a><br /></td></tr>
 <tr class="separator:af07498aca4431edab144d09a1dc2d271"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab07c0a05884dc69e5d120f9e8849b3d7"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebasis.html#ab07c0a05884dc69e5d120f9e8849b3d7">mth_order_polynomial_derivative_matrix</a> (N, MTH_DER, X, DER)</td></tr>
+<tr class="memdesc:ab07c0a05884dc69e5d120f9e8849b3d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">M-th order derivative matrix.  <a href="#ab07c0a05884dc69e5d120f9e8849b3d7">More...</a><br /></td></tr>
 <tr class="separator:ab07c0a05884dc69e5d120f9e8849b3d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45cb87ce2e5526511dcf2acf36b9955a"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacebasis.html#a45cb87ce2e5526511dcf2acf36b9955a">interpolate_to_boundary</a> (N, Q, LAG, INTER)</td></tr>
 <tr class="memdesc:a45cb87ce2e5526511dcf2acf36b9955a"><td class="mdescLeft">&#160;</td><td class="mdescRight">INTERPOLATE THE SOLUTION ARRAY TO THE BOUNDARY USING LAGRANGE INTERPOLATING POLYNOMIAL.  <a href="#a45cb87ce2e5526511dcf2acf36b9955a">More...</a><br /></td></tr>
@@ -138,7 +139,6 @@ Functions/Subroutines</h2></td></tr>
 <p>TESTING EQUALITY OF TWO FLOATING POINT NUMBER. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">flag</td><td></td></tr>
     <tr><td class="paramname">flag</td><td>LOGICAL OPERATOR</td></tr>
     <tr><td class="paramname">b</td><td>TWO CANDIDATES </td></tr>
   </table>
@@ -182,7 +182,6 @@ Functions/Subroutines</h2></td></tr>
 <p>Barycentric weights for Lagrange Iterpolation. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>POLY ORDER</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">x</td><td>SPECTRAL POINTS</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">bary</td><td>BARYCENTRIC WEIGHTS </td></tr>
@@ -227,9 +226,8 @@ Functions/Subroutines</h2></td></tr>
 <p>COMPUTE THE GAUSS LEGENDRE NODES AND WEIGHTS. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td></td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">gl_point</td><td>GL POINTS</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">gl_w</td><td>GL WEIGTHS </td></tr>
+    <tr><td class="paramname">gl_point</td><td>GL POINTS</td></tr>
+    <tr><td class="paramname">gl_w</td><td>GL WEIGTHS </td></tr>
   </table>
   </dd>
 </dl>
@@ -271,7 +269,6 @@ Functions/Subroutines</h2></td></tr>
 <p>Compute Gauss Legendre Lobatto nodes and weights. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>POLY ORDER</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">gll_point</td><td>GLL POINTS</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">gll_w</td><td>GLL WEIGHTS </td></tr>
@@ -322,7 +319,6 @@ Functions/Subroutines</h2></td></tr>
 <p>INTERPOLATE THE SOLUTION ARRAY TO THE BOUNDARY USING LAGRANGE INTERPOLATING POLYNOMIAL. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">q</td><td>SOLUTION ARRAY</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">lag</td><td>LAGRANGE INTERPOLATING POLYNOMIAL</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">inter</td><td>INTERPOLATE VALUE </td></tr>
@@ -379,7 +375,6 @@ Functions/Subroutines</h2></td></tr>
 <p>LAGRANGE INTERPOLATING POLYNOMIAL VALUES AT POINT X. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">n</td><td></td></tr>
     <tr><td class="paramname">n</td><td>PLOY ORDER</td></tr>
     <tr><td class="paramname">point_x</td><td>THE AIMED POINT</td></tr>
     <tr><td class="paramname">x</td><td>GL POINTS</td></tr>
@@ -432,7 +427,6 @@ Functions/Subroutines</h2></td></tr>
 <p>Legendre polynomial of degree k and its derivative using the three term recursive. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>POLY ORDER</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>GLL POINT</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">q</td><td>LEGENDRE POLY OF DEGREE K</td></tr>
@@ -484,7 +478,6 @@ Functions/Subroutines</h2></td></tr>
 <p>COMPUTE THE DERIVATIVE BY MATRIX MULTIPLICATION. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">n</td><td>POLY ORDER</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">d</td><td>DERVATIVE MATRIX</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">f</td><td>VECTOR</td></tr>
@@ -532,6 +525,8 @@ Functions/Subroutines</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>M-th order derivative matrix. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">mth_der</td><td>M-TH ORDER POLY DERIVATIVE</td></tr>
@@ -597,7 +592,6 @@ Functions/Subroutines</h2></td></tr>
 <p>combined algorithm to compute L_n (POL) L'_n (DPOL), Q = L_n+1 - L_n-1, and Q' </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir"></td><td class="paramname">n</td><td></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">x</td><td>POINT</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">pol</td><td>L_N(X)</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">dpol</td><td>L'_N(X)</td></tr>

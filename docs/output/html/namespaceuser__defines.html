@@ -71,10 +71,11 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions/Subroutines</h2></td></tr>
-<tr class="memitem:a551bf87c8cc1c98c30f90f097f164f37"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceuser__defines.html#a551bf87c8cc1c98c30f90f097f164f37">initial_condition_gaussian</a> (N, M, N_EQUATIONS, Q, GL_X, GL_Y)</td></tr>
-<tr class="separator:a551bf87c8cc1c98c30f90f097f164f37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7da71cc598dcc51f421cfabd53a7c635"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceuser__defines.html#a7da71cc598dcc51f421cfabd53a7c635">exact_solution_gaussian</a> (N, M, N_EQUATIONS, GL_X, GL_Y, E, T)</td></tr>
-<tr class="separator:a7da71cc598dcc51f421cfabd53a7c635"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefec45254a560db982a85319794f5c3d"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceuser__defines.html#aefec45254a560db982a85319794f5c3d">initial_condition_gaussian</a> (N, M, N_EQUATIONS, Q, GL_X, GL_Y, X_L, Y_D, DEL_X, DEL_Y)</td></tr>
+<tr class="memdesc:aefec45254a560db982a85319794f5c3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This suroutine initialize only one element. In both x and y direction.  <a href="#aefec45254a560db982a85319794f5c3d">More...</a><br /></td></tr>
+<tr class="separator:aefec45254a560db982a85319794f5c3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d2f8103e958b78fd6ae3539dbdfff31"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceuser__defines.html#a2d2f8103e958b78fd6ae3539dbdfff31">exact_solution_gaussian</a> (N, M, N_EQUATIONS, GL_X, GL_Y, X_L, Y_D, DEL_X, DEL_Y, E, T)</td></tr>
+<tr class="separator:a2d2f8103e958b78fd6ae3539dbdfff31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1c683029912ef531329ae26956a057c"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceuser__defines.html#ac1c683029912ef531329ae26956a057c">initial_sinusoidal</a> (N, M, N_EQUATIONS, Q, GL_X, GL_Y)</td></tr>
 <tr class="separator:ac1c683029912ef531329ae26956a057c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93d3e342371a348b072c161a3c86ac80"><td class="memItemLeft" align="right" valign="top">subroutine&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceuser__defines.html#a93d3e342371a348b072c161a3c86ac80">sin_exact</a> (N, M, N_EQUATIONS, GL_X, GL_Y, E, T)</td></tr>
@@ -101,8 +102,8 @@ Variables</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>User defined initial conditions. </p>
 </div><h2 class="groupheader">Function/Subroutine Documentation</h2>
-<a id="a7da71cc598dcc51f421cfabd53a7c635"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7da71cc598dcc51f421cfabd53a7c635">&#9670;&nbsp;</a></span>exact_solution_gaussian()</h2>
+<a id="a2d2f8103e958b78fd6ae3539dbdfff31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d2f8103e958b78fd6ae3539dbdfff31">&#9670;&nbsp;</a></span>exact_solution_gaussian()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -140,6 +141,30 @@ Variables</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">double precision, intent(in)&#160;</td>
+          <td class="paramname"><em>X_L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, intent(in)&#160;</td>
+          <td class="paramname"><em>Y_D</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, intent(in)&#160;</td>
+          <td class="paramname"><em>DEL_X</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, intent(in)&#160;</td>
+          <td class="paramname"><em>DEL_Y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">double precision, dimension(0:n, 0:m, n_equations)&#160;</td>
           <td class="paramname"><em>E</em>, </td>
         </tr>
@@ -162,15 +187,19 @@ Variables</h2></td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">n_equations</td><td>NUMBER OF EQUATION</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">e</td><td>EXACT SOLUTION AT TIME T</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">gl_y</td><td>GL_POINTS</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">t</td><td>CURRENT TIME </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">t</td><td>CURRENT TIME</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x_l</td><td>ELEMENT LEFT BOUNDARY</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y_d</td><td>ELEMENT LEFT BOUNDARY</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">del_x</td><td>ELEMENT SIZE IN X DIRECTION</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">del_y</td><td>ELEMENT SIZE IN Y DIRECTION </td></tr>
   </table>
   </dd>
 </dl>
 
 </div>
 </div>
-<a id="a551bf87c8cc1c98c30f90f097f164f37"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a551bf87c8cc1c98c30f90f097f164f37">&#9670;&nbsp;</a></span>initial_condition_gaussian()</h2>
+<a id="aefec45254a560db982a85319794f5c3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefec45254a560db982a85319794f5c3d">&#9670;&nbsp;</a></span>initial_condition_gaussian()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -209,7 +238,31 @@ Variables</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double precision, dimension(0:m)&#160;</td>
-          <td class="paramname"><em>GL_Y</em>&#160;</td>
+          <td class="paramname"><em>GL_Y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, intent(in)&#160;</td>
+          <td class="paramname"><em>X_L</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, intent(in)&#160;</td>
+          <td class="paramname"><em>Y_D</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, intent(in)&#160;</td>
+          <td class="paramname"><em>DEL_X</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double precision, intent(in)&#160;</td>
+          <td class="paramname"><em>DEL_Y</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -218,12 +271,18 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>This suroutine initialize only one element. In both x and y direction. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">m</td><td>POLY ORDER</td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">n_equations</td><td>NUMBER OF EQUATION</td></tr>
     <tr><td class="paramdir"></td><td class="paramname">q</td><td>INITIAL SOLUTION</td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">gl_y</td><td>GL_POINTS </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">gl_y</td><td>GL_POINTS</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">x_l</td><td>ELEMENT LEFT BOUNDARY</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">y_d</td><td>ELEMENT LEFT BOUNDARY</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">del_x</td><td>ELEMENT SIZE IN X DIRECTION</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">del_y</td><td>ELEMENT SIZE IN Y DIRECTION </td></tr>
   </table>
   </dd>
 </dl>
