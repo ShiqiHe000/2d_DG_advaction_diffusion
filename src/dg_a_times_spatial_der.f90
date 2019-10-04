@@ -70,25 +70,26 @@ SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_Y(ELEM_K)
     CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(ELEM_K), PORDERY)
     
     ! B * F ------------------------------------------------------------
-    DO J = 0, PORDERY
-        DO I = 0, PORDERX
-            CALL XFLUX(SOLUTION(I, J, :, ELEM_K), FLUX_X(I, J, :, ELEM_K))
+    DO I = 0, PORDERX
+        DO J = 0, PORDERY
+            CALL YFLUX(SOLUTION(I, J, :, ELEM_K), FLUX_Y(I, J, :, ELEM_K))
         ENDDO
         
         ! B * F'--------------------------------------------------------
-        CALL DG_SPATIAL_DERIVATIVE(PORDERX, NFLUX_X_L(J, :, ELEM_K), &
-                                    NFLUX_X_R(J, :, ELEM_K), &
-                                    FLUX_X(0:PORDERX, J, :, ELEM_K), &
-                                    FLUX_DER_X(0:PORDERX, J, :, ELEM_K), &
-                                    M_FIRST_DER_X_T(0:PORDERX, 0:PORDERX, PLEVEL_X(ELEM_K)), &
-                                    LAGRANGE_LEFT_T(0:PORDERX, PLEVEL_X(ELEM_K)), &
-                                    LAGRANGE_RIGHT_T(0:PORDERX, PLEVEL_X(ELEM_K)), &
-                                    GL_W_X_T(0:PORDERX, PLEVEL_X(ELEM_K)))
+        CALL DG_SPATIAL_DERIVATIVE(PORDERY, NFLUX_Y_D(I, :, ELEM_K), &
+                                    NFLUX_Y_U(I, :, ELEM_K), &
+                                    FLUX_Y(I, 0:PORDERY, :, ELEM_K), &
+                                    FLUX_DER_Y(I, 0:PORDERY, :, ELEM_K), &
+                                    M_FIRST_DER_Y_T(0:PORDERY, 0:PORDERY, PLEVEL_Y(ELEM_K)), &
+                                    LAGRANGE_DOWN_T(0:PORDERY, PLEVEL_Y(ELEM_K)), &
+                                    LAGRANGE_UP_T(0:PORDERY, PLEVEL_Y(ELEM_K)), &
+                                    GL_W_Y_T(0:PORDERY, PLEVEL_Y(ELEM_K)))
                                     
         DO S = 1, NUM_OF_EQUATION
-            DO I = 0, PORDERX
-                SOLUTION_TIME_DER(I, J, S, ELEM_K) = - 2.0 / DELTA_Y(ELEM_K) &
-                                                * FLUX_DER_X(I, J, S, ELEM_K)
+            DO J = 0, PORDERY
+                SOLUTION_TIME_DER(I, J, S, ELEM_K) = SOLUTION_TIME_DER(I, J, S, ELEM_K) &
+                                                - 2.0 / DELTA_Y(ELEM_K) &
+                                                * FLUX_DER_Y(I, J, S, ELEM_K)
             ENDDO
         
         ENDDO
