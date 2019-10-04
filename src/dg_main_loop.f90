@@ -9,7 +9,7 @@ PROGRAM MAIN_LOOP
 !-----------------------------------------------------------------------
     USE MPI
     USE SET_MPI
-!    USE ADVECTION_DIFFUSION_DRIVER
+    USE ADVECTION_DIFFUSION_DRIVER
 !    USE VERIFICATION
     USE END_PROGRAM
     USE PREPARE_HILBERT_SCHEME
@@ -27,7 +27,7 @@ PROGRAM MAIN_LOOP
 
     
     ! START GAMES-------------------------------------------------------
-!    CALL DRIVER_FOR_DG_APPROXIMATION
+    CALL DRIVER_FOR_DG_APPROXIMATION
     !-------------------------------------------------------------------
     
     ! VERIFICATION------------------------------------------------------
