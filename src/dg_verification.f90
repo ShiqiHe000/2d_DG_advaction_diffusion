@@ -50,10 +50,10 @@ SUBROUTINE GET_ERROR
         
         CALL EXACT_SOLUTION_GAUSSIAN(PORDERX, PORDERY, &
                                         NUM_OF_EQUATION,&
-                                        GL_POINT_X(0:PORDERX, PLEVEL_X(K)), &
-                                        GL_POINT_Y(0:PORDERY, PLEVEL_Y(K)), &
-                                        X_HILBERT(1, ELEM_K), &
-                                        Y_HILBERT(1, ELEM_K), &
+                                        GL_POINT_X_T(0:PORDERX, PLEVEL_X(K)), &
+                                        GL_POINT_Y_T(0:PORDERY, PLEVEL_Y(K)), &
+                                        X_HILBERT(1, K), &
+                                        Y_HILBERT(1, K), &
                                         DELTA_X(K), DELTA_Y(K), &
                                         EXACT(0:PORDERX, 0:PORDERY, :, K), &
                                         T_TOTAL)

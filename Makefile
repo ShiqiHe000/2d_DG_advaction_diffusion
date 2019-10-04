@@ -42,6 +42,7 @@ SRC =  dg_param.f90 \
        dg_time_derivative_global.f90 \
        dg_step_by_RK3.f90 \
        dg_advection_diffusion_driver.f90 \
+       dg_verification.f90 \
        dg_end_games.f90 \
        dg_main_loop.f90
 #       dg_central_flux.f90 \
