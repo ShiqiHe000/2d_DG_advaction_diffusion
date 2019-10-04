@@ -69,13 +69,13 @@ SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_Y(ELEM_K)
     CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(ELEM_K), PORDERX)
     CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(ELEM_K), PORDERY)
     
-    ! A * F ------------------------------------------------------------
+    ! B * F ------------------------------------------------------------
     DO J = 0, PORDERY
         DO I = 0, PORDERX
             CALL XFLUX(SOLUTION(I, J, :, ELEM_K), FLUX_X(I, J, :, ELEM_K))
         ENDDO
         
-        ! A * F'--------------------------------------------------------
+        ! B * F'--------------------------------------------------------
         CALL DG_SPATIAL_DERIVATIVE(PORDERX, NFLUX_X_L(J, :, ELEM_K), &
                                     NFLUX_X_R(J, :, ELEM_K), &
                                     FLUX_X(0:PORDERX, J, :, ELEM_K), &
@@ -87,7 +87,7 @@ SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_Y(ELEM_K)
                                     
         DO S = 1, NUM_OF_EQUATION
             DO I = 0, PORDERX
-                SOLUTION_TIME_DER(I, J, S, ELEM_K) = - 2.0 / DELTA_X(ELEM_K) &
+                SOLUTION_TIME_DER(I, J, S, ELEM_K) = - 2.0 / DELTA_Y(ELEM_K) &
                                                 * FLUX_DER_X(I, J, S, ELEM_K)
             ENDDO
         
