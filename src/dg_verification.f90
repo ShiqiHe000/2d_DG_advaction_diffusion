@@ -80,7 +80,9 @@ SUBROUTINE GET_ERROR
 !    CALL WRITE_ERROR(ERROR())
 !    CALL WRITE_RESULTS(N, M, EXACT(:, :, 2), SOLUTION(:, :, 2))
     
-    print *, "ERROR", L2_NORM(2) 
+    print *, "L2(1)", L2_NORM(1) 
+    print *, "L2(2)", L2_NORM(2) 
+    print *, "L2(3)", L2_NORM(3) 
     
 END SUBROUTINE GET_ERROR
 

@@ -50,7 +50,11 @@ SUBROUTINE HIBERT_SORT_2D
     DEALLOCATE(DUAL_COORD)
     !-------------------------------------------------------------------
     
-    call WRITE_VISUAL(NUM_OF_ELEMENT, X_HILBERT, Y_HILBERT)
+    PRINT *, "----------------------------------------------------------"
+    PRINT *, "FINISHED READ MESH FILE AND SORTING."
+    PRINT *, "----------------------------------------------------------"
+    
+!    call WRITE_VISUAL(NUM_OF_ELEMENT, X_HILBERT, Y_HILBERT)
 
 END SUBROUTINE HIBERT_SORT_2D
 

@@ -15,7 +15,7 @@ MODULE NUMERICAL_FLUX
 USE MPI
 USE NODAL_2D_STORAGE
 USE INTERFACES_CONSTRUCT
-USE PARAM, ONLY: N, M, EXP_X, NUM_OF_EQUATION, GX_L, GX_R, GY_L, GY_R
+USE PARAM, ONLY: N, M, EXP_X, NUM_OF_EQUATION
 USE hilbert
 USE RIEMANN_SOLVER
 USE AFFINE_MAP
@@ -42,9 +42,7 @@ SUBROUTINE NUMERICAL_FLUX_X(ELEM_K, T)
     
     DOUBLE PRECISION :: T   !< CURRENT TIME STEP
     
-    DOUBLE PRECISION :: XI  ! REFERENCE POINT
-    
-    DOUBLE PRECISION :: Y, Y_L
+    DOUBLE PRECISION :: Y
     
     DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:, :) :: SOLUTION_EXT ! BOUNDARY CONDITION
     
@@ -67,18 +65,14 @@ SUBROUTINE NUMERICAL_FLUX_X(ELEM_K, T)
         ALLOCATE(SOLUTION_EXT(0:MY, NUM_OF_EQUATION))
         SOLUTION_EXT = 0.0D0
         
-        
         DO S = 0, MY
         
-            XI = GL_POINT_Y_T(S, PLEVEL_Y(ELEM_K))
-            
-            Y_L = Y_HILBERT(1, ELEM_K)
-            
-            CALL AFFINE_MAPPING(XI, Y, Y_L, DELTA_Y(ELEM_K))
+            CALL AFFINE_MAPPING(GL_POINT_Y_T(S, PLEVEL_Y(ELEM_K)), &
+                                Y, Y_HILBERT(1, ELEM_K), DELTA_Y(ELEM_K))
         
             CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-                                               SOLUTION_EXT(S, :), T, &
-                                               GX_L, Y)
+                                        SOLUTION_EXT(S, :), &
+                                         T, X_HILBERT(1, ELEM_K), Y)
                                                
             CALL RIEMANN_X(SOLUTION_EXT(S, :), &
                            SOLUTION_INT_L(S, :, ELEM_K), &
@@ -95,17 +89,15 @@ SUBROUTINE NUMERICAL_FLUX_X(ELEM_K, T)
         ALLOCATE(SOLUTION_EXT(0:MY, NUM_OF_EQUATION))
         SOLUTION_EXT = 0.0D0
         
+        
         DO S = 0, MY
         
-            XI = GL_POINT_Y_T(S, PLEVEL_Y(ELEM_K))
-            
-            Y_L = Y_HILBERT(1, ELEM_K)
-            
-            CALL AFFINE_MAPPING(XI, Y, Y_L, DELTA_Y(ELEM_K))
+            CALL AFFINE_MAPPING(GL_POINT_Y_T(S, PLEVEL_Y(ELEM_K)), &
+                                Y, Y_HILBERT(3, ELEM_K), DELTA_Y(ELEM_K))
         
             CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-                                               SOLUTION_EXT(S, :), T, &
-                                               GX_R, Y)
+                                        SOLUTION_EXT(S, :), &
+                                         T, X_HILBERT(3, ELEM_K), Y)
                                                
             CALL RIEMANN_X(SOLUTION_INT_R(S, :, ELEM_K), &
                             SOLUTION_EXT(S, :), &
@@ -171,9 +163,7 @@ SUBROUTINE NUMERICAL_FLUX_Y(ELEM_K, T)
     
     DOUBLE PRECISION :: T   !< CURRENT TIME STEP
     
-    DOUBLE PRECISION :: XI  ! REFERENCE POINT
-    
-    DOUBLE PRECISION :: X, X_L
+    DOUBLE PRECISION :: X
     
     DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:, :) :: SOLUTION_EXT ! BOUNDARY CONDITION
     
@@ -199,15 +189,12 @@ SUBROUTINE NUMERICAL_FLUX_Y(ELEM_K, T)
         
         DO S = 0, NX
         
-            XI = GL_POINT_X_T(S, PLEVEL_X(ELEM_K))
-            
-            X_L = X_HILBERT(1, ELEM_K)
-            
-            CALL AFFINE_MAPPING(XI, X, X_L, DELTA_X(ELEM_K))
+            CALL AFFINE_MAPPING(GL_POINT_X_T(S, PLEVEL_X(ELEM_K)), &
+                                X, X_HILBERT(1, ELEM_K), DELTA_X(ELEM_K))
         
             CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-                                               SOLUTION_EXT(S, :), T, &
-                                               GY_L, X)
+                                        SOLUTION_EXT(S, :), &
+                                         T, X, Y_HILBERT(1, ELEM_K))
                                                
             CALL RIEMANN_Y(SOLUTION_EXT(S, :), &
                            SOLUTION_INT_L(S, :, ELEM_K), &
@@ -226,16 +213,14 @@ SUBROUTINE NUMERICAL_FLUX_Y(ELEM_K, T)
         
         DO S = 0, NX
         
-            XI = GL_POINT_X_T(S, PLEVEL_X(ELEM_K))
-            
-            X_L = X_HILBERT(1, ELEM_K)
-            
-            CALL AFFINE_MAPPING(XI, X, X_L, DELTA_X(ELEM_K))
+            CALL AFFINE_MAPPING(GL_POINT_X_T(S, PLEVEL_X(ELEM_K)), &
+                                X, X_HILBERT(3, ELEM_K), DELTA_X(ELEM_K))
         
             CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-                                               SOLUTION_EXT(S, :), T, &
-                                               GY_R, X)
-                                               
+                                        SOLUTION_EXT(S, :), &
+                                         T, X, Y_HILBERT(3, ELEM_K))
+                                         
+        
             CALL RIEMANN_Y(SOLUTION_INT_R(S, :, ELEM_K), &
                             SOLUTION_EXT(S, :), &
                             NFLUX_Y_U(S, :, ELEM_K), 1.0D0)
