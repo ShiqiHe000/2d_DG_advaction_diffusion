@@ -39,7 +39,7 @@ release = u'1.0'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.githubpages', 'recommonmark'
+        'sphinx.ext.githubpages', 'recommonmark', 'sphinx.ext.mathjax'
 ]
 
 # Add any paths that contain templates here, relative to this directory.

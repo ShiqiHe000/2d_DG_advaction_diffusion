@@ -17,12 +17,13 @@ Discontinuous Galerkin, or DG, overcomes the limitation on achieving high-order 
 Here, we present a 2D DG solver for a classic wave propagation problem. 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
-   chapter1
-   
-   
+   dg_motivation
+   dg_spectral_approximation
+   dg_wave_propagation_2d 
+   dg_numerical_fluxes
 
 
 Indices and tables

@@ -1,0 +1,118 @@
+Spectral Approximation on a square
+*********************************************
+
+Approximation of Wave Propagation
+=============================================
+
+Basic Model
+---------------------------------------------
+The basic model is the linear wave equation with the form:
+
+.. math::
+        \frac{\partial ^2 p}{\partial t^2} - c^2 (\frac{\partial^2 p}{\partial x^2} + \frac{\partial^2 p}{\partial y^2}) = 0
+
+The wave equation is the fundamental equation of acoustics. 
+It is based on two improtant approximation, namely, that the flow may be treated as *inviscide* and that *convective derivatives are negligible in comparison to unsteady derivatives*.
+(we neglect viscous and other diffusion effect(heat), when convection transfer is much faster than diffusion transfer of mass, momentum or energy.)
+
+The variable :math:`p` may represent acoustic pressure in an otherwise quiescent gas and :math:`c` could be sound speed. 
+
+In order to solve the second order equation, we re-write the equation as a system of three first order equations.
+
+Convert the wave equation to a system of first order equation, let:
+
+.. math::
+        u_t = - p_x,v_t = -p_y.
+
+:math:`u` and :math:`v` correspond to the components of the velocity in a fluid flow. 
+
+Assuming the order of mixed partial derivatives does not matter, then:
+
+.. math::
+        \frac{\partial^2 p}{\partial t^2} + c^2((u_x)_t + (v_y)_t) = 0.
+
+Combining with initial conditions,
+
+.. math::
+        p_t + c^2(u_x + v_y) = 0.
+
+We now obtain the system of equations by grouping the equation for pressure and two velocity components
+
+.. math::
+
+        \begin{bmatrix}
+        p\\ 
+        u\\ 
+        v
+        \end{bmatrix}_t +
+        \begin{bmatrix}
+        0& c^2 & 0\\ 
+        1& 0 & 0\\ 
+        0& 0 & 0
+        \end{bmatrix}
+        \begin{bmatrix}
+        p\\ 
+        u\\ 
+        v
+        \end{bmatrix}_x+
+        \begin{bmatrix}
+        0 & 0 & c^2\\ 
+        0& 0 & 0\\ 
+        1&  0& 0
+        \end{bmatrix}\begin{bmatrix}
+        p\\ 
+        u\\ 
+        v
+        \end{bmatrix}_y
+ 
+or 
+
+.. math::
+        \mathbf{q_t} + A\mathbf{q_x} +B\mathbf{q_y} = 0
+
+Since :math:`B` and :math:`C` are constants, we can bring them inside the derivatives
+
+.. math::
+        \mathbf{q_t} + \mathbf{f_x} + \mathbf{g_y} = 0
+
+This is known as **Conservation law** form since it can be written as 
+
+.. math::
+        \mathbf{q_t} + \bigtriangledown \cdot F = 0
+
+where the vector flux :math:`F = \mathbf{f}\widehat{x}+\mathbf{g}\widehat{y}`. 
+
+The Nodal Discontinuous Galerkin Approximation
+-----------------------------------------------
+
+The Nurmerical flux
+----------------------------------------------
+
+Time Integration
+-----------------------------------------------
+
+Change of Interval
+---------------------------------------------
+
+Benchmark Solution: Plane wave Propagation
+----------------------------------------------
+We represent a plane Gaussian wave through the grid. 
+
+The plane wave is defined as:
+
+:math:`\begin{bmatrix}
+p\\ 
+u\\ 
+v
+\end{bmatrix} =
+\begin{bmatrix}
+1\\ 
+\frac{k_x}{c}\\ 
+\frac{k_y}{c}
+\end{bmatrix}
+e^{-\frac{(k_x(x-x_0)+k_y(y-y_0)-ct)^2}{d^2}}`
+
+Where :math:`\mathbf{k}` is the wavevector and it is normalized to satisfiey :math:`k_x^2 + k_y^2 = 1`.
+The wavevector is choosen as :math:`\mathbf{k} = (\sqrt{2}/2, \sqrt{2}/2)`
+This is a wave with Gaussian shape where we compute the parameter :math:`d` from the full width at half maximum, :math:`\omega  = 0.2`, by math:`d = \omega/2\sqrt{ln2}`. 
+The other parameters are :math:`c = 1` and :math:`x_0 = y_0 = -0.8`. 

@@ -1,0 +1,319 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Spectral Approximation on a square &mdash; 2d_DG_advection 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'1.0',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Numerical Flux schemes" href="dg_numerical_fluxes.html" />
+    <link rel="prev" title="Spectral Approximation" href="dg_spectral_approximation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> 2d_DG_advection
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="dg_motivation.html">Motivation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_spectral_approximation.html">Spectral Approximation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Spectral Approximation on a square</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#approximation-of-wave-propagation">Approximation of Wave Propagation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-model">Basic Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-nodal-discontinuous-galerkin-approximation">The Nodal Discontinuous Galerkin Approximation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-nurmerical-flux">The Nurmerical flux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#time-integration">Time Integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#change-of-interval">Change of Interval</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#benchmark-solution-plane-wave-propagation">Benchmark Solution: Plane wave Propagation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dg_numerical_fluxes.html">Numerical Flux schemes</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">2d_DG_advection</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Spectral Approximation on a square</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/dg_wave_propagation_2d.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="spectral-approximation-on-a-square">
+<h1>Spectral Approximation on a square<a class="headerlink" href="#spectral-approximation-on-a-square" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="approximation-of-wave-propagation">
+<h2>Approximation of Wave Propagation<a class="headerlink" href="#approximation-of-wave-propagation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="basic-model">
+<h3>Basic Model<a class="headerlink" href="#basic-model" title="Permalink to this headline">¶</a></h3>
+<p>The basic model is the linear wave equation with the form:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial ^2 p}{\partial t^2} - c^2 (\frac{\partial^2 p}{\partial x^2} + \frac{\partial^2 p}{\partial y^2}) = 0\]</div>
+<p>The wave equation is the fundamental equation of acoustics.
+It is based on two improtant approximation, namely, that the flow may be treated as <em>inviscide</em> and that <em>convective derivatives are negligible in comparison to unsteady derivatives</em>.
+(we neglect viscous and other diffusion effect(heat), when convection transfer is much faster than diffusion transfer of mass, momentum or energy.)</p>
+<p>The variable <span class="math notranslate nohighlight">\(p\)</span> may represent acoustic pressure in an otherwise quiescent gas and <span class="math notranslate nohighlight">\(c\)</span> could be sound speed.</p>
+<p>In order to solve the second order equation, we re-write the equation as a system of three first order equations.</p>
+<p>Convert the wave equation to a system of first order equation, let:</p>
+<div class="math notranslate nohighlight">
+\[u_t = - p_x,v_t = -p_y.\]</div>
+<p><span class="math notranslate nohighlight">\(u\)</span> and <span class="math notranslate nohighlight">\(v\)</span> correspond to the components of the velocity in a fluid flow.</p>
+<p>Assuming the order of mixed partial derivatives does not matter, then:</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial^2 p}{\partial t^2} + c^2((u_x)_t + (v_y)_t) = 0.\]</div>
+<p>Combining with initial conditions,</p>
+<div class="math notranslate nohighlight">
+\[p_t + c^2(u_x + v_y) = 0.\]</div>
+<p>We now obtain the system of equations by grouping the equation for pressure and two velocity components</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix}
+p\\
+u\\
+v
+\end{bmatrix}_t +
+\begin{bmatrix}
+0&amp; c^2 &amp; 0\\
+1&amp; 0 &amp; 0\\
+0&amp; 0 &amp; 0
+\end{bmatrix}
+\begin{bmatrix}
+p\\
+u\\
+v
+\end{bmatrix}_x+
+\begin{bmatrix}
+0 &amp; 0 &amp; c^2\\
+0&amp; 0 &amp; 0\\
+1&amp;  0&amp; 0
+\end{bmatrix}\begin{bmatrix}
+p\\
+u\\
+v
+\end{bmatrix}_y\end{split}\]</div>
+<p>or</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{q_t} + A\mathbf{q_x} +B\mathbf{q_y} = 0\]</div>
+<p>Since <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(C\)</span> are constants, we can bring them inside the derivatives</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{q_t} + \mathbf{f_x} + \mathbf{g_y} = 0\]</div>
+<p>This is known as <strong>Conservation law</strong> form since it can be written as</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{q_t} + \bigtriangledown \cdot F = 0\]</div>
+<p>where the vector flux <span class="math notranslate nohighlight">\(F = \mathbf{f}\widehat{x}+\mathbf{g}\widehat{y}\)</span>.</p>
+</div>
+<div class="section" id="the-nodal-discontinuous-galerkin-approximation">
+<h3>The Nodal Discontinuous Galerkin Approximation<a class="headerlink" href="#the-nodal-discontinuous-galerkin-approximation" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="the-nurmerical-flux">
+<h3>The Nurmerical flux<a class="headerlink" href="#the-nurmerical-flux" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="time-integration">
+<h3>Time Integration<a class="headerlink" href="#time-integration" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="change-of-interval">
+<h3>Change of Interval<a class="headerlink" href="#change-of-interval" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="benchmark-solution-plane-wave-propagation">
+<h3>Benchmark Solution: Plane wave Propagation<a class="headerlink" href="#benchmark-solution-plane-wave-propagation" title="Permalink to this headline">¶</a></h3>
+<p>We represent a plane Gaussian wave through the grid.</p>
+<p>The plane wave is defined as:</p>
+<p><span class="math notranslate nohighlight">\(\begin{bmatrix}
+p\\
+u\\
+v
+\end{bmatrix} =
+\begin{bmatrix}
+1\\
+\frac{k_x}{c}\\
+\frac{k_y}{c}
+\end{bmatrix}
+e^{-\frac{(k_x(x-x_0)+k_y(y-y_0)-ct)^2}{d^2}}\)</span></p>
+<p>Where <span class="math notranslate nohighlight">\(\mathbf{k}\)</span> is the wavevector and it is normalized to satisfiey <span class="math notranslate nohighlight">\(k_x^2 + k_y^2 = 1\)</span>.
+The wavevector is choosen as <span class="math notranslate nohighlight">\(\mathbf{k} = (\sqrt{2}/2, \sqrt{2}/2)\)</span>
+This is a wave with Gaussian shape where we compute the parameter <span class="math notranslate nohighlight">\(d\)</span> from the full width at half maximum, <span class="math notranslate nohighlight">\(\omega  = 0.2\)</span>, by math:<cite>d = omega/2sqrt{ln2}</cite>.
+The other parameters are <span class="math notranslate nohighlight">\(c = 1\)</span> and <span class="math notranslate nohighlight">\(x_0 = y_0 = -0.8\)</span>.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dg_numerical_fluxes.html" class="btn btn-neutral float-right" title="Numerical Flux schemes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dg_spectral_approximation.html" class="btn btn-neutral float-left" title="Spectral Approximation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Shiqi_He
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
