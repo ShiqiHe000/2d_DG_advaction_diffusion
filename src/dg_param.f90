@@ -8,15 +8,15 @@ MODULE PARAM
 
     IMPLICIT NONE
     
-    ! variables you could change =======================================
+    ! variables you must change =======================================
     
     !< INITIAL MESH FILE------------------------------------------------
     CHARACTER(LEN=*), PARAMETER :: MESHFILE = "4_elements.msh"    
     !-------------------------------------------------------------------
     
     ! SET POLYNOMIAL ORDER----------------------------------------------
-    INTEGER :: N = 12    !< POLYNOMIAL DEGREE IN X DIRECTION
-    INTEGER :: M = 12    !< POLYNOMIAL DEGREE IN Y DIRECTION
+    INTEGER :: N = 2    !< POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: M = 2    !< POLYNOMIAL DEGREE IN Y DIRECTION
     INTEGER :: NMAX = 12   !< MAXIMUM POLYNOMIAL DEGREE IN X DIRECTION
     INTEGER :: MMAX = 12   !< MAXIMUM POLYNOMIAL DEGREE IN Y DIRECTION
     !-------------------------------------------------------------------
@@ -27,9 +27,6 @@ MODULE PARAM
     
     DOUBLE PRECISION :: GY_L = 0.0D0     !< LEFT DOMAIN BOUNDARY
     DOUBLE PRECISION :: GY_R = 2.0D0     !< LEFT DOMAIN BOUNDARY
-    
-!    DOUBLE PRECISION :: GX_L = -1.0D0     !< LEFT DOMAIN BOUNDARY
-!    DOUBLE PRECISION :: GX_R =  1.0D0     !< LEFT DOMAIN BOUNDARY
     !-------------------------------------------------------------------
     
     ! NUMBER OF ELEMENT-------------------------------------------------
@@ -37,16 +34,18 @@ MODULE PARAM
     INTEGER :: EXP_Y = 1       !< WRITE ELEMENT NUMBER IN Y DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_Y)
     !-------------------------------------------------------------------
     
-    !< WAVE SPEED ------------------------------------------------------
-    DOUBLE PRECISION, PARAMETER :: C=1.0D0
-    !-------------------------------------------------------------------
-    
     ! TIME--------------------------------------------------------------
 !    DOUBLE PRECISION :: T_TOTAL = 0.0d0     !< TOTAL TIME INTEGRAL
-!    DOUBLE PRECISION :: T_TOTAL = (2.0e-4)     !< TOTAL TIME INTEGRAL
-!    INTEGER :: NT = 1                    !< TIME STEP NUMBER
-    DOUBLE PRECISION :: T_TOTAL = 2.0D0     !< TOTAL TIME INTEGRAL
-    INTEGER :: NT = 10000                   !< TIME STEP NUMBER
+    DOUBLE PRECISION :: T_TOTAL = (2.0e-4)     !< TOTAL TIME INTEGRAL
+    INTEGER :: NT = 1                    !< TIME STEP NUMBER
+!    DOUBLE PRECISION :: T_TOTAL = 2.0D0     !< TOTAL TIME INTEGRAL
+!    INTEGER :: NT = 10000                   !< TIME STEP NUMBER
+    !-------------------------------------------------------------------
+    
+    ! variables you could change =======================================
+    
+    !< WAVE SPEED ------------------------------------------------------
+    DOUBLE PRECISION, PARAMETER :: C=1.0D0
     !-------------------------------------------------------------------
     
     ! SET ADAPATION ----------------------------------------------------

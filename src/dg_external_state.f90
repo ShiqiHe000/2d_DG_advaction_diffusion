@@ -70,7 +70,7 @@ END SUBROUTINE EXTERNAL_STATE_GAUSSIAN_EXACT
 !-----------------------------------------------------------------------
 ! EXTERNAL STATE FOR SINUSOIDAL CASE
 !-----------------------------------------------------------------------
-SUBROUTINE EXTERNAL_SINU(NUM_OF_EQUATION, Q_EXT ,X, Y, T)
+SUBROUTINE EXTERNAL_SINU(NUM_OF_EQUATION, Q_EXT, T, X, Y)
 
 
     IMPLICIT NONE
@@ -81,9 +81,9 @@ SUBROUTINE EXTERNAL_SINU(NUM_OF_EQUATION, Q_EXT ,X, Y, T)
     DOUBLE PRECISION, INTENT(IN) :: T   !< CURRENT TIME 
     DOUBLE PRECISION, INTENT(IN) :: X, Y    !< COORDINATE ON THE BOUNDARY
     
-    Q_EXT(1) = C * DCOS(X - C*T)
-    Q_EXT(2) = DCOS(X - C*T)
-    Q_EXT(3) = 0.0D0
+    Q_EXT(1) = C * DCOS(X + Y - C*T)
+    Q_EXT(2) = DCOS(X + Y - C*T)
+    Q_EXT(3) = DCOS(X + Y - C*T)
     
 
 END SUBROUTINE EXTERNAL_SINU

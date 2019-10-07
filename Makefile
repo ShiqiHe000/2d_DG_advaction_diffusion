@@ -48,7 +48,6 @@ SRC =  dg_param.f90 \
 #       dg_central_flux.f90 \
 #       dg_Lax_Friedrichs_flux.f90 \
 #       dg_time_derivative.f90 \
-#       dg_verification.f90 \
 
 #SOURCE = $(wildcard $(DIR)/$(makefile formatSRCDIR)/$(SRC))
 #SOURCE  = $(DIR)/$(SRCDIR)
