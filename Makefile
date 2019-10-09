@@ -19,6 +19,7 @@ DEBUG = -g -fcheck=all -fimplicit-none -fbacktrace -pedantic -Wall
 SRC =  dg_param.f90 \
        dg_mpi.f90 \
        dg_basis.f90 \
+       dg_affine_map.f90 \
        dg_nodal_2d_storage.f90 \
        dg_constructor.f90 \
        dg_spatial_derivative.f90 \
