@@ -13,6 +13,7 @@ USE PARAM, ONLY: N, M, T_TOTAL, NT, NUM_OF_EQUATION
 USE DG_2D_CONSTRUCTOR
 USE TIME_STEP_BY_RK
 USE USER_DEFINES
+USE NODAL_2D_STORAGE
 
 IMPLICIT NONE
 
@@ -49,7 +50,7 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     
     ! INITIALZIE SOLUTION-----------------------------------------------
     CALL INITIAL_CONDITION_GAUSSIAN(N, M, NUM_OF_EQUATION, SOLUTION, &
-                                    GL_POINT_X, GL_POINT_Y)
+                                    GL_POINT_X, GL_POINT_Y, DELTA_X, DELTA_Y)
 !    CALL INITIAL_SINUSOIDAL(N, M, NUM_OF_EQUATION, SOLUTION, GL_POINT_X, GL_POINT_Y)
     !-------------------------------------------------------------------
 

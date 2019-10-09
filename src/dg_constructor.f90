@@ -9,7 +9,7 @@
 MODULE DG_2D_CONSTRUCTOR
 
 USE MPI
-USE PARAM, ONLY: N, M
+USE PARAM, ONLY: N, M, X_L, X_R, Y_L, Y_R
 USE NODAL_2D_STORAGE
 
 IMPLICIT NONE
@@ -55,6 +55,10 @@ SUBROUTINE CONSTRUCT_BASIS
     DEALLOCATE(FIRST_DER_X, FIRST_DER_Y)
     !-------------------------------------------------------------------
     
+    !-------------------------------------------------------------------
+    DELTA_X = X_R - X_L
+    DELTA_Y = Y_R - Y_L
+    !-------------------------------------------------------------------
 
 END SUBROUTINE CONSTRUCT_BASIS
 

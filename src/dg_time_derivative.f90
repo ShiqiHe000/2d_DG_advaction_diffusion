@@ -62,9 +62,11 @@ SUBROUTINE DG_TIME_DER(T)
 
         ! IMPOSE EXACT SOLUTION ON THE BOUNDARIES
         CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-                                        SOLUTION_EXT_L, T, -1.0D0, Y)
+                                        SOLUTION_EXT_L, T, -1.0D0, Y, &
+                                        DELTA_X, DELTA_Y)
         CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-                                        SOLUTION_EXT_R, T,  1.0D0, Y)
+                                        SOLUTION_EXT_R, T,  1.0D0, Y, &
+                                        DELTA_X, DELTA_Y)
     
 !        CALL RIEMANN(SOLUTION_EXT_L, SOLUTION_INT_L, NFLUX_X_L, (/1.0D0, 0.0D0/), -1.0D0)
 !        CALL RIEMANN(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_X_R, (/1.0D0, 0.0D0/),  1.0D0)
@@ -85,7 +87,7 @@ SUBROUTINE DG_TIME_DER(T)
                                     GL_W_X)
         DO S=1, NUM_OF_EQUATION
             DO I=0, N
-                SOLUTION_TIME_DER(I, J, S) = - FLUX_DER_X(I, S)
+                SOLUTION_TIME_DER(I, J, S) = - 2.0D0 * FLUX_DER_X(I, S) / DELTA_X
             ENDDO
         
         ENDDO
@@ -130,9 +132,11 @@ SUBROUTINE DG_TIME_DER(T)
         ENDDO
 
         CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-                                        SOLUTION_EXT_L, T, X, -1.0D0)
+                                        SOLUTION_EXT_L, T, X, -1.0D0, &
+                                        DELTA_X, DELTA_Y)
         CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-                                        SOLUTION_EXT_R, T, X, 1.0D0)
+                                        SOLUTION_EXT_R, T, X, 1.0D0, &
+                                        DELTA_X, DELTA_Y)
         
 !        CALL RIEMANN(SOLUTION_EXT_L, SOLUTION_INT_L, NFLUX_Y_D, (/0.0D0, 1.0D0/), -1.0D0)
 !        CALL RIEMANN(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_Y_U, (/0.0D0, 1.0D0/),  1.0D0)
@@ -154,7 +158,7 @@ SUBROUTINE DG_TIME_DER(T)
         DO J=0, M
             DO S=1, NUM_OF_EQUATION
                 SOLUTION_TIME_DER(I, J, S) = SOLUTION_TIME_DER(I, J, S) &
-                                            - FLUX_DER_Y(J, S)
+                                            - 2.0D0 *FLUX_DER_Y(J, S) / DELTA_Y
             ENDDO
         ENDDO
         

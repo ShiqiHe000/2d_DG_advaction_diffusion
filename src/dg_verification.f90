@@ -8,7 +8,7 @@ MODULE VERIFICATION
 USE MPI
 USE PARAM, ONLY: N, M, NUM_OF_EQUATION, T_TOTAL
 USE USER_DEFINES
-USE NODAL_2D_STORAGE, ONLY: GL_POINT_X, GL_POINT_Y, SOLUTION
+USE NODAL_2D_STORAGE
 USE WRITE_DATA
 
 IMPLICIT NONE
@@ -42,7 +42,7 @@ SUBROUTINE GET_ERROR
     
     ! GET EXACT SOLUTION------------------------------------------------
     CALL EXACT_SOLUTION_GAUSSIAN(N, M, NUM_OF_EQUATION, GL_POINT_X, &
-                                    GL_POINT_Y, EXACT, T_TOTAL)
+                                    GL_POINT_Y, EXACT, T_TOTAL, DELTA_X, DELTA_Y)
 !    CALL SIN_EXACT(N, M, NUM_OF_EQUATION, GL_POINT_X, GL_POINT_Y, EXACT, T_TOTAL)
     !-------------------------------------------------------------------
     
