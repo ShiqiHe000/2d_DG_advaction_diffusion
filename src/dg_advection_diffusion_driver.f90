@@ -57,23 +57,22 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
         CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(K), M_NOW) ! Y DIRECTION POLY ORDER
 
         
-!        CALL INITIAL_CONDITION_GAUSSIAN(N_NOW, M_NOW, NUM_OF_EQUATION, &
-!                                        SOLUTION(0:N_NOW, 0:M_NOW, :, K), &
-!                                        GL_POINT_X_T(0:N_NOW, PLEVEL_X(K)), &
-!                                        GL_POINT_Y_T(0:M_NOW, PLEVEL_Y(K)), &
-!                                        X_HILBERT(1, K), Y_HILBERT(1, K), &
-!                                        DELTA_X(K), DELTA_Y(K))
-        CALL INITIAL_SINUSOIDAL(N_NOW, M_NOW, NUM_OF_EQUATION, &
-                                SOLUTION(0:N_NOW, 0:M_NOW, :, K), &
-                                GL_POINT_X_T(0:N_NOW, PLEVEL_X(K)), &
-                                GL_POINT_Y_T(0:M_NOW, PLEVEL_Y(K)), &
-                                X_HILBERT(1, K), Y_HILBERT(1, K), &
-                                DELTA_X(K), DELTA_Y(K))
+        CALL INITIAL_CONDITION_GAUSSIAN(N_NOW, M_NOW, NUM_OF_EQUATION, &
+                                        SOLUTION(0:N_NOW, 0:M_NOW, :, K), &
+                                        GL_POINT_X_T(0:N_NOW, PLEVEL_X(K)), &
+                                        GL_POINT_Y_T(0:M_NOW, PLEVEL_Y(K)), &
+                                        X_HILBERT(1, K), Y_HILBERT(1, K), &
+                                        DELTA_X(K), DELTA_Y(K))
+!        CALL INITIAL_SINUSOIDAL(N_NOW, M_NOW, NUM_OF_EQUATION, &
+!                                SOLUTION(0:N_NOW, 0:M_NOW, :, K), &
+!                                GL_POINT_X_T(0:N_NOW, PLEVEL_X(K)), &
+!                                GL_POINT_Y_T(0:M_NOW, PLEVEL_Y(K)), &
+!                                X_HILBERT(1, K), Y_HILBERT(1, K), &
+!                                DELTA_X(K), DELTA_Y(K))
                                 
-                                      
     ENDDO
     !-------------------------------------------------------------------
-    
+
     ! TIME MARCHES ON---------------------------------------------------
     DO K = 0, NT-1
         CALL DG_STEP_BY_RK3(TN, DELTA_T)

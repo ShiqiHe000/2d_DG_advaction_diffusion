@@ -11,35 +11,35 @@ MODULE PARAM
     ! variables you must change =======================================
     
     !< INITIAL MESH FILE------------------------------------------------
-    CHARACTER(LEN=*), PARAMETER :: MESHFILE = "1_element.msh"    
+    CHARACTER(LEN=*), PARAMETER :: MESHFILE = "4_element.msh"    
     !-------------------------------------------------------------------
     
     ! SET POLYNOMIAL ORDER----------------------------------------------
-    INTEGER :: N = 2   !< POLYNOMIAL DEGREE IN X DIRECTION
-    INTEGER :: M = 2    !< POLYNOMIAL DEGREE IN Y DIRECTION
-    INTEGER :: NMAX = 4   !< MAXIMUM POLYNOMIAL DEGREE IN X DIRECTION
-    INTEGER :: MMAX = 4   !< MAXIMUM POLYNOMIAL DEGREE IN Y DIRECTION
+    INTEGER :: N = 8   !< POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: M = 8    !< POLYNOMIAL DEGREE IN Y DIRECTION
+    INTEGER :: NMAX = 10   !< MAXIMUM POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: MMAX = 10   !< MAXIMUM POLYNOMIAL DEGREE IN Y DIRECTION
     !-------------------------------------------------------------------
     
     ! DOMIAN BOUNDARY---------------------------------------------------
     DOUBLE PRECISION :: GX_L = 0.0D0     !< LEFT DOMAIN BOUNDARY
-    DOUBLE PRECISION :: GX_R = 1.0D0     !< LEFT DOMAIN BOUNDARY
+    DOUBLE PRECISION :: GX_R = 2.0D0     !< LEFT DOMAIN BOUNDARY
     
     DOUBLE PRECISION :: GY_L = 0.0D0     !< LEFT DOMAIN BOUNDARY
-    DOUBLE PRECISION :: GY_R = 1.0D0     !< LEFT DOMAIN BOUNDARY
+    DOUBLE PRECISION :: GY_R = 2.0D0     !< LEFT DOMAIN BOUNDARY
     !-------------------------------------------------------------------
     
     ! NUMBER OF ELEMENT-------------------------------------------------
-    INTEGER :: EXP_X = 0       !< WRITE ELEMENT NUMBER IN X DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_X)
-    INTEGER :: EXP_Y = 0       !< WRITE ELEMENT NUMBER IN Y DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_Y)
+    INTEGER :: EXP_X = 1       !< WRITE ELEMENT NUMBER IN X DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_X)
+    INTEGER :: EXP_Y = 1       !< WRITE ELEMENT NUMBER IN Y DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_Y)
     !-------------------------------------------------------------------
     
     ! TIME--------------------------------------------------------------
 !    DOUBLE PRECISION :: T_TOTAL = 0.0d0     !< TOTAL TIME INTEGRAL
-    DOUBLE PRECISION :: T_TOTAL = (2.0e-4)     !< TOTAL TIME INTEGRAL
-    INTEGER :: NT = 1                    !< TIME STEP NUMBER
-!    DOUBLE PRECISION :: T_TOTAL = 2.0D0     !< TOTAL TIME INTEGRAL
-!    INTEGER :: NT = 10000                   !< TIME STEP NUMBER
+!    DOUBLE PRECISION :: T_TOTAL = (2.0e-4)*2.0d0     !< TOTAL TIME INTEGRAL
+!    INTEGER :: NT = 2                    !< TIME STEP NUMBER
+    DOUBLE PRECISION :: T_TOTAL = 2.0D0     !< TOTAL TIME INTEGRAL
+    INTEGER :: NT = 10000                   !< TIME STEP NUMBER
     !-------------------------------------------------------------------
     
     ! variables you could change =======================================

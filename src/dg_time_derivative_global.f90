@@ -51,7 +51,7 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
                                     SOLUTION_INT_R(0:PORDER_Y, :, K) )
     ENDDO
     !-------------------------------------------------------------------
-    
+
     ! NEXT STEP COMPUTE NUMERICAL FLUXES--------------------------------
     ALLOCATE(NFLUX_X_L(0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
     ALLOCATE(NFLUX_X_R(0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))

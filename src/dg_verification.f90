@@ -48,17 +48,7 @@ SUBROUTINE GET_ERROR
         CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(K), PORDERX)
         CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(K), PORDERY)
         
-!        CALL EXACT_SOLUTION_GAUSSIAN(PORDERX, PORDERY, &
-!                                        NUM_OF_EQUATION,&
-!                                        GL_POINT_X_T(0:PORDERX, PLEVEL_X(K)), &
-!                                        GL_POINT_Y_T(0:PORDERY, PLEVEL_Y(K)), &
-!                                        X_HILBERT(1, K), &
-!                                        Y_HILBERT(1, K), &
-!                                        DELTA_X(K), DELTA_Y(K), &
-!                                        EXACT(0:PORDERX, 0:PORDERY, :, K), &
-!                                        T_TOTAL)
-                                        
-         CALL SIN_EXACT(PORDERX, PORDERY, &
+        CALL EXACT_SOLUTION_GAUSSIAN(PORDERX, PORDERY, &
                                         NUM_OF_EQUATION,&
                                         GL_POINT_X_T(0:PORDERX, PLEVEL_X(K)), &
                                         GL_POINT_Y_T(0:PORDERY, PLEVEL_Y(K)), &
@@ -66,7 +56,17 @@ SUBROUTINE GET_ERROR
                                         Y_HILBERT(1, K), &
                                         DELTA_X(K), DELTA_Y(K), &
                                         EXACT(0:PORDERX, 0:PORDERY, :, K), &
-                                        T_TOTAL)                                
+                                        T_TOTAL)
+                                        
+!         CALL SIN_EXACT(PORDERX, PORDERY, &
+!                                        NUM_OF_EQUATION,&
+!                                        GL_POINT_X_T(0:PORDERX, PLEVEL_X(K)), &
+!                                        GL_POINT_Y_T(0:PORDERY, PLEVEL_Y(K)), &
+!                                        X_HILBERT(1, K), &
+!                                        Y_HILBERT(1, K), &
+!                                        DELTA_X(K), DELTA_Y(K), &
+!                                        EXACT(0:PORDERX, 0:PORDERY, :, K), &
+!                                        T_TOTAL)                                
         
         DO S=1, NUM_OF_EQUATION                            
             DO J=0, PORDERY
