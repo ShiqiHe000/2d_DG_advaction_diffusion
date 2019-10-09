@@ -8,6 +8,8 @@ MODULE WRITE_DATA
 USE MPI
 USE NODAL_2D_STORAGE
 USE POLY_LEVEL_AND_ORDER
+USE PARAM
+USE POLY_LEVEL_AND_ORDER
 
 IMPLICIT NONE
 
@@ -15,25 +17,31 @@ INTEGER :: FRAME = 1
 
 CONTAINS
 
-SUBROUTINE WRITE_ERROR(N ,M)
+SUBROUTINE WRITE_ERROR(ER)
 
     IMPLICIT NONE
     
-    INTEGER, INTENT(IN) :: N, M     !< POLY ORDER
-    INTEGER :: I, J
+    INTEGER :: I, J, K
+    INTEGER :: PORDERX, PORDERY
     
-    DOUBLE PRECISION :: ER(0:N, 0:M) !< ERROR ON NODES
+    DOUBLE PRECISION, INTENT(IN) :: ER(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1) !< ERROR ON NODES
     
     OPEN(UNIT=1, FILE='error.dat')
     
     ! ERROR-------------------------------------------------------------
-    DO J=0, M
-        DO I=0, N
-            WRITE(1, 10) I, J, ER(I, J)
+    DO K = 0, NUM_OF_ELEMENT-1
+        CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(K), PORDERX)
+        CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(K), PORDERY)
+    
+        DO J=0, PORDERY
+            DO I=0, PORDERX
+                WRITE(1, 10) I, J, ER(I, J, 1, K), ER(I, J, 2, K), ER(I, J, 3, K)
+            ENDDO
         ENDDO
+        
     ENDDO
     !-------------------------------------------------------------------
-10 FORMAT(I2, 2X, I2, 2X, E20.10)
+10 FORMAT(I2, 2X, I2, 2X, E20.10, 2X, E20.10, 2X, E20.10)
     CLOSE(UNIT=1)
     
 

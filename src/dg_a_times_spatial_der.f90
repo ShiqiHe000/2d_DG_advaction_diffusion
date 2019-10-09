@@ -43,10 +43,11 @@ SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_X(ELEM_K)
                                     LAGRANGE_LEFT_T(0:PORDERX, PLEVEL_X(ELEM_K)), &
                                     LAGRANGE_RIGHT_T(0:PORDERX, PLEVEL_X(ELEM_K)), &
                                     GL_W_X_T(0:PORDERX, PLEVEL_X(ELEM_K)))
-                                    
+
         DO S = 1, NUM_OF_EQUATION
             DO I = 0, PORDERX
-                SOLUTION_TIME_DER(I, J, S, ELEM_K) = - 2.0 / DELTA_X(ELEM_K) &
+                SOLUTION_TIME_DER(I, J, S, ELEM_K) = &
+                                                - (2.0D0 / DELTA_X(ELEM_K)) &
                                                 * FLUX_DER_X(I, J, S, ELEM_K)
             ENDDO
         
@@ -54,7 +55,6 @@ SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_X(ELEM_K)
         !---------------------------------------------------------------
     ENDDO
     !-------------------------------------------------------------------
-    
 
 END SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_X
 
@@ -84,11 +84,11 @@ SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_Y(ELEM_K)
                                     LAGRANGE_DOWN_T(0:PORDERY, PLEVEL_Y(ELEM_K)), &
                                     LAGRANGE_UP_T(0:PORDERY, PLEVEL_Y(ELEM_K)), &
                                     GL_W_Y_T(0:PORDERY, PLEVEL_Y(ELEM_K)))
-                                    
+        
         DO S = 1, NUM_OF_EQUATION
             DO J = 0, PORDERY
                 SOLUTION_TIME_DER(I, J, S, ELEM_K) = SOLUTION_TIME_DER(I, J, S, ELEM_K) &
-                                                - 2.0 / DELTA_Y(ELEM_K) &
+                                                - (2.0D0 / DELTA_Y(ELEM_K)) &
                                                 * FLUX_DER_Y(I, J, S, ELEM_K)
             ENDDO
         

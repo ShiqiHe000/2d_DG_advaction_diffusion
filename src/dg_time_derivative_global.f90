@@ -49,7 +49,6 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
                                     LAGRANGE_RIGHT_T(0:PORDER_X, PLEVEL_X(K)), &
                                     SOLUTION_INT_L(0:PORDER_Y, :, K), &
                                     SOLUTION_INT_R(0:PORDER_Y, :, K) )
-    
     ENDDO
     !-------------------------------------------------------------------
     
@@ -62,6 +61,7 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     DO K = 0, NUM_OF_ELEMENT-1
         CALL NUMERICAL_FLUX_X(K, T)
+        
     ENDDO
     !-------------------------------------------------------------------
     
@@ -126,6 +126,7 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     DO K = 0, NUM_OF_ELEMENT-1
         CALL NUMERICAL_FLUX_Y(K, T)
+        
     ENDDO
     !-------------------------------------------------------------------
     

@@ -1,11 +1,11 @@
 //+ points
-Point(1) = {0, 0, 0, 1.0};
+Point(1) = {0.0, 0.0, 0, 1.0};
 //+
-Point(2) = {8, 0, 0, 1.0};
+Point(2) = {1.0, 0.0, 0, 1.0};
 //+
-Point(3) = {8, 8, 0, 1.0};
+Point(3) = {1.0, 1.0, 0, 1.0};
 //+
-Point(4) = {0, 8, 0, 1.0};
+Point(4) = {0.0, 1.0, 0, 1.0};
 
 //+lines
 Line(1) = {4, 1};
@@ -34,9 +34,9 @@ Physical Curve("Bottom") = {2};
 Physical Surface("plane") = {1};
 
 //+Transfinite
-Transfinite Curve {1, 3} = 9 Using Progression 1;
+Transfinite Curve {1, 3} = 2 Using Progression 1;
 //+
-Transfinite Curve {4, 2} = 9 Using Progression 1;
+Transfinite Curve {4, 2} = 2 Using Progression 1;
 //+
 Transfinite Surface {1};
 

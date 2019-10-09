@@ -29,6 +29,7 @@ SUBROUTINE CONSTRUCT_BASIS_STORAGE
     LEVEL_MAX_X = (NMAX - N) / 2 + 1
     LEVEL_MAX_Y = (MMAX - M) / 2 + 1
     
+    
     ! BASIS TABLE GL_POINT----------------------------------------------
     ALLOCATE(GL_POINT_X_T(0:NMAX, LEVEL_MAX_X))
     ALLOCATE(GL_POINT_Y_T(0:MMAX, LEVEL_MAX_Y))
@@ -75,7 +76,6 @@ SUBROUTINE CONSTRUCT_BASIS_STORAGE
                                           LAGRANGE_LEFT_T(0:PORDER, K), &
                                           LAGRANGE_RIGHT_T(0:PORDER, K), &
                                           GL_POINT_X_T(0:PORDER, K))
-                                          
                                           
         DO J=0, PORDER
             DO I=0, PORDER

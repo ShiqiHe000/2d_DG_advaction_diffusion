@@ -69,10 +69,11 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
                                 GL_POINT_Y_T(0:M_NOW, PLEVEL_Y(K)), &
                                 X_HILBERT(1, K), Y_HILBERT(1, K), &
                                 DELTA_X(K), DELTA_Y(K))
+                                
                                       
     ENDDO
     !-------------------------------------------------------------------
-
+    
     ! TIME MARCHES ON---------------------------------------------------
     DO K = 0, NT-1
         CALL DG_STEP_BY_RK3(TN, DELTA_T)

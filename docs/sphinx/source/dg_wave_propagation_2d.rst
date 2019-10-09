@@ -84,6 +84,26 @@ where the vector flux :math:`F = \mathbf{f}\widehat{x}+\mathbf{g}\widehat{y}`.
 
 The Nodal Discontinuous Galerkin Approximation
 -----------------------------------------------
+We will implement the discontinuous Galerkin spectral element approximation of two-dimensional conservation law on a square domain.
+
+.. math::
+        \mathbf{q_t} + \mathbf{f_x} +\mathbf{g_y}= 0, x \in (L, R), y \in(D, U) 
+        :label: equ1
+        
+The spectral element approximation starts with a weak form of :eq:`equ1`. We multiply :eq:`equ1` by a test function, integrate and subdivide into elements
+
+.. math::
+        \sum_{k=1}^{K}\left [ \int_{x_{k-1}}^{x_k} (\mathbf{q}_t+\mathbf{f}_x + \mathbf{g}_y)\phi dx\right ] = 0
+        :label: equ2
+
+We map :eq:`equ2` onto reference space by affine map :eq:`equ3`
+
+.. math::
+        x = x_{k-1} + \frac{\xi +1}{2} \Delta x_k, \Delta x_k = x_k - x_{k+1}\\
+        y = y_{k-1} + \frac{\eta  +1}{2} \Delta y_k, \Delta y_k = y_k - y_{k+1}\\
+        dx = \frac{\Delta x_k}{2}d\xi , \frac{\partial}{\partial x} = \frac{2}{\Delta x_k}\frac{\partial }{\xi}
+        :label: equ3
+
 
 The Nurmerical flux
 ----------------------------------------------
