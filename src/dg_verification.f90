@@ -41,10 +41,10 @@ SUBROUTINE GET_ERROR
     !-------------------------------------------------------------------
     
     ! GET EXACT SOLUTION------------------------------------------------
-!    CALL EXACT_SOLUTION_GAUSSIAN(N, M, NUM_OF_EQUATION, GL_POINT_X, &
-!                                    GL_POINT_Y, EXACT, T_TOTAL, DELTA_X, DELTA_Y)
-    CALL SIN_EXACT(N, M, NUM_OF_EQUATION, GL_POINT_X, GL_POINT_Y, &
-                                DELTA_X, DELTA_Y, EXACT, T_TOTAL)
+    CALL EXACT_SOLUTION_GAUSSIAN(N, M, NUM_OF_EQUATION, GL_POINT_X, &
+                                    GL_POINT_Y, EXACT, T_TOTAL, DELTA_X, DELTA_Y)
+!    CALL SIN_EXACT(N, M, NUM_OF_EQUATION, GL_POINT_X, GL_POINT_Y, &
+!                                DELTA_X, DELTA_Y, EXACT, T_TOTAL)
     !-------------------------------------------------------------------
     
     ! COMPUET ERROR-----------------------------------------------------
