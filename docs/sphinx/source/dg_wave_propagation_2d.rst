@@ -120,19 +120,64 @@ We represent a plane Gaussian wave through the grid.
 
 The plane wave is defined as:
 
-:math:`\begin{bmatrix}
-p\\ 
-u\\ 
-v
-\end{bmatrix} =
-\begin{bmatrix}
-1\\ 
-\frac{k_x}{c}\\ 
-\frac{k_y}{c}
-\end{bmatrix}
-e^{-\frac{(k_x(x-x_0)+k_y(y-y_0)-ct)^2}{d^2}}`
+.. math::
+        \begin{bmatrix}
+        p\\ 
+        u\\ 
+        v
+        \end{bmatrix} =
+        \begin{bmatrix}
+        1\\ 
+        \frac{k_x}{c}\\ 
+        \frac{k_y}{c}
+        \end{bmatrix}
+        e^{-\frac{(k_x(x-x_0)+k_y(y-y_0)-ct)^2}{d^2}}
 
 Where :math:`\mathbf{k}` is the wavevector and it is normalized to satisfiey :math:`k_x^2 + k_y^2 = 1`.
 The wavevector is choosen as :math:`\mathbf{k} = (\sqrt{2}/2, \sqrt{2}/2)`
 This is a wave with Gaussian shape where we compute the parameter :math:`d` from the full width at half maximum, :math:`\omega  = 0.2`, by math:`d = \omega/2\sqrt{ln2}`. 
 The other parameters are :math:`c = 1` and :math:`x_0 = y_0 = -0.8`. 
+
+Performance Evaluation
+-------------------------------------------
+Exact boundary solutions are imposed on the 4 side of the computation domain. The initial condition is setting `t=0.0` of the exact solution. 
+
+1 element 
+^^^^^^^^^^^^^^^^^^^^^^
+Domain: :math:`x \in [0.0, 1.0], y\in [0.0, 1.0]`.
+
+Time step: :math:`\Delta t = 2.0\times 10^{-4}`
+
+Fig(1), shows the error performances. 
+
+.. image:: /image/2d_1_element_error.png
+
+4 element2
+^^^^^^^^^^^^^^^^^^^^^^^
+Domain: :math:`x \in [0.0, 1.0], y\in [0.0, 1.0]`.
+
+Time step: :math:`\Delta t = 2.0\times 10^{-4}`
+
+Fig(2), shows the error performances.
+
+.. image:: /image/2d_4_elements.png
+
+16 elements
+^^^^^^^^^^^^^^^^^^^
+Domain: :math:`x \in [0.0, 1.0], y\in [0.0, 1.0]`.
+
+Time step: :math:`\Delta t = 1.0\times 10^{-5}`
+
+Fig(3), shows the error performances.
+
+.. image:: /image/2d_16_elements_error.png
+
+64 elements
+^^^^^^^^^^^^^^^^^^^^^^^
+Domain: :math:`x \in [0.0, 1.0], y\in [0.0, 1.0]`.
+
+Time step: :math:`\Delta t = 1.0\times 10^{-5}`
+
+Fig(3), shows the error performances.
+
+.. image:: /image/2d_64_elements_error.png

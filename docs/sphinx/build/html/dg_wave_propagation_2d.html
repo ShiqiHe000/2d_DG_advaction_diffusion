@@ -102,6 +102,13 @@
 <li class="toctree-l3"><a class="reference internal" href="#time-integration">Time Integration</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#change-of-interval">Change of Interval</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#benchmark-solution-plane-wave-propagation">Benchmark Solution: Plane wave Propagation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#performance-evaluation">Performance Evaluation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#element">1 element</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#element2">4 element2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#elements">16 elements</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">64 elements</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -259,7 +266,8 @@ dx = \frac{\Delta x_k}{2}d\xi , \frac{\partial}{\partial x} = \frac{2}{\Delta x_
 <h3>Benchmark Solution: Plane wave Propagation<a class="headerlink" href="#benchmark-solution-plane-wave-propagation" title="Permalink to this headline">¶</a></h3>
 <p>We represent a plane Gaussian wave through the grid.</p>
 <p>The plane wave is defined as:</p>
-<p><span class="math notranslate nohighlight">\(\begin{bmatrix}
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix}
 p\\
 u\\
 v
@@ -269,11 +277,43 @@ v
 \frac{k_x}{c}\\
 \frac{k_y}{c}
 \end{bmatrix}
-e^{-\frac{(k_x(x-x_0)+k_y(y-y_0)-ct)^2}{d^2}}\)</span></p>
+e^{-\frac{(k_x(x-x_0)+k_y(y-y_0)-ct)^2}{d^2}}\end{split}\]</div>
 <p>Where <span class="math notranslate nohighlight">\(\mathbf{k}\)</span> is the wavevector and it is normalized to satisfiey <span class="math notranslate nohighlight">\(k_x^2 + k_y^2 = 1\)</span>.
 The wavevector is choosen as <span class="math notranslate nohighlight">\(\mathbf{k} = (\sqrt{2}/2, \sqrt{2}/2)\)</span>
 This is a wave with Gaussian shape where we compute the parameter <span class="math notranslate nohighlight">\(d\)</span> from the full width at half maximum, <span class="math notranslate nohighlight">\(\omega  = 0.2\)</span>, by math:<cite>d = omega/2sqrt{ln2}</cite>.
 The other parameters are <span class="math notranslate nohighlight">\(c = 1\)</span> and <span class="math notranslate nohighlight">\(x_0 = y_0 = -0.8\)</span>.</p>
+</div>
+<div class="section" id="performance-evaluation">
+<h3>Performance Evaluation<a class="headerlink" href="#performance-evaluation" title="Permalink to this headline">¶</a></h3>
+<p>Exact boundary solutions are imposed on the 4 side of the computation domain. The initial condition is setting <cite>t=0.0</cite> of the exact solution.</p>
+<div class="section" id="element">
+<h4>1 element<a class="headerlink" href="#element" title="Permalink to this headline">¶</a></h4>
+<p>Domain: <span class="math notranslate nohighlight">\(x \in [0.0, 1.0], y\in [0.0, 1.0]\)</span>.</p>
+<p>Time step: <span class="math notranslate nohighlight">\(\Delta t = 2.0\times 10^{-4}\)</span></p>
+<p>Fig(1), shows the error performances.</p>
+<img alt="_images/2d_1_element_error.png" src="_images/2d_1_element_error.png" />
+</div>
+<div class="section" id="element2">
+<h4>4 element2<a class="headerlink" href="#element2" title="Permalink to this headline">¶</a></h4>
+<p>Domain: <span class="math notranslate nohighlight">\(x \in [0.0, 1.0], y\in [0.0, 1.0]\)</span>.</p>
+<p>Time step: <span class="math notranslate nohighlight">\(\Delta t = 2.0\times 10^{-4}\)</span></p>
+<p>Fig(2), shows the error performances.</p>
+<img alt="_images/2d_4_elements.png" src="_images/2d_4_elements.png" />
+</div>
+<div class="section" id="elements">
+<h4>16 elements<a class="headerlink" href="#elements" title="Permalink to this headline">¶</a></h4>
+<p>Domain: <span class="math notranslate nohighlight">\(x \in [0.0, 1.0], y\in [0.0, 1.0]\)</span>.</p>
+<p>Time step: <span class="math notranslate nohighlight">\(\Delta t = 1.0\times 10^{-5}\)</span></p>
+<p>Fig(3), shows the error performances.</p>
+<img alt="_images/2d_16_elements_error.png" src="_images/2d_16_elements_error.png" />
+</div>
+<div class="section" id="id1">
+<h4>64 elements<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>Domain: <span class="math notranslate nohighlight">\(x \in [0.0, 1.0], y\in [0.0, 1.0]\)</span>.</p>
+<p>Time step: <span class="math notranslate nohighlight">\(\Delta t = 1.0\times 10^{-5}\)</span></p>
+<p>Fig(3), shows the error performances.</p>
+<img alt="_images/2d_64_elements_error.png" src="_images/2d_64_elements_error.png" />
+</div>
 </div>
 </div>
 </div>
