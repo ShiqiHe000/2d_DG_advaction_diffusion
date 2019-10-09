@@ -6,7 +6,7 @@
 MODULE USER_DEFINES
 
 USE MPI
-USE PARAM, ONLY: K_X, K_Y, C, X_L, X_R, Y_L, Y_R
+USE PARAM, ONLY: K_X, K_Y, C, X_L, Y_L
 USE AFFINE_MAP
 
 IMPLICIT NONE
@@ -100,8 +100,8 @@ SUBROUTINE EXACT_SOLUTION_GAUSSIAN(N, M, N_EQUATIONS, GL_X, GL_Y, E, T, &
 
 END SUBROUTINE EXACT_SOLUTION_GAUSSIAN
 
-
-SUBROUTINE INITIAL_SINUSOIDAL(N, M, N_EQUATIONS, Q, GL_X, GL_Y)
+SUBROUTINE INITIAL_SINUSOIDAL(N, M, N_EQUATIONS, Q, GL_X, GL_Y, &
+                                DEL_X, DEL_Y)
 
 
     IMPLICIT NONE
@@ -114,16 +114,22 @@ SUBROUTINE INITIAL_SINUSOIDAL(N, M, N_EQUATIONS, Q, GL_X, GL_Y)
     DOUBLE PRECISION :: Q(0:N, 0:M, N_EQUATIONS)   !< INITIAL SOLUTION
     DOUBLE PRECISION :: GL_X(0:N), GL_Y(0:M)    !< GL_POINTS
     
+    DOUBLE PRECISION, INTENT(IN) :: DEL_X   !< ELEMENT SIZE IN X DIRECTION
+    DOUBLE PRECISION, INTENT(IN) :: DEL_Y   !< ELEMENT SIZE IN Y DIRECTION
+    
     DOUBLE PRECISION :: X, Y    ! COLLOCATION POINTS COORDINATES
 
-    DO J=0, 0
-        Y = GL_Y(J)
+    DO J=0, M
+    
+        CALL AFFINE_MAPPING(GL_Y(J), Y, Y_L, DEL_Y)
+        
         DO I=0, N
-            X = GL_X(I)
+        
+            CALL AFFINE_MAPPING(GL_X(I), X, X_L, DEL_X)
             
-            Q(I, J, 1) = C * DCOS(X)
-            Q(I, J, 2) = DCOS(X)
-            Q(I, J, 3) = 0.0D0
+            Q(I, J, 1) = C * DCOS(X+Y)
+            Q(I, J, 2) = DCOS(X+Y)
+            Q(I, J, 3) = DCOS(X+Y)
         
         ENDDO
     
@@ -131,8 +137,8 @@ SUBROUTINE INITIAL_SINUSOIDAL(N, M, N_EQUATIONS, Q, GL_X, GL_Y)
 
 END SUBROUTINE INITIAL_SINUSOIDAL
 
-SUBROUTINE SIN_EXACT(N, M, N_EQUATIONS, GL_X, GL_Y, E, T)
-
+SUBROUTINE SIN_EXACT(N, M, N_EQUATIONS, GL_X, GL_Y, &
+                        DEL_X, DEL_Y, E, T)
 
     IMPLICIT NONE
     
@@ -140,25 +146,32 @@ SUBROUTINE SIN_EXACT(N, M, N_EQUATIONS, GL_X, GL_Y, E, T)
     INTEGER, INTENT(IN) :: N_EQUATIONS  !< NUMBER OF EQUATION 
     INTEGER :: I, J
     
-    DOUBLE PRECISION :: E(0:N, 0:M, N_EQUATIONS)   !< EXACT SOLUTION AT TIME T
     DOUBLE PRECISION :: GL_X(0:N), GL_Y(0:M)    !< GL_POINTS
     DOUBLE PRECISION :: T   !< CURRENT TIME
+    DOUBLE PRECISION :: E(0:N, 0:M, N_EQUATIONS)   !< EXACT SOLUTION AT TIME T
+    
+    DOUBLE PRECISION, INTENT(IN) :: DEL_X   !< ELEMENT SIZE IN X DIRECTION
+    DOUBLE PRECISION, INTENT(IN) :: DEL_Y   !< ELEMENT SIZE IN Y DIRECTION
     
     DOUBLE PRECISION :: X, Y    ! COLLOCATION POINTS COORDINATES
     
-    DO J=0, 0
-        Y = GL_Y(J)
+    DO J=0, M
+    
+        CALL AFFINE_MAPPING(GL_Y(J), Y, Y_L, DEL_Y)
+        
         DO I=0, N
-            X = GL_X(I)
+        
+            CALL AFFINE_MAPPING(GL_X(I), X, X_L, DEL_X)
             
-            E(I, J, 1) = C * DCOS(X - C * T)
-            E(I, J, 2) = DCOS(X - C * T)
-            E(I, J, 3) = 0.0D0
+            E(I, J, 1) = C * DCOS(X + Y - C * T)
+            E(I, J, 2) = DCOS(X + Y- C * T)
+            E(I, J, 3) = DCOS(X + Y- C * T)
         
         ENDDO
     ENDDO
 
 
 END SUBROUTINE SIN_EXACT
+
 
 END MODULE USER_DEFINES

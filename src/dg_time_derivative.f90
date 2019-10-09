@@ -6,7 +6,7 @@
 MODULE DG_TIME_DERIVATIVE
 
 USE MPI
-USE PARAM, ONLY: N, M, NUM_OF_EQUATION, K_X, K_Y
+USE PARAM
 USE RIEMANN_SOLVER
 USE NODAL_2D_STORAGE
 USE RIEMANN_SOLVER
@@ -60,13 +60,18 @@ SUBROUTINE DG_TIME_DER(T)
         
         ENDDO  
 
-        ! IMPOSE EXACT SOLUTION ON THE BOUNDARIES
-        CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-                                        SOLUTION_EXT_L, T, -1.0D0, Y, &
-                                        DELTA_X, DELTA_Y)
-        CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-                                        SOLUTION_EXT_R, T,  1.0D0, Y, &
-                                        DELTA_X, DELTA_Y)
+        ! IMPOSE EXACT SOLUTION ON THE BOUNDARIES-----------------------
+!        CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
+!                                        SOLUTION_EXT_L, T, -1.0D0, Y, &
+!                                        DELTA_X, DELTA_Y)
+!        CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
+!                                        SOLUTION_EXT_R, T,  1.0D0, Y, &
+!                                        DELTA_X, DELTA_Y)
+        CALL EXTERNAL_SINU(NUM_OF_EQUATION, SOLUTION_EXT_L, T, &
+                            X_L, Y, DELTA_X, DELTA_Y)
+        CALL EXTERNAL_SINU(NUM_OF_EQUATION, SOLUTION_EXT_R, T, &
+                            X_R, Y, DELTA_X, DELTA_Y)
+        !---------------------------------------------------------------
     
 !        CALL RIEMANN(SOLUTION_EXT_L, SOLUTION_INT_L, NFLUX_X_L, (/1.0D0, 0.0D0/), -1.0D0)
 !        CALL RIEMANN(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_X_R, (/1.0D0, 0.0D0/),  1.0D0)
@@ -131,13 +136,16 @@ SUBROUTINE DG_TIME_DER(T)
         
         ENDDO
 
-        CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-                                        SOLUTION_EXT_L, T, X, -1.0D0, &
-                                        DELTA_X, DELTA_Y)
-        CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-                                        SOLUTION_EXT_R, T, X, 1.0D0, &
-                                        DELTA_X, DELTA_Y)
-        
+!        CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
+!                                        SOLUTION_EXT_L, T, X, -1.0D0, &
+!                                        DELTA_X, DELTA_Y)
+!        CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
+!                                        SOLUTION_EXT_R, T, X, 1.0D0, &
+!                                        DELTA_X, DELTA_Y)
+        CALL EXTERNAL_SINU(NUM_OF_EQUATION, SOLUTION_EXT_L, T, &
+                            X, Y_L, DELTA_X, DELTA_Y)
+        CALL EXTERNAL_SINU(NUM_OF_EQUATION, SOLUTION_EXT_R, T, &
+                            X, Y_R, DELTA_X, DELTA_Y)
 !        CALL RIEMANN(SOLUTION_EXT_L, SOLUTION_INT_L, NFLUX_Y_D, (/0.0D0, 1.0D0/), -1.0D0)
 !        CALL RIEMANN(SOLUTION_INT_R, SOLUTION_EXT_R, NFLUX_Y_U, (/0.0D0, 1.0D0/),  1.0D0)
 
