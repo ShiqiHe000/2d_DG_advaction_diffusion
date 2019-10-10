@@ -70,10 +70,12 @@ or
 .. math::
         \mathbf{q_t} + A\mathbf{q_x} +B\mathbf{q_y} = 0
 
-Since :math:`B` and :math:`C` are constants, we can bring them inside the derivatives
+Since :math:`A` and :math:`B` are constants, we can bring them inside the derivatives
 
 .. math::
-        \mathbf{q_t} + \mathbf{f_x} + \mathbf{g_y} = 0
+        \mathbf{q_t} + \mathbf{f_x} + \mathbf{g_y} = 0 \\
+        \mathbf{f_x} = A\mathbf{q_x} \\
+        \mathbf{g_y} = B\mathbf{q_y} \\
 
 This is known as **Conservation law** form since it can be written as 
 
@@ -81,6 +83,31 @@ This is known as **Conservation law** form since it can be written as
         \mathbf{q_t} + \bigtriangledown \cdot F = 0
 
 where the vector flux :math:`F = \mathbf{f}\widehat{x}+\mathbf{g}\widehat{y}`. 
+
+The term conservation law follows from the fact that the differential equation is what we get when we apply the divergence theorem to the integral conservation law.
+
+.. math::
+        \frac{d}{dt} \int_{V} \mathbf{q}dV = - \int_{S} F \cdot \widehat{n} dS
+
+Riemann Problem for Conservation Law
+---------------------------------------------
+
+Introduction
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+A `Riemann problem`_, named after Bernhard Riemann, is a specific initial value problem composed of a conservation equation together with piecewise constant initial data which has a single discontinuity in the domain of interest. The Riemann problem is very useful for the understanding of equations like Euler conservation equations because all properties, such as shocks and rarefaction waves, appear as characteristics in the solution. It also gives an exact solution to some complex nonlinear equations, such as the Euler equations. 
+
+.. _`Riemann problem`: https://en.wikipedia.org/wiki/Riemann_problem
+
+.. image:: /image/Riemann1.png
+
+Riemann Solver
+^^^^^^^^^^^^^^^^^^^^^^^^
+Here we build a Riemann problem for the hyperbolic, constant coefficient system with proper initial condition. 
+
+.. math::
+        \mathbf{q_t} + A\mathbf{q_x} +B\mathbf{q_y} = 0
+
+The coefficient matrices :math:`A` and :math:`B` have :math:`m` real eigenvalues :math:`\lambda_i` and :math:`m` linearly independent eigenvectors :math:`\mathbf{K}^{(i)}`, where :math:`m` is the equation number.  
 
 The Nodal Discontinuous Galerkin Approximation
 -----------------------------------------------

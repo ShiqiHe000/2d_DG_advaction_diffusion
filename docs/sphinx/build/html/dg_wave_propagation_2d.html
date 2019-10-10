@@ -97,6 +97,11 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Spectral Approximation on a square</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#approximation-of-wave-propagation">Approximation of Wave Propagation</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#basic-model">Basic Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#riemann-problem-for-conservation-law">Riemann Problem for Conservation Law</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#riemann-solver">Riemann Solver</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#the-nodal-discontinuous-galerkin-approximation">The Nodal Discontinuous Galerkin Approximation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#the-nurmerical-flux">The Nurmerical flux</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#time-integration">Time Integration</a></li>
@@ -231,13 +236,33 @@ v
 <p>or</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{q_t} + A\mathbf{q_x} +B\mathbf{q_y} = 0\]</div>
-<p>Since <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(C\)</span> are constants, we can bring them inside the derivatives</p>
+<p>Since <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are constants, we can bring them inside the derivatives</p>
 <div class="math notranslate nohighlight">
-\[\mathbf{q_t} + \mathbf{f_x} + \mathbf{g_y} = 0\]</div>
+\[\begin{split}\mathbf{q_t} + \mathbf{f_x} + \mathbf{g_y} = 0 \\
+\mathbf{f_x} = A\mathbf{q_x} \\
+\mathbf{g_y} = B\mathbf{q_y} \\\end{split}\]</div>
 <p>This is known as <strong>Conservation law</strong> form since it can be written as</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{q_t} + \bigtriangledown \cdot F = 0\]</div>
 <p>where the vector flux <span class="math notranslate nohighlight">\(F = \mathbf{f}\widehat{x}+\mathbf{g}\widehat{y}\)</span>.</p>
+<p>The term conservation law follows from the fact that the differential equation is what we get when we apply the divergence theorem to the integral conservation law.</p>
+<div class="math notranslate nohighlight">
+\[\frac{d}{dt} \int_{V} \mathbf{q}dV = - \int_{S} F \cdot \widehat{n} dS\]</div>
+</div>
+<div class="section" id="riemann-problem-for-conservation-law">
+<h3>Riemann Problem for Conservation Law<a class="headerlink" href="#riemann-problem-for-conservation-law" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="introduction">
+<h4>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h4>
+<p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Riemann_problem">Riemann problem</a>, named after Bernhard Riemann, is a specific initial value problem composed of a conservation equation together with piecewise constant initial data which has a single discontinuity in the domain of interest. The Riemann problem is very useful for the understanding of equations like Euler conservation equations because all properties, such as shocks and rarefaction waves, appear as characteristics in the solution. It also gives an exact solution to some complex nonlinear equations, such as the Euler equations.</p>
+<img alt="_images/Riemann1.png" src="_images/Riemann1.png" />
+</div>
+<div class="section" id="riemann-solver">
+<h4>Riemann Solver<a class="headerlink" href="#riemann-solver" title="Permalink to this headline">¶</a></h4>
+<p>Here we build a Riemann problem for the hyperbolic, constant coefficient system with proper initial condition.</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{q_t} + A\mathbf{q_x} +B\mathbf{q_y} = 0\]</div>
+<p>The coefficient matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> have <span class="math notranslate nohighlight">\(m\)</span> real eigenvalues <span class="math notranslate nohighlight">\(\lambda_i\)</span> and <span class="math notranslate nohighlight">\(m\)</span> linearly independent eigenvectors <span class="math notranslate nohighlight">\(\mathbf{K}^{(i)}\)</span>, where <span class="math notranslate nohighlight">\(m\)</span> is the equation number.</p>
+</div>
 </div>
 <div class="section" id="the-nodal-discontinuous-galerkin-approximation">
 <h3>The Nodal Discontinuous Galerkin Approximation<a class="headerlink" href="#the-nodal-discontinuous-galerkin-approximation" title="Permalink to this headline">¶</a></h3>
