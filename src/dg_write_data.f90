@@ -9,7 +9,6 @@ USE MPI
 USE NODAL_2D_STORAGE
 USE POLY_LEVEL_AND_ORDER
 USE PARAM
-USE POLY_LEVEL_AND_ORDER
 
 IMPLICIT NONE
 
@@ -47,6 +46,7 @@ SUBROUTINE WRITE_ERROR(ER)
 
 END SUBROUTINE WRITE_ERROR
 
+
 SUBROUTINE WRITE_RESULTS(N, M, EX, RESULTS)
 
     IMPLICIT NONE
@@ -68,7 +68,12 @@ SUBROUTINE WRITE_RESULTS(N, M, EX, RESULTS)
     CLOSE(UNIT=2)
 END SUBROUTINE WRITE_RESULTS
 
+
+
+
+
 !-----------------------------------------------------------------------
+!> USE THIS SUBROUTINE TO CHECK THE PERFORMANCE OF READING FROM .MSH FILE
 ! Element number start with 0
 !-----------------------------------------------------------------------
 SUBROUTINE WRITE_VISUAL2(NEL_TOTAL, X_GLOBAL, Y_GLOBAL)
@@ -119,7 +124,12 @@ SUBROUTINE WRITE_VISUAL2(NEL_TOTAL, X_GLOBAL, Y_GLOBAL)
 
 END SUBROUTINE WRITE_VISUAL2
 
+
+
+
+
 !-----------------------------------------------------------------------
+!> USE THIS SUBROUTINE TO CHECK THE PERFORMANCE OF READING FROM .MSH FILE
 ! Element number start with 1
 !-----------------------------------------------------------------------
 SUBROUTINE WRITE_VISUAL(NEL_TOTAL, X_GLOBAL, Y_GLOBAL)

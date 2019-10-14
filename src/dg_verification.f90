@@ -88,7 +88,7 @@ SUBROUTINE GET_ERROR
         L2_NORM(S) = DSQRT(L2_NORM(S))
     ENDDO
     
-    CALL WRITE_ERROR(ERROR)
+!    CALL WRITE_ERROR(ERROR)
 !    CALL WRITE_RESULTS(N, M, EXACT(:, :, 2), SOLUTION(:, :, 2))
     
     print *, "L2(1)", L2_NORM(1) 
