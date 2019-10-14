@@ -75,9 +75,9 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     !-------------------------------------------------------------------
     
     ! OUTPUT INITIAL SOLUTIONS------------------------------------------
-     CALL WRITE_MESH(NUM_OF_ELEMENT, X_HILBERT, Y_HILBERT, &
-                            PLEVEL_X, PLEVEL_Y, &
-                            SOLUTION, TN)
+!     CALL WRITE_MESH(NUM_OF_ELEMENT, X_HILBERT, Y_HILBERT, &
+!                            PLEVEL_X, PLEVEL_Y, &
+!                            SOLUTION, TN)
     !-------------------------------------------------------------------
 
     ! TIME MARCHES ON---------------------------------------------------
