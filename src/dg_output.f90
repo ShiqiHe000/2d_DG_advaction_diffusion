@@ -73,10 +73,11 @@ SUBROUTINE WRITE_MESH(NEL_TOTAL, X_GLOBAL, Y_GLOBAL, PLEVELX, PLEVELY, &
             CALL POLY_LEVEL_TO_ORDER(N, PLEVELX(IEL), PORDERX)
             CALL POLY_LEVEL_TO_ORDER(M, PLEVELY(IEL), PORDERY)
 
-            WRITE(5, 50) "ZONE T= ", '"', "IEL", ELEM, '"', &
-                        "I=", PORDERX+1, "J=", PORDERY+1, T, &
+            WRITE(5, 50) "ZONE T= ", '"', "IEL", ELEM, '",', &
+                        "I=", PORDERX+3, ',', "J=", PORDERY+3, ',', &
+                        "SOLUTIONTIME=", T, ',', &
                         "DATAPACKING = POINT" 
-50 FORMAT(A8, A1, A3, I6, A1, 2X, A2, I2, 2X, A2, I2, 2X, F10.5, 2X, A19)
+50 FORMAT(A8, A1, A3, I6, A2, 2X, A2, I2, A1, 2X, A2, I2, A1, 2X, A13, F10.5, A1, 2X, A19)
 
             ELEM = ELEM+1
             
@@ -196,7 +197,7 @@ SUBROUTINE X_INTERFACE(N_NOW, M_NOW, PLEVEL, Q, X1, X2, Y_STALL)
     DO S = 1, NUM_OF_EQUATION
         WRITE(5, FMT = '(F10.5, 2X)', ADVANCE = 'NO') CORNER(1, S)
     ENDDO
-    WRITE(5, FMT = '(I6)') N_NOW, M_NOW, RANK
+    WRITE(5, FMT = '(3I6)') N_NOW, M_NOW, RANK
     
     ! COLLOCATION POINTS
     DO I = 0, N_NOW
@@ -209,7 +210,7 @@ SUBROUTINE X_INTERFACE(N_NOW, M_NOW, PLEVEL, Q, X1, X2, Y_STALL)
             WRITE(5, FMT = '(F10.5, 2X)', ADVANCE = 'NO') Q(I, S)
         ENDDO
         
-        WRITE(5, FMT = '(I6)') N_NOW, M_NOW, RANK
+        WRITE(5, FMT = '(3I6)') N_NOW, M_NOW, RANK
     ENDDO
     
     ! CORNER 2
@@ -217,7 +218,7 @@ SUBROUTINE X_INTERFACE(N_NOW, M_NOW, PLEVEL, Q, X1, X2, Y_STALL)
     DO S = 1, NUM_OF_EQUATION
         WRITE(5, FMT = '(F10.5, 2X)', ADVANCE = 'NO') CORNER(2, S)
     ENDDO
-    WRITE(5, FMT = '(I6)') N_NOW, M_NOW, RANK
+    WRITE(5, FMT = '(3I6)') N_NOW, M_NOW, RANK
     
 END SUBROUTINE X_INTERFACE
 
@@ -253,7 +254,7 @@ SUBROUTINE INTERIOR_MESH(N_NOW, M_NOW, PLX, PLY, Q, Q_Y1, Q_Y2, &
         DO S = 1, NUM_OF_EQUATION
             WRITE(5, FMT = '(F10.5, 2X)', ADVANCE = 'NO') Q_Y1(J, S)
         ENDDO
-        WRITE(5, FMT = '(I6)') N_NOW, M_NOW, RANK                                
+        WRITE(5, FMT = '(3I6)') N_NOW, M_NOW, RANK                                
         
         ! INTERIOR NODES
         DO I = 0, N_NOW
@@ -264,7 +265,7 @@ SUBROUTINE INTERIOR_MESH(N_NOW, M_NOW, PLX, PLY, Q, Q_Y1, Q_Y2, &
             DO S = 1, NUM_OF_EQUATION
                 WRITE(5, FMT = '(F10.5, 2X)', ADVANCE = 'NO') Q(I, J, S)
             ENDDO
-            WRITE(5, FMT = '(I6)') N_NOW, M_NOW, RANK    
+            WRITE(5, FMT = '(3I6)') N_NOW, M_NOW, RANK    
               
         ENDDO
         
@@ -273,7 +274,7 @@ SUBROUTINE INTERIOR_MESH(N_NOW, M_NOW, PLX, PLY, Q, Q_Y1, Q_Y2, &
         DO S = 1, NUM_OF_EQUATION
             WRITE(5, FMT = '(F10.5, 2X)', ADVANCE = 'NO') Q_Y2(J, S)
         ENDDO
-        WRITE(5, FMT = '(I6)') N_NOW, M_NOW, RANK     
+        WRITE(5, FMT = '(3I6)') N_NOW, M_NOW, RANK     
     
     ENDDO
 

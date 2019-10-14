@@ -15,8 +15,8 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! SET POLYNOMIAL ORDER----------------------------------------------
-    INTEGER :: N = 2   !< POLYNOMIAL DEGREE IN X DIRECTION
-    INTEGER :: M = 2    !< POLYNOMIAL DEGREE IN Y DIRECTION
+    INTEGER :: N = 10   !< POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: M = 10    !< POLYNOMIAL DEGREE IN Y DIRECTION
     INTEGER :: NMAX = 10   !< MAXIMUM POLYNOMIAL DEGREE IN X DIRECTION
     INTEGER :: MMAX = 10   !< MAXIMUM POLYNOMIAL DEGREE IN Y DIRECTION
     !-------------------------------------------------------------------
@@ -36,11 +36,17 @@ MODULE PARAM
     
     ! TIME--------------------------------------------------------------
 !    DOUBLE PRECISION :: T_TOTAL = 0.0d0     !< TOTAL TIME INTEGRAL
-!    DOUBLE PRECISION :: T_TOTAL = (2.0e-4)*2.0d0     !< TOTAL TIME INTEGRAL
-!    INTEGER :: NT = 2                    !< TIME STEP NUMBER
-    DOUBLE PRECISION :: T_TOTAL = 1.0D0     !< TOTAL TIME INTEGRAL
-    INTEGER :: NT = 100000                   !< TIME STEP NUMBER
+!    DOUBLE PRECISION :: T_TOTAL = (2.0e-4)    !< TOTAL TIME INTEGRAL
+!    INTEGER :: NT = 1                    !< TIME STEP NUMBER
+    DOUBLE PRECISION :: T_TOTAL = 2.0D0     !< TOTAL TIME INTEGRAL
+    INTEGER :: NT = 10000                   !< TIME STEP NUMBER
     !-------------------------------------------------------------------
+    
+    ! OUTPUT DATA FREQUENCY---------------------------------------------
+    INTEGER :: OUTPUT_FREQUENCY = 200    !< OUTPUT DATA FREQUENCY, SHOULD <= NT
+    !-------------------------------------------------------------------
+    
+    !===================================================================
     
     ! variables you could change =======================================
     
