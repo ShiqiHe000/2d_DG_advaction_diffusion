@@ -38,7 +38,7 @@ MODULE PARAM
 !    DOUBLE PRECISION :: T_TOTAL = 0.0d0     !< TOTAL TIME INTEGRAL
 !    DOUBLE PRECISION :: T_TOTAL = (2.0e-4)*2.0d0     !< TOTAL TIME INTEGRAL
 !    INTEGER :: NT = 2                    !< TIME STEP NUMBER
-    DOUBLE PRECISION :: T_TOTAL = 1.0D0     !< TOTAL TIME INTEGRAL
+    DOUBLE PRECISION :: T_TOTAL = 2.0D0     !< TOTAL TIME INTEGRAL
     INTEGER :: NT = 10000                   !< TIME STEP NUMBER
     !-------------------------------------------------------------------
     
