@@ -11,14 +11,14 @@ MODULE PARAM
     ! variables you must change =======================================
     
     !< INITIAL MESH FILE------------------------------------------------
-    CHARACTER(LEN=*), PARAMETER :: MESHFILE = "16_elements.msh"    
+    CHARACTER(LEN=*), PARAMETER :: MESHFILE = "1_element.msh"    
     !-------------------------------------------------------------------
     
     ! SET POLYNOMIAL ORDER----------------------------------------------
-    INTEGER :: N = 20   !< POLYNOMIAL DEGREE IN X DIRECTION
-    INTEGER :: M = 20    !< POLYNOMIAL DEGREE IN Y DIRECTION
-    INTEGER :: NMAX = 20   !< MAXIMUM POLYNOMIAL DEGREE IN X DIRECTION
-    INTEGER :: MMAX = 20   !< MAXIMUM POLYNOMIAL DEGREE IN Y DIRECTION
+    INTEGER :: N = 10   !< POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: M = 10    !< POLYNOMIAL DEGREE IN Y DIRECTION
+    INTEGER :: NMAX = 10   !< MAXIMUM POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: MMAX = 10   !< MAXIMUM POLYNOMIAL DEGREE IN Y DIRECTION
     !-------------------------------------------------------------------
     
     ! DOMIAN BOUNDARY---------------------------------------------------
@@ -30,8 +30,8 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! NUMBER OF ELEMENT-------------------------------------------------
-    INTEGER :: EXP_X = 2       !< WRITE ELEMENT NUMBER IN X DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_X)
-    INTEGER :: EXP_Y = 2       !< WRITE ELEMENT NUMBER IN Y DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_Y)
+    INTEGER :: EXP_X = 0       !< WRITE ELEMENT NUMBER IN X DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_X)
+    INTEGER :: EXP_Y = 0       !< WRITE ELEMENT NUMBER IN Y DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_Y)
     !-------------------------------------------------------------------
     
     ! TIME--------------------------------------------------------------
@@ -39,7 +39,7 @@ MODULE PARAM
 !    DOUBLE PRECISION :: T_TOTAL = (2.0e-4)*2.0d0     !< TOTAL TIME INTEGRAL
 !    INTEGER :: NT = 2                    !< TIME STEP NUMBER
     DOUBLE PRECISION :: T_TOTAL = 1.0D0     !< TOTAL TIME INTEGRAL
-    INTEGER :: NT = 100000                   !< TIME STEP NUMBER
+    INTEGER :: NT = 10000                   !< TIME STEP NUMBER
     !-------------------------------------------------------------------
     
     ! variables you could change =======================================
