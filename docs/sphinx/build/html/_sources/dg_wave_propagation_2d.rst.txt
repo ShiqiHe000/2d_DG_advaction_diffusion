@@ -100,6 +100,10 @@ A `Riemann problem`_, named after Bernhard Riemann, is a specific initial value 
 
 .. image:: /image/Riemann1.png
 
+
+
+
+
 Riemann Solver
 ^^^^^^^^^^^^^^^^^^^^^^^^
 Here we build a Riemann problem for the hyperbolic, constant coefficient system with proper initial condition. 
@@ -107,7 +111,12 @@ Here we build a Riemann problem for the hyperbolic, constant coefficient system 
 .. math::
         \mathbf{q_t} + A\mathbf{q_x} +B\mathbf{q_y} = 0
 
-The coefficient matrices :math:`A` and :math:`B` have :math:`m` real eigenvalues :math:`\lambda_i` and :math:`m` linearly independent eigenvectors :math:`\mathbf{K}^{(i)}`, where :math:`m` is the equation number.  
+The coefficient matrices :math:`A` and :math:`B` have :math:`m` real eigenvalues :math:`\lambda_i` and :math:`m` linearly independent eigenvectors :math:`\mathbf{K}^{(i)}`, where :math:`m` is the equation number :doc:`./dg_reference`.  
+
+
+
+
+
 
 The Nodal Discontinuous Galerkin Approximation
 -----------------------------------------------
