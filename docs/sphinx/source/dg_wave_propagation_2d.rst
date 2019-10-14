@@ -210,7 +210,7 @@ Fig(3), shows the error performances.
 
 64 elements
 ^^^^^^^^^^^^^^^^^^^^^^^
-Domain: :math:`x \in [0.0, 1.0], y\in [0.0, 1.0]`.
+Domain: :math:`x \in [0.0, 8.0], y\in [0.0, 8.0]`.
 
 Time step: :math:`\Delta t = 1.0\times 10^{-5}`
 
