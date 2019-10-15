@@ -11,12 +11,12 @@ MODULE PARAM
     ! variables you must change =======================================
     
     !< INITIAL MESH FILE------------------------------------------------
-    CHARACTER(LEN=*), PARAMETER :: MESHFILE = "1_element.msh"    
+    CHARACTER(LEN=*), PARAMETER :: MESHFILE = "4_elements.msh"    
     !-------------------------------------------------------------------
     
     ! SET POLYNOMIAL ORDER----------------------------------------------
-    INTEGER :: N = 10   !< POLYNOMIAL DEGREE IN X DIRECTION
-    INTEGER :: M = 10    !< POLYNOMIAL DEGREE IN Y DIRECTION
+    INTEGER :: N = 8   !< POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: M = 8    !< POLYNOMIAL DEGREE IN Y DIRECTION
     INTEGER :: NMAX = 10   !< MAXIMUM POLYNOMIAL DEGREE IN X DIRECTION
     INTEGER :: MMAX = 10   !< MAXIMUM POLYNOMIAL DEGREE IN Y DIRECTION
     !-------------------------------------------------------------------
@@ -30,8 +30,8 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! NUMBER OF ELEMENT-------------------------------------------------
-    INTEGER :: EXP_X = 0       !< WRITE ELEMENT NUMBER IN X DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_X)
-    INTEGER :: EXP_Y = 0       !< WRITE ELEMENT NUMBER IN Y DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_Y)
+    INTEGER :: EXP_X = 1       !< WRITE ELEMENT NUMBER IN X DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_X)
+    INTEGER :: EXP_Y = 1       !< WRITE ELEMENT NUMBER IN Y DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_Y)
     !-------------------------------------------------------------------
     
     ! TIME--------------------------------------------------------------
@@ -43,7 +43,7 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! OUTPUT DATA FREQUENCY---------------------------------------------
-    INTEGER :: OUTPUT_FREQUENCY = 200    !< OUTPUT DATA FREQUENCY, SHOULD <= NT
+    INTEGER :: OUTPUT_FREQUENCY = 50    !< OUTPUT DATA FREQUENCY, SHOULD <= NT
     !-------------------------------------------------------------------
     
     !===================================================================
@@ -73,6 +73,10 @@ MODULE PARAM
     
     ! .MSH FILE PATH----------------------------------------------------
     CHARACTER(*), PARAMETER :: FILEPLACE = "./gmsh_files/"
+    !-------------------------------------------------------------------
+    
+    ! TECPLOT FILE PATH-------------------------------------------------
+    CHARACTER(*), PARAMETER :: OUTPUT_PLACE = "./output/"
     !-------------------------------------------------------------------
     
     ! SET MPI ----------------------------------------------------------

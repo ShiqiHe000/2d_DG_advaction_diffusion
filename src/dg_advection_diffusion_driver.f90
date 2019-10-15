@@ -75,9 +75,9 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     !-------------------------------------------------------------------
     
     ! OUTPUT INITIAL SOLUTIONS------------------------------------------
-!     CALL WRITE_MESH(NUM_OF_ELEMENT, X_HILBERT, Y_HILBERT, &
-!                            PLEVEL_X, PLEVEL_Y, &
-!                            SOLUTION, TN)
+     CALL WRITE_MESH(NUM_OF_ELEMENT, X_HILBERT, Y_HILBERT, &
+                            PLEVEL_X, PLEVEL_Y, &
+                            SOLUTION, TN)
     !-------------------------------------------------------------------
 
     ! TIME MARCHES ON---------------------------------------------------
@@ -86,11 +86,11 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
         TN = (K+1) * DELTA_T
         
         ! OUTPUT SOLUTIONS
-!        IF(MOD(K, OUTPUT_FREQUENCT) == 0) THEN
-!            CALL WRITE_MESH(NUM_OF_ELEMENT, X_HILBERT, Y_HILBERT, &
-!                            PLEVEL_X, PLEVEL_Y, &
-!                            SOLUTION, TN)
-!        ENDIF
+        IF(MOD(K, OUTPUT_FREQUENCY) == 0) THEN
+            CALL WRITE_MESH(NUM_OF_ELEMENT, X_HILBERT, Y_HILBERT, &
+                            PLEVEL_X, PLEVEL_Y, &
+                            SOLUTION, TN)
+        ENDIF
     ENDDO
     !-------------------------------------------------------------------
     

@@ -9,6 +9,7 @@ FC = mpif90
 OBJDIR = obj
 SRCDIR = src
 INCLUDEDIR = inc
+OUTPUT = output
 
 MOD = -J$(DIR)/$(INCLUDEDIR)
 WALL = -Wall
@@ -92,4 +93,5 @@ debug :
 clean :
 	rm -rf $(OBJ) 
 	rm -rf $(DIR)/$(INCLUDEDIR)/*.mod
+	rm -rf $(OUTPUT)/*.dat
 	rm -rf *.dat *.txt $(TGT)

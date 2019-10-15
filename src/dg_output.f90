@@ -25,7 +25,8 @@ CONTAINS
 !-----------------------------------------------------------------------
 SUBROUTINE WRITE_MESH(NEL_TOTAL, X_GLOBAL, Y_GLOBAL, PLEVELX, PLEVELY, &
                         SOLUTION_ALL, T)
-    USE AFFINE_MAP
+                        
+    USE PARAM, ONLY: OUTPUT_PLACE
     
     IMPLICIT NONE 
     
@@ -60,7 +61,7 @@ SUBROUTINE WRITE_MESH(NEL_TOTAL, X_GLOBAL, Y_GLOBAL, PLEVELX, PLEVELY, &
     
         WRITE(FILENAME,FMT='(''aoutput'',I5.5,''.dat'')') FILE_NUM
         
-        OPEN(5,FILE=FILENAME)
+        OPEN(5,FILE = OUTPUT_PLACE//FILENAME)
         
         WRITE(5, FMT='(''TITLE = "MESH AND SOLUTIONS"'')')
         WRITE(5, FMT='(''VARIABLES = "X", "Y", "PRESSURE", "U", "V", &
@@ -78,7 +79,7 @@ SUBROUTINE WRITE_MESH(NEL_TOTAL, X_GLOBAL, Y_GLOBAL, PLEVELX, PLEVELY, &
                         "SOLUTIONTIME=", T, ',', &
                         "DATAPACKING = POINT" 
 50 FORMAT(A8, A1, A3, I6, A2, 2X, A2, I2, A1, 2X, A2, I2, A1, 2X, A13, F10.5, A1, 2X, A19)
-
+            
             ELEM = ELEM+1
             
             ! INTERPOLATE TO INTERFACES---------------------------------
