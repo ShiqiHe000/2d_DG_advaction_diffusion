@@ -273,11 +273,19 @@ v
 <p>The spectral element approximation starts with a weak form of <a class="reference internal" href="#equation-equ1">(1)</a>. We multiply <a class="reference internal" href="#equation-equ1">(1)</a> by a test function, integrate and subdivide into elements</p>
 <div class="math notranslate nohighlight" id="equation-equ2">
 <span class="eqno">(2)<a class="headerlink" href="#equation-equ2" title="Permalink to this equation">¶</a></span>\[\sum_{k=1}^{K}\left [ \int_{x_{k-1}}^{x_k} (\mathbf{q}_t+\mathbf{f}_x + \mathbf{g}_y)\phi dx\right ] = 0\]</div>
-<p>We map <a class="reference internal" href="#equation-equ2">(2)</a> onto reference space by affine map <a class="reference internal" href="#equation-equ3">(3)</a></p>
+<p>We map <a class="reference internal" href="#equation-equ2">(2)</a> onto reference space by <strong>affine map</strong> <a class="reference internal" href="#equation-equ3">(3)</a></p>
 <div class="math notranslate nohighlight" id="equation-equ3">
 <span class="eqno">(3)<a class="headerlink" href="#equation-equ3" title="Permalink to this equation">¶</a></span>\[\begin{split}x = x_{k-1} + \frac{\xi +1}{2} \Delta x_k, \Delta x_k = x_k - x_{k+1}\\
 y = y_{k-1} + \frac{\eta  +1}{2} \Delta y_k, \Delta y_k = y_k - y_{k+1}\\
 dx = \frac{\Delta x_k}{2}d\xi , \frac{\partial}{\partial x} = \frac{2}{\Delta x_k}\frac{\partial }{\xi}\end{split}\]</div>
+<p>The solution and fluxes are approximated by polynomials of degree N and represent the polynomials in nodal, Lagrange form</p>
+<div class="math notranslate nohighlight" id="equation-equ4">
+<span class="eqno">(4)<a class="headerlink" href="#equation-equ4" title="Permalink to this equation">¶</a></span>\[\begin{split}\mathbf{q} \approx \mathbf{Q} = \sum_{n=0}^{N}\sum_{m=0}^{M}\mathbf{Q}_{n,m} l_n(x)l_m(y)\\
+\mathbf{F}_{n,m}\widehat{x} + \mathbf{G}_{n,m}\widehat{y} = B\mathbf{Q}_{n,m}\widehat{x} + C\mathbf{Q}_{n,m}\widehat{y}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{F}_{n,m}\widehat{x} + \mathbf{G}_{n,m}\widehat{y} = B\mathbf{Q}_{n,m}\widehat{x} + C\mathbf{Q}_{n,m}\widehat{y}\)</span>. We subsitute the approximations into the weak form of the PDE, and let <span class="math notranslate nohighlight">\((\mathbf{Q}_t, \phi _{ij}) + (\bigtriangledown \cdot \mathbf{F}, \phi_{ij}) = 0.\)</span></p>
+<p>If we apply  Green’s identity to the second intergal</p>
+<div class="math notranslate nohighlight">
+\[(\bigtriangledown \cdot \mathbf{F}, \phi_{ij}) = \int_{l}^{r} \phi_{ij} \bigtriangledown \cdot \mathbf{F}dxdy = \frac{\Delta x}{2} \int_{-1}^{1}\phi_{ij} \mathbf{f}_{\xi } d \xi +  \frac{\Delta y}{2} \int_{-1}^{1}\phi_{ij} \mathbf{g}_{\eta } d \eta\]</div>
 </div>
 <div class="section" id="the-nurmerical-flux">
 <h3>The Nurmerical flux<a class="headerlink" href="#the-nurmerical-flux" title="Permalink to this headline">¶</a></h3>
@@ -335,7 +343,7 @@ The other parameters are <span class="math notranslate nohighlight">\(c = 1\)</s
 </div>
 <div class="section" id="id1">
 <h4>64 elements<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
-<p>Domain: <span class="math notranslate nohighlight">\(x \in [0.0, 1.0], y\in [0.0, 1.0]\)</span>.</p>
+<p>Domain: <span class="math notranslate nohighlight">\(x \in [0.0, 8.0], y\in [0.0, 8.0]\)</span>.</p>
 <p>Time step: <span class="math notranslate nohighlight">\(\Delta t = 1.0\times 10^{-5}\)</span></p>
 <p>Fig(3), shows the error performances.</p>
 <img alt="_images/2d_64_elements_error.png" src="_images/2d_64_elements_error.png" />

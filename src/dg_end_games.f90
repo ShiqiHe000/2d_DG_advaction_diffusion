@@ -30,9 +30,9 @@ SUBROUTINE DEALLOCATE_ALL
     !-------------------------------------------------------------------
     
     ! dg_verification.f90-----------------------------------------------
-    DEALLOCATE(EXACT)
-    DEALLOCATE(ERROR)
-    DEALLOCATE(L2_NORM)
+!    DEALLOCATE(EXACT)
+!    DEALLOCATE(ERROR)
+!    DEALLOCATE(L2_NORM)
     !-------------------------------------------------------------------
 
 END SUBROUTINE DEALLOCATE_ALL

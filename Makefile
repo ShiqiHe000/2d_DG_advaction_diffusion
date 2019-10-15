@@ -9,6 +9,7 @@ FC = mpif90
 OBJDIR = obj
 SRCDIR = src
 INCLUDEDIR = inc
+OUTPUT = output
 
 MOD = -J$(DIR)/$(INCLUDEDIR)
 WALL = -Wall
@@ -41,6 +42,7 @@ SRC =  dg_param.f90 \
        dg_a_times_spatial_der.f90 \
        dg_time_derivative_global.f90 \
        dg_step_by_RK3.f90 \
+       dg_output.f90 \
        dg_advection_diffusion_driver.f90 \
        dg_verification.f90 \
        dg_end_games.f90 \
@@ -91,4 +93,5 @@ debug :
 clean :
 	rm -rf $(OBJ) 
 	rm -rf $(DIR)/$(INCLUDEDIR)/*.mod
+	rm -rf $(OUTPUT)/*.dat
 	rm -rf *.dat *.txt $(TGT)

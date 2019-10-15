@@ -38,9 +38,17 @@ MODULE PARAM
 !    DOUBLE PRECISION :: T_TOTAL = 0.0d0     !< TOTAL TIME INTEGRAL
 !    DOUBLE PRECISION :: T_TOTAL = (2.0e-4)*2.0d0     !< TOTAL TIME INTEGRAL
 !    INTEGER :: NT = 2                    !< TIME STEP NUMBER
+!    DOUBLE PRECISION :: T_TOTAL = (2.0e-4)    !< TOTAL TIME INTEGRAL
+!    INTEGER :: NT = 1                    !< TIME STEP NUMBER
     DOUBLE PRECISION :: T_TOTAL = 2.0D0     !< TOTAL TIME INTEGRAL
     INTEGER :: NT = 10000                   !< TIME STEP NUMBER
     !-------------------------------------------------------------------
+    
+    ! OUTPUT DATA FREQUENCY---------------------------------------------
+    INTEGER :: OUTPUT_FREQUENCY = 50    !< OUTPUT DATA FREQUENCY, SHOULD <= NT
+    !-------------------------------------------------------------------
+    
+    !===================================================================
     
     ! variables you could change =======================================
     
@@ -67,6 +75,10 @@ MODULE PARAM
     
     ! .MSH FILE PATH----------------------------------------------------
     CHARACTER(*), PARAMETER :: FILEPLACE = "./gmsh_files/"
+    !-------------------------------------------------------------------
+    
+    ! TECPLOT FILE PATH-------------------------------------------------
+    CHARACTER(*), PARAMETER :: OUTPUT_PLACE = "./output/"
     !-------------------------------------------------------------------
     
     ! SET MPI ----------------------------------------------------------

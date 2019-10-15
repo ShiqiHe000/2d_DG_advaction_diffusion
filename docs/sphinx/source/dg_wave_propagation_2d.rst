@@ -132,7 +132,7 @@ The spectral element approximation starts with a weak form of :eq:`equ1`. We mul
         \sum_{k=1}^{K}\left [ \int_{x_{k-1}}^{x_k} (\mathbf{q}_t+\mathbf{f}_x + \mathbf{g}_y)\phi dx\right ] = 0
         :label: equ2
 
-We map :eq:`equ2` onto reference space by affine map :eq:`equ3`
+We map :eq:`equ2` onto reference space by **affine map** :eq:`equ3`
 
 .. math::
         x = x_{k-1} + \frac{\xi +1}{2} \Delta x_k, \Delta x_k = x_k - x_{k+1}\\
@@ -140,6 +140,19 @@ We map :eq:`equ2` onto reference space by affine map :eq:`equ3`
         dx = \frac{\Delta x_k}{2}d\xi , \frac{\partial}{\partial x} = \frac{2}{\Delta x_k}\frac{\partial }{\xi}
         :label: equ3
 
+The solution and fluxes are approximated by polynomials of degree N and represent the polynomials in nodal, Lagrange form
+
+.. math::
+        \mathbf{q} \approx \mathbf{Q} = \sum_{n=0}^{N}\sum_{m=0}^{M}\mathbf{Q}_{n,m} l_n(x)l_m(y)\\
+        \mathbf{F}_{n,m}\widehat{x} + \mathbf{G}_{n,m}\widehat{y} = B\mathbf{Q}_{n,m}\widehat{x} + C\mathbf{Q}_{n,m}\widehat{y}
+        :label: equ4
+
+where :math:`\mathbf{F}_{n,m}\widehat{x} + \mathbf{G}_{n,m}\widehat{y} = B\mathbf{Q}_{n,m}\widehat{x} + C\mathbf{Q}_{n,m}\widehat{y}`. We subsitute the approximations into the weak form of the PDE, and let :math:`(\mathbf{Q}_t, \phi _{ij}) + (\bigtriangledown \cdot \mathbf{F}, \phi_{ij}) = 0.`
+
+If we apply  Green's identity to the second intergal
+
+.. math::
+        (\bigtriangledown \cdot \mathbf{F}, \phi_{ij}) = \int_{l}^{r} \phi_{ij} \bigtriangledown \cdot \mathbf{F}dxdy = \frac{\Delta x}{2} \int_{-1}^{1}\phi_{ij} \mathbf{f}_{\xi } d \xi +  \frac{\Delta y}{2} \int_{-1}^{1}\phi_{ij} \mathbf{g}_{\eta } d \eta 
 
 The Nurmerical flux
 ----------------------------------------------
@@ -210,7 +223,7 @@ Fig(3), shows the error performances.
 
 64 elements
 ^^^^^^^^^^^^^^^^^^^^^^^
-Domain: :math:`x \in [0.0, 1.0], y\in [0.0, 1.0]`.
+Domain: :math:`x \in [0.0, 8.0], y\in [0.0, 8.0]`.
 
 Time step: :math:`\Delta t = 1.0\times 10^{-5}`
 

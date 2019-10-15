@@ -9,12 +9,13 @@
 MODULE ADVECTION_DIFFUSION_DRIVER
 
 USE MPI
-USE PARAM, ONLY: N, M, T_TOTAL, NT, NUM_OF_EQUATION, NMAX, MMAX
+USE PARAM, ONLY: N, M, T_TOTAL, NT, NUM_OF_EQUATION, NMAX, MMAX, OUTPUT_FREQUENCY
 USE DG_2D_CONSTRUCTOR
 USE TIME_STEP_BY_RK
 USE USER_DEFINES
 USE NODAL_2D_STORAGE
 USE POLY_LEVEL_AND_ORDER
+USE OUTPUT
 
 IMPLICIT NONE
 
@@ -72,11 +73,24 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
                                 
     ENDDO
     !-------------------------------------------------------------------
+    
+    ! OUTPUT INITIAL SOLUTIONS------------------------------------------
+     CALL WRITE_MESH(NUM_OF_ELEMENT, X_HILBERT, Y_HILBERT, &
+                            PLEVEL_X, PLEVEL_Y, &
+                            SOLUTION, TN)
+    !-------------------------------------------------------------------
 
     ! TIME MARCHES ON---------------------------------------------------
     DO K = 0, NT-1
         CALL DG_STEP_BY_RK3(TN, DELTA_T)
         TN = (K+1) * DELTA_T
+        
+        ! OUTPUT SOLUTIONS
+        IF(MOD(K, OUTPUT_FREQUENCY) == 0) THEN
+            CALL WRITE_MESH(NUM_OF_ELEMENT, X_HILBERT, Y_HILBERT, &
+                            PLEVEL_X, PLEVEL_Y, &
+                            SOLUTION, TN)
+        ENDIF
     ENDDO
     !-------------------------------------------------------------------
     

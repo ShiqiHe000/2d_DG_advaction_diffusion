@@ -76,27 +76,10 @@ SUBROUTINE NUMERICAL_FLUX_X(ELEM_K, T)
                                         SOLUTION_EXT(S, :), &
                                          T, X_HILBERT(1, ELEM_K), Y)
                                          
-!            CALL EXTERNAL_SINU(NUM_OF_EQUATION, &
-!                                        SOLUTION_EXT(S, :), &
-!                                         T, X_HILBERT(1, ELEM_K), Y)
             CALL RIEMANN_X(SOLUTION_EXT(S, :), &
                            SOLUTION_INT_L(S, :, ELEM_K), &
                            NFLUX_X_L(S, :, ELEM_K), -1.0D0)
                            
-            !-----------------------------------------------------------------------
-!            CALL AFFINE_MAPPING(GL_POINT_Y_T(S, PLEVEL_Y(ELEM_K)), &
-!                                Y, Y_HILBERT(4, ELEM_K), DELTA_Y(ELEM_K))
-                                
-!            CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-!                                        SOLUTION_EXT(S, :), &
-!                                         T, X_HILBERT(4, ELEM_K), Y)
-!!            CALL EXTERNAL_SINU(NUM_OF_EQUATION, &
-!!                                        SOLUTION_EXT(S, :), &
-!!                                         T, X_HILBERT(4, ELEM_K), Y)
-!            CALL RIEMANN_X(SOLUTION_INT_R(S, :, ELEM_K), &
-!                            SOLUTION_EXT(S, :), &
-!                            NFLUX_X_R(S, :, ELEM_K), 1.0D0)
-            !-----------------------------------------------------------
         ENDDO
     
         DEALLOCATE(SOLUTION_EXT)
@@ -115,13 +98,15 @@ SUBROUTINE NUMERICAL_FLUX_X(ELEM_K, T)
             CALL AFFINE_MAPPING(GL_POINT_Y_T(S, PLEVEL_Y(ELEM_K)), &
                                 Y, Y_HILBERT(4, ELEM_K), DELTA_Y(ELEM_K))
             
-            CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-                                        SOLUTION_EXT(S, :), &
-                                         T, X_HILBERT(4, ELEM_K), Y)
-        
-!            CALL EXTERNAL_SINU(NUM_OF_EQUATION, &
+!            CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
 !                                        SOLUTION_EXT(S, :), &
 !                                         T, X_HILBERT(4, ELEM_K), Y)
+
+            ! REFLECT BOUNDARY SOLUTION
+            CALL EXTERNAL_STATE_GAUSSIAN_REFLECT(NUM_OF_EQUATION, &
+                                            SOLUTION_INT_R(S, :, ELEM_K), &
+                                            SOLUTION_EXT(S, :), &
+                                            (/1.0D0, 0.0D0/))
                                          
             CALL RIEMANN_X(SOLUTION_INT_R(S, :, ELEM_K), &
                             SOLUTION_EXT(S, :), &
@@ -217,30 +202,9 @@ SUBROUTINE NUMERICAL_FLUX_Y(ELEM_K, T)
                                         SOLUTION_EXT(S, :), &
                                          T, X, Y_HILBERT(1, ELEM_K))
 
-!            CALL EXTERNAL_SINU(NUM_OF_EQUATION, &
-!                                        SOLUTION_EXT(S, :), &
-!                                         T, X, Y_HILBERT(1, ELEM_K))
             CALL RIEMANN_Y(SOLUTION_EXT(S, :), &
                            SOLUTION_INT_L(S, :, ELEM_K), &
                            NFLUX_Y_D(S, :, ELEM_K), -1.0D0)
-            !------------------------------------------------------------
-!            CALL AFFINE_MAPPING(GL_POINT_X_T(S, PLEVEL_X(ELEM_K)), &
-!                                X, X_HILBERT(2, ELEM_K), DELTA_X(ELEM_K))
-                                
-!            CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-!                                        SOLUTION_EXT(S, :), &
-!                                         T, X, Y_HILBERT(2, ELEM_K))
-            
-!!             CALL EXTERNAL_SINU(NUM_OF_EQUATION, &
-!!                                        SOLUTION_EXT(S, :), &
-!!                                         T, X, Y_HILBERT(2, ELEM_K))
-                                         
-                                         
-        
-!            CALL RIEMANN_Y(SOLUTION_INT_R(S, :, ELEM_K), &
-!                            SOLUTION_EXT(S, :), &
-!                            NFLUX_Y_U(S, :, ELEM_K), 1.0D0)
-            !------------------------------------------------------------
         ENDDO
     
         DEALLOCATE(SOLUTION_EXT)
@@ -258,15 +222,17 @@ SUBROUTINE NUMERICAL_FLUX_Y(ELEM_K, T)
         
             CALL AFFINE_MAPPING(GL_POINT_X_T(S, PLEVEL_X(ELEM_K)), &
                                 X, X_HILBERT(2, ELEM_K), DELTA_X(ELEM_K))
-        
-            CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-                                        SOLUTION_EXT(S, :), &
-                                         T, X, Y_HILBERT(2, ELEM_K))
-
-!            CALL EXTERNAL_SINU(NUM_OF_EQUATION, &
+            
+            ! EXACT SOLUTION
+!            CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
 !                                        SOLUTION_EXT(S, :), &
 !                                         T, X, Y_HILBERT(2, ELEM_K))
-                                         
+            
+            ! REFLECT BOUNDARY SOLUTION
+            CALL EXTERNAL_STATE_GAUSSIAN_REFLECT(NUM_OF_EQUATION, &
+                                            SOLUTION_INT_R(S, :, ELEM_K), &
+                                            SOLUTION_EXT(S, :), &
+                                            (/0.0D0, 1.0D0/))
                                          
         
             CALL RIEMANN_Y(SOLUTION_INT_R(S, :, ELEM_K), &
