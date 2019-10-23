@@ -15,8 +15,8 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! SET POLYNOMIAL ORDER----------------------------------------------
-    INTEGER :: N = 8   !< POLYNOMIAL DEGREE IN X DIRECTION
-    INTEGER :: M = 8    !< POLYNOMIAL DEGREE IN Y DIRECTION
+    INTEGER :: N = 4   !< POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: M = 4    !< POLYNOMIAL DEGREE IN Y DIRECTION
     INTEGER :: NMAX = 10   !< MAXIMUM POLYNOMIAL DEGREE IN X DIRECTION
     INTEGER :: MMAX = 10   !< MAXIMUM POLYNOMIAL DEGREE IN Y DIRECTION
     !-------------------------------------------------------------------
@@ -45,7 +45,7 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! OUTPUT DATA FREQUENCY---------------------------------------------
-    INTEGER :: OUTPUT_FREQUENCY = 50    !< OUTPUT DATA FREQUENCY, SHOULD <= NT
+    INTEGER :: OUTPUT_FREQUENCY = 1000    !< OUTPUT DATA FREQUENCY, SHOULD <= NT
     !-------------------------------------------------------------------
     
     !===================================================================
@@ -61,7 +61,8 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! VERIFICATION -----------------------------------------------------
-    LOGICAL :: VERIFICATION_SWITCH = .FALSE. !< VERIFICATE YOUR RESULTS. NOTE: THIS HAS TO BE TURNED OFF IF YOU OUTPUT YOUR RESULT TO FILES
+    LOGICAL :: VERIFICATION_SWITCH = .FALSE. !< VERIFICATE YOUR RESULTS. 
+                                             !< NOTE: THIS SHOULD BE TURNED OFF IF YOU ARE USING REFLECTIVE BOUNDARY CONDITION
     !-------------------------------------------------------------------
     
     !===================================================================

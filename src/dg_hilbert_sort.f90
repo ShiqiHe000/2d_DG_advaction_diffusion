@@ -37,7 +37,7 @@ SUBROUTINE HIBERT_SORT_2D
         J = DUAL_COORD(2, K)
         
         
-        CALL xy2d ( EXP_X, I, J, D )
+        CALL xy2d ( EXP_X, J, I, D )
         
         X_HILBERT(:, D) = ELEM_X_POSITION(:, K)
         Y_HILBERT(:, D) = ELEM_Y_POSITION(:, K)

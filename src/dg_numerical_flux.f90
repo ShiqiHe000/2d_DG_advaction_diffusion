@@ -51,7 +51,7 @@ SUBROUTINE NUMERICAL_FLUX_X(ELEM_K, T)
     CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(ELEM_K), MY)
     
     ! GET DUAL COORDINATE
-    CALL d2xy ( EXP_X, ELEM_K, I, J )
+    CALL d2xy ( EXP_X, ELEM_K, J, I )
     
     !-------------------------------------------------------------------
     IF (I > 0 .AND. I< NUM_OF_ELEMENT_X-1) THEN
@@ -139,7 +139,7 @@ SUBROUTINE RIEMANN1(ELEM_K, I, J, MY)
     
     IDR = ELEM_K    ! ID ON THE RIGHT SIDE OF THE INTERFACE
         
-    CALL xy2d ( EXP_X, I-1, J, IDL )    ! ID ON THE LEFT SIDE OF THE INTERFACE
+    CALL xy2d ( EXP_X, J, I-1, IDL )    ! ID ON THE LEFT SIDE OF THE INTERFACE
     
     DO S = 0, MY
         CALL RIEMANN_X(SOLUTION_INT_R(S, :, IDL), &
@@ -178,7 +178,7 @@ SUBROUTINE NUMERICAL_FLUX_Y(ELEM_K, T)
     CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(ELEM_K), MY)
     
     ! GET DUAL COORDINATE
-    CALL d2xy ( EXP_X, ELEM_K, I, J )
+    CALL d2xy ( EXP_X, ELEM_K, J, I )
     
     !-------------------------------------------------------------------
     IF (J > 0 .AND. J< NUM_OF_ELEMENT_Y-1) THEN
@@ -268,7 +268,7 @@ SUBROUTINE RIEMANN2(ELEM_K, I, J, MX)
     
     IDR = ELEM_K    ! ID ON THE RIGHT SIDE OF THE INTERFACE
         
-    CALL xy2d ( EXP_X, I, J-1, IDL )    ! ID ON THE LEFT SIDE OF THE INTERFACE
+    CALL xy2d ( EXP_X, J-1, I, IDL )    ! ID ON THE LEFT SIDE OF THE INTERFACE
 
     DO S = 0, MX
         CALL RIEMANN_Y(SOLUTION_INT_R(S, :, IDL), &
