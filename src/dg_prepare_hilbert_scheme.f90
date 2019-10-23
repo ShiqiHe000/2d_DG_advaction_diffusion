@@ -12,6 +12,7 @@ USE MPI
 USE READ_MESH
 USE GEN_DUAL_GRAPH
 USE HILBERT_SORT
+USE PARAM, ONLY: RANK
 
 IMPLICIT NONE
 
@@ -21,19 +22,28 @@ SUBROUTINE HILBERT_NUMBERING
     
     IMPLICIT NONE
     
-    ! READ MESH FILE----------------------------------------------------
-    CALL READ_MESH_2D
+    ! ONLY PROC1 READ THE MESH------------------------------------------
+    IF (RANK == 0) THEN
+        
+        ! READ MESH FILE------------------------------------------------
+        CALL READ_MESH_2D
+        !---------------------------------------------------------------
+        
+        ! GENERATE DUAL GRAPH-------------------------------------------
+        CALL GEN_DUAL_GRAPH_2D
+        !---------------------------------------------------------------
+        
+        ! RE-NUMBERING ELEMENT BY HILBERT CURVE-------------------------
+        CALL HIBERT_SORT_2D
+        !---------------------------------------------------------------
+    
+    ENDIF
     !-------------------------------------------------------------------
     
-    ! GENERATE DUAL GRAPH-----------------------------------------------
-    CALL GEN_DUAL_GRAPH_2D
+    ! DISTRIBUTE THE ELEMENTS EVENLY BETWEEN PROCESSORS-----------------
+    
     !-------------------------------------------------------------------
     
-    ! RE-NUMBERING ELEMENT BY HILBERT CURVE-----------------------------
-    CALL HIBERT_SORT_2D
-    !-------------------------------------------------------------------
-    
-
 END SUBROUTINE HILBERT_NUMBERING
 
 END MODULE PREPARE_HILBERT_SCHEME

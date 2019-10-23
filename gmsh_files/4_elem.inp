@@ -1,0 +1,50 @@
+*Heading
+ /home/shiqihe/Documents/amr/code/poisson/2d_advection_diffusion/2d_advection_diffusion_new/gmsh_files/4_elem.inp
+*NODE
+1, 0, 0, 0
+2, 1, 0, 0
+3, 1, 1, 0
+4, 0, 1, 0
+5, 0, 0.50000000000206, 0
+6, 0.49999999999869, 0, 0
+7, 1, 0.49999999999869, 0
+8, 0.50000000000206, 1, 0
+9, 0.50000000000038, 0.50000000000038, 0
+******* E L E M E N T S *************
+*ELEMENT, type=T3D2, ELSET=Line1
+1, 4, 5
+2, 5, 1
+*ELEMENT, type=T3D2, ELSET=Line2
+3, 1, 6
+4, 6, 2
+*ELEMENT, type=T3D2, ELSET=Line3
+5, 2, 7
+6, 7, 3
+*ELEMENT, type=T3D2, ELSET=Line4
+7, 3, 8
+8, 8, 4
+*ELEMENT, type=CPS4, ELSET=Surface1
+9, 3, 8, 9, 7
+10, 7, 9, 6, 2
+11, 8, 4, 5, 9
+12, 9, 5, 1, 6
+*ELSET,ELSET=Left
+1, 2, 
+*ELSET,ELSET=Right
+5, 6, 
+*ELSET,ELSET=Top
+7, 8, 
+*ELSET,ELSET=Bottom
+3, 4, 
+*ELSET,ELSET=plane
+9, 10, 11, 12, 
+*NSET,NSET=Left
+1, 4, 5, 
+*NSET,NSET=Right
+2, 7, 3, 
+*NSET,NSET=Top
+8, 4, 3, 
+*NSET,NSET=Bottom
+2, 1, 6, 
+*NSET,NSET=plane
+2, 8, 9, 1, 4, 7, 3, 6, 5, 
