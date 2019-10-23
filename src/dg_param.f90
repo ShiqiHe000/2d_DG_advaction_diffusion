@@ -53,11 +53,15 @@ MODULE PARAM
     ! variables you could change =======================================
     
     !< WAVE SPEED ------------------------------------------------------
-    DOUBLE PRECISION, PARAMETER :: C=1.0D0
+    DOUBLE PRECISION, PARAMETER :: C=1.0D0  !< SOUND SPEED
     !-------------------------------------------------------------------
     
     ! SET ADAPATION ----------------------------------------------------
     INTEGER, PARAMETER :: SPLIT_MAX_NUM = 3     !< MAXIMUM SPLIT NUMBER
+    !-------------------------------------------------------------------
+    
+    ! VERIFICATION -----------------------------------------------------
+    LOGICAL :: VERIFICATION_SWITCH = .FALSE. !< VERIFICATE YOUR RESULTS. NOTE: THIS HAS TO BE TURNED OFF IF YOU OUTPUT YOUR RESULT TO FILES
     !-------------------------------------------------------------------
     
     !===================================================================

@@ -40,9 +40,6 @@ SUBROUTINE HILBERT_NUMBERING
     ENDIF
     !-------------------------------------------------------------------
     
-    ! DISTRIBUTE THE ELEMENTS EVENLY BETWEEN PROCESSORS-----------------
-    
-    !-------------------------------------------------------------------
     
 END SUBROUTINE HILBERT_NUMBERING
 

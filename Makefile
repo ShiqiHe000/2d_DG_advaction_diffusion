@@ -19,6 +19,7 @@ DEBUG = -g -fcheck=all -fimplicit-none -fbacktrace -pedantic -Wall
 
 SRC =  dg_param.f90 \
        dg_mpi.f90 \
+       dg_local_storage.f90 \
        dg_affine_map.f90 \
        dg_basis.f90 \
        dg_interpolate_to_new_point.f90 \
@@ -32,6 +33,8 @@ SRC =  dg_param.f90 \
        dg_write_data.f90 \
        dg_read_mesh_2d.f90 \
        dg_hilbert_sort.f90 \
+       dg_distribute_elements.f90 \
+       dg_start_parallel.f90 \
        dg_prepare_hilbert_scheme.f90 \
        dg_basis_storage.f90 \
        dg_constructor.f90 \
