@@ -32,6 +32,10 @@ SUBROUTINE DISTRIBUTE_ELEM
     INTEGER, ALLOCATABLE, DIMENSION(:) :: SENDCOUNTS    !< Integer array (of length group size) specifying the number of elements to send to each processor.
     INTEGER, ALLOCATABLE, DIMENSION(:) :: DISPLS    !< Integer array (of length group size). Entry i specifies the displacement (relative to sendbuf) from which to take the outgoing data to process i. 
 
+
+    ALLOCATE(ELEM_RANGE(NUM_PROC))
+    ELEM_RANGE = 0
+        
     ! RANK0 COMPUTE THE AVERAGE LOAD------------------------------------
     IF (RANK == 0) THEN
     
@@ -40,7 +44,7 @@ SUBROUTINE DISTRIBUTE_ELEM
         
         ALLOCATE(DISPLS(NUM_PROC))
         DISPLS = 0
-    
+        
         ORIGINAL_ELEM_NUM = NUM_OF_ELEMENT
         
         IF (NUM_OF_ELEMENT < NUM_PROC) THEN
@@ -52,6 +56,8 @@ SUBROUTINE DISTRIBUTE_ELEM
             
             SENDCOUNTS(1:NUM_OF_ELEMENT) = 1
             
+            ELEM_RANGE(1) = 1
+            
         ELSE
             
             ALLOCATE(LOCAL_ELEM_NUMBER(NUM_PROC))
@@ -60,6 +66,8 @@ SUBROUTINE DISTRIBUTE_ELEM
             AVERAGE = NUM_OF_ELEMENT / NUM_PROC
             
             LAST = NUM_OF_ELEMENT - (NUM_PROC - 1) * AVERAGE
+            
+            ELEM_RANGE(1) = AVERAGE - 1 ! ELEMENT NUMBER START WITH 0 (HILBERT SCHEME) 
             
             LOCAL_ELEM_NUMBER(:) = AVERAGE
             
@@ -74,7 +82,9 @@ SUBROUTINE DISTRIBUTE_ELEM
         
         DO I = 2, NUM_PROC
             DISPLS(I) = LOCAL_ELEM_NUMBER(I-1) * 4     ! 4 COORDINATES
+            ELEM_RANGE(I) = ELEM_RANGE(I-1) + LOCAL_ELEM_NUMBER(I)
         ENDDO
+        
         
     ENDIF
     !-------------------------------------------------------------------
@@ -99,7 +109,15 @@ SUBROUTINE DISTRIBUTE_ELEM
     CALL MPI_SCATTERV(Y_HILBERT, SENDCOUNTS*4, DISPLS, MPI_DOUBLE_PRECISION, &
                         Y_LOCAL, LOCAL_ELEM_NUM*4, MPI_DOUBLE_PRECISION, &
                         & 0, MPI_COMM_WORLD, IERROR)
+                        
+    CALL MPI_BCAST(ELEM_RANGE, NUM_PROC, MPI_INT, 0, MPI_COMM_WORLD, IERROR)
     ! ------------------------------------------------------------------
+    
+    IF(RANK == 0) THEN
+        DEALLOCATE(SENDCOUNTS)
+        DEALLOCATE(DISPLS)
+        DEALLOCATE(X_HILBERT, Y_HILBERT)
+    ENDIF
 
 END SUBROUTINE DISTRIBUTE_ELEM
 

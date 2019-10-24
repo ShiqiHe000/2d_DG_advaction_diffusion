@@ -9,13 +9,15 @@
 MODULE ADVECTION_DIFFUSION_DRIVER
 
 USE MPI
-USE PARAM, ONLY: N, M, T_TOTAL, NT, NUM_OF_EQUATION, NMAX, MMAX, OUTPUT_FREQUENCY
+!USE PARAM, ONLY: N, M, T_TOTAL, NT, NUM_OF_EQUATION, NMAX, MMAX, OUTPUT_FREQUENCY
+USE PARAM
 USE DG_2D_CONSTRUCTOR
 USE TIME_STEP_BY_RK
 USE USER_DEFINES
 USE NODAL_2D_STORAGE
 USE POLY_LEVEL_AND_ORDER
 USE OUTPUT
+USE LOCAL_STORAGE
 
 IMPLICIT NONE
 
@@ -47,12 +49,12 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     !-------------------------------------------------------------------
     
     ! ALLOCATE----------------------------------------------------------
-    ALLOCATE(SOLUTION(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
+    ALLOCATE(SOLUTION(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
     SOLUTION = 0.0D0
     !-------------------------------------------------------------------
     
     ! INITIALZIE SOLUTION-----------------------------------------------
-    DO K = 0, NUM_OF_ELEMENT-1
+    DO K = 0, LOCAL_ELEM_NUM-1
         
         CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(K), N_NOW) ! X DIRECTION POLY ORDER
         CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(K), M_NOW) ! Y DIRECTION POLY ORDER
@@ -68,17 +70,21 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     ENDDO
     !-------------------------------------------------------------------
     
+    
     ! OUTPUT INITIAL SOLUTIONS------------------------------------------
+    IF (RANK == 0) THEN
+    
      CALL WRITE_MESH(NUM_OF_ELEMENT, X_HILBERT, Y_HILBERT, &
                             PLEVEL_X, PLEVEL_Y, &
                             SOLUTION, TN)
+    ENDIF
     !-------------------------------------------------------------------
 
     ! TIME MARCHES ON---------------------------------------------------
     DO K = 0, NT-1
         CALL DG_STEP_BY_RK3(TN, DELTA_T)
         TN = (K+1) * DELTA_T
-        
+       
         ! OUTPUT SOLUTIONS
         IF(MOD(K, OUTPUT_FREQUENCY) == 0) THEN
             CALL WRITE_MESH(NUM_OF_ELEMENT, X_HILBERT, Y_HILBERT, &
