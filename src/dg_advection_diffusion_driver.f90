@@ -36,6 +36,8 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     
     DOUBLE PRECISION :: DELTA_T     !< TIME STEP 
     DOUBLE PRECISION :: TN          !< CURRENT TIME
+    DOUBLE PRECISION :: DEL_X   !< ELEMENT SIZE IN X DIRECTION
+    DOUBLE PRECISION :: DEL_Y   !< ELEMENT SIZE IN X DIRECTION
 
     ! CONSTRUCT DG BASIS------------------------------------------------
     CALL CONSTRUCT_BASIS    ! NOW WE HAVE GL POINTS, WEIGHTS, M_FIRST DERIVATIVE MATRICES
@@ -60,13 +62,15 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
         CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(K), N_NOW) ! X DIRECTION POLY ORDER
         CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(K), M_NOW) ! Y DIRECTION POLY ORDER
 
+        DEL_X = X_LOCAL(4, K) - X_LOCAL(1, K)
+        DEL_Y = Y_LOCAL(2, K) - Y_LOCAL(1, K)
         
         CALL INITIAL_CONDITION_GAUSSIAN(N_NOW, M_NOW, NUM_OF_EQUATION, &
                                         SOLUTION(0:N_NOW, 0:M_NOW, :, K), &
                                         GL_POINT_X_T(0:N_NOW, PLEVEL_X(K)), &
                                         GL_POINT_Y_T(0:M_NOW, PLEVEL_Y(K)), &
-                                        X_HILBERT(1, K), Y_HILBERT(1, K), &
-                                        DELTA_X(K), DELTA_Y(K))
+                                        X_LOCAL(1, K), Y_LOCAL(1, K), &
+                                        DEL_X, DEL_Y)
 
     ENDDO
     !-------------------------------------------------------------------
@@ -80,7 +84,7 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
 !                            SOLUTION, TN)
 !    ENDIF
 
-!    CALL SERIAL_IO(TN)
+    CALL SERIAL_IO(TN)
     !-------------------------------------------------------------------
 
     ! TIME MARCHES ON---------------------------------------------------
