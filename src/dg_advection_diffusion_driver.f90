@@ -18,6 +18,7 @@ USE NODAL_2D_STORAGE
 USE POLY_LEVEL_AND_ORDER
 USE OUTPUT
 USE LOCAL_STORAGE
+USE IO
 
 IMPLICIT NONE
 
@@ -72,26 +73,28 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     
     
     ! OUTPUT INITIAL SOLUTIONS------------------------------------------
-    IF (RANK == 0) THEN
+!    IF (RANK == 0) THEN
     
-     CALL WRITE_MESH(NUM_OF_ELEMENT, X_HILBERT, Y_HILBERT, &
-                            PLEVEL_X, PLEVEL_Y, &
-                            SOLUTION, TN)
-    ENDIF
+!     CALL WRITE_MESH(NUM_OF_ELEMENT, X_HILBERT, Y_HILBERT, &
+!                            PLEVEL_X, PLEVEL_Y, &
+!                            SOLUTION, TN)
+!    ENDIF
+
+!    CALL SERIAL_IO(TN)
     !-------------------------------------------------------------------
 
     ! TIME MARCHES ON---------------------------------------------------
-    DO K = 0, NT-1
-        CALL DG_STEP_BY_RK3(TN, DELTA_T)
-        TN = (K+1) * DELTA_T
+!    DO K = 0, NT-1
+!        CALL DG_STEP_BY_RK3(TN, DELTA_T)
+!        TN = (K+1) * DELTA_T
        
-        ! OUTPUT SOLUTIONS
-        IF(MOD(K, OUTPUT_FREQUENCY) == 0) THEN
-            CALL WRITE_MESH(NUM_OF_ELEMENT, X_HILBERT, Y_HILBERT, &
-                            PLEVEL_X, PLEVEL_Y, &
-                            SOLUTION, TN)
-        ENDIF
-    ENDDO
+!        ! OUTPUT SOLUTIONS
+!        IF(MOD(K, OUTPUT_FREQUENCY) == 0) THEN
+!            CALL WRITE_MESH(NUM_OF_ELEMENT, X_HILBERT, Y_HILBERT, &
+!                            PLEVEL_X, PLEVEL_Y, &
+!                            SOLUTION, TN)
+!        ENDIF
+!    ENDDO
     !-------------------------------------------------------------------
     
 

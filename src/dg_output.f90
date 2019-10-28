@@ -7,12 +7,13 @@
 MODULE OUTPUT
 
 USE MPI
-USE PARAM, ONLY: NUM_OF_EQUATION, N, M, RANK, MMAX, NMAX
+USE PARAM, ONLY: NUM_OF_EQUATION, N, M, RANK, MMAX, NMAX, RANK
 USE POLY_LEVEL_AND_ORDER
 USE INTERFACES_CONSTRUCT
 USE NODAL_2D_STORAGE, ONLY: LAGRANGE_LEFT_T, LAGRANGE_RIGHT_T, &
                                 LAGRANGE_DOWN_T, LAGRANGE_UP_T, &
                                 GL_POINT_X_T, GL_POINT_Y_T
+USE LOCAL_STORAGE
 
 IMPLICIT NONE 
 
@@ -57,78 +58,90 @@ SUBROUTINE WRITE_MESH(NEL_TOTAL, X_GLOBAL, Y_GLOBAL, PLEVELX, PLEVELY, &
     SOLU_INT_L = 0.0D0; SOLU_INT_R = 0.0D0
     SOLU_INT_D = 0.0D0; SOLU_INT_U = 0.0D0
     
+    ! OPEN FILE
+    WRITE(FILENAME,FMT='(''aoutput'',I5.5,''.dat'')') FILE_NUM
+    
+    ! PROC 1 WRITES HEADER----------------------------------------------
     IF (RANK == 0) THEN
     
-        WRITE(FILENAME,FMT='(''aoutput'',I5.5,''.dat'')') FILE_NUM
+!        WRITE(FILENAME,FMT='(''aoutput'',I5.5,''.dat'')') FILE_NUM
         
+!        OPEN(5,FILE = OUTPUT_PLACE//FILENAME)
+
         OPEN(5,FILE = OUTPUT_PLACE//FILENAME)
         
         WRITE(5, FMT='(''TITLE = "MESH AND SOLUTIONS"'')')
         WRITE(5, FMT='(''VARIABLES = "X", "Y", "PRESSURE", "U", "V", &
                         & "N", "M", "PROC"'')')
+                        
+        ELEM = 1
+    ELSE
     
-        ELEM=1
-        
-        DO IEL=0, NEL_TOTAL-1
-        
-            CALL POLY_LEVEL_TO_ORDER(N, PLEVELX(IEL), PORDERX)
-            CALL POLY_LEVEL_TO_ORDER(M, PLEVELY(IEL), PORDERY)
+        OPEN(5,FILE = OUTPUT_PLACE//FILENAME, ACCESS = 'APPEND', STATUS = 'OLD')
+        ELEM = ELEM_RANGE(RANK) + 1
+    ENDIF
+    !-------------------------------------------------------------------
+    
+    
+    DO IEL=0, NEL_TOTAL-1
+    
+        CALL POLY_LEVEL_TO_ORDER(N, PLEVELX(IEL), PORDERX)
+        CALL POLY_LEVEL_TO_ORDER(M, PLEVELY(IEL), PORDERY)
 
-            WRITE(5, 50) "ZONE T= ", '"', "IEL", ELEM, '",', &
-                        "I=", PORDERX+3, ',', "J=", PORDERY+3, ',', &
-                        "SOLUTIONTIME=", T, ',', &
-                        "DATAPACKING = POINT" 
+        WRITE(5, 50) "ZONE T= ", '"', "IEL", ELEM, '",', &
+                    "I=", PORDERX+3, ',', "J=", PORDERY+3, ',', &
+                    "SOLUTIONTIME=", T, ',', &
+                    "DATAPACKING = POINT" 
 50 FORMAT(A8, A1, A3, I6, A2, 2X, A2, I2, A1, 2X, A2, I2, A1, 2X, A13, F10.5, A1, 2X, A19)
             
-            ELEM = ELEM+1
-            
-            ! INTERPOLATE TO INTERFACES---------------------------------
-            ! X DIRECTION
-            CALL CONSTRUCT_INTERFACES_X(PORDERX, PORDERY, &
-                                            NUM_OF_EQUATION, &
-                                            SOLUTION_ALL(0:PORDERX, 0:PORDERY, :, IEL), &
-                                            LAGRANGE_LEFT_T(0:PORDERX, PLEVELX(IEL)),&
-                                            LAGRANGE_RIGHT_T(0:PORDERX, PLEVELX(IEL)), &
-                                            SOLU_INT_L(0:PORDERY, :), &
-                                            SOLU_INT_R(0:PORDERY, :) )
-            
-            ! Y DIRECTION
-            CALL CONSTRUCT_INTERFACES_Y(PORDERX, PORDERY, &
-                                            NUM_OF_EQUATION, &
-                                            SOLUTION_ALL(0:PORDERX, 0:PORDERY, :, IEL), &
-                                            LAGRANGE_DOWN_T(0:PORDERY, PLEVELY(IEL)),&
-                                            LAGRANGE_UP_T(0:PORDERY, PLEVELY(IEL)), &
-                                            SOLU_INT_D(0:PORDERX, :), &
-                                            SOLU_INT_U(0:PORDERX, :) )
-            !-----------------------------------------------------------
-            
-            !-----------------------------------------------------------
-            ! X INTERFACE (LEFT)
-            CALL X_INTERFACE(PORDERX, PORDERY, PLEVELX(IEL), &
-                                SOLU_INT_D(0:PORDERX, :), &
-                                X_GLOBAL(1, IEL), X_GLOBAL(4, IEL), &
-                                Y_GLOBAL(1, IEL))
-            
-            ! INTERIOR NODES (INCLUDING NODES ON Y INTERFACES)
-            CALL INTERIOR_MESH(PORDERX, PORDERY, PLEVELX(IEL), &
-                                PLEVELY(IEL), &
-                                SOLUTION_ALL(0:PORDERX, 0:PORDERY, :, IEL), &
-                                SOLU_INT_L(0:PORDERY, :), SOLU_INT_R(0:PORDERY, :), &
-                                X_GLOBAL(1, IEL), X_GLOBAL(4, IEL), &
-                                Y_GLOBAL(1, IEL), Y_GLOBAL(2, IEL))
-            
-            ! X INTERFACE (RIGHT)
-            CALL X_INTERFACE(PORDERX, PORDERY, PLEVELX(IEL), &
-                                SOLU_INT_U(0:PORDERX, :), &
-                                X_GLOBAL(2, IEL), X_GLOBAL(3, IEL), &
-                                Y_GLOBAL(2, IEL))
-            !-----------------------------------------------------------
+        ELEM = ELEM+1
         
-        ENDDO
+        ! INTERPOLATE TO INTERFACES---------------------------------
+        ! X DIRECTION
+        CALL CONSTRUCT_INTERFACES_X(PORDERX, PORDERY, &
+                                        NUM_OF_EQUATION, &
+                                        SOLUTION_ALL(0:PORDERX, 0:PORDERY, :, IEL), &
+                                        LAGRANGE_LEFT_T(0:PORDERX, PLEVELX(IEL)),&
+                                        LAGRANGE_RIGHT_T(0:PORDERX, PLEVELX(IEL)), &
+                                        SOLU_INT_L(0:PORDERY, :), &
+                                        SOLU_INT_R(0:PORDERY, :) )
         
-        FILE_NUM = FILE_NUM + 1
-        CLOSE(UNIT=5)
-    ENDIF
+        ! Y DIRECTION
+        CALL CONSTRUCT_INTERFACES_Y(PORDERX, PORDERY, &
+                                        NUM_OF_EQUATION, &
+                                        SOLUTION_ALL(0:PORDERX, 0:PORDERY, :, IEL), &
+                                        LAGRANGE_DOWN_T(0:PORDERY, PLEVELY(IEL)),&
+                                        LAGRANGE_UP_T(0:PORDERY, PLEVELY(IEL)), &
+                                        SOLU_INT_D(0:PORDERX, :), &
+                                        SOLU_INT_U(0:PORDERX, :) )
+        !-----------------------------------------------------------
+        
+        !-----------------------------------------------------------
+        ! X INTERFACE (LEFT)
+        CALL X_INTERFACE(PORDERX, PORDERY, PLEVELX(IEL), &
+                            SOLU_INT_D(0:PORDERX, :), &
+                            X_GLOBAL(1, IEL), X_GLOBAL(4, IEL), &
+                            Y_GLOBAL(1, IEL))
+        
+        ! INTERIOR NODES (INCLUDING NODES ON Y INTERFACES)
+        CALL INTERIOR_MESH(PORDERX, PORDERY, PLEVELX(IEL), &
+                            PLEVELY(IEL), &
+                            SOLUTION_ALL(0:PORDERX, 0:PORDERY, :, IEL), &
+                            SOLU_INT_L(0:PORDERY, :), SOLU_INT_R(0:PORDERY, :), &
+                            X_GLOBAL(1, IEL), X_GLOBAL(4, IEL), &
+                            Y_GLOBAL(1, IEL), Y_GLOBAL(2, IEL))
+        
+        ! X INTERFACE (RIGHT)
+        CALL X_INTERFACE(PORDERX, PORDERY, PLEVELX(IEL), &
+                            SOLU_INT_U(0:PORDERX, :), &
+                            X_GLOBAL(2, IEL), X_GLOBAL(3, IEL), &
+                            Y_GLOBAL(2, IEL))
+        !-----------------------------------------------------------
+    
+    ENDDO
+    
+    FILE_NUM = FILE_NUM + 1
+    CLOSE(UNIT=5)
 
 
 END SUBROUTINE WRITE_MESH

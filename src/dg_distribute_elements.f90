@@ -24,44 +24,35 @@ SUBROUTINE DISTRIBUTE_ELEM
     
     IMPLICIT NONE 
     
-    INTEGER, ALLOCATABLE, DIMENSION(:) :: LOCAL_ELEM_NUMBER ! LOCAL
+    INTEGER, DIMENSION(NUM_PROC) :: LOCAL_ELEM_NUMBER ! LOCAL
     INTEGER :: AVERAGE  ! AVERAGE LOAD
     INTEGER :: LAST     ! LAST PROCESSOR'S LOAD
     INTEGER :: I
     
-    INTEGER, ALLOCATABLE, DIMENSION(:) :: SENDCOUNTS    !< Integer array (of length group size) specifying the number of elements to send to each processor.
-    INTEGER, ALLOCATABLE, DIMENSION(:) :: DISPLS    !< Integer array (of length group size). Entry i specifies the displacement (relative to sendbuf) from which to take the outgoing data to process i. 
-
+    INTEGER, DIMENSION(NUM_PROC) :: SENDCOUNTS    !< Integer array (of length group size) specifying the number of elements to send to each processor.
+    INTEGER, DIMENSION(NUM_PROC) :: DISPLS    !< Integer array (of length group size). Entry i specifies the displacement (relative to sendbuf) from which to take the outgoing data to process i. 
+    
+    LOCAL_ELEM_NUMBER = 0
+    SENDCOUNTS = 0
+    DISPLS = 0
 
     ALLOCATE(ELEM_RANGE(NUM_PROC))
     ELEM_RANGE = 0
         
     ! RANK0 COMPUTE THE AVERAGE LOAD------------------------------------
     IF (RANK == 0) THEN
-    
-        ALLOCATE(SENDCOUNTS(NUM_PROC))
-        SENDCOUNTS = 0
-        
-        ALLOCATE(DISPLS(NUM_PROC))
-        DISPLS = 0
         
         ORIGINAL_ELEM_NUM = NUM_OF_ELEMENT
         
         IF (NUM_OF_ELEMENT < NUM_PROC) THEN
         
-            ALLOCATE(LOCAL_ELEM_NUMBER(NUM_PROC))
-            LOCAL_ELEM_NUMBER = 0
-            
             LOCAL_ELEM_NUMBER(1:NUM_OF_ELEMENT) = 1
             
             SENDCOUNTS(1:NUM_OF_ELEMENT) = 1
             
-            ELEM_RANGE(1) = 1
+            ELEM_RANGE(1) = 0
             
         ELSE
-            
-            ALLOCATE(LOCAL_ELEM_NUMBER(NUM_PROC))
-            LOCAL_ELEM_NUMBER = 0
             
             AVERAGE = NUM_OF_ELEMENT / NUM_PROC
             
@@ -99,6 +90,11 @@ SUBROUTINE DISTRIBUTE_ELEM
     ! ALLOCATE LOCAL STORAGE--------------------------------------------
     ALLOCATE(X_LOCAL(4, LOCAL_ELEM_NUM))
     ALLOCATE(Y_LOCAL(4, LOCAL_ELEM_NUM))
+    
+    IF(RANK /= 0) THEN
+        ALLOCATE(X_HILBERT(4, ORIGINAL_ELEM_NUM))
+        ALLOCATE(Y_HILBERT(4, ORIGINAL_ELEM_NUM))
+    ENDIF
     !-------------------------------------------------------------------
     
     ! SCATTER DATA------------------------------------------------------
@@ -113,12 +109,8 @@ SUBROUTINE DISTRIBUTE_ELEM
     CALL MPI_BCAST(ELEM_RANGE, NUM_PROC, MPI_INT, 0, MPI_COMM_WORLD, IERROR)
     ! ------------------------------------------------------------------
     
-    IF(RANK == 0) THEN
-        DEALLOCATE(SENDCOUNTS)
-        DEALLOCATE(DISPLS)
-        DEALLOCATE(X_HILBERT, Y_HILBERT)
-    ENDIF
-
+    DEALLOCATE(X_HILBERT, Y_HILBERT)
+    
 END SUBROUTINE DISTRIBUTE_ELEM
 
 

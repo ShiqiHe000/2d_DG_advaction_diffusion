@@ -47,6 +47,7 @@ SRC =  dg_param.f90 \
        dg_time_derivative_global.f90 \
        dg_step_by_RK3.f90 \
        dg_output.f90 \
+       dg_io.f90 	\
        dg_advection_diffusion_driver.f90 \
        dg_verification.f90 \
        dg_end_games.f90 \
@@ -80,7 +81,7 @@ all : $(DIR)/$(OBJDIR)/$(TGT)
 	@echo "------------------------------"
 
 run : $(TGT)
-	mpirun -np 1 $(TGT)
+	mpirun -np 2 $(TGT)
 
 drun : $(TGT)
 	mpirun -np 1 xterm -e gdb $(TGT)
