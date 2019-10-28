@@ -39,7 +39,7 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     SOLUTION_INT_L = 0.0D0; SOLUTION_INT_R = 0.0D0
     
-    DO K = 0, NUM_OF_ELEMENT-1
+    DO K = 0, LOCAL_ELEM_NUM-1
     
         CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(K), PORDER_X)
         CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(K), PORDER_Y)
@@ -50,6 +50,7 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
                                     LAGRANGE_RIGHT_T(0:PORDER_X, PLEVEL_X(K)), &
                                     SOLUTION_INT_L(0:PORDER_Y, :, K), &
                                     SOLUTION_INT_R(0:PORDER_Y, :, K) )
+        
     ENDDO
     !-------------------------------------------------------------------
 
@@ -102,7 +103,7 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     SOLUTION_INT_L = 0.0D0; SOLUTION_INT_R = 0.0D0
     
     
-    DO K = 0, NUM_OF_ELEMENT-1
+    DO K = 0, LOCAL_ELEM_NUM-1
     
         CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(K), PORDER_X)
         CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(K), PORDER_Y)

@@ -1,7 +1,7 @@
 !-----------------------------------------------------------------------
 !> @brief
 !> Numerical flux is a combination of two fluxes on the interface.
-!! Based on the interface is an element interface or a boundary interface,
+!! Based on the interface is either an element interface or a boundary interface,
 !! the numerical flux is computed by either two correspond fluxes on the 
 !! element interfaces, or element interface and boundary condition (we 
 !! call it external state).
