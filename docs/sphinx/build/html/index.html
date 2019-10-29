@@ -95,6 +95,8 @@
 <li class="toctree-l1"><a class="reference internal" href="dg_spectral_approximation.html">Spectral Approximation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dg_wave_propagation_2d.html">Spectral Approximation on a square</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dg_numerical_fluxes.html">Numerical Flux schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_load_balancing.html">Dynamic Load-balancing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_mpi.html">MPI Interface</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dg_reference.html">Reference</a></li>
 </ul>
 
@@ -198,6 +200,35 @@
 <li class="toctree-l2"><a class="reference internal" href="dg_numerical_fluxes.html#central-flux">Central Flux</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dg_numerical_fluxes.html#lax-friedrichs-flux">Lax-Friedrichs Flux</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dg_numerical_fluxes.html#upwind-flux">Upwind Flux</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dg_load_balancing.html">Dynamic Load-balancing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dg_load_balancing.html#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dg_load_balancing.html#goals">Goals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dg_load_balancing.html#two-popular-approaches">Two popular approaches</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dg_load_balancing.html#graph-based-algorithm">Graph-based Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dg_load_balancing.html#space-filling-curves-sfcs-based-algorithm">Space-filling curves (SFCs) based algorithm</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dg_mpi.html">MPI Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dg_mpi.html#one-sided-communication-in-mpi">One-sided Communication in MPI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dg_mpi.html#basic-idea">Basic Idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dg_mpi.html#advantages-of-rma-operations">Advantages of RMA Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dg_mpi.html#irregular-communication-patterns-with-rma">Irregular Communication Patterns with RMA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dg_mpi.html#creating-public-memory">Creating Public Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dg_mpi.html#basic-rma-functions-for-communication">Basic RMA Functions for Communication</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dg_mpi.html#parallel-i-o">Parallel I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dg_mpi.html#i-o-in-hpc-applications">I/O in HPC Applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dg_mpi.html#addressing-the-i-o-bottlenecks">Addressing the I/O Bottlenecks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dg_mpi.html#real-world-scenario">Real-World Scenario</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dg_mpi.html#mpi-i-o">MPI I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dg_mpi.html#hdf5-hierarchical-data-format">HDF5: Hierarchical Data Format</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="dg_reference.html">Reference</a></li>

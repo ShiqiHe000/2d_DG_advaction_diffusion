@@ -1,0 +1,421 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>MPI Interface &mdash; 2d_DG_advection 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'1.0',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Reference" href="dg_reference.html" />
+    <link rel="prev" title="Numerical Flux schemes" href="dg_numerical_fluxes.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> 2d_DG_advection
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="dg_motivation.html">Motivation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_spectral_approximation.html">Spectral Approximation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_wave_propagation_2d.html">Spectral Approximation on a square</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_numerical_fluxes.html">Numerical Flux schemes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">MPI Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#one-sided-communication-in-mpi">One-sided Communication in MPI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-idea">Basic Idea</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#advantages-of-rma-operations">Advantages of RMA Operations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#irregular-communication-patterns-with-rma">Irregular Communication Patterns with RMA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-public-memory">Creating Public Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#basic-rma-functions-for-communication">Basic RMA Functions for Communication</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#parallel-i-o">Parallel I/O</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#i-o-in-hpc-applications">I/O in HPC Applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#addressing-the-i-o-bottlenecks">Addressing the I/O Bottlenecks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#real-world-scenario">Real-World Scenario</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#parallel-programs-doing-sequential-i-o">Parallel Programs Doing Sequential I/O</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parallel-i-o-one-file-per-process">Parallel I/O - One file per process</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parallel-i-o-shared-file-what-we-want">Parallel I/O - Shared file (What we want)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#mpi-i-o">MPI I/O</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hdf5-hierarchical-data-format">HDF5: Hierarchical Data Format</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hdf5-nice-features">HDF5 Nice Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#phdf5-overview">PHDF5 Overview</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dg_reference.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">2d_DG_advection</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>MPI Interface</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/dg_mpi.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="mpi-interface">
+<h1>MPI Interface<a class="headerlink" href="#mpi-interface" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="one-sided-communication-in-mpi">
+<h2>One-sided Communication in MPI<a class="headerlink" href="#one-sided-communication-in-mpi" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="basic-idea">
+<h3>Basic Idea<a class="headerlink" href="#basic-idea" title="Permalink to this headline">¶</a></h3>
+<p>The basic idea of one-sided communication models is to decouple data movement with process synchronization.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Should be able to move data without requiring that the remote process synchronize</li>
+<li>Each process exposes a part of its memory to other processes</li>
+<li>Other processes can directly read from or write to this memory</li>
+</ul>
+</div></blockquote>
+<p>In one-sided MPI operations, also known as <strong>RDMA</strong> or <strong>RMA</strong> operation.</p>
+</div>
+<div class="section" id="advantages-of-rma-operations">
+<h3>Advantages of RMA Operations<a class="headerlink" href="#advantages-of-rma-operations" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><blockquote>
+<div><ul class="simple">
+<li>Can do multiple data transfers with a single synchronization operation</li>
+</ul>
+<p>-Bypass tag matching</p>
+<ul class="simple">
+<li>Some irregular communication patterns can be more economically expressed</li>
+<li>Can be significantly faster than send/receive on systems with hardware support for remote memory access, such as shared memory systems.</li>
+</ul>
+</div></blockquote>
+<img alt="_images/Two-sided-and-One-sided-Communication.png" src="_images/Two-sided-and-One-sided-Communication.png" />
+</div></blockquote>
+</div>
+<div class="section" id="irregular-communication-patterns-with-rma">
+<h3>Irregular Communication Patterns with RMA<a class="headerlink" href="#irregular-communication-patterns-with-rma" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>If communication pattern is not known <em>a priori</em>, but the data locations are known, the send-receive model requires an extra step to determine how many sends-receives to issue</li>
+<li>RMA, however, can handle it easily because only the origin or target process needs to issue the put or get call</li>
+<li>This makes dynamic communication easier to code in RMA</li>
+</ul>
+</div>
+<div class="section" id="creating-public-memory">
+<h3>Creating Public Memory<a class="headerlink" href="#creating-public-memory" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">Any memory created by a process is, by default, only locally accessible</p>
+</li>
+<li><p class="first">Once the memory is created, the user has to make an explicit MPI call to declare a memory region as remotely accessible</p>
+<blockquote>
+<div><ul class="simple">
+<li>MPI terminology for remotely accessible memory is a“window”</li>
+<li>A group of processes collectively create a “window object”</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Once a memory region is declared as remotely accessible, all processes in the window object can read/write data to this memory without explicitly synchronizing with the target process</p>
+</li>
+</ul>
+<img alt="_images/one-sided-getput.jpeg" src="_images/one-sided-getput.jpeg" />
+</div>
+<div class="section" id="basic-rma-functions-for-communication">
+<h3>Basic RMA Functions for Communication<a class="headerlink" href="#basic-rma-functions-for-communication" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>MPI_Win_create exposes local memory to RMA operation by other processes in a communicator</li>
+<li>Creates window object MPI_Win_free deallocates window object</li>
+<li>MPI_Put moves data from local memory to remote memory</li>
+<li>MPI_Get retrieves data from remote memory into local memory</li>
+<li>MPI_Accumulate updates remote memory using local values</li>
+</ul>
+<p>Data movement operations are <strong>non-blocking</strong>.</p>
+<p>Subsequent synchronization on window object needed to ensure operation is completed.</p>
+</div>
+</div>
+<div class="section" id="parallel-i-o">
+<h2>Parallel I/O<a class="headerlink" href="#parallel-i-o" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="i-o-in-hpc-applications">
+<h3>I/O in HPC Applications<a class="headerlink" href="#i-o-in-hpc-applications" title="Permalink to this headline">¶</a></h3>
+<p>High Performance Computing (HPC) applications often</p>
+<blockquote>
+<div><ul>
+<li><p class="first">Read initial conditions or datasets for processing</p>
+</li>
+<li><p class="first">Write numerical data from simulations</p>
+<blockquote>
+<div><ul class="simple">
+<li>Saving application-level checkpoints</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">In case of large distributed HPC applications, the total execution time can be broken down into <strong>the computation time</strong>, <strong>communication time</strong>, and the <strong>I/O time</strong></p>
+</li>
+<li><p class="first">Optimizing the time spent in computation, communication and I/O can lead to overall improvement in the application performance</p>
+</li>
+<li><p class="first">However, doing efficient I/O without stressing out the HPC system is challenging and often an <strong>afterthought</strong></p>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="addressing-the-i-o-bottlenecks">
+<h3>Addressing the I/O Bottlenecks<a class="headerlink" href="#addressing-the-i-o-bottlenecks" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Software support for parallel I/O is available in the form of</dt>
+<dd><ul class="first last">
+<li>Parallel distributed file systems that provide parallel
+data paths to storage disks</li>
+<li>MPI I/O</li>
+<li>Libraries like PHDF5, pNetCDF</li>
+<li>High-level libraries like T3PIO</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Understand the I/O strategies for maintaining good citizenship on a supercomputing resource</li>
+</ul>
+</div>
+<div class="section" id="real-world-scenario">
+<h3>Real-World Scenario<a class="headerlink" href="#real-world-scenario" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="parallel-programs-doing-sequential-i-o">
+<h4>Parallel Programs Doing Sequential I/O<a class="headerlink" href="#parallel-programs-doing-sequential-i-o" title="Permalink to this headline">¶</a></h4>
+<img alt="_images/serial_io_one_proc.png" src="_images/serial_io_one_proc.png" />
+</div>
+<div class="section" id="parallel-i-o-one-file-per-process">
+<h4>Parallel I/O - One file per process<a class="headerlink" href="#parallel-i-o-one-file-per-process" title="Permalink to this headline">¶</a></h4>
+<img alt="_images/parallel_io_one_file_per_proc.png" src="_images/parallel_io_one_file_per_proc.png" />
+</div>
+<div class="section" id="parallel-i-o-shared-file-what-we-want">
+<h4>Parallel I/O - Shared file (What we want)<a class="headerlink" href="#parallel-i-o-shared-file-what-we-want" title="Permalink to this headline">¶</a></h4>
+<img alt="_images/parallel_io_shared_file.png" src="_images/parallel_io_shared_file.png" />
+</div>
+</div>
+<div class="section" id="mpi-i-o">
+<h3>MPI I/O<a class="headerlink" href="#mpi-i-o" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>Defined in the MPI standard since 2.0</dt>
+<dd><ul class="first last">
+<li>Uses MPI datatypes to describe files</li>
+<li>Uses send/receive like operations to read/write data</li>
+<li>Common interface for all platform/languages</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Provides high-performance (parallel) I/O operations</li>
+</ul>
+</div>
+<div class="section" id="hdf5-hierarchical-data-format">
+<h3>HDF5: Hierarchical Data Format<a class="headerlink" href="#hdf5-hierarchical-data-format" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="hdf5-nice-features">
+<h4><a class="reference external" href="https://www.hdfgroup.org/solutions/hdf5/">HDF5</a> Nice Features<a class="headerlink" href="#hdf5-nice-features" title="Permalink to this headline">¶</a></h4>
+<blockquote>
+<div><ul class="simple">
+<li>Interface support for C, C++, Fortran, Java, and Python</li>
+<li>Supported by data analysis packages (Matlab, IDL, Mathematica, Octave, Visit, Paraview, Tekplot, etc. )</li>
+<li>Machine independent data storage format</li>
+<li>Supports user defined datatypes and metadata</li>
+<li>Read or write to a portion of a dataset (Hyperslab)</li>
+<li>Runs on almost all systems</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="phdf5-overview">
+<h4>PHDF5 Overview<a class="headerlink" href="#phdf5-overview" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><dl class="first docutils">
+<dt>PHDF5 is the Parallel HDF5 library.</dt>
+<dd><ul class="first last">
+<li>You can write one file in parallel efficiently!</li>
+<li>Parallel performance of HDF5 very close to MPI I/O.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li>Uses MPI I/O (Don’t reinvent the wheel)</li>
+<li>MPI I/O techniques apply to HDF5.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dg_reference.html" class="btn btn-neutral float-right" title="Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dg_numerical_fluxes.html" class="btn btn-neutral float-left" title="Numerical Flux schemes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Shiqi_He
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
