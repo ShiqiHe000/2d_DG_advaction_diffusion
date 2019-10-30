@@ -87,27 +87,28 @@ SUBROUTINE NUMERICAL_FLUX_X(ELEM_K, T)
         
     ELSEIF(I == NUM_OF_ELEMENT_X-1) THEN !------------------------------
         ! ON THE TOP BOUNDARY
-
+        
+        ! LEFT INTERFACE
         CALL RIEMANN1(ELEM_K, I, J, MY)
         
         ALLOCATE(SOLUTION_EXT(0:MY, NUM_OF_EQUATION))
         SOLUTION_EXT = 0.0D0
         
-        
+        ! RIGHT INTERFACE
         DO S = 0, MY
         
             CALL AFFINE_MAPPING(GL_POINT_Y_T(S, PLEVEL_Y(ELEM_K)), &
                                 Y, Y_HILBERT(4, ELEM_K), DELTA_Y(ELEM_K))
             
-!            CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-!                                        SOLUTION_EXT(S, :), &
-!                                         T, X_HILBERT(4, ELEM_K), Y)
+            CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
+                                        SOLUTION_EXT(S, :), &
+                                         T, X_HILBERT(4, ELEM_K), Y)
 
             ! REFLECT BOUNDARY SOLUTION
-            CALL EXTERNAL_STATE_GAUSSIAN_REFLECT(NUM_OF_EQUATION, &
-                                            SOLUTION_INT_R(S, :, ELEM_K), &
-                                            SOLUTION_EXT(S, :), &
-                                            (/1.0D0, 0.0D0/))
+!            CALL EXTERNAL_STATE_GAUSSIAN_REFLECT(NUM_OF_EQUATION, &
+!                                            SOLUTION_INT_R(S, :, ELEM_K), &
+!                                            SOLUTION_EXT(S, :), &
+!                                            (/1.0D0, 0.0D0/))
                                          
             CALL RIEMANN_X(SOLUTION_INT_R(S, :, ELEM_K), &
                             SOLUTION_EXT(S, :), &
@@ -225,15 +226,15 @@ SUBROUTINE NUMERICAL_FLUX_Y(ELEM_K, T)
                                 X, X_HILBERT(2, ELEM_K), DELTA_X(ELEM_K))
             
             ! EXACT SOLUTION
-!            CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-!                                        SOLUTION_EXT(S, :), &
-!                                         T, X, Y_HILBERT(2, ELEM_K))
+            CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
+                                        SOLUTION_EXT(S, :), &
+                                         T, X, Y_HILBERT(2, ELEM_K))
             
             ! REFLECT BOUNDARY SOLUTION
-            CALL EXTERNAL_STATE_GAUSSIAN_REFLECT(NUM_OF_EQUATION, &
-                                            SOLUTION_INT_R(S, :, ELEM_K), &
-                                            SOLUTION_EXT(S, :), &
-                                            (/0.0D0, 1.0D0/))
+!            CALL EXTERNAL_STATE_GAUSSIAN_REFLECT(NUM_OF_EQUATION, &
+!                                            SOLUTION_INT_R(S, :, ELEM_K), &
+!                                            SOLUTION_EXT(S, :), &
+!                                            (/0.0D0, 1.0D0/))
                                          
         
             CALL RIEMANN_Y(SOLUTION_INT_R(S, :, ELEM_K), &
