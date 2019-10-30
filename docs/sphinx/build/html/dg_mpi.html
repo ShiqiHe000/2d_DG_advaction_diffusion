@@ -46,7 +46,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Reference" href="dg_reference.html" />
-    <link rel="prev" title="Numerical Flux schemes" href="dg_numerical_fluxes.html" /> 
+    <link rel="prev" title="Dynamic Load-balancing" href="dg_load_balancing.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -96,8 +96,10 @@
 <li class="toctree-l1"><a class="reference internal" href="dg_spectral_approximation.html">Spectral Approximation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dg_wave_propagation_2d.html">Spectral Approximation on a square</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dg_numerical_fluxes.html">Numerical Flux schemes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_load_balancing.html">Dynamic Load-balancing</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">MPI Interface</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#one-sided-communication-in-mpi">One-sided Communication in MPI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motivation">Motivation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#basic-idea">Basic Idea</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#advantages-of-rma-operations">Advantages of RMA Operations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#irregular-communication-patterns-with-rma">Irregular Communication Patterns with RMA</a></li>
@@ -193,6 +195,13 @@
 <h1>MPI Interface<a class="headerlink" href="#mpi-interface" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="one-sided-communication-in-mpi">
 <h2>One-sided Communication in MPI<a class="headerlink" href="#one-sided-communication-in-mpi" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="motivation">
+<h3>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>The receiver does not know how much data to expect (non-conforming).</li>
+<li>Avoid send/recv delay.</li>
+</ul>
+</div>
 <div class="section" id="basic-idea">
 <h3>Basic Idea<a class="headerlink" href="#basic-idea" title="Permalink to this headline">¶</a></h3>
 <p>The basic idea of one-sided communication models is to decouple data movement with process synchronization.</p>
@@ -380,7 +389,7 @@ data paths to storage disks</li>
         <a href="dg_reference.html" class="btn btn-neutral float-right" title="Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="dg_numerical_fluxes.html" class="btn btn-neutral float-left" title="Numerical Flux schemes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="dg_load_balancing.html" class="btn btn-neutral float-left" title="Dynamic Load-balancing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

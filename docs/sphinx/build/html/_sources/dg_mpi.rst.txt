@@ -3,6 +3,11 @@ MPI Interface
 
 One-sided Communication in MPI
 ===================================
+Motivation
+----------------------------------
+- The receiver does not know how much data to expect (non-conforming).
+ 
+- Avoid send/recv delay.
 
 Basic Idea
 ----------------------------------
