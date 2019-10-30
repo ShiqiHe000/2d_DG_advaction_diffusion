@@ -19,6 +19,7 @@ USE POLY_LEVEL_AND_ORDER
 USE OUTPUT
 USE LOCAL_STORAGE
 USE IO
+USE MPI_BOUNDARY
 
 IMPLICIT NONE
 
@@ -33,12 +34,14 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     
     INTEGER :: K
     INTEGER :: N_NOW, M_NOW !< CURRENT POLY ORDER
+
+    INTEGER :: WIN  !< Window object returned by the call.
     
     DOUBLE PRECISION :: DELTA_T     !< TIME STEP 
     DOUBLE PRECISION :: TN          !< CURRENT TIME
     DOUBLE PRECISION :: DEL_X   !< ELEMENT SIZE IN X DIRECTION
     DOUBLE PRECISION :: DEL_Y   !< ELEMENT SIZE IN X DIRECTION
-
+    
     ! CONSTRUCT DG BASIS------------------------------------------------
     CALL CONSTRUCT_BASIS    ! NOW WE HAVE GL POINTS, WEIGHTS, M_FIRST DERIVATIVE MATRICES
     !-------------------------------------------------------------------
@@ -79,16 +82,26 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     ! OUTPUT INITIAL SOLUTIONS------------------------------------------
     CALL SERIAL_IO(TN)
     !-------------------------------------------------------------------
+    
+    ! FLAG ELEMENTS ON THE MPI BOUNDARY---------------------------------
+    ALLOCATE(MPI_B_FLAG(4, 0:LOCAL_ELEM_NUM-1))
+    MPI_B_FLAG = .FALSE.
+    CALL MPI_BOUNDARY_FLAG
+    !-------------------------------------------------------------------
+    
+    ! CREATE DYNAMIC WINDOWS, WE THEN CAN ATTACH/DETACH MEMORY INSIDE---
+    CALL MPI_WIN_CREATE_DYNAMIC(MPI_INFO_NULL, MPI_COMM_WORLD, WIN, IERROR)
+    !-------------------------------------------------------------------
 
     ! TIME MARCHES ON---------------------------------------------------
     DO K = 0, NT-1
-        CALL DG_STEP_BY_RK3(TN, DELTA_T)
-        TN = (K+1) * DELTA_T
+!        CALL DG_STEP_BY_RK3(TN, DELTA_T)
+!        TN = (K+1) * DELTA_T
        
         ! OUTPUT SOLUTIONS
-        IF(MOD(K, OUTPUT_FREQUENCY) == 0) THEN
-            CALL SERIAL_IO(TN)
-        ENDIF
+!        IF(MOD(K, OUTPUT_FREQUENCY) == 0) THEN
+!            CALL SERIAL_IO(TN)
+!        ENDIF
     ENDDO
     !-------------------------------------------------------------------
     

@@ -13,6 +13,7 @@ USE INTERFACES_CONSTRUCT
 USE NUMERICAL_FLUX
 USE A_TIMES_SPATIAL_DER
 USE LOCAL_STORAGE
+USE MPI_BOUNDARY
 
 IMPLICIT NONE
 
@@ -34,14 +35,14 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     ! X DIRECTION=======================================================
     
-    !FIRST GET FLUX ON THE INFERFACES, ALSO BUILD MPI BOUNDARY LAYER----
-    ! SOLUTION_INT_L/R NEED A GHOST LAYER
+    !FIRST GET FLUX ON THE INFERFACES, ---------------------------------
+    ! SOLUTION_INT_L/R NEED A GHOST LAYER(MMAX*2)
     ALLOCATE(SOLUTION_INT_L(0:MMAX*2, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
     ALLOCATE(SOLUTION_INT_R(0:MMAX*2, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
-    ALLOCATE(FLAG_MPI_B_X(0:LOCAL_ELEM_NUM-1))
     
     SOLUTION_INT_L = 0.0D0; SOLUTION_INT_R = 0.0D0
-    FLAG_MPI_B_X = .FALSE.
+    
+    CALL CREATE_WINDOW(MMAX)
     
     DO K = 0, LOCAL_ELEM_NUM-1
     
@@ -65,11 +66,11 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     NFLUX_X_L = 0.0D0; NFLUX_X_R = 0.0D0
     
     
-    DO K = 1, LOCAL_ELEM_NUM
-        ROOT_ELEM_K = K + ELEM_RANGE(RANK)
-        CALL NUMERICAL_FLUX_X(ROOT_ELEM_K, T)
+!    DO K = 1, LOCAL_ELEM_NUM
+!        ROOT_ELEM_K = K + ELEM_RANGE(RANK)
+!        CALL NUMERICAL_FLUX_X(ROOT_ELEM_K, T)
         
-    ENDDO
+!    ENDDO
     !-------------------------------------------------------------------
     
     ! SPACIAL DERIVATIVE------------------------------------------------
@@ -85,10 +86,10 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     SOLUTION_TIME_DER = 0.0D0
     
-    DO K = 0, NUM_OF_ELEMENT-1
-        CALL A_TIMES_SPATIAL_DERIRATIVE_X(K)
+!    DO K = 0, NUM_OF_ELEMENT-1
+!        CALL A_TIMES_SPATIAL_DERIRATIVE_X(K)
     
-    ENDDO
+!    ENDDO
     !-------------------------------------------------------------------
     
     !-------------------------------------------------------------------
@@ -102,11 +103,12 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     ! Y ================================================================
     !FIRST GET FLUX ON THE INFERFACES GLOBALLY--------------------------
-    ALLOCATE(SOLUTION_INT_L(0:NMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
-    ALLOCATE(SOLUTION_INT_R(0:NMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
+    ALLOCATE(SOLUTION_INT_L(0:NMAX * 2, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
+    ALLOCATE(SOLUTION_INT_R(0:NMAX * 2, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
     
     SOLUTION_INT_L = 0.0D0; SOLUTION_INT_R = 0.0D0
     
+    CALL CREATE_WINDOW(NMAX)
     
     DO K = 0, LOCAL_ELEM_NUM-1
     
@@ -131,11 +133,11 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     NFLUX_Y_D = 0.0D0; NFLUX_Y_U = 0.0D0
     
     
-    DO K = 1, LOCAL_ELEM_NUM
-        ROOT_ELEM_K = ELEM_RANGE(RANK) + K
-        CALL NUMERICAL_FLUX_Y(ROOT_ELEM_K, T)
+!    DO K = 1, LOCAL_ELEM_NUM
+!        ROOT_ELEM_K = ELEM_RANGE(RANK) + K
+!        CALL NUMERICAL_FLUX_Y(ROOT_ELEM_K, T)
         
-    ENDDO
+!    ENDDO
     !-------------------------------------------------------------------
     
     ! SPACIAL DERIVATIVE------------------------------------------------
@@ -147,10 +149,10 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     FLUX_DER_Y = 0.0D0
     
-    DO K = 0, NUM_OF_ELEMENT-1
-        CALL A_TIMES_SPATIAL_DERIRATIVE_Y(K)
+!    DO K = 0, NUM_OF_ELEMENT-1
+!        CALL A_TIMES_SPATIAL_DERIRATIVE_Y(K)
     
-    ENDDO
+!    ENDDO
     !-------------------------------------------------------------------
     
     !-------------------------------------------------------------------
