@@ -35,8 +35,6 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     INTEGER :: K
     INTEGER :: N_NOW, M_NOW !< CURRENT POLY ORDER
 
-    INTEGER :: WIN  !< Window object returned by the call.
-    
     DOUBLE PRECISION :: DELTA_T     !< TIME STEP 
     DOUBLE PRECISION :: TN          !< CURRENT TIME
     DOUBLE PRECISION :: DEL_X   !< ELEMENT SIZE IN X DIRECTION
@@ -95,8 +93,8 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
 
     ! TIME MARCHES ON---------------------------------------------------
     DO K = 0, NT-1
-!        CALL DG_STEP_BY_RK3(TN, DELTA_T)
-!        TN = (K+1) * DELTA_T
+        CALL DG_STEP_BY_RK3(TN, DELTA_T)
+        TN = (K+1) * DELTA_T
        
         ! OUTPUT SOLUTIONS
 !        IF(MOD(K, OUTPUT_FREQUENCY) == 0) THEN
@@ -105,6 +103,11 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     ENDDO
     !-------------------------------------------------------------------
     
+    
+    ! UNDECLEAR REMOTELY ACCESSIBLE MEMORY---------------------------
+    CALL MPI_BARRIER(MPI_COMM_WORLD, IERROR)
+    CALL MPI_WIN_FREE(WIN, IERROR)
+    !-------------------------------------------------------------------
 
 END SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
 

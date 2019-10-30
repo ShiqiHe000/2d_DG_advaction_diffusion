@@ -42,7 +42,7 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     SOLUTION_INT_L = 0.0D0; SOLUTION_INT_R = 0.0D0
     
-    CALL CREATE_WINDOW(MMAX)
+    CALL ATTACH_MEMORY(MMAX*2)
     
     DO K = 0, LOCAL_ELEM_NUM-1
     
@@ -74,15 +74,15 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     !-------------------------------------------------------------------
     
     ! SPACIAL DERIVATIVE------------------------------------------------
-    ALLOCATE(FLUX_X(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
+    ALLOCATE(FLUX_X(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
     
     FLUX_X = 0.0D0
     
-    ALLOCATE(FLUX_DER_X(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0: NUM_OF_ELEMENT-1))
+    ALLOCATE(FLUX_DER_X(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0: LOCAL_ELEM_NUM-1))
     
     FLUX_DER_X = 0.0D0
     
-    ALLOCATE(SOLUTION_TIME_DER(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
+    ALLOCATE(SOLUTION_TIME_DER(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
     
     SOLUTION_TIME_DER = 0.0D0
     
@@ -90,6 +90,11 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
 !        CALL A_TIMES_SPATIAL_DERIRATIVE_X(K)
     
 !    ENDDO
+    !-------------------------------------------------------------------
+    
+    ! DETACH REMOTELY ACCESSIBLE MEMORY-------------------------------
+    CALL MPI_WIN_DETACH(WIN, SOLUTION_INT_L, IERROR)
+    CALL MPI_WIN_DETACH(WIN, SOLUTION_INT_R, IERROR)
     !-------------------------------------------------------------------
     
     !-------------------------------------------------------------------
@@ -103,12 +108,10 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     ! Y ================================================================
     !FIRST GET FLUX ON THE INFERFACES GLOBALLY--------------------------
-    ALLOCATE(SOLUTION_INT_L(0:NMAX * 2, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
-    ALLOCATE(SOLUTION_INT_R(0:NMAX * 2, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
+    ALLOCATE(SOLUTION_INT_L(0:NMAX * 2, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
+    ALLOCATE(SOLUTION_INT_R(0:NMAX * 2, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
     
     SOLUTION_INT_L = 0.0D0; SOLUTION_INT_R = 0.0D0
-    
-    CALL CREATE_WINDOW(NMAX)
     
     DO K = 0, LOCAL_ELEM_NUM-1
     
@@ -127,8 +130,8 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     !-------------------------------------------------------------------
     
     ! NEXT STEP COMPUTE NUMERICAL FLUXES--------------------------------
-    ALLOCATE(NFLUX_Y_D(0:NMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
-    ALLOCATE(NFLUX_Y_U(0:NMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
+    ALLOCATE(NFLUX_Y_D(0:NMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
+    ALLOCATE(NFLUX_Y_U(0:NMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
     
     NFLUX_Y_D = 0.0D0; NFLUX_Y_U = 0.0D0
     
@@ -141,11 +144,11 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     !-------------------------------------------------------------------
     
     ! SPACIAL DERIVATIVE------------------------------------------------
-    ALLOCATE(FLUX_Y(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
+    ALLOCATE(FLUX_Y(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
     
     FLUX_Y = 0.0D0
     
-    ALLOCATE(FLUX_DER_Y(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0: NUM_OF_ELEMENT-1))
+    ALLOCATE(FLUX_DER_Y(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
     
     FLUX_DER_Y = 0.0D0
     
