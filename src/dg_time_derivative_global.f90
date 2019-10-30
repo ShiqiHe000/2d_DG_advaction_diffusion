@@ -113,6 +113,8 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     SOLUTION_INT_L = 0.0D0; SOLUTION_INT_R = 0.0D0
     
+    CALL ATTACH_MEMORY(NMAX*2)
+    
     DO K = 0, LOCAL_ELEM_NUM-1
     
         CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(K), PORDER_X)
@@ -156,6 +158,11 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
 !        CALL A_TIMES_SPATIAL_DERIRATIVE_Y(K)
     
 !    ENDDO
+    !-------------------------------------------------------------------
+    
+    ! DETACH REMOTELY ACCESSIBLE MEMORY-------------------------------
+    CALL MPI_WIN_DETACH(WIN, SOLUTION_INT_L, IERROR)
+    CALL MPI_WIN_DETACH(WIN, SOLUTION_INT_R, IERROR)
     !-------------------------------------------------------------------
     
     !-------------------------------------------------------------------

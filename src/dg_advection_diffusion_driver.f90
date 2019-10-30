@@ -108,6 +108,10 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     CALL MPI_BARRIER(MPI_COMM_WORLD, IERROR)
     CALL MPI_WIN_FREE(WIN, IERROR)
     !-------------------------------------------------------------------
+    
+    !-------------------------------------------------------------------
+    DEALLOCATE(MPI_B_FLAG)
+    !-------------------------------------------------------------------
 
 END SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
 
