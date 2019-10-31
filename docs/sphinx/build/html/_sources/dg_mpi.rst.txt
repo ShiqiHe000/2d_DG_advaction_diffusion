@@ -9,6 +9,8 @@ Motivation
  
 - Avoid send/recv delay.
 
+.. image:: /image/ghost_layer_ex.png 
+
 Basic Idea
 ----------------------------------
 The basic idea of one-sided communication models is to decouple data movement with process synchronization.
