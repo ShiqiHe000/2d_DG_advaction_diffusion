@@ -65,18 +65,18 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     !-------------------------------------------------------------------
 
     ! NEXT STEP COMPUTE NUMERICAL FLUXES--------------------------------
-    ALLOCATE(NFLUX_X_L(0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
-    ALLOCATE(NFLUX_X_R(0:MMAX, NUM_OF_EQUATION, 0:NUM_OF_ELEMENT-1))
+    ALLOCATE(NFLUX_X_L(0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
+    ALLOCATE(NFLUX_X_R(0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
     
     NFLUX_X_L = 0.0D0; NFLUX_X_R = 0.0D0
     
     CALL ATTACH_MEMORY(MMAX, NFLUX_X_L, NFLUX_X_R)   
     
-!    DO K = 1, LOCAL_ELEM_NUM
-!        ROOT_ELEM_K = K + ELEM_RANGE(RANK)
-!        CALL NUMERICAL_FLUX_X(ROOT_ELEM_K, T)
+    DO K = 1, LOCAL_ELEM_NUM
+        ROOT_ELEM_K = K + ELEM_RANGE(RANK)
+        CALL NUMERICAL_FLUX_X(ROOT_ELEM_K, T)
         
-!    ENDDO
+    ENDDO
     !-------------------------------------------------------------------
     
     ! SPACIAL DERIVATIVE------------------------------------------------
@@ -104,7 +104,7 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     CALL MPI_WIN_DETACH(WIN, NFLUX_X_L, IERROR)
     CALL MPI_WIN_DETACH(WIN, NFLUX_X_R, IERROR)
     !-------------------------------------------------------------------
-    
+
     !-------------------------------------------------------------------
     DEALLOCATE(SOLUTION_INT_L, SOLUTION_INT_R)
     DEALLOCATE(NFLUX_X_L, NFLUX_X_R)

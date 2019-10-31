@@ -22,6 +22,7 @@ USE AFFINE_MAP
 USE POLY_LEVEL_AND_ORDER
 USE EXTERNAL_STATE
 USE LOCAL_STORAGE
+USE SEARCH_RANK
 
 IMPLICIT NONE
 
@@ -34,7 +35,7 @@ SUBROUTINE NUMERICAL_FLUX_X(ELEM_K, T)
     
     IMPLICIT NONE
     
-    INTEGER, INTENT(IN) :: ELEM_K   !< ELEMENT NUMBER
+    INTEGER, INTENT(IN) :: ELEM_K   !< ELEMENT NUMBER(ROOT)
     
     INTEGER :: NX   ! POLY ORDER IN X
     INTEGER :: MY   ! POLY ORDER IN Y
@@ -67,6 +68,7 @@ SUBROUTINE NUMERICAL_FLUX_X(ELEM_K, T)
         ALLOCATE(SOLUTION_EXT(0:MY, NUM_OF_EQUATION))
         SOLUTION_EXT = 0.0D0
         
+    
         DO S = 0, MY
         
             CALL AFFINE_MAPPING(GL_POINT_Y_T(S, PLEVEL_Y(ELEM_K)), &
@@ -136,21 +138,38 @@ SUBROUTINE RIEMANN1(ELEM_K, I, J, MY)
     INTEGER, INTENT(IN) :: I, J
     INTEGER, INTENT(IN) :: MY
     
-    INTEGER :: S
+    INTEGER :: S, P, TOTAL_CELLS, ENTRY_COUNT
     INTEGER :: IDL, IDR ! ELEM NUMBER ON THE TWO SIDE OF THE INTERFACE
+    
+    INTEGER :: TARGET_RANK  ! THE NEIBOURHOUR ELEMENT'S RANK
+    INTEGER(KIND=MPI_ADDRESS_KIND) :: TARGET_DISP   ! Displacement from window start to the beginning of the target buffer
     
     IDR = ELEM_K    ! ID ON THE RIGHT SIDE OF THE INTERFACE
         
     CALL xy2d ( EXP_X, J, I-1, IDL )    ! ID ON THE LEFT SIDE OF THE INTERFACE
     
-    DO S = 0, MY
-        CALL RIEMANN_X(SOLUTION_INT_R(S, :, IDL), &
-                       SOLUTION_INT_L(S, :, IDR), &
-                       NFLUX_X_L(S, :, IDR), -1.0D0)
-                       
-        NFLUX_X_R(S, :, IDL) = - NFLUX_X_L(S, :, IDR)
+    IF (MPI_B_FLAG(1, ELEM_K)) THEN
+    
+        P = MMAX+1
+        TOTAL_CELLS = (MMAX + 1)*2 - 1
+        ENTRY_COUNT = TOTAL_CELLS - P + 1
         
-    ENDDO
+        CALL FIND_RANK(IDL, TARGET_RANK)
+        
+        CALL  MPI_GET(SOLUTION_INT_L(P:TOTAL_CELLS, :, IDR), ENTRY_COUNT, &
+                        MPI_DOUBLE_PRECISION, TARGET_RANK, &
+                TARGET_DISP, ENTRY_COUNT, MPI_DOUBLE_PRECISION, WIN, IERROR)
+                
+    ELSE 
+        DO S = 0, MY
+            CALL RIEMANN_X(SOLUTION_INT_R(S, :, IDL), &
+                           SOLUTION_INT_L(S, :, IDR), &
+                           NFLUX_X_L(S, :, IDR), -1.0D0)
+                           
+            NFLUX_X_R(S, :, IDL) = - NFLUX_X_L(S, :, IDR)
+            
+        ENDDO
+    ENDIF
     
 END SUBROUTINE RIEMANN1
 

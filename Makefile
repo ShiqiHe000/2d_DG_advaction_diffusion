@@ -22,6 +22,7 @@ SRC =  dg_param.f90 \
        dg_local_storage.f90 \
        dg_affine_map.f90 \
        dg_basis.f90 \
+       dg_search_rank.f90 \
        dg_interpolate_to_new_point.f90 \
        dg_ghost.f90 \
        dg_user_defined.f90 \

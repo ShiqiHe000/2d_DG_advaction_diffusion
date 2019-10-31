@@ -81,11 +81,11 @@ SUBROUTINE DISTRIBUTE_ELEM
     !-------------------------------------------------------------------
     
     ! SCATTER LOCAL ELEMENT NUMBER
-    CALL MPI_SCATTER(LOCAL_ELEM_NUMBER, 1, MPI_INT, LOCAL_ELEM_NUM, &
-                    & 1, MPI_INT, 0, MPI_COMM_WORLD, IERROR)
+    CALL MPI_SCATTER(LOCAL_ELEM_NUMBER, 1, MPI_INTEGER, LOCAL_ELEM_NUM, &
+                    & 1, MPI_INTEGER, 0, MPI_COMM_WORLD, IERROR)
     
     ! BROADCAST TOTAL ELEMENT NUMBER
-    CALL MPI_BCAST(ORIGINAL_ELEM_NUM, 1, MPI_INT, 0, MPI_COMM_WORLD, IERROR)
+    CALL MPI_BCAST(ORIGINAL_ELEM_NUM, 1, MPI_INTEGER, 0, MPI_COMM_WORLD, IERROR)
     
     ! ALLOCATE LOCAL STORAGE--------------------------------------------
     ALLOCATE(X_LOCAL(4, 0:LOCAL_ELEM_NUM-1))
@@ -106,7 +106,7 @@ SUBROUTINE DISTRIBUTE_ELEM
                         Y_LOCAL, LOCAL_ELEM_NUM*4, MPI_DOUBLE_PRECISION, &
                         & 0, MPI_COMM_WORLD, IERROR)
                         
-    CALL MPI_BCAST(ELEM_RANGE, NUM_PROC, MPI_INT, 0, MPI_COMM_WORLD, IERROR)
+    CALL MPI_BCAST(ELEM_RANGE, NUM_PROC, MPI_INTEGER, 0, MPI_COMM_WORLD, IERROR)
     ! ------------------------------------------------------------------
     
     DEALLOCATE(X_HILBERT, Y_HILBERT)
