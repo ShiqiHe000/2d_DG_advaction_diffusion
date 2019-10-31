@@ -1,9 +1,7 @@
 !-----------------------------------------------------------------------
 !> @brief
 !> This module construction the element-based MPI boundaries.
-!! Input an element -- if on the MPI boudary -- allocate ghost layer storage
-!! -- create MPI WINDOWS -- put solutions on the element interfaces inside
-!! the WINDOWS.
+!! Flag boundary elements -- create windows for fluxes exchange
 !-----------------------------------------------------------------------
 
 MODULE MPI_BOUNDARY
@@ -91,7 +89,10 @@ SUBROUTINE MPI_BOUNDARY_FLAG
 END SUBROUTINE MPI_BOUNDARY_FLAG
 
 
-
+!-----------------------------------------------------------------------
+!> Attach solution on the element interfaces to the remotely accessible
+!! memory.
+!-----------------------------------------------------------------------
 SUBROUTINE ATTACH_MEMORY(COLUMN)
     
     IMPLICIT NONE 
@@ -111,33 +112,6 @@ SUBROUTINE ATTACH_MEMORY(COLUMN)
 
 END SUBROUTINE ATTACH_MEMORY
 
-
-
-
-SUBROUTINE CREATE_WINDOW(N_MAX)
-    
-    IMPLICIT NONE 
-    
-    INTEGER, INTENT(IN) :: N_MAX    !< MAX POLY ORDER
-    
-    INTEGER(KIND=MPI_ADDRESS_KIND) :: WIN_SIZE  ! Size of window in bytes (nonnegative integer). 
-    INTEGER :: DOUBLE_SIZE ! DOUBLE PRECISION FLOAT NUMBER SIZE BY BYTES
-    INTEGER :: WIN
-    
-    ! Returns the number of bytes occupied by entries in a data type. 
-    CALL MPI_TYPE_SIZE(MPI_DOUBLE_PRECISION, DOUBLE_SIZE, IERROR)
-    
-    WIN_SIZE = DOUBLE_SIZE * 2 * N_MAX * NUM_OF_EQUATION * LOCAL_ELEM_NUM
-    
-    CALL MPI_WIN_CREATE(SOLUTION_INT_L, WIN_SIZE, DOUBLE_SIZE, &
-                            MPI_INFO_NULL, MPI_COMM_WORLD, &
-                            WIN, IERROR)
-    
-    CALL MPI_WIN_CREATE(SOLUTION_INT_R, WIN_SIZE, DOUBLE_SIZE, &
-                            MPI_INFO_NULL, MPI_COMM_WORLD, &
-                            WIN, IERROR)
-    
-END SUBROUTINE CREATE_WINDOW
 
 
 END MODULE MPI_BOUNDARY

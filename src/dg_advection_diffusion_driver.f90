@@ -84,6 +84,7 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     ! FLAG ELEMENTS ON THE MPI BOUNDARY---------------------------------
     ALLOCATE(MPI_B_FLAG(4, 0:LOCAL_ELEM_NUM-1))
     MPI_B_FLAG = .FALSE.
+    
     CALL MPI_BOUNDARY_FLAG
     !-------------------------------------------------------------------
     
