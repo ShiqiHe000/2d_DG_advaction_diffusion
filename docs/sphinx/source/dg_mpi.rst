@@ -28,7 +28,7 @@ Advantages of RMA Operations
 ---------------------------------------------
         - Can do multiple data transfers with a single synchronization operation
 
-        -Bypass tag matching
+        - Bypass tag matching
 
         - Some irregular communication patterns can be more economically expressed
 
