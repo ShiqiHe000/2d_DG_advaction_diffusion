@@ -155,6 +155,7 @@ HDF5_ Nice Features
     
   - Runs on almost all systems
 
+.. image:: /image/hyperslab.png
 .. _HDF5 : https://www.hdfgroup.org/solutions/hdf5/
 
 PHDF5 Overview
