@@ -212,7 +212,7 @@
 <li>Other processes can directly read from or write to this memory</li>
 </ul>
 </div></blockquote>
-<p>In one-sided MPI operations, also known as <strong>RDMA</strong> or <strong>RMA</strong> operation.</p>
+<p>In one-sided MPI operations, also known as <strong>RDMA</strong> or <strong>RMA</strong> (Remote Memory Access) operation.</p>
 </div>
 <div class="section" id="advantages-of-rma-operations">
 <h3>Advantages of RMA Operations<a class="headerlink" href="#advantages-of-rma-operations" title="Permalink to this headline">¶</a></h3>
@@ -258,12 +258,27 @@
 </div>
 <div class="section" id="basic-rma-functions-for-communication">
 <h3>Basic RMA Functions for Communication<a class="headerlink" href="#basic-rma-functions-for-communication" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li>MPI_Win_create exposes local memory to RMA operation by other processes in a communicator</li>
-<li>Creates window object MPI_Win_free deallocates window object</li>
-<li>MPI_Put moves data from local memory to remote memory</li>
-<li>MPI_Get retrieves data from remote memory into local memory</li>
-<li>MPI_Accumulate updates remote memory using local values</li>
+<ul>
+<li><p class="first">MPI_Win_create exposes local memory to RMA operation by other processes in a communicator</p>
+</li>
+<li><p class="first">Creates window object MPI_Win_free deallocates window object</p>
+</li>
+<li><p class="first">MPI_Win_Create_Dynamic creates an RMA window, to which data can later be attached.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Only data exposed in a window can be accessed with RMA ops</li>
+<li>Initially “empty”</li>
+<li>Application can dynamically attach/detach memory to this window by calling MPI_Win_attach/detach</li>
+<li>Application can access data on this window only after a memory region has been attached</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">MPI_Put moves data from local memory to remote memory</p>
+</li>
+<li><p class="first">MPI_Get retrieves data from remote memory into local memory</p>
+</li>
+<li><p class="first">MPI_Accumulate updates remote memory using local values</p>
+</li>
 </ul>
 <p>Data movement operations are <strong>non-blocking</strong>.</p>
 <p>Subsequent synchronization on window object needed to ensure operation is completed.</p>

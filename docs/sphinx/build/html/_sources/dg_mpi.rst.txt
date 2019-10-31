@@ -20,7 +20,7 @@ The basic idea of one-sided communication models is to decouple data movement wi
 
         - Other processes can directly read from or write to this memory
 
-In one-sided MPI operations, also known as **RDMA** or **RMA** operation.
+In one-sided MPI operations, also known as **RDMA** or **RMA** (Remote Memory Access) operation.
 
 Advantages of RMA Operations
 ---------------------------------------------
@@ -61,6 +61,15 @@ Basic RMA Functions for Communication
 - MPI_Win_create exposes local memory to RMA operation by other processes in a communicator
 
 - Creates window object MPI_Win_free deallocates window object
+
+- MPI_Win_Create_Dynamic creates an RMA window, to which data can later be attached.
+
+        * Only data exposed in a window can be accessed with RMA ops
+        * Initially "empty"
+
+        *  Application can dynamically attach/detach memory to this window by calling MPI_Win_attach/detach
+         
+        * Application can access data on this window only after a memory region has been attached
  
 - MPI_Put moves data from local memory to remote memory
 
