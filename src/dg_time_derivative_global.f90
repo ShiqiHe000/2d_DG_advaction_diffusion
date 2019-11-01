@@ -29,7 +29,7 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     IMPLICIT NONE
     
     INTEGER :: K
-    INTEGER :: ROOT_ELEM_K  ! ROOT ELEM INDEX
+!    INTEGER :: ROOT_ELEM_K  ! ROOT ELEM INDEX
     INTEGER :: PORDER_X, PORDER_Y   ! POLY ORDER
     INTEGER :: TOTAL_CELLS  ! MAXIMUM NODES + GHOST CELLS (START WITH 0)
     
@@ -45,7 +45,12 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     SOLUTION_INT_L = 0.0D0; SOLUTION_INT_R = 0.0D0
     
-    CALL ATTACH_MEMORY(TOTAL_CELLS, SOLUTION_INT_L, SOLUTION_INT_R)   
+!    CALL ATTACH_MEMORY(TOTAL_CELLS, SOLUTION_INT_L, SOLUTION_INT_R)   
+    CALL CREATE_WINDOW(TOTAL_CELLS, WIN_INTERFACE_L, WIN_INTERFACE_R, &
+                        SOLUTION_INT_L, SOLUTION_INT_R)
+     
+    CALL MPI_WIN_FENCE(0, WIN_INTERFACE_L, IERROR)
+    CALL MPI_WIN_FENCE(0, WIN_INTERFACE_R, IERROR)
     
     DO K = 0, LOCAL_ELEM_NUM-1
     
@@ -70,14 +75,23 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     NFLUX_X_L = 0.0D0; NFLUX_X_R = 0.0D0
     
-    CALL ATTACH_MEMORY(MMAX, NFLUX_X_L, NFLUX_X_R)   
+    CALL CREATE_WINDOW(MMAX, WIN_NFLUX_L, WIN_NFLUX_R, NFLUX_X_L, NFLUX_X_R)
     
-    DO K = 1, LOCAL_ELEM_NUM
-        ROOT_ELEM_K = K + ELEM_RANGE(RANK)
-        CALL NUMERICAL_FLUX_X(ROOT_ELEM_K, T)
+    CALL MPI_WIN_FENCE(0, WIN_NFLUX_L, IERROR)
+    CALL MPI_WIN_FENCE(0, WIN_NFLUX_R, IERROR)
+    
+    DO K = 0, LOCAL_ELEM_NUM - 1
+!        ROOT_ELEM_K = K + ELEM_RANGE(RANK)
+        CALL NUMERICAL_FLUX_X(K, T)
         
     ENDDO
+    
+    CALL MPI_WIN_FENCE(0, WIN_NFLUX_L, IERROR)
+    CALL MPI_WIN_FENCE(0, WIN_NFLUX_R, IERROR)
     !-------------------------------------------------------------------
+    
+    CALL MPI_WIN_FENCE(0, WIN_INTERFACE_L, IERROR)
+    CALL MPI_WIN_FENCE(0, WIN_INTERFACE_R, IERROR)
     
     ! SPACIAL DERIVATIVE------------------------------------------------
     ALLOCATE(FLUX_X(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
@@ -98,11 +112,11 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
 !    ENDDO
     !-------------------------------------------------------------------
     
-    ! DETACH REMOTELY ACCESSIBLE MEMORY-------------------------------
-    CALL MPI_WIN_DETACH(WIN, SOLUTION_INT_L, IERROR)
-    CALL MPI_WIN_DETACH(WIN, SOLUTION_INT_R, IERROR)
-    CALL MPI_WIN_DETACH(WIN, NFLUX_X_L, IERROR)
-    CALL MPI_WIN_DETACH(WIN, NFLUX_X_R, IERROR)
+    ! FREE REMOTELY ACCESSIBLE MEMORY-------------------------------
+    CALL MPI_WIN_FREE(WIN_INTERFACE_L, IERROR)
+    CALL MPI_WIN_FREE(WIN_INTERFACE_R, IERROR)
+    CALL MPI_WIN_FREE(WIN_NFLUX_L, IERROR)
+    CALL MPI_WIN_FREE(WIN_NFLUX_R, IERROR)
     !-------------------------------------------------------------------
 
     !-------------------------------------------------------------------
@@ -122,7 +136,13 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     SOLUTION_INT_L = 0.0D0; SOLUTION_INT_R = 0.0D0
     
-    CALL ATTACH_MEMORY(TOTAL_CELLS, SOLUTION_INT_L, SOLUTION_INT_R)   
+!    CALL ATTACH_MEMORY(TOTAL_CELLS, SOLUTION_INT_L, SOLUTION_INT_R)   
+    CALL CREATE_WINDOW(TOTAL_CELLS, WIN_INTERFACE_L, WIN_INTERFACE_R, &
+                        SOLUTION_INT_L, SOLUTION_INT_R)
+     
+    CALL MPI_WIN_FENCE(0, WIN_INTERFACE_L, IERROR)
+    CALL MPI_WIN_FENCE(0, WIN_INTERFACE_R, IERROR)
+    
     
     DO K = 0, LOCAL_ELEM_NUM-1
     
@@ -136,7 +156,7 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
                                     SOLUTION_INT_L(0:PORDER_X, :, K), &
                                     SOLUTION_INT_R(0:PORDER_X, :, K) )
         
-        CALL GHOST_CONSTUCT_Y(K, PORDER_X)
+!        CALL GHOST_CONSTUCT_Y(K, PORDER_X)
     ENDDO
     !-------------------------------------------------------------------
     
@@ -146,12 +166,19 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     NFLUX_Y_D = 0.0D0; NFLUX_Y_U = 0.0D0
     
+    CALL CREATE_WINDOW(NMAX, WIN_NFLUX_L, WIN_NFLUX_R, NFLUX_Y_D, NFLUX_Y_U)
+    
+    CALL MPI_WIN_FENCE(0, WIN_NFLUX_L, IERROR)
+    CALL MPI_WIN_FENCE(0, WIN_NFLUX_R, IERROR)
+    
     
 !    DO K = 1, LOCAL_ELEM_NUM
 !        ROOT_ELEM_K = ELEM_RANGE(RANK) + K
 !        CALL NUMERICAL_FLUX_Y(ROOT_ELEM_K, T)
         
 !    ENDDO
+    CALL MPI_WIN_FENCE(0, WIN_NFLUX_L, IERROR)
+    CALL MPI_WIN_FENCE(0, WIN_NFLUX_R, IERROR)
     !-------------------------------------------------------------------
     
     ! SPACIAL DERIVATIVE------------------------------------------------
@@ -169,9 +196,14 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
 !    ENDDO
     !-------------------------------------------------------------------
     
-    ! DETACH REMOTELY ACCESSIBLE MEMORY-------------------------------
-    CALL MPI_WIN_DETACH(WIN, SOLUTION_INT_L, IERROR)
-    CALL MPI_WIN_DETACH(WIN, SOLUTION_INT_R, IERROR)
+    CALL MPI_WIN_FENCE(0, WIN_INTERFACE_L, IERROR)
+    CALL MPI_WIN_FENCE(0, WIN_INTERFACE_R, IERROR)
+    
+    ! FREE REMOTELY ACCESSIBLE MEMORY-------------------------------
+    CALL MPI_WIN_FREE(WIN_INTERFACE_L, IERROR)
+    CALL MPI_WIN_FREE(WIN_INTERFACE_R, IERROR)
+    CALL MPI_WIN_FREE(WIN_NFLUX_L, IERROR)
+    CALL MPI_WIN_FREE(WIN_NFLUX_R, IERROR)
     !-------------------------------------------------------------------
     
     !-------------------------------------------------------------------

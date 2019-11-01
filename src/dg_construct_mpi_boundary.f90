@@ -39,15 +39,18 @@ SUBROUTINE MPI_BOUNDARY_FLAG
     INTEGER :: W_NEIGHBOUR  ! WEST NEIGHTBOUR NUMBER
     INTEGER :: E_NEIGHBOUR  ! EAST NEIGHTBOUR NUMBER
     INTEGER :: L_BOUND, R_BOUND ! LOCAL ELEMENT STORAGE BOUNDS
+    INTEGER :: ROOT_NUM ! ROOT ELEMENT NUMBER
     
     DO K = 0, LOCAL_ELEM_NUM-1
     
+        ROOT_NUM = K + ELEM_RANGE(RANK) + 1
+    
         ! GET DUAL COORD
-        CALL d2xy ( EXP_X, K, J, I )
+        CALL d2xy ( EXP_X, ROOT_NUM, J, I )
         
         ! LOCAL ELEMENT STORAGE BOUNDARIES
-        L_BOUND = K
-        R_BOUND = K + LOCAL_ELEM_NUM -1
+        L_BOUND = ELEM_RANGE(RANK) + 1
+        R_BOUND = ELEM_RANGE(RANK + 1) 
         
         ! X-------------------------------------------------------------
         
@@ -90,52 +93,37 @@ END SUBROUTINE MPI_BOUNDARY_FLAG
 
 
 !-----------------------------------------------------------------------
-!> Attach target buffers to the remotely accessible
-!! memory.
+!> Create windows to have remotely accessible
+!! memories.
 !-----------------------------------------------------------------------
-SUBROUTINE ATTACH_MEMORY(COLUMN, Q1, Q2)
-    
+SUBROUTINE CREATE_WINDOW(COLUMN, WIN1, WIN2, Q1, Q2)
+
     IMPLICIT NONE 
     
-    INTEGER, INTENT(IN) :: COLUMN    !< SOLUTION_INT_L/R FIRST COLUMN SIZE (FIRST INDEX IS 0)
+    INTEGER, INTENT(IN) :: COLUMN   !< INPUT VARIABLE FIRST COLUMN SIZE, START FROM 0
     
+    INTEGER, INTENT(OUT) :: WIN1, WIN2  !< Window object returned by the call (handle)
     INTEGER(KIND=MPI_ADDRESS_KIND) :: WIN_SIZE
     INTEGER :: DOUBLE_SIZE ! DOUBLE PRECISION FLOAT NUMBER SIZE BY BYTES
+    INTEGER :: DISP_UNIT    ! Local unit size for displacements, in bytes (positive integer)
     INTEGER :: IERROR
     
-    DOUBLE PRECISION :: Q1(0:COLUMN, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1)    !< ATTACH TARGET1
-    DOUBLE PRECISION :: Q2(0:COLUMN, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1)    !< ATTACH TARGET2
+    DOUBLE PRECISION :: Q1(0:COLUMN, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1)    !< Initial address of window1
+    DOUBLE PRECISION :: Q2(0:COLUMN, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1)    !< Initial address of window2
     
     ! Returns the number of bytes occupied by entries in a data type. 
     CALL MPI_TYPE_SIZE(MPI_DOUBLE_PRECISION, DOUBLE_SIZE, IERROR)
     
-    WIN_SIZE = DOUBLE_SIZE * (COLUMN + 1) * NUM_OF_EQUATION * LOCAL_ELEM_NUM
-    
-    CALL MPI_WIN_ATTACH(WIN, Q1, WIN_SIZE, IERROR)
-    CALL MPI_WIN_ATTACH(WIN, Q2, WIN_SIZE, IERROR)
-
-END SUBROUTINE ATTACH_MEMORY
-
-
-SUBROUTINE ATTACH_MEMORY_FLUX(COLUMN)
-    
-    IMPLICIT NONE 
-    
-    INTEGER, INTENT(IN) :: COLUMN    !< SOLUTION_INT_L/R FIRST COLUMN SIZE (FIRST INDEX IS 0)
-    
-    INTEGER(KIND=MPI_ADDRESS_KIND) :: WIN_SIZE
-    INTEGER :: DOUBLE_SIZE ! DOUBLE PRECISION FLOAT NUMBER SIZE BY BYTES
-    INTEGER :: IERROR
-    
-    ! Returns the number of bytes occupied by entries in a data type. 
-    CALL MPI_TYPE_SIZE(MPI_DOUBLE_PRECISION, DOUBLE_SIZE, IERROR)
+    DISP_UNIT = DOUBLE_SIZE
     
     WIN_SIZE = DOUBLE_SIZE * (COLUMN + 1) * NUM_OF_EQUATION * LOCAL_ELEM_NUM
     
-    CALL MPI_WIN_ATTACH(WIN, NFLUX_X_L, WIN_SIZE, IERROR)
-    CALL MPI_WIN_ATTACH(WIN, NFLUX_X_R, WIN_SIZE, IERROR)
+    CALL MPI_WIN_CREATE(Q1, WIN_SIZE, DISP_UNIT, MPI_INFO_NULL, &
+                        MPI_COMM_WORLD, WIN1, IERROR)
+    CALL MPI_WIN_CREATE(Q2, WIN_SIZE, DISP_UNIT, MPI_INFO_NULL, &
+                        MPI_COMM_WORLD, WIN2, IERROR)
 
-END SUBROUTINE ATTACH_MEMORY_FLUX
+END SUBROUTINE CREATE_WINDOW
 
 
 END MODULE MPI_BOUNDARY

@@ -87,10 +87,6 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     
     CALL MPI_BOUNDARY_FLAG
     !-------------------------------------------------------------------
-    
-    ! CREATE DYNAMIC WINDOWS, WE THEN CAN ATTACH/DETACH MEMORY INSIDE---
-    CALL MPI_WIN_CREATE_DYNAMIC(MPI_INFO_NULL, MPI_COMM_WORLD, WIN, IERROR)
-    !-------------------------------------------------------------------
 
     ! TIME MARCHES ON---------------------------------------------------
     DO K = 0, NT-1
@@ -106,8 +102,8 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     
     
     ! UNDECLEAR REMOTELY ACCESSIBLE MEMORY---------------------------
-    CALL MPI_BARRIER(MPI_COMM_WORLD, IERROR)
-    CALL MPI_WIN_FREE(WIN, IERROR)
+!    CALL MPI_BARRIER(MPI_COMM_WORLD, IERROR)
+!    CALL MPI_WIN_FREE(WIN, IERROR)
     !-------------------------------------------------------------------
     
     !-------------------------------------------------------------------
