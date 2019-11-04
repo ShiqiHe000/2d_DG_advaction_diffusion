@@ -56,7 +56,7 @@ Advantages
 - Low memory using
         * Taking the good locality of SFCs, the global imformation (full graph information) needed by Graph-based algorithm can be abandoned. Thus, SFCs opens a path towards low-memory partitioning strategies. 
 
-Implementation to DG Solver
+Implementing SFC
 ========================================
 The numerical approximation of wave equation is a hp-adaptive approach. 
 That is, elements can split or merge (h-adaptive) according to therequired resolution. Also, they can raise or decrease the polynomial degree (p-adaptive) to adjust the convergence rate. 
@@ -71,12 +71,66 @@ There are many SFCs, for example `Morton Curve`_ (z-curve) and `Hilbert Curve`_.
 
 We choose Hilbert Curve as our SFC. Although Hilbert ordering is less efficient (with flip and rotation) than Morton Curve, Hilbert Curve brings out a better locality (no sudden "jump"). 
 
-.. image:: /image/motorn_curve.png
-.. image:: /image/Hilbert_curve.png
+|pic1|  |pic2|
+
+.. |pic1| image:: /image/motorn_curve.png
+        :width: 45%
+
+.. |pic2| image:: /image/Hilbert_curve.png
+        :width: 45%
+
+(Left Morton and right Hilbert)
+
 
 .. _`Morton Curve` : https://en.wikipedia.org/wiki/Z-order_curve
 
 .. _`Hilbert Curve` : https://en.wikipedia.org/wiki/Hilbert_curve
+
+
+Static Grid Neighbour-finding algorithm
+------------------------------------------------
+In Computation Fluid Dynamics, most of the cases, elements needs to exchange information (e.g. fluxes, velocity, pressure) with their neighbour. Thus, an effective way to locate your neighbours would cut down the computation time. When the neighbour is not stored locally, communication between processors is inevitable.
+
+.. image:: /image/hilber_numbering.svg
+
+For instance, we are on element 31. 
+The domain is partitioned into4 parts and each part is assigned to one processor. 
+The integer coordingate of element 31 is (3, 4). 
+
+Therefore, its neighbours coordinates can be computed easily. 
+Say we want to find its North and East neighbour, their coordinates are (3, 5) and (4, 4), respectively. 
+
+**North neighbour**: We can use our *Hilbert-numbering function* to map between coordinate and element index. Then (3, 5) corresponding to element 28. We successfully locate the Neighbour.
+
+**East neighbour**: By using the same methond, we are able to compute the east neighbour index: 32. However, this element is not stored locally. 
+Locate the processor who stores the target element is done by **broadcasting** the element range stored in each processor after the partitioning. And **one-sided communication** is invoked to warrent effective MPI message-changing.
+
+
+Dynamic grid Neighbour-finding algorithm
+----------------------------------------------------
+When h-adaptivity is introuduced to the code, element splits or merge according to the error indicator. Once an element split, it generates four indentical "children" quarants. The **Octree partitioning** is motivated by octree-based mesh generation. 
+
+.. image:: /image/quardtree_mesh.jpg
+
+Neighbour-finding is achieved by using a global index (k, l, j, s) to identify element. 
+
+- k: Root element number.
+- l: h-refinement level (split number).
+- j: child relative position inside a parent octant. 
+- s: element state, can be used to determined Hilbert Curve orientation. 
+
+.. image:: /image/hilbert_adaptive_mesh.png
+
+
+Partitioning stratigy
+========================================
+.. image:: /image/Hilbert_uniform_grid_partition.png
+        :width: 60%
+
+We consider a 2D mesh being represented by a one dimensional array using Hilbert Curve.
+The array has the length N which corresponding to the number of mesh cells. 
+Weights are give as :math:`\omega_i`, where :math:`i` corresponding to teh global index for each element. The weights represents the computation effort of each element. In fact, the load on each element due to fluid computation is :math:`O(N^4)`:cite:`3`.
+
 
 
 References

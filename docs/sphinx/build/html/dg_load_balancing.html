@@ -98,10 +98,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#implementation-to-dg-solver">Implementation to DG Solver</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#implementing-sfc">Implementing SFC</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#hilbert-curve">Hilbert Curve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#static-grid-neighbour-finding-algorithm">Static Grid Neighbour-finding algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dynamic-grid-neighbour-finding-algorithm">Dynamic grid Neighbour-finding algorithm</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#partitioning-stratigy">Partitioning stratigy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
@@ -227,7 +230,7 @@ The remaining tast, the so-called 1D patitioning problem or <em>chains-on-chains
 <li><dl class="simple">
 <dt>Acceptable communication overhead</dt><dd><ul>
 <li><p>SFCs ignores the edges of full graph imformation.
-It relies on the spatial properties of the curve to ensure a reasonable partition shape. Tirthapura et al. demonstrated that the upper limit of expected remote accesses in SFC partiiotned domains are acceptable <a class="bibtex reference internal" href="#id3" id="id1">[TSA06]</a>.</p></li>
+It relies on the spatial properties of the curve to ensure a reasonable partition shape. Tirthapura et al. demonstrated that the upper limit of expected remote accesses in SFC partiiotned domains are acceptable <a class="bibtex reference internal" href="#id4" id="id1">[TSA06]</a>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -243,8 +246,8 @@ It relies on the spatial properties of the curve to ensure a reasonable partitio
 </div>
 </div>
 </div>
-<div class="section" id="implementation-to-dg-solver">
-<h2>Implementation to DG Solver<a class="headerlink" href="#implementation-to-dg-solver" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="implementing-sfc">
+<h2>Implementing SFC<a class="headerlink" href="#implementing-sfc" title="Permalink to this headline">¶</a></h2>
 <p>The numerical approximation of wave equation is a hp-adaptive approach.
 That is, elements can split or merge (h-adaptive) according to therequired resolution. Also, they can raise or decrease the polynomial degree (p-adaptive) to adjust the convergence rate.</p>
 <p>Due to the hp-adaptivity, different element can have differernt individual computation times, load imbalance is introuduce to this application. Re-meshing and domain partitioning are not avoidable.</p>
@@ -253,15 +256,50 @@ That is, elements can split or merge (h-adaptive) according to therequired resol
 <h3>Hilbert Curve<a class="headerlink" href="#hilbert-curve" title="Permalink to this headline">¶</a></h3>
 <p>There are many SFCs, for example <a class="reference external" href="https://en.wikipedia.org/wiki/Z-order_curve">Morton Curve</a> (z-curve) and <a class="reference external" href="https://en.wikipedia.org/wiki/Hilbert_curve">Hilbert Curve</a>.</p>
 <p>We choose Hilbert Curve as our SFC. Although Hilbert ordering is less efficient (with flip and rotation) than Morton Curve, Hilbert Curve brings out a better locality (no sudden “jump”).</p>
-<img alt="_images/motorn_curve.png" src="_images/motorn_curve.png" />
-<img alt="_images/Hilbert_curve.png" src="_images/Hilbert_curve.png" />
+<p><a class="reference internal" href="_images/motorn_curve.png"><img alt="pic1" src="_images/motorn_curve.png" style="width: 45%;" /></a>  <a class="reference internal" href="_images/Hilbert_curve.png"><img alt="pic2" src="_images/Hilbert_curve.png" style="width: 45%;" /></a></p>
+<p>(Left Morton and right Hilbert)</p>
 </div>
+<div class="section" id="static-grid-neighbour-finding-algorithm">
+<h3>Static Grid Neighbour-finding algorithm<a class="headerlink" href="#static-grid-neighbour-finding-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>In Computation Fluid Dynamics, most of the cases, elements needs to exchange information (e.g. fluxes, velocity, pressure) with their neighbour. Thus, an effective way to locate your neighbours would cut down the computation time. When the neighbour is not stored locally, communication between processors is inevitable.</p>
+<img alt="_images/hilber_numbering.svg" src="_images/hilber_numbering.svg" /><p>For instance, we are on element 31.
+The domain is partitioned into4 parts and each part is assigned to one processor.
+The integer coordingate of element 31 is (3, 4).</p>
+<p>Therefore, its neighbours coordinates can be computed easily.
+Say we want to find its North and East neighbour, their coordinates are (3, 5) and (4, 4), respectively.</p>
+<p><strong>North neighbour</strong>: We can use our <em>Hilbert-numbering function</em> to map between coordinate and element index. Then (3, 5) corresponding to element 28. We successfully locate the Neighbour.</p>
+<p><strong>East neighbour</strong>: By using the same methond, we are able to compute the east neighbour index: 32. However, this element is not stored locally.
+Locate the processor who stores the target element is done by <strong>broadcasting</strong> the element range stored in each processor after the partitioning. And <strong>one-sided communication</strong> is invoked to warrent effective MPI message-changing.</p>
+</div>
+<div class="section" id="dynamic-grid-neighbour-finding-algorithm">
+<h3>Dynamic grid Neighbour-finding algorithm<a class="headerlink" href="#dynamic-grid-neighbour-finding-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>When h-adaptivity is introuduced to the code, element splits or merge according to the error indicator. Once an element split, it generates four indentical “children” quarants. The <strong>Octree partitioning</strong> is motivated by octree-based mesh generation.</p>
+<img alt="_images/quardtree_mesh.jpg" src="_images/quardtree_mesh.jpg" />
+<p>Neighbour-finding is achieved by using a global index (k, l, j, s) to identify element.</p>
+<ul class="simple">
+<li><p>k: Root element number.</p></li>
+<li><p>l: h-refinement level (split number).</p></li>
+<li><p>j: child relative position inside a parent octant.</p></li>
+<li><p>s: element state, can be used to determined Hilbert Curve orientation.</p></li>
+</ul>
+<img alt="_images/hilbert_adaptive_mesh.png" src="_images/hilbert_adaptive_mesh.png" />
+</div>
+</div>
+<div class="section" id="partitioning-stratigy">
+<h2>Partitioning stratigy<a class="headerlink" href="#partitioning-stratigy" title="Permalink to this headline">¶</a></h2>
+<a class="reference internal image-reference" href="_images/Hilbert_uniform_grid_partition.png"><img alt="_images/Hilbert_uniform_grid_partition.png" src="_images/Hilbert_uniform_grid_partition.png" style="width: 60%;" /></a>
+<p>We consider a 2D mesh being represented by a one dimensional array using Hilbert Curve.
+The array has the length N which corresponding to the number of mesh cells.
+Weights are give as <span class="math notranslate nohighlight">\(\omega_i\)</span>, where <span class="math notranslate nohighlight">\(i\)</span> corresponding to teh global index for each element. The weights represents the computation effort of each element. In fact, the load on each element due to fluid computation is <span class="math notranslate nohighlight">\(O(N^4)\)</span><a class="bibtex reference internal" href="#id5" id="id3">[ZBMZ+18]</a>.</p>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <p id="bibtex-bibliography-dg_load_balancing-0"><dl class="citation">
-<dt class="bibtex label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">TSA06</a></span></dt>
+<dt class="bibtex label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">TSA06</a></span></dt>
 <dd><p>Srikanta Tirthapura, Sudip Seal, and Srinivas Aluru. A formal analysis of space filling curves for parallel domain decomposition. <em>2006 International Conference on Parallel Processing (ICPP’06)</em>, pages 505–512, 2006.</p>
+</dd>
+<dt class="bibtex label" id="id5"><span class="brackets"><a class="fn-backref" href="#id3">ZBMZ+18</a></span></dt>
+<dd><p>Keke Zhai, Tania Banerjee-Mishra, David Zwick, Jason Hackl, and Sanjay Ranka. Dynamic load balancing for compressible multiphase turbulence. <em>ArXiv</em>, 2018.</p>
 </dd>
 </dl>
 </p>
