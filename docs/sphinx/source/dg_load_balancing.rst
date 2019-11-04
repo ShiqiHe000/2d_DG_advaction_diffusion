@@ -124,12 +124,66 @@ Neighbour-finding is achieved by using a global index (k, l, j, s) to identify e
 
 Partitioning stratigy
 ========================================
+We consider a 2D mesh being represented by a one dimensional array using Hilbert Curve.
+
+Implementation
+------------------------------
+We followed the `CCP` strategy described in :cite:`4`.
+The array has the length :math:`N` which corresponding to the number of mesh cells. 
+Weights are give as :math:`\omega_i`, where :math:`i` corresponding to teh global index for each element. The weights represents the computation effort of each element. In fact, the load on each element due to fluid computation is :math:`O(N^4)`:cite:`3`.
+
 .. image:: /image/Hilbert_uniform_grid_partition.png
         :width: 60%
 
-We consider a 2D mesh being represented by a one dimensional array using Hilbert Curve.
-The array has the length N which corresponding to the number of mesh cells. 
-Weights are give as :math:`\omega_i`, where :math:`i` corresponding to teh global index for each element. The weights represents the computation effort of each element. In fact, the load on each element due to fluid computation is :math:`O(N^4)`:cite:`3`.
+
+The task of the partition step is to decide which element to move to which processor. Here, we use :math:`p` to denote the total number of processors, and every processor can be identified by a unique number called :math:`rank`. (:math:`0 \leqslant rank \leqslant p`)
+
+We use an exclusive prefix sum to determine the partition.
+
+.. math::
+        prefix(I) = \sum_{i = 0}^{N - 1}\omega_i
+        :label: equ5.1
+
+For :math:`0 < I \leqslant N` and :math:`prefix(0) = 0`. 
+Local prefix sus are calculated, and the global offsets are adjusted afterwards using `MPI_EXSCAN()` collective with `MPI_SUM` as reduction operation. 
+Then each prossessor has the global prefix sum for each of its local elements. 
+
+
+The ideal work load per partition is given by
+        
+.. math::
+        \omega_{opt} = \frac{\omega_{globalsum}}{p}
+        :label: equ5.2
+
+Where :math:`\omega_{globalsum}` is the global sum of all weights.
+Since the overall sum already computed through the prefix sum, we can use the last processor as a root to broadcast (`MPI_BCAST`) the :math:`\omega_{opt}`. 
+Then the splitting positions between balanced partitions can be computed locally.
+There is no need further information changing to decide which element to move to which processor. 
+The complete message changing for the partitioning only relies on two collective operation in `MPI`. 
+Both collectives can be implemented efficiently using asymptotic running time ad memory complexity of :math:`O(logp)`.
+
+Assuming homogeneous processors, ideal splitters are multiples of :math:`\omega_{opt}`, i.e., :math:`r \cdot \omega_{opt}` for all integer :math:`r` with :math:`1 \leqslant r < p`. The closest splitting positions between the actual elements to the ideal splitters can be found by comparing with the global prefix sum of each element. 
+
+
+The efficiency :math:`E` of the distribution work is bounded by the slowest process, and thus cannot better than:
+
+.. math::
+        E = \frac{\omega_{opt}}{max_{r=0}^{p-1}(\omega_{sum}(r))}
+
+Exchange of Element
+--------------------------------
+After the splitting positions are decided, elements needs to be relocated. 
+The relocation, or exchange of elements is done via communication between processors. 
+The challenge part is, though, the sender knows which element to send to which processor, the receiver does not know what they will receive. 
+
+Some application use a regular all-to-all collective operation to imform all processors about the their communication partners before doing teh actual exchange of the elements with an irregular all-to-all collective operation (e.g. `MPI_Alltoallv`).
+
+Alternatively, elements can be propagated only between neighbour processors in an iterative fasion. This method can be benigh when the re-partitioning modifies an existing distribution of element only slightly. Unfortunately, worse cases can lead to :math:`O(p)` forwarded messages. 
+
+In our implementation, **One-sided Communication in MPI** is invoked. 
+In one-sided MPI operations, also known as **RDMA** or **RMA** (Remote Memory Access) operation.
+In RMA, the irregular communication patten can be handle easily without an extra step to determine how many sends-receives to issue. 
+This makes dynamic communication easier to code in RMA, with the help of `MPI_Put` and `MPI_Get`. 
 
 
 

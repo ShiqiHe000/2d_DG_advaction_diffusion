@@ -104,7 +104,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#dynamic-grid-neighbour-finding-algorithm">Dynamic grid Neighbour-finding algorithm</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#partitioning-stratigy">Partitioning stratigy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#partitioning-stratigy">Partitioning stratigy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#implementation">Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exchange-of-element">Exchange of Element</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
@@ -230,7 +234,7 @@ The remaining tast, the so-called 1D patitioning problem or <em>chains-on-chains
 <li><dl class="simple">
 <dt>Acceptable communication overhead</dt><dd><ul>
 <li><p>SFCs ignores the edges of full graph imformation.
-It relies on the spatial properties of the curve to ensure a reasonable partition shape. Tirthapura et al. demonstrated that the upper limit of expected remote accesses in SFC partiiotned domains are acceptable <a class="bibtex reference internal" href="#id4" id="id1">[TSA06]</a>.</p></li>
+It relies on the spatial properties of the curve to ensure a reasonable partition shape. Tirthapura et al. demonstrated that the upper limit of expected remote accesses in SFC partiiotned domains are acceptable <a class="bibtex reference internal" href="#id6" id="id1">[TSA06]</a>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -287,18 +291,57 @@ Locate the processor who stores the target element is done by <strong>broadcasti
 </div>
 <div class="section" id="partitioning-stratigy">
 <h2>Partitioning stratigy<a class="headerlink" href="#partitioning-stratigy" title="Permalink to this headline">¶</a></h2>
+<p>We consider a 2D mesh being represented by a one dimensional array using Hilbert Curve.</p>
+<div class="section" id="implementation">
+<h3>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h3>
+<p>We followed the <cite>CCP</cite> strategy described in <a class="bibtex reference internal" href="#id5" id="id3">[HKR+12]</a>.
+The array has the length <span class="math notranslate nohighlight">\(N\)</span> which corresponding to the number of mesh cells.
+Weights are give as <span class="math notranslate nohighlight">\(\omega_i\)</span>, where <span class="math notranslate nohighlight">\(i\)</span> corresponding to teh global index for each element. The weights represents the computation effort of each element. In fact, the load on each element due to fluid computation is <span class="math notranslate nohighlight">\(O(N^4)\)</span><a class="bibtex reference internal" href="#id7" id="id4">[ZBMZ+18]</a>.</p>
 <a class="reference internal image-reference" href="_images/Hilbert_uniform_grid_partition.png"><img alt="_images/Hilbert_uniform_grid_partition.png" src="_images/Hilbert_uniform_grid_partition.png" style="width: 60%;" /></a>
-<p>We consider a 2D mesh being represented by a one dimensional array using Hilbert Curve.
-The array has the length N which corresponding to the number of mesh cells.
-Weights are give as <span class="math notranslate nohighlight">\(\omega_i\)</span>, where <span class="math notranslate nohighlight">\(i\)</span> corresponding to teh global index for each element. The weights represents the computation effort of each element. In fact, the load on each element due to fluid computation is <span class="math notranslate nohighlight">\(O(N^4)\)</span><a class="bibtex reference internal" href="#id5" id="id3">[ZBMZ+18]</a>.</p>
+<p>The task of the partition step is to decide which element to move to which processor. Here, we use <span class="math notranslate nohighlight">\(p\)</span> to denote the total number of processors, and every processor can be identified by a unique number called <span class="math notranslate nohighlight">\(rank\)</span>. (<span class="math notranslate nohighlight">\(0 \leqslant rank \leqslant p\)</span>)</p>
+<p>We use an exclusive prefix sum to determine the partition.</p>
+<div class="math notranslate nohighlight" id="equation-equ5-1">
+<span class="eqno">(1)<a class="headerlink" href="#equation-equ5-1" title="Permalink to this equation">¶</a></span>\[prefix(I) = \sum_{i = 0}^{N - 1}\omega_i\]</div>
+<p>For <span class="math notranslate nohighlight">\(0 &lt; I \leqslant N\)</span> and <span class="math notranslate nohighlight">\(prefix(0) = 0\)</span>.
+Local prefix sus are calculated, and the global offsets are adjusted afterwards using <cite>MPI_EXSCAN()</cite> collective with <cite>MPI_SUM</cite> as reduction operation.
+Then each prossessor has the global prefix sum for each of its local elements.</p>
+<p>The ideal work load per partition is given by</p>
+<div class="math notranslate nohighlight" id="equation-equ5-2">
+<span class="eqno">(2)<a class="headerlink" href="#equation-equ5-2" title="Permalink to this equation">¶</a></span>\[\omega_{opt} = \frac{\omega_{globalsum}}{p}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(\omega_{globalsum}\)</span> is the global sum of all weights.
+Since the overall sum already computed through the prefix sum, we can use the last processor as a root to broadcast (<cite>MPI_BCAST</cite>) the <span class="math notranslate nohighlight">\(\omega_{opt}\)</span>.
+Then the splitting positions between balanced partitions can be computed locally.
+There is no need further information changing to decide which element to move to which processor.
+The complete message changing for the partitioning only relies on two collective operation in <cite>MPI</cite>.
+Both collectives can be implemented efficiently using asymptotic running time ad memory complexity of <span class="math notranslate nohighlight">\(O(logp)\)</span>.</p>
+<p>Assuming homogeneous processors, ideal splitters are multiples of <span class="math notranslate nohighlight">\(\omega_{opt}\)</span>, i.e., <span class="math notranslate nohighlight">\(r \cdot \omega_{opt}\)</span> for all integer <span class="math notranslate nohighlight">\(r\)</span> with <span class="math notranslate nohighlight">\(1 \leqslant r &lt; p\)</span>. The closest splitting positions between the actual elements to the ideal splitters can be found by comparing with the global prefix sum of each element.</p>
+<p>The efficiency <span class="math notranslate nohighlight">\(E\)</span> of the distribution work is bounded by the slowest process, and thus cannot better than:</p>
+<div class="math notranslate nohighlight">
+\[E = \frac{\omega_{opt}}{max_{r=0}^{p-1}(\omega_{sum}(r))}\]</div>
+</div>
+<div class="section" id="exchange-of-element">
+<h3>Exchange of Element<a class="headerlink" href="#exchange-of-element" title="Permalink to this headline">¶</a></h3>
+<p>After the splitting positions are decided, elements needs to be relocated.
+The relocation, or exchange of elements is done via communication between processors.
+The challenge part is, though, the sender knows which element to send to which processor, the receiver does not know what they will receive.</p>
+<p>Some application use a regular all-to-all collective operation to imform all processors about the their communication partners before doing teh actual exchange of the elements with an irregular all-to-all collective operation (e.g. <cite>MPI_Alltoallv</cite>).</p>
+<p>Alternatively, elements can be propagated only between neighbour processors in an iterative fasion. This method can be benigh when the re-partitioning modifies an existing distribution of element only slightly. Unfortunately, worse cases can lead to <span class="math notranslate nohighlight">\(O(p)\)</span> forwarded messages.</p>
+<p>In our implementation, <strong>One-sided Communication in MPI</strong> is invoked.
+In one-sided MPI operations, also known as <strong>RDMA</strong> or <strong>RMA</strong> (Remote Memory Access) operation.
+In RMA, the irregular communication patten can be handle easily without an extra step to determine how many sends-receives to issue.
+This makes dynamic communication easier to code in RMA, with the help of <cite>MPI_Put</cite> and <cite>MPI_Get</cite>.</p>
+</div>
 </div>
 <div class="section" id="references">
 <h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
 <p id="bibtex-bibliography-dg_load_balancing-0"><dl class="citation">
-<dt class="bibtex label" id="id4"><span class="brackets"><a class="fn-backref" href="#id1">TSA06</a></span></dt>
+<dt class="bibtex label" id="id5"><span class="brackets"><a class="fn-backref" href="#id3">HKR+12</a></span></dt>
+<dd><p>Daniel F. Harlacher, Harald Klimach, Sabine Roller, Christian Siebert, and Felix Wolf. Dynamic load balancing for unstructured meshes on space-filling curves. <em>2012 IEEE 26th International Parallel and Distributed Processing Symposium Workshops &amp; PhD Forum</em>, pages 1661–1669, 2012.</p>
+</dd>
+<dt class="bibtex label" id="id6"><span class="brackets"><a class="fn-backref" href="#id1">TSA06</a></span></dt>
 <dd><p>Srikanta Tirthapura, Sudip Seal, and Srinivas Aluru. A formal analysis of space filling curves for parallel domain decomposition. <em>2006 International Conference on Parallel Processing (ICPP’06)</em>, pages 505–512, 2006.</p>
 </dd>
-<dt class="bibtex label" id="id5"><span class="brackets"><a class="fn-backref" href="#id3">ZBMZ+18</a></span></dt>
+<dt class="bibtex label" id="id7"><span class="brackets"><a class="fn-backref" href="#id4">ZBMZ+18</a></span></dt>
 <dd><p>Keke Zhai, Tania Banerjee-Mishra, David Zwick, Jason Hackl, and Sanjay Ranka. Dynamic load balancing for compressible multiphase turbulence. <em>ArXiv</em>, 2018.</p>
 </dd>
 </dl>
