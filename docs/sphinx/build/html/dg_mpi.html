@@ -20,21 +20,12 @@
   <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'1.0',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script type="text/javascript" src="_static/jquery.js"></script>
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -198,8 +189,8 @@
 <div class="section" id="motivation">
 <h3>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>The receiver does not know how much data to expect (non-conforming).</li>
-<li>Avoid send/recv delay.</li>
+<li><p>The receiver does not know how much data to expect (non-conforming).</p></li>
+<li><p>Avoid send/recv delay.</p></li>
 </ul>
 <img alt="_images/ghost_layer_ex.png" src="_images/ghost_layer_ex.png" />
 </div>
@@ -208,9 +199,9 @@
 <p>The basic idea of one-sided communication models is to decouple data movement with process synchronization.</p>
 <blockquote>
 <div><ul class="simple">
-<li>Should be able to move data without requiring that the remote process synchronize</li>
-<li>Each process exposes a part of its memory to other processes</li>
-<li>Other processes can directly read from or write to this memory</li>
+<li><p>Should be able to move data without requiring that the remote process synchronize</p></li>
+<li><p>Each process exposes a part of its memory to other processes</p></li>
+<li><p>Other processes can directly read from or write to this memory</p></li>
 </ul>
 </div></blockquote>
 <p>In one-sided MPI operations, also known as <strong>RDMA</strong> or <strong>RMA</strong> (Remote Memory Access) operation.</p>
@@ -220,10 +211,10 @@
 <blockquote>
 <div><blockquote>
 <div><ul class="simple">
-<li>Can do multiple data transfers with a single synchronization operation</li>
-<li>Bypass tag matching</li>
-<li>Some irregular communication patterns can be more economically expressed</li>
-<li>Can be significantly faster than send/receive on systems with hardware support for remote memory access, such as shared memory systems.</li>
+<li><p>Can do multiple data transfers with a single synchronization operation</p></li>
+<li><p>Bypass tag matching</p></li>
+<li><p>Some irregular communication patterns can be more economically expressed</p></li>
+<li><p>Can be significantly faster than send/receive on systems with hardware support for remote memory access, such as shared memory systems.</p></li>
 </ul>
 </div></blockquote>
 <img alt="_images/Two-sided-and-One-sided-Communication.png" src="_images/Two-sided-and-One-sided-Communication.png" />
@@ -232,52 +223,45 @@
 <div class="section" id="irregular-communication-patterns-with-rma">
 <h3>Irregular Communication Patterns with RMA<a class="headerlink" href="#irregular-communication-patterns-with-rma" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li>If communication pattern is not known <em>a priori</em>, but the data locations are known, the send-receive model requires an extra step to determine how many sends-receives to issue</li>
-<li>RMA, however, can handle it easily because only the origin or target process needs to issue the put or get call</li>
-<li>This makes dynamic communication easier to code in RMA</li>
+<li><p>If communication pattern is not known <em>a priori</em>, but the data locations are known, the send-receive model requires an extra step to determine how many sends-receives to issue</p></li>
+<li><p>RMA, however, can handle it easily because only the origin or target process needs to issue the put or get call</p></li>
+<li><p>This makes dynamic communication easier to code in RMA</p></li>
 </ul>
 </div>
 <div class="section" id="creating-public-memory">
 <h3>Creating Public Memory<a class="headerlink" href="#creating-public-memory" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first">Any memory created by a process is, by default, only locally accessible</p>
-</li>
-<li><p class="first">Once the memory is created, the user has to make an explicit MPI call to declare a memory region as remotely accessible</p>
+<li><p>Any memory created by a process is, by default, only locally accessible</p></li>
+<li><p>Once the memory is created, the user has to make an explicit MPI call to declare a memory region as remotely accessible</p>
 <blockquote>
 <div><ul class="simple">
-<li>MPI terminology for remotely accessible memory is a“window”</li>
-<li>A group of processes collectively create a “window object”</li>
+<li><p>MPI terminology for remotely accessible memory is a“window”</p></li>
+<li><p>A group of processes collectively create a “window object”</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">Once a memory region is declared as remotely accessible, all processes in the window object can read/write data to this memory without explicitly synchronizing with the target process</p>
-</li>
+<li><p>Once a memory region is declared as remotely accessible, all processes in the window object can read/write data to this memory without explicitly synchronizing with the target process</p></li>
 </ul>
 <img alt="_images/one-sided-getput.jpeg" src="_images/one-sided-getput.jpeg" />
 </div>
 <div class="section" id="basic-rma-functions-for-communication">
 <h3>Basic RMA Functions for Communication<a class="headerlink" href="#basic-rma-functions-for-communication" title="Permalink to this headline">¶</a></h3>
 <ul>
-<li><p class="first">MPI_Win_create exposes local memory to RMA operation by other processes in a communicator</p>
-</li>
-<li><p class="first">Creates window object MPI_Win_free deallocates window object</p>
-</li>
-<li><p class="first">MPI_Win_Create_Dynamic creates an RMA window, to which data can later be attached.</p>
+<li><p>MPI_Win_create exposes local memory to RMA operation by other processes in a communicator</p></li>
+<li><p>Creates window object MPI_Win_free deallocates window object</p></li>
+<li><p>MPI_Win_Create_Dynamic creates an RMA window, to which data can later be attached.</p>
 <blockquote>
 <div><ul class="simple">
-<li>Only data exposed in a window can be accessed with RMA ops</li>
-<li>Initially “empty”</li>
-<li>Application can dynamically attach/detach memory to this window by calling MPI_Win_attach/detach</li>
-<li>Application can access data on this window only after a memory region has been attached</li>
+<li><p>Only data exposed in a window can be accessed with RMA ops</p></li>
+<li><p>Initially “empty”</p></li>
+<li><p>Application can dynamically attach/detach memory to this window by calling MPI_Win_attach/detach</p></li>
+<li><p>Application can access data on this window only after a memory region has been attached</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">MPI_Put moves data from local memory to remote memory</p>
-</li>
-<li><p class="first">MPI_Get retrieves data from remote memory into local memory</p>
-</li>
-<li><p class="first">MPI_Accumulate updates remote memory using local values</p>
-</li>
+<li><p>MPI_Put moves data from local memory to remote memory</p></li>
+<li><p>MPI_Get retrieves data from remote memory into local memory</p></li>
+<li><p>MPI_Accumulate updates remote memory using local values</p></li>
 </ul>
 <p>Data movement operations are <strong>non-blocking</strong>.</p>
 <p>Subsequent synchronization on window object needed to ensure operation is completed.</p>
@@ -290,40 +274,35 @@
 <p>High Performance Computing (HPC) applications often</p>
 <blockquote>
 <div><ul>
-<li><p class="first">Read initial conditions or datasets for processing</p>
-</li>
-<li><p class="first">Write numerical data from simulations</p>
+<li><p>Read initial conditions or datasets for processing</p></li>
+<li><p>Write numerical data from simulations</p>
 <blockquote>
 <div><ul class="simple">
-<li>Saving application-level checkpoints</li>
+<li><p>Saving application-level checkpoints</p></li>
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">In case of large distributed HPC applications, the total execution time can be broken down into <strong>the computation time</strong>, <strong>communication time</strong>, and the <strong>I/O time</strong></p>
-</li>
-<li><p class="first">Optimizing the time spent in computation, communication and I/O can lead to overall improvement in the application performance</p>
-</li>
-<li><p class="first">However, doing efficient I/O without stressing out the HPC system is challenging and often an <strong>afterthought</strong></p>
-</li>
+<li><p>In case of large distributed HPC applications, the total execution time can be broken down into <strong>the computation time</strong>, <strong>communication time</strong>, and the <strong>I/O time</strong></p></li>
+<li><p>Optimizing the time spent in computation, communication and I/O can lead to overall improvement in the application performance</p></li>
+<li><p>However, doing efficient I/O without stressing out the HPC system is challenging and often an <strong>afterthought</strong></p></li>
 </ul>
 </div></blockquote>
 </div>
 <div class="section" id="addressing-the-i-o-bottlenecks">
 <h3>Addressing the I/O Bottlenecks<a class="headerlink" href="#addressing-the-i-o-bottlenecks" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><dl class="first docutils">
-<dt>Software support for parallel I/O is available in the form of</dt>
-<dd><ul class="first last">
-<li>Parallel distributed file systems that provide parallel
-data paths to storage disks</li>
-<li>MPI I/O</li>
-<li>Libraries like PHDF5, pNetCDF</li>
-<li>High-level libraries like T3PIO</li>
+<li><dl class="simple">
+<dt>Software support for parallel I/O is available in the form of</dt><dd><ul>
+<li><p>Parallel distributed file systems that provide parallel
+data paths to storage disks</p></li>
+<li><p>MPI I/O</p></li>
+<li><p>Libraries like PHDF5, pNetCDF</p></li>
+<li><p>High-level libraries like T3PIO</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li>Understand the I/O strategies for maintaining good citizenship on a supercomputing resource</li>
+<li><p>Understand the I/O strategies for maintaining good citizenship on a supercomputing resource</p></li>
 </ul>
 </div>
 <div class="section" id="real-world-scenario">
@@ -344,17 +323,16 @@ data paths to storage disks</li>
 <div class="section" id="mpi-i-o">
 <h3>MPI I/O<a class="headerlink" href="#mpi-i-o" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><dl class="first docutils">
-<dt>Defined in the MPI standard since 2.0</dt>
-<dd><ul class="first last">
-<li>Uses MPI datatypes to describe files</li>
-<li>Uses send/receive like operations to read/write data</li>
-<li>Common interface for all platform/languages</li>
+<li><dl class="simple">
+<dt>Defined in the MPI standard since 2.0</dt><dd><ul>
+<li><p>Uses MPI datatypes to describe files</p></li>
+<li><p>Uses send/receive like operations to read/write data</p></li>
+<li><p>Common interface for all platform/languages</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li>Provides high-performance (parallel) I/O operations</li>
+<li><p>Provides high-performance (parallel) I/O operations</p></li>
 </ul>
 </div>
 <div class="section" id="hdf5-hierarchical-data-format">
@@ -363,12 +341,12 @@ data paths to storage disks</li>
 <h4><a class="reference external" href="https://www.hdfgroup.org/solutions/hdf5/">HDF5</a> Nice Features<a class="headerlink" href="#hdf5-nice-features" title="Permalink to this headline">¶</a></h4>
 <blockquote>
 <div><ul class="simple">
-<li>Interface support for C, C++, Fortran, Java, and Python</li>
-<li>Supported by data analysis packages (Matlab, IDL, Mathematica, Octave, Visit, Paraview, Tekplot, etc. )</li>
-<li>Machine independent data storage format</li>
-<li>Supports user defined datatypes and metadata</li>
-<li>Read or write to a portion of a dataset (Hyperslab)</li>
-<li>Runs on almost all systems</li>
+<li><p>Interface support for C, C++, Fortran, Java, and Python</p></li>
+<li><p>Supported by data analysis packages (Matlab, IDL, Mathematica, Octave, Visit, Paraview, Tekplot, etc. )</p></li>
+<li><p>Machine independent data storage format</p></li>
+<li><p>Supports user defined datatypes and metadata</p></li>
+<li><p>Read or write to a portion of a dataset (Hyperslab)</p></li>
+<li><p>Runs on almost all systems</p></li>
 </ul>
 </div></blockquote>
 <img alt="_images/hyperslab.png" src="_images/hyperslab.png" />
@@ -376,17 +354,16 @@ data paths to storage disks</li>
 <div class="section" id="phdf5-overview">
 <h4>PHDF5 Overview<a class="headerlink" href="#phdf5-overview" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li><dl class="first docutils">
-<dt>PHDF5 is the Parallel HDF5 library.</dt>
-<dd><ul class="first last">
-<li>You can write one file in parallel efficiently!</li>
-<li>Parallel performance of HDF5 very close to MPI I/O.</li>
+<li><dl class="simple">
+<dt>PHDF5 is the Parallel HDF5 library.</dt><dd><ul>
+<li><p>You can write one file in parallel efficiently!</p></li>
+<li><p>Parallel performance of HDF5 very close to MPI I/O.</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li>Uses MPI I/O (Don’t reinvent the wheel)</li>
-<li>MPI I/O techniques apply to HDF5.</li>
+<li><p>Uses MPI I/O (Don’t reinvent the wheel)</p></li>
+<li><p>MPI I/O techniques apply to HDF5.</p></li>
 </ul>
 </div>
 </div>

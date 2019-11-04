@@ -21,7 +21,8 @@ Therefore, an efficient load-balancing approach aims to achieve two goals:
 - At the same time the interfacing boundaries between partitions should be as small as possible.
         * minimize the time spend in communication
 
-The optimization problem is NP-hard.
+The optimization problem is **NP-hard**.
+
 
 Two popular approaches
 ================================================
@@ -36,6 +37,7 @@ The memory consumption grows linearly with teh graph size, raising the need for 
 
 .. _`space-filling curves` : https://en.wikipedia.org/wiki/Space-filling_curve
 
+
 Space-filling curves (SFCs) based algorithm
 ----------------------------------------------
 SFCs reduce the partitioning problem from n dimension to one dimension. 
@@ -45,8 +47,38 @@ The remaining tast, the so-called 1D patitioning problem or *chains-on-chains* p
 Advantages
 ^^^^^^^^^^^^^^^^^^^
 - Good Locality
-  * SFCs map the 1D unit interval onto a higher dimensional space such that neighboring points on the unit interval are also neighboring points in the target space. 
+        * SFCs map the 1D unit interval onto a higher dimensional space such that neighboring points on the unit interval are also neighboring points in the target space. 
+
+- Acceptable communication overhead
+        * SFCs ignores the edges of full graph imformation. 
+          It relies on the spatial properties of the curve to ensure a reasonable partition shape. Tirthapura et al. demonstrated that the upper limit of expected remote accesses in SFC partiiotned domains are acceptable :cite:`1`.  
+
+- Low memory using
+        * Taking the good locality of SFCs, the global imformation (full graph information) needed by Graph-based algorithm can be abandoned. Thus, SFCs opens a path towards low-memory partitioning strategies. 
+
+Implementation to DG Solver
+========================================
+The numerical approximation of wave equation is a hp-adaptive approach. 
+That is, elements can split or merge (h-adaptive) according to therequired resolution. Also, they can raise or decrease the polynomial degree (p-adaptive) to adjust the convergence rate. 
+
+Due to the hp-adaptivity, different element can have differernt individual computation times, load imbalance is introuduce to this application. Re-meshing and domain partitioning are not avoidable. 
+
+With the help of a SFC, the 2D structured mesh partitioning problem can be reduced to a 1D chains-on-chains partitioning (CCP) problem. Knowing the index od an element, its neighbours indices can be computed locally. 
+
+Hilbert Curve
+------------------------------
+There are many SFCs, for example `Morton Curve`_ (z-curve) and `Hilbert Curve`_.
+
+We choose Hilbert Curve as our SFC. Although Hilbert ordering is less efficient (with flip and rotation) than Morton Curve, Hilbert Curve brings out a better locality (no sudden "jump"). 
+
+.. image:: /image/motorn_curve.png
+.. image:: /image/Hilbert_curve.png
+
+.. _`Morton Curve` : https://en.wikipedia.org/wiki/Z-order_curve
+
+.. _`Hilbert Curve` : https://en.wikipedia.org/wiki/Hilbert_curve
 
 
-
-
+References
+===================================
+.. bibliography:: dg_refs.bib

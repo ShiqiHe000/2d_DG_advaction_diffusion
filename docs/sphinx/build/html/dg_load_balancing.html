@@ -20,21 +20,12 @@
   <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
   
     
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'1.0',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script type="text/javascript" src="_static/jquery.js"></script>
         <script type="text/javascript" src="_static/underscore.js"></script>
         <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -107,6 +98,11 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#implementation-to-dg-solver">Implementation to DG Solver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hilbert-curve">Hilbert Curve</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="dg_mpi.html">MPI Interface</a></li>
@@ -189,24 +185,22 @@ Load imbalance is an considerable impedance on the path towards higher degree of
 Typical mesh-based approaches therefore rely on suitable partitioning strategies to distribute the computational load across the set of processes.</p>
 <p>Therefore, an efficient load-balancing approach aims to achieve two goals:</p>
 <ul class="simple">
-<li><dl class="first docutils">
-<dt>The work load should be distribute evenly</dt>
-<dd><ul class="first last">
-<li>avoid waiting times of processing units</li>
+<li><dl class="simple">
+<dt>The work load should be distribute evenly</dt><dd><ul>
+<li><p>avoid waiting times of processing units</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>At the same time the interfacing boundaries between partitions should be as small as possible.</dt>
-<dd><ul class="first last">
-<li>minimize the time spend in communication</li>
+<li><dl class="simple">
+<dt>At the same time the interfacing boundaries between partitions should be as small as possible.</dt><dd><ul>
+<li><p>minimize the time spend in communication</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 </ul>
-<p>The optimization problem is NP-hard.</p>
+<p>The optimization problem is <strong>NP-hard</strong>.</p>
 </div>
 <div class="section" id="two-popular-approaches">
 <h2>Two popular approaches<a class="headerlink" href="#two-popular-approaches" title="Permalink to this headline">¶</a></h2>
@@ -223,11 +217,54 @@ The remaining tast, the so-called 1D patitioning problem or <em>chains-on-chains
 <div class="section" id="advantages">
 <h4>Advantages<a class="headerlink" href="#advantages" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
-<li>Good Locality
-* SFCs map the 1D unit interval onto a higher dimensional space such that neighboring points on the unit interval are also neighboring points in the target space.</li>
+<li><dl class="simple">
+<dt>Good Locality</dt><dd><ul>
+<li><p>SFCs map the 1D unit interval onto a higher dimensional space such that neighboring points on the unit interval are also neighboring points in the target space.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Acceptable communication overhead</dt><dd><ul>
+<li><p>SFCs ignores the edges of full graph imformation.
+It relies on the spatial properties of the curve to ensure a reasonable partition shape. Tirthapura et al. demonstrated that the upper limit of expected remote accesses in SFC partiiotned domains are acceptable <a class="bibtex reference internal" href="#id3" id="id1">[TSA06]</a>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Low memory using</dt><dd><ul>
+<li><p>Taking the good locality of SFCs, the global imformation (full graph information) needed by Graph-based algorithm can be abandoned. Thus, SFCs opens a path towards low-memory partitioning strategies.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 </ul>
 </div>
 </div>
+</div>
+<div class="section" id="implementation-to-dg-solver">
+<h2>Implementation to DG Solver<a class="headerlink" href="#implementation-to-dg-solver" title="Permalink to this headline">¶</a></h2>
+<p>The numerical approximation of wave equation is a hp-adaptive approach.
+That is, elements can split or merge (h-adaptive) according to therequired resolution. Also, they can raise or decrease the polynomial degree (p-adaptive) to adjust the convergence rate.</p>
+<p>Due to the hp-adaptivity, different element can have differernt individual computation times, load imbalance is introuduce to this application. Re-meshing and domain partitioning are not avoidable.</p>
+<p>With the help of a SFC, the 2D structured mesh partitioning problem can be reduced to a 1D chains-on-chains partitioning (CCP) problem. Knowing the index od an element, its neighbours indices can be computed locally.</p>
+<div class="section" id="hilbert-curve">
+<h3>Hilbert Curve<a class="headerlink" href="#hilbert-curve" title="Permalink to this headline">¶</a></h3>
+<p>There are many SFCs, for example <a class="reference external" href="https://en.wikipedia.org/wiki/Z-order_curve">Morton Curve</a> (z-curve) and <a class="reference external" href="https://en.wikipedia.org/wiki/Hilbert_curve">Hilbert Curve</a>.</p>
+<p>We choose Hilbert Curve as our SFC. Although Hilbert ordering is less efficient (with flip and rotation) than Morton Curve, Hilbert Curve brings out a better locality (no sudden “jump”).</p>
+<img alt="_images/motorn_curve.png" src="_images/motorn_curve.png" />
+<img alt="_images/Hilbert_curve.png" src="_images/Hilbert_curve.png" />
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p id="bibtex-bibliography-dg_load_balancing-0"><dl class="citation">
+<dt class="bibtex label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">TSA06</a></span></dt>
+<dd><p>Srikanta Tirthapura, Sudip Seal, and Srinivas Aluru. A formal analysis of space filling curves for parallel domain decomposition. <em>2006 International Conference on Parallel Processing (ICPP’06)</em>, pages 505–512, 2006.</p>
+</dd>
+</dl>
+</p>
 </div>
 </div>
 
