@@ -64,13 +64,13 @@ SUBROUTINE GHOST_CONSTUCT_Y(ELEM_K, PORDER_X)
     S = NMAX+1
     
     ! FACE 3
-    IF(MPI_B_FLAG(3, ELEM_K)) THEN
-        DO L = 1, NUM_OF_EQUATION
-            DO I = 0, PORDER_X
-                SOLUTION_INT_L(S + I, L, ELEM_K) = SOLUTION_INT_L(I, L, ELEM_K)
-            ENDDO
-        ENDDO
-    ENDIF
+!    IF(MPI_B_FLAG(3, ELEM_K)) THEN
+!        DO L = 1, NUM_OF_EQUATION
+!            DO I = 0, PORDER_X
+!                SOLUTION_INT_L(S + I, L, ELEM_K) = SOLUTION_INT_L(I, L, ELEM_K)
+!            ENDDO
+!        ENDDO
+!    ENDIF
     
     ! FACE 4
     IF(MPI_B_FLAG(4, ELEM_K)) THEN

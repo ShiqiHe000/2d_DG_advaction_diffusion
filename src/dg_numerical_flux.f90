@@ -165,11 +165,11 @@ SUBROUTINE RIEMANN1(ELEM_K, I, J, MY)
         P = MMAX+1
         TOTAL_CELLS = (MMAX + 1)*2 - 1
         ENTRY_COUNT = (TOTAL_CELLS - P + 1) * NUM_OF_EQUATION
-        TARGET_DISP = P - 1
+        TARGET_DISP = P 
         
         CALL FIND_RANK(IDL, TARGET_RANK)
         
-        print *, IDL, TARGET_RANK
+!        print *, IDL, TARGET_RANK
         
         CALL MPI_GET(SOLUTION_INT_L(P:TOTAL_CELLS, :, IDR), ENTRY_COUNT, &
                         MPI_DOUBLE_PRECISION, TARGET_RANK, &
@@ -212,7 +212,7 @@ SUBROUTINE NUMERICAL_FLUX_Y(LELEM_K, T)
     IMPLICIT NONE
     
     INTEGER, INTENT(IN) :: LELEM_K   !< ELEMENT NUMBER (LOCAL)
-    INTEGER, INTENT(IN) :: RELEM_K   !< ELEMENT NUMBER (ROCAL)
+    INTEGER :: RELEM_K   !< ELEMENT NUMBER (ROCAL)
     
     INTEGER :: NX   ! POLY ORDER IN X
     INTEGER :: MY   ! POLY ORDER IN Y
@@ -233,7 +233,7 @@ SUBROUTINE NUMERICAL_FLUX_Y(LELEM_K, T)
     RELEM_K = LELEM_K + ELEM_RANGE(RANK) + 1
     
     ! GET DUAL COORDINATE
-    CALL d2xy ( EXP_X, R    RELEM_K, J, I )
+    CALL d2xy ( EXP_X, RELEM_K, J, I )
     
     !-------------------------------------------------------------------
     IF (J > 0 .AND. J< NUM_OF_ELEMENT_Y-1) THEN
@@ -253,7 +253,7 @@ SUBROUTINE NUMERICAL_FLUX_Y(LELEM_K, T)
             DEL_X = X_LOCAL(3, LELEM_K) - X_LOCAL(1, LELEM_K)
         
             CALL AFFINE_MAPPING(GL_POINT_X_T(S, PLEVEL_X(LELEM_K)), &
-                                X, X_LOCAL(1, LELEM_K), DEL_Y)
+                                X, X_LOCAL(1, LELEM_K), DEL_X)
         
             CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
                                         SOLUTION_EXT(S, :), &
@@ -322,21 +322,23 @@ SUBROUTINE RIEMANN2(ELEM_K, I, J, MX)
     INTEGER, INTENT(IN) :: I, J     !< ELEMENT COORDINATE
     INTEGER, INTENT(IN) :: MX       !< ELEMENT LEFT X INTERFACE POLYNOMIAL ORDER
     
-    INTEGER :: S
+    INTEGER :: S, P, TOTAL_CELLS, ENTRY_COUNT
     INTEGER :: IDL, IDR ! ELEM NUMBER ON THE TWO SIDE OF THE INTERFACE
+    
+    INTEGER :: TARGET_RANK  ! THE NEIBOURHOUR ELEMENT'S RANK
+    INTEGER(KIND=MPI_ADDRESS_KIND) :: TARGET_DISP   ! Displacement from window start to the beginning of the target buffer
+    INTEGER :: ORIGIN_COUNT ! Number of entries in origin buffer
     
     IDR = ELEM_K    ! ID ON THE RIGHT SIDE OF THE INTERFACE
         
     CALL xy2d ( EXP_X, J-1, I, IDL )    ! ID ON THE LEFT SIDE OF THE INTERFACE
-
-
 
     IF (MPI_B_FLAG(3, ELEM_K)) THEN
     
         P = NMAX+1
         TOTAL_CELLS = (NMAX + 1)*2 - 1
         ENTRY_COUNT = (TOTAL_CELLS - P + 1) * NUM_OF_EQUATION
-        TARGET_DISP = P - 1
+        TARGET_DISP = P 
         
         CALL FIND_RANK(IDL, TARGET_RANK)
         
