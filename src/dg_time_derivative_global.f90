@@ -154,7 +154,7 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
                                     SOLUTION_INT_L(0:PORDER_X, :, K), &
                                     SOLUTION_INT_R(0:PORDER_X, :, K) )
         
-!        CALL GHOST_CONSTUCT_Y(K, PORDER_X)
+        CALL GHOST_CONSTUCT_Y(K, PORDER_X)
     ENDDO
     !-------------------------------------------------------------------
     

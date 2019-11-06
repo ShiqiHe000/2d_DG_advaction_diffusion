@@ -20,6 +20,7 @@ DEBUG = -g -fcheck=all -fimplicit-none -fbacktrace -pedantic -Wall
 SRC =  dg_param.f90 \
        dg_mpi.f90 \
        dg_local_storage.f90 \
+       dg_index_local_global.f90 \
        dg_affine_map.f90 \
        dg_basis.f90 \
        dg_search_rank.f90 \

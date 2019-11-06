@@ -63,6 +63,7 @@ SUBROUTINE NUMERICAL_FLUX_X(LELEM_K, T)
     
     !-------------------------------------------------------------------
     IF (I > 0 .AND. I< NUM_OF_ELEMENT_X-1) THEN
+!        print *, "I", I, RELEM_K
     
         ! NOT ON THE BOUNDARY
         CALL RIEMANN1(RELEM_K, I, J, MY)
@@ -141,26 +142,27 @@ END SUBROUTINE NUMERICAL_FLUX_X
 !! pass the value of the numerical flux to the corresponding neignbor
 !! right boundary with a minus sign. Use this subroutine in x direction.
 !-----------------------------------------------------------------------
-SUBROUTINE RIEMANN1(ELEM_K, I, J, MY)
+SUBROUTINE RIEMANN1(LELEM_K, RELEM_K, I, J, MY)
     IMPLICIT NONE 
     
-    INTEGER, INTENT(IN) :: ELEM_K   !< ROOT ELEMENT NUMBER
+    INTEGER, INTENT(IN) :: LELEM_K   !< LOCAL ELEMENT NUMBER
+    INTEGER, INTENT(IN) :: RELEM_K   !< ROOT ELEMENT NUMBER
     INTEGER, INTENT(IN) :: I, J     !< ELEMENT COORDINATE
     INTEGER, INTENT(IN) :: MY       !< ELEMENT LEFT Y INTERFACE POLYNOMIAL ORDER
     
     INTEGER :: S, P, TOTAL_CELLS, ENTRY_COUNT
-    INTEGER :: IDL, IDR ! ELEM NUMBER ON THE TWO SIDE OF THE INTERFACE
+    INTEGER :: IDL, IDR ! ELEM NUMBER ON THE TWO SIDE OF THE INTERFACE (ROOT)
     
     INTEGER :: TARGET_RANK  ! THE NEIBOURHOUR ELEMENT'S RANK
     INTEGER(KIND=MPI_ADDRESS_KIND) :: TARGET_DISP   ! Displacement from window start to the beginning of the target buffer
     INTEGER :: ORIGIN_COUNT ! Number of entries in origin buffer
     
-    IDR = ELEM_K    ! ID ON THE RIGHT SIDE OF THE INTERFACE
+    IDR = LELEM_K    ! ID ON THE RIGHT SIDE OF THE INTERFACE
         
     CALL xy2d ( EXP_X, J, I-1, IDL )    ! ID ON THE LEFT SIDE OF THE INTERFACE
     
     ! NEED REMOTE INFORMATION
-    IF (MPI_B_FLAG(1, ELEM_K)) THEN
+    IF (MPI_B_FLAG(1, LELEM_K)) THEN
     
         P = MMAX+1
         TOTAL_CELLS = (MMAX + 1)*2 - 1
