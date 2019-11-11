@@ -73,7 +73,7 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     CALL MPI_WIN_FENCE(0, WIN_NFLUX_R, IERROR)
     
     DO K = 0, LOCAL_ELEM_NUM - 1
-!        CALL NUMERICAL_FLUX_X(K, T)
+        CALL NUMERICAL_FLUX_X(K, T)
         
     ENDDO
     
@@ -162,11 +162,12 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     CALL MPI_WIN_FENCE(0, WIN_NFLUX_R, IERROR)
     
     
-!    DO K = 1, LOCAL_ELEM_NUM
-!        ROOT_ELEM_K = ELEM_RANGE(RANK) + K
-!        CALL NUMERICAL_FLUX_Y(ROOT_ELEM_K, T)
+    DO K = 1, LOCAL_ELEM_NUM
+    
+        CALL NUMERICAL_FLUX_Y(K, T)
         
-!    ENDDO
+    ENDDO
+    
     CALL MPI_WIN_FENCE(0, WIN_NFLUX_L, IERROR)
     CALL MPI_WIN_FENCE(0, WIN_NFLUX_R, IERROR)
     !-------------------------------------------------------------------

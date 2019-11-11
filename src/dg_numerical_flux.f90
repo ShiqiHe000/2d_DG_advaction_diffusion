@@ -64,10 +64,9 @@ SUBROUTINE NUMERICAL_FLUX_X(LELEM_K, T)
     
     !-------------------------------------------------------------------
     IF (I > 0 .AND. I< NUM_OF_ELEMENT_X-1) THEN
-!        print *, "I", I, RELEM_K
     
         ! NOT ON THE BOUNDARY
-        CALL RIEMANN1(RELEM_K, I, J, MY)
+        CALL RIEMANN1(LELEM_K, I, J, MY)
         
     ELSEIF(I == 0) THEN !-----------------------------------------------
     
@@ -101,7 +100,7 @@ SUBROUTINE NUMERICAL_FLUX_X(LELEM_K, T)
         ! ON THE TOP BOUNDARY
         
         ! LEFT INTERFACE
-        CALL RIEMANN1(RELEM_K, I, J, MY)
+        CALL RIEMANN1(LELEM_K, I, J, MY)
         
         ALLOCATE(SOLUTION_EXT(0:MY, NUM_OF_EQUATION))
         SOLUTION_EXT = 0.0D0
@@ -177,8 +176,7 @@ SUBROUTINE RIEMANN1(LELEM_K, I, J, MY)
         
         CALL INDEX_GLOBAL_TO_LOCAL(TARGET_RANK, IDL_G, IDL)
         
-!        TARGET_DISP = IDL * (1 + MMAX) * NUM_OF_EQUATION
-        TARGET_DISP = 0
+        TARGET_DISP = (1 + NMAX) * NUM_OF_EQUATION * IDL
         
         CALL MPI_GET(REMOTE_SOLUTION_INT_R, ENTRY_COUNT, &
                         MPI_DOUBLE_PRECISION, TARGET_RANK, &
@@ -194,8 +192,6 @@ SUBROUTINE RIEMANN1(LELEM_K, I, J, MY)
         
         ORIGIN_COUNT = (MY + 1) * NUM_OF_EQUATION
         
-!        TARGET_DISP = 0
-               
         CALL MPI_PUT( - NFLUX_X_L(0:MY, :, IDR), ORIGIN_COUNT, &
                     MPI_DOUBLE_PRECISION, TARGET_RANK, &
                     TARGET_DISP, ORIGIN_COUNT, &
@@ -225,7 +221,7 @@ SUBROUTINE NUMERICAL_FLUX_Y(LELEM_K, T)
     IMPLICIT NONE
     
     INTEGER, INTENT(IN) :: LELEM_K   !< ELEMENT NUMBER (LOCAL)
-    INTEGER :: RELEM_K   !< ELEMENT NUMBER (ROCAL)
+    INTEGER :: RELEM_K   !< ELEMENT NUMBER (ROOT)
     
     INTEGER :: NX   ! POLY ORDER IN X
     INTEGER :: MY   ! POLY ORDER IN Y
@@ -239,11 +235,13 @@ SUBROUTINE NUMERICAL_FLUX_Y(LELEM_K, T)
     
     DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:, :) :: SOLUTION_EXT ! BOUNDARY CONDITION
     
+    IF(RANK == 1) PRINT *, PLEVEL_X
+    
     ! GET POLY ORDER
     CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(LELEM_K), NX)
     CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(LELEM_K), MY)
     
-    RELEM_K = LELEM_K + ELEM_RANGE(RANK) + 1
+    CALL INDEX_LOCAL_TO_GLOBAL(RANK, LELEM_K, RELEM_K)
     
     ! GET DUAL COORDINATE
     CALL d2xy ( EXP_X, RELEM_K, J, I )
@@ -252,7 +250,7 @@ SUBROUTINE NUMERICAL_FLUX_Y(LELEM_K, T)
     IF (J > 0 .AND. J< NUM_OF_ELEMENT_Y-1) THEN
     
         ! NOT ON THE BOUNDARY
-        CALL RIEMANN2(RELEM_K, I, J, NX)
+        CALL RIEMANN2(LELEM_K, I, J, NX)
         
     ELSEIF(J == 0) THEN !-----------------------------------------------
         ! ON THE BOTTOM BOUNDARY
@@ -283,7 +281,7 @@ SUBROUTINE NUMERICAL_FLUX_Y(LELEM_K, T)
     
         ! ON THE TOP BOUNDARY
         
-        CALL RIEMANN2(RELEM_K, I, J, NX)
+        CALL RIEMANN2(LELEM_K, I, J, NX)
         
         ALLOCATE(SOLUTION_EXT(0:NX, NUM_OF_EQUATION))
         SOLUTION_EXT = 0.0D0
@@ -327,57 +325,62 @@ END SUBROUTINE NUMERICAL_FLUX_Y
 !! pass the value of the numerical flux to the corresponding neignbor
 !! right boundary with a minus sign. Use this subroutine in y direction.
 !-----------------------------------------------------------------------
-SUBROUTINE RIEMANN2(ELEM_K, I, J, MX)
+SUBROUTINE RIEMANN2(LELEM_K, I, J, MX)
 
     IMPLICIT NONE 
     
-    INTEGER, INTENT(IN) :: ELEM_K   !< ROOT ELEMENT NUMBER
+    INTEGER, INTENT(IN) :: LELEM_K   !< LOCAL ELEMENT NUMBER
     INTEGER, INTENT(IN) :: I, J     !< ELEMENT COORDINATE
     INTEGER, INTENT(IN) :: MX       !< ELEMENT LEFT X INTERFACE POLYNOMIAL ORDER
     
-    INTEGER :: S, P, TOTAL_CELLS, ENTRY_COUNT
-    INTEGER :: IDL, IDR ! ELEM NUMBER ON THE TWO SIDE OF THE INTERFACE
+    INTEGER :: S, ENTRY_COUNT
+    INTEGER :: IDL, IDR ! ELEM NUMBER ON THE TWO SIDE OF THE INTERFACE (ROOT)
+    INTEGER :: IDL_G    ! ELEM NUMBER (GLOABL) ON THE LEFT SIDE OF THE INTERFACE
     
     INTEGER :: TARGET_RANK  ! THE NEIBOURHOUR ELEMENT'S RANK
     INTEGER(KIND=MPI_ADDRESS_KIND) :: TARGET_DISP   ! Displacement from window start to the beginning of the target buffer
     INTEGER :: ORIGIN_COUNT ! Number of entries in origin buffer
     
-    IDR = ELEM_K    ! ID ON THE RIGHT SIDE OF THE INTERFACE
-        
-    CALL xy2d ( EXP_X, J-1, I, IDL )    ! ID ON THE LEFT SIDE OF THE INTERFACE
-
-    IF (MPI_B_FLAG(3, ELEM_K)) THEN
+    DOUBLE PRECISION :: REMOTE_SOLUTION_INT_R(0:NMAX, NUM_OF_EQUATION)
     
-        P = NMAX+1
-        TOTAL_CELLS = (NMAX + 1)*2 - 1
-        ENTRY_COUNT = (TOTAL_CELLS - P + 1) * NUM_OF_EQUATION
-        TARGET_DISP = P 
+    REMOTE_SOLUTION_INT_R = 0.0D0
+    
+    IDR = LELEM_K    ! ID ON THE RIGHT SIDE OF THE INTERFACE
         
-        CALL FIND_RANK(IDL, TARGET_RANK)
+    CALL xy2d ( EXP_X, J-1, I, IDL_G )    ! ID ON THE LEFT SIDE OF THE INTERFACE
+
+    IF (MPI_B_FLAG(3, LELEM_K)) THEN
+    
+        ENTRY_COUNT = (NMAX + 1) * NUM_OF_EQUATION
         
-        print *, IDL, TARGET_RANK
+        CALL FIND_RANK(IDL_G, TARGET_RANK)
         
-        CALL MPI_GET(SOLUTION_INT_L(P:TOTAL_CELLS, :, IDR), ENTRY_COUNT, &
+        CALL INDEX_GLOBAL_TO_LOCAL(TARGET_RANK, IDL_G, IDL)
+        
+        TARGET_DISP = (1 + NMAX) * NUM_OF_EQUATION * IDL
+        
+        CALL MPI_GET(REMOTE_SOLUTION_INT_R, ENTRY_COUNT, &
                         MPI_DOUBLE_PRECISION, TARGET_RANK, &
                         TARGET_DISP, ENTRY_COUNT, MPI_DOUBLE_PRECISION, &
                         WIN_INTERFACE_R, IERROR)
 
         DO S = 0, MX
-            CALL RIEMANN_Y(SOLUTION_INT_R(S, :, IDR), &
+            CALL RIEMANN_Y(REMOTE_SOLUTION_INT_R(S, :), &
                            SOLUTION_INT_L(S, :, IDR), &
                            NFLUX_Y_D(S, :, IDR), -1.0D0)
         ENDDO
         
         ORIGIN_COUNT = (MX + 1) * NUM_OF_EQUATION
         
-        TARGET_DISP = 0
-               
         CALL MPI_PUT( - NFLUX_Y_D(0:MX, :, IDR), ORIGIN_COUNT, &
                     MPI_DOUBLE_PRECISION, TARGET_RANK, &
                     TARGET_DISP, ORIGIN_COUNT, &
-                    MPI_DOUBLE_PRECISION, WIN_INTERFACE_L, IERROR)
+                    MPI_DOUBLE_PRECISION, WIN_NFLUX_R, IERROR)
                 
     ELSE ! NEED LOCAL INFORMATION
+    
+        CALL INDEX_GLOBAL_TO_LOCAL(RANK, IDL_G, IDL)
+    
         DO S = 0, MX
             CALL RIEMANN_Y(SOLUTION_INT_R(S, :, IDL), &
                            SOLUTION_INT_L(S, :, IDR), &
@@ -390,6 +393,7 @@ SUBROUTINE RIEMANN2(ELEM_K, I, J, MX)
     ENDIF
     
 END SUBROUTINE RIEMANN2
+
 
 
 END MODULE NUMERICAL_FLUX
