@@ -60,27 +60,21 @@ SUBROUTINE MPI_BOUNDARY_FLAG
         ! X-------------------------------------------------------------
         
         IF(I > 0 .AND. I < NUM_OF_ELEMENT_X-1) THEN     ! NOT ON THE BOUNDARY
+        
             CALL CHECK_NORTH(K, I, J, N_NEIGHBOUR, L_BOUND, R_BOUND)
             CALL CHECK_SOUTH(K, I, J, S_NEIGHBOUR, L_BOUND, R_BOUND)
 
         ELSEIF(I == 0) THEN     ! ON THE BOTTOM, ONLY CHECK NORTH
+        
             CALL CHECK_NORTH(K, I, J, N_NEIGHBOUR, L_BOUND, R_BOUND)
         
         ELSEIF(I == NUM_OF_ELEMENT_X - 1) THEN  ! ON THE TOP, ONLY CHECK SOUTH
+        
             CALL CHECK_SOUTH(K, I, J, S_NEIGHBOUR, L_BOUND, R_BOUND)
-            IF(RANK == 1) THEN
-                PRINT *, S_NEIGHBOUR, L_BOUND, R_BOUND
-            ENDIF
-            
         ELSE 
             PRINT *, "ERROR : SOMETHING WRONG WITH ELEMENT COORDINATES. SUBROUTINE MPI_BOUNDARY_FLAG"
         ENDIF
                 
-        IF (RANK == 1) THEN
-            IF(ROOT_NUM == 2) PRINT *, MPI_B_FLAG(1, K), MPI_B_FLAG(2, K)
-!            PRINT *, NUM_OF_ELEMENT_X
-        ENDIF
-            
         !---------------------------------------------------------------
         
         ! Y-------------------------------------------------------------
