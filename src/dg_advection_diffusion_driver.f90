@@ -87,10 +87,13 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     
     CALL MPI_BOUNDARY_FLAG
     !-------------------------------------------------------------------
+    
+!    print *, X_LOCAL(:, 0),  MPI_B_FLAG(1, 0)
+!    print *, MPI_B_FLAG(1, 0)
 
     ! TIME MARCHES ON---------------------------------------------------
     DO K = 0, NT-1
-        CALL DG_STEP_BY_RK3(TN, DELTA_T)
+!        CALL DG_STEP_BY_RK3(TN, DELTA_T)
         TN = (K+1) * DELTA_T
        
         ! OUTPUT SOLUTIONS

@@ -106,7 +106,7 @@ SUBROUTINE DISTRIBUTE_ELEM
                         Y_LOCAL, LOCAL_ELEM_NUM*4, MPI_DOUBLE_PRECISION, &
                         & 0, MPI_COMM_WORLD, IERROR)
                         
-    CALL MPI_BCAST(ELEM_RANGE, NUM_PROC, MPI_INTEGER, 0, MPI_COMM_WORLD, IERROR)
+    CALL MPI_BCAST(ELEM_RANGE, NUM_PROC+1, MPI_INTEGER, 0, MPI_COMM_WORLD, IERROR)
     ! ------------------------------------------------------------------
     
     DEALLOCATE(X_HILBERT, Y_HILBERT)
