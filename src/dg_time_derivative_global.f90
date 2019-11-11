@@ -14,7 +14,6 @@ USE NUMERICAL_FLUX
 USE A_TIMES_SPATIAL_DER
 USE LOCAL_STORAGE
 USE MPI_BOUNDARY
-USE GHOST
 
 IMPLICIT NONE
 
@@ -59,9 +58,6 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
                                     LAGRANGE_RIGHT_T(0:PORDER_X, PLEVEL_X(K)), &
                                     SOLUTION_INT_L(0:PORDER_Y, :, K), &
                                     SOLUTION_INT_R(0:PORDER_Y, :, K) )
-        ! If on the MPI boundary, copy solutions to the ghost layer
-        CALL GHOST_CONSTUCT_X(K, PORDER_Y)
-        
     ENDDO
     !-------------------------------------------------------------------
 
@@ -151,7 +147,6 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
                                     SOLUTION_INT_L(0:PORDER_X, :, K), &
                                     SOLUTION_INT_R(0:PORDER_X, :, K) )
         
-        CALL GHOST_CONSTUCT_Y(K, PORDER_X)
     ENDDO
     !-------------------------------------------------------------------
     
