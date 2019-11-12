@@ -150,6 +150,10 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     ENDDO
     !-------------------------------------------------------------------
     
+!    IF(RANK ==0) THEN
+!            PRINT *, RANK, SOLUTION_INT_R(:, 1, 1)
+!    ENDIF
+    
     ! NEXT STEP COMPUTE NUMERICAL FLUXES--------------------------------
     ALLOCATE(NFLUX_Y_D(0:NMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
     ALLOCATE(NFLUX_Y_U(0:NMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
@@ -162,11 +166,19 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     CALL MPI_WIN_FENCE(0, WIN_NFLUX_R, IERROR)
     
     
-    DO K = 1, LOCAL_ELEM_NUM
+    DO K = 0, LOCAL_ELEM_NUM-1
     
         CALL NUMERICAL_FLUX_Y(K, T)
         
     ENDDO
+    
+!    IF(RANK == 1) THEN 
+!        PRINT *, "RANK", RANK, NFLUX_Y_D(:, 1, 0)
+!    ENDIF
+    
+!    IF(RANK == 0) THEN 
+!        PRINT *, NFLUX_Y_U(:, 1, 1)
+!    ENDIF
     
     CALL MPI_WIN_FENCE(0, WIN_NFLUX_L, IERROR)
     CALL MPI_WIN_FENCE(0, WIN_NFLUX_R, IERROR)

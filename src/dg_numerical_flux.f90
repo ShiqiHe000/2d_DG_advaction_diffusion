@@ -235,8 +235,6 @@ SUBROUTINE NUMERICAL_FLUX_Y(LELEM_K, T)
     
     DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:, :) :: SOLUTION_EXT ! BOUNDARY CONDITION
     
-    IF(RANK == 1) PRINT *, PLEVEL_X
-    
     ! GET POLY ORDER
     CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(LELEM_K), NX)
     CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(LELEM_K), MY)
@@ -248,12 +246,11 @@ SUBROUTINE NUMERICAL_FLUX_Y(LELEM_K, T)
     
     !-------------------------------------------------------------------
     IF (J > 0 .AND. J< NUM_OF_ELEMENT_Y-1) THEN
-    
         ! NOT ON THE BOUNDARY
         CALL RIEMANN2(LELEM_K, I, J, NX)
         
     ELSEIF(J == 0) THEN !-----------------------------------------------
-        ! ON THE BOTTOM BOUNDARY
+        ! ON THE LEFT BOUNDARY
         
         ALLOCATE(SOLUTION_EXT(0:NX, NUM_OF_EQUATION))
         SOLUTION_EXT = 0.0D0
@@ -279,7 +276,7 @@ SUBROUTINE NUMERICAL_FLUX_Y(LELEM_K, T)
         
     ELSEIF(J == NUM_OF_ELEMENT_Y-1) THEN !------------------------------
     
-        ! ON THE TOP BOUNDARY
+        ! ON THE RIGHT BOUNDARY
         
         CALL RIEMANN2(LELEM_K, I, J, NX)
         
@@ -363,6 +360,12 @@ SUBROUTINE RIEMANN2(LELEM_K, I, J, MX)
                         MPI_DOUBLE_PRECISION, TARGET_RANK, &
                         TARGET_DISP, ENTRY_COUNT, MPI_DOUBLE_PRECISION, &
                         WIN_INTERFACE_R, IERROR)
+                        
+!        IF(RANK == 1) THEN
+!!            PRINT *, SOLUTION_INT_L(:, 1, 0)
+!            PRINT *, RANK, REMOTE_SOLUTION_INT_R(:, 1)
+!        ENDIF
+
 
         DO S = 0, MX
             CALL RIEMANN_Y(REMOTE_SOLUTION_INT_R(S, :), &
@@ -376,6 +379,9 @@ SUBROUTINE RIEMANN2(LELEM_K, I, J, MX)
                     MPI_DOUBLE_PRECISION, TARGET_RANK, &
                     TARGET_DISP, ORIGIN_COUNT, &
                     MPI_DOUBLE_PRECISION, WIN_NFLUX_R, IERROR)
+                    
+!        PRINT *, NFLUX_Y_D(:, 1, IDR), IDR
+    
                 
     ELSE ! NEED LOCAL INFORMATION
     
