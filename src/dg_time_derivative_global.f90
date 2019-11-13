@@ -127,12 +127,11 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     SOLUTION_INT_L = 0.0D0; SOLUTION_INT_R = 0.0D0
     
-!    CALL ATTACH_MEMORY(TOTAL_CELLS, SOLUTION_INT_L, SOLUTION_INT_R)   
-    CALL CREATE_WINDOW(NMAX, WIN_INTERFACE_L, WIN_INTERFACE_R, &
-                        SOLUTION_INT_L, SOLUTION_INT_R)
+!    CALL CREATE_WINDOW(NMAX, WIN_INTERFACE_L, WIN_INTERFACE_R, &
+!                        SOLUTION_INT_L, SOLUTION_INT_R)
      
-    CALL MPI_WIN_FENCE(0, WIN_INTERFACE_L, IERROR)
-    CALL MPI_WIN_FENCE(0, WIN_INTERFACE_R, IERROR)
+!    CALL MPI_WIN_FENCE(0, WIN_INTERFACE_L, IERROR)
+!    CALL MPI_WIN_FENCE(0, WIN_INTERFACE_R, IERROR)
     
     
     DO K = 0, LOCAL_ELEM_NUM-1
@@ -148,11 +147,13 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
                                     SOLUTION_INT_R(0:PORDER_X, :, K) )
         
     ENDDO
-    !-------------------------------------------------------------------
     
-!    IF(RANK ==0) THEN
-!            PRINT *, RANK, SOLUTION_INT_R(:, 1, 1)
-!    ENDIF
+    CALL CREATE_WINDOW(NMAX, WIN_INTERFACE_L, WIN_INTERFACE_R, &
+                        SOLUTION_INT_L, SOLUTION_INT_R)
+     
+    CALL MPI_WIN_FENCE(MPI_MODE_NOPUT, WIN_INTERFACE_L, IERROR)
+    CALL MPI_WIN_FENCE(MPI_MODE_NOPUT, WIN_INTERFACE_R, IERROR)
+    !-------------------------------------------------------------------
     
     ! NEXT STEP COMPUTE NUMERICAL FLUXES--------------------------------
     ALLOCATE(NFLUX_Y_D(0:NMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
@@ -162,8 +163,8 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     CALL CREATE_WINDOW(NMAX, WIN_NFLUX_L, WIN_NFLUX_R, NFLUX_Y_D, NFLUX_Y_U)
     
-    CALL MPI_WIN_FENCE(0, WIN_NFLUX_L, IERROR)
-    CALL MPI_WIN_FENCE(0, WIN_NFLUX_R, IERROR)
+    CALL MPI_WIN_FENCE(MPI_MODE_NOPRECEDE, WIN_NFLUX_L, IERROR)
+    CALL MPI_WIN_FENCE(MPI_MODE_NOPRECEDE, WIN_NFLUX_R, IERROR)
     
     
     DO K = 0, LOCAL_ELEM_NUM-1
@@ -172,17 +173,14 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
         
     ENDDO
     
-!    IF(RANK == 1) THEN 
-!        PRINT *, "RANK", RANK, NFLUX_Y_D(:, 1, 0)
-!    ENDIF
-    
-!    IF(RANK == 0) THEN 
-!        PRINT *, NFLUX_Y_U(:, 1, 1)
-!    ENDIF
-    
-    CALL MPI_WIN_FENCE(0, WIN_NFLUX_L, IERROR)
-    CALL MPI_WIN_FENCE(0, WIN_NFLUX_R, IERROR)
+    CALL MPI_WIN_FENCE(MPI_MODE_NOSUCCEED, WIN_NFLUX_L, IERROR)
+    CALL MPI_WIN_FENCE(MPI_MODE_NOSUCCEED, WIN_NFLUX_R, IERROR)
     !-------------------------------------------------------------------
+    
+    IF(RANK == 0) THEN 
+        PRINT *, RANK, NFLUX_Y_U(:, 1, 0)
+        PRINT *, "-------------------------"
+    ENDIF
     
     ! SPACIAL DERIVATIVE------------------------------------------------
     ALLOCATE(FLUX_Y(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
@@ -198,6 +196,9 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
 !    ENDDO
     !-------------------------------------------------------------------
+    
+!    CALL MPI_WIN_FENCE(0, WIN_NFLUX_L, IERROR)
+!    CALL MPI_WIN_FENCE(0, WIN_NFLUX_R, IERROR)
     
     CALL MPI_WIN_FENCE(0, WIN_INTERFACE_L, IERROR)
     CALL MPI_WIN_FENCE(0, WIN_INTERFACE_R, IERROR)
