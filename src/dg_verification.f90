@@ -54,7 +54,7 @@ SUBROUTINE GET_ERROR
         CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(K), PORDERY)
         
         DEL_X = X_LOCAL(4, K) - X_LOCAL(1, K)
-        DEL_Y = Y_LOCAL(2, K) - Y_LOCAL(2, K)
+        DEL_Y = Y_LOCAL(2, K) - Y_LOCAL(1, K)
         
         CALL EXACT_SOLUTION_GAUSSIAN(PORDERX, PORDERY, &
                                         NUM_OF_EQUATION,&
