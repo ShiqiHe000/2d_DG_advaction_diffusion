@@ -64,10 +64,6 @@ SUBROUTINE WRITE_MESH(NEL_TOTAL, X_GLOBAL, Y_GLOBAL, PLEVELX, PLEVELY, &
     ! PROC 1 WRITES HEADER----------------------------------------------
     IF (RANK == 0) THEN
     
-!        WRITE(FILENAME,FMT='(''aoutput'',I5.5,''.dat'')') FILE_NUM
-        
-!        OPEN(5,FILE = OUTPUT_PLACE//FILENAME)
-
         OPEN(5,FILE = OUTPUT_PLACE//FILENAME)
         
         WRITE(5, FMT='(''TITLE = "MESH AND SOLUTIONS"'')')
