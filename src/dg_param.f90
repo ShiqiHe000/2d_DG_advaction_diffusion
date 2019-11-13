@@ -15,10 +15,10 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! SET POLYNOMIAL ORDER----------------------------------------------
-    INTEGER :: N = 2   !< POLYNOMIAL DEGREE IN X DIRECTION
-    INTEGER :: M = 2    !< POLYNOMIAL DEGREE IN Y DIRECTION
-    INTEGER :: NMAX = 2   !< MAXIMUM POLYNOMIAL DEGREE IN X DIRECTION
-    INTEGER :: MMAX = 2   !< MAXIMUM POLYNOMIAL DEGREE IN Y DIRECTION
+    INTEGER :: N = 20   !< POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: M = 20    !< POLYNOMIAL DEGREE IN Y DIRECTION
+    INTEGER :: NMAX = 20   !< MAXIMUM POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: MMAX = 20   !< MAXIMUM POLYNOMIAL DEGREE IN Y DIRECTION
     !-------------------------------------------------------------------
     
     ! DOMIAN BOUNDARY---------------------------------------------------
@@ -37,10 +37,10 @@ MODULE PARAM
     ! TIME--------------------------------------------------------------
 !    DOUBLE PRECISION :: T_TOTAL = 0.0d0     !< TOTAL TIME INTEGRAL
 !    INTEGER :: NT = 0                   !< TIME STEP NUMBER
-    DOUBLE PRECISION :: T_TOTAL = (2.0e-4)    !< TOTAL TIME INTEGRAL
-    INTEGER :: NT = 1                    !< TIME STEP NUMBER
-!    DOUBLE PRECISION :: T_TOTAL = 2.0D0     !< TOTAL TIME INTEGRAL
-!    INTEGER :: NT = 10000                   !< TIME STEP NUMBER
+!    DOUBLE PRECISION :: T_TOTAL = (2.0e-4)    !< TOTAL TIME INTEGRAL
+!    INTEGER :: NT = 1                    !< TIME STEP NUMBER
+    DOUBLE PRECISION :: T_TOTAL = 2.0D0     !< TOTAL TIME INTEGRAL
+    INTEGER :: NT = 10000                   !< TIME STEP NUMBER
     !-------------------------------------------------------------------
     
     ! OUTPUT DATA FREQUENCY---------------------------------------------
@@ -60,7 +60,7 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! VERIFICATION -----------------------------------------------------
-    LOGICAL :: VERIFICATION_SWITCH = .FALSE. !< VERIFICATE YOUR RESULTS. 
+    LOGICAL :: VERIFICATION_SWITCH = .TRUE. !< VERIFICATE YOUR RESULTS. 
                                              !< NOTE: THIS SHOULD BE TURNED OFF IF YOU ARE USING REFLECTIVE BOUNDARY CONDITION
     !-------------------------------------------------------------------
     
