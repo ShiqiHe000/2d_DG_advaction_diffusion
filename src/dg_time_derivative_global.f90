@@ -96,10 +96,10 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     SOLUTION_TIME_DER = 0.0D0
     
-!    DO K = 0, NUM_OF_ELEMENT-1
-!        CALL A_TIMES_SPATIAL_DERIRATIVE_X(K)
+    DO K = 0, LOCAL_ELEM_NUM-1
+        CALL A_TIMES_SPATIAL_DERIRATIVE_X(K)
     
-!    ENDDO
+    ENDDO
     !-------------------------------------------------------------------
     
     ! FREE REMOTELY ACCESSIBLE MEMORY-------------------------------
@@ -180,10 +180,10 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     FLUX_DER_Y = 0.0D0
     
-!    DO K = 0, NUM_OF_ELEMENT-1
-!        CALL A_TIMES_SPATIAL_DERIRATIVE_Y(K)
+    DO K = 0, LOCAL_ELEM_NUM-1
+        CALL A_TIMES_SPATIAL_DERIRATIVE_Y(K)
     
-!    ENDDO
+    ENDDO
     !-------------------------------------------------------------------
 
     ! FREE REMOTELY ACCESSIBLE MEMORY-------------------------------

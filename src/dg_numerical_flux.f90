@@ -146,7 +146,6 @@ SUBROUTINE RIEMANN1(LELEM_K, I, J, MY)
     IMPLICIT NONE 
     
     INTEGER, INTENT(IN) :: LELEM_K   !< LOCAL ELEMENT NUMBER
-!    INTEGER, INTENT(IN) :: RELEM_K   !< ROOT ELEMENT NUMBER
     INTEGER, INTENT(IN) :: I, J     !< ELEMENT COORDINATE
     INTEGER, INTENT(IN) :: MY       !< ELEMENT LEFT Y INTERFACE POLYNOMIAL ORDER
     
@@ -360,11 +359,6 @@ SUBROUTINE RIEMANN2(LELEM_K, I, J, MX)
                         MPI_DOUBLE_PRECISION, TARGET_RANK, &
                         TARGET_DISP, ENTRY_COUNT, MPI_DOUBLE_PRECISION, &
                         WIN_INTERFACE_R, IERROR)
-                        
-!        IF(RANK == 1) THEN
-!!            PRINT *, SOLUTION_INT_L(:, 1, 0)
-!            PRINT *, RANK, REMOTE_SOLUTION_INT_R(:, 1)
-!        ENDIF
 
 
         DO S = 0, MX
@@ -380,8 +374,6 @@ SUBROUTINE RIEMANN2(LELEM_K, I, J, MX)
                     TARGET_DISP, ORIGIN_COUNT, &
                     MPI_DOUBLE_PRECISION, WIN_NFLUX_R, IERROR)
                     
-!        PRINT *, NFLUX_Y_D(:, 1, IDR), IDR
-    
                 
     ELSE ! NEED LOCAL INFORMATION
     
