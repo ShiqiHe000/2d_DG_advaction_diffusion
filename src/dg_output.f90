@@ -41,8 +41,8 @@ SUBROUTINE WRITE_MESH(NEL_TOTAL, X_GLOBAL, Y_GLOBAL, PLEVELX, PLEVELY, &
     INTEGER :: PLEVELY(0:NEL_TOTAL-1)  !< POLYNOMIAL LEVEL IN Y(CAN BE TRANSFORM TO POLY ORDER)
     
     
-    DOUBLE PRECISION :: X_GLOBAL(4, 0:NEL_TOTAL-1)  !< ELEMENT X COORDINATES
-    DOUBLE PRECISION :: Y_GLOBAL(4, 0:NEL_TOTAL-1)  !< ELEMENT Y COORDINATES
+    DOUBLE PRECISION :: X_GLOBAL(2, 0:NEL_TOTAL-1)  !< ELEMENT X COORDINATES
+    DOUBLE PRECISION :: Y_GLOBAL(2, 0:NEL_TOTAL-1)  !< ELEMENT Y COORDINATES
     
     DOUBLE PRECISION :: SOLUTION_ALL(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:NEL_TOTAL-1)    !< NUMERICAL APPROXIMATION
     
@@ -116,7 +116,7 @@ SUBROUTINE WRITE_MESH(NEL_TOTAL, X_GLOBAL, Y_GLOBAL, PLEVELX, PLEVELY, &
         ! X INTERFACE (LEFT)
         CALL X_INTERFACE(PORDERX, PORDERY, PLEVELX(IEL), &
                             SOLU_INT_D(0:PORDERX, :), &
-                            X_GLOBAL(1, IEL), X_GLOBAL(4, IEL), &
+                            X_GLOBAL(1, IEL), X_GLOBAL(2, IEL), &
                             Y_GLOBAL(1, IEL))
         
         ! INTERIOR NODES (INCLUDING NODES ON Y INTERFACES)
@@ -124,13 +124,13 @@ SUBROUTINE WRITE_MESH(NEL_TOTAL, X_GLOBAL, Y_GLOBAL, PLEVELX, PLEVELY, &
                             PLEVELY(IEL), &
                             SOLUTION_ALL(0:PORDERX, 0:PORDERY, :, IEL), &
                             SOLU_INT_L(0:PORDERY, :), SOLU_INT_R(0:PORDERY, :), &
-                            X_GLOBAL(1, IEL), X_GLOBAL(4, IEL), &
+                            X_GLOBAL(1, IEL), X_GLOBAL(2, IEL), &
                             Y_GLOBAL(1, IEL), Y_GLOBAL(2, IEL))
         
         ! X INTERFACE (RIGHT)
         CALL X_INTERFACE(PORDERX, PORDERY, PLEVELX(IEL), &
                             SOLU_INT_U(0:PORDERX, :), &
-                            X_GLOBAL(2, IEL), X_GLOBAL(3, IEL), &
+                            X_GLOBAL(1, IEL), X_GLOBAL(2, IEL), &
                             Y_GLOBAL(2, IEL))
         !-----------------------------------------------------------
     

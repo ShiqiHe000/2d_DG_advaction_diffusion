@@ -31,7 +31,7 @@ SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_X(ELEM_K)
     CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(ELEM_K), PORDERX)
     CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(ELEM_K), PORDERY)
     
-    DEL_X = X_LOCAL(4, ELEM_K) - X_LOCAL(1, ELEM_K)
+    DEL_X = X_LOCAL(2, ELEM_K) - X_LOCAL(1, ELEM_K)
     
     ! A * F ------------------------------------------------------------
     DO J = 0, PORDERY

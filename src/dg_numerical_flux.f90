@@ -91,7 +91,7 @@ SUBROUTINE NUMERICAL_FLUX_X(LELEM_K, T)
             CALL RIEMANN_X(SOLUTION_EXT(S, :), &
                            SOLUTION_INT_L(S, :, LELEM_K), &
                            NFLUX_X_L(S, :, LELEM_K), -1.0D0)
-                           
+  
         ENDDO
     
         DEALLOCATE(SOLUTION_EXT)
@@ -108,14 +108,14 @@ SUBROUTINE NUMERICAL_FLUX_X(LELEM_K, T)
         ! RIGHT INTERFACE
         DO S = 0, MY
         
-            DEL_Y = Y_LOCAL(3, LELEM_K) - Y_LOCAL(4, LELEM_K)
+            DEL_Y = Y_LOCAL(2, LELEM_K) - Y_LOCAL(1, LELEM_K)
             
             CALL AFFINE_MAPPING(GL_POINT_Y_T(S, PLEVEL_Y(LELEM_K)), &
-                                Y, Y_LOCAL(4, LELEM_K), DEL_Y)
+                                Y, Y_LOCAL(1, LELEM_K), DEL_Y)
             
             CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
                                         SOLUTION_EXT(S, :), &
-                                         T, X_LOCAL(4, LELEM_K), Y)
+                                         T, X_LOCAL(2, LELEM_K), Y)
 
             ! REFLECT BOUNDARY SOLUTION
 !            CALL EXTERNAL_STATE_GAUSSIAN_REFLECT(NUM_OF_EQUATION, &
@@ -257,7 +257,7 @@ SUBROUTINE NUMERICAL_FLUX_Y(LELEM_K, T)
         
         DO S = 0, NX
         
-            DEL_X = X_LOCAL(3, LELEM_K) - X_LOCAL(1, LELEM_K)
+            DEL_X = X_LOCAL(2, LELEM_K) - X_LOCAL(1, LELEM_K)
         
             CALL AFFINE_MAPPING(GL_POINT_X_T(S, PLEVEL_X(LELEM_K)), &
                                 X, X_LOCAL(1, LELEM_K), DEL_X)
@@ -284,10 +284,10 @@ SUBROUTINE NUMERICAL_FLUX_Y(LELEM_K, T)
         
         DO S = 0, NX
         
-            DEL_X = X_LOCAL(3, LELEM_K) - X_LOCAL(1, LELEM_K)
+            DEL_X = X_LOCAL(2, LELEM_K) - X_LOCAL(1, LELEM_K)
         
             CALL AFFINE_MAPPING(GL_POINT_X_T(S, PLEVEL_X(LELEM_K)), &
-                                X, X_LOCAL(2, LELEM_K), DEL_X)
+                                X, X_LOCAL(1, LELEM_K), DEL_X)
             
             ! EXACT SOLUTION
             CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
@@ -360,6 +360,11 @@ SUBROUTINE RIEMANN2(LELEM_K, I, J, MX)
                         TARGET_DISP, ENTRY_COUNT, MPI_DOUBLE_PRECISION, &
                         WIN_INTERFACE_R, IERROR)
 
+
+!IF(IDR == 1) THEN
+!    PRINT *, REMOTE_SOLUTION_INT_R(:, 1)
+
+!ENDIF
 
         DO S = 0, MX
             CALL RIEMANN_Y(REMOTE_SOLUTION_INT_R(S, :), &

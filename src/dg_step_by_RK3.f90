@@ -76,6 +76,11 @@ SUBROUTINE DG_STEP_BY_RK3(TN, DELTA_T)
             ENDDO
         ENDDO
 
+!IF(RANK == 0) THEN
+!!    PRINT *, SOLUTION_TIME_DER(:, 0, 1, 0)
+!    PRINT *, SOLUTION(:, 0, 1, 0)
+!ENDIF
+        
         ! DEALLOCATE
         DEALLOCATE(SOLUTION_TIME_DER)
     ENDDO

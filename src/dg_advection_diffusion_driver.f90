@@ -63,7 +63,7 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
         CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(K), N_NOW) ! X DIRECTION POLY ORDER
         CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(K), M_NOW) ! Y DIRECTION POLY ORDER
 
-        DEL_X = X_LOCAL(4, K) - X_LOCAL(1, K)
+        DEL_X = X_LOCAL(2, K) - X_LOCAL(1, K)
         DEL_Y = Y_LOCAL(2, K) - Y_LOCAL(1, K)
         
         CALL INITIAL_CONDITION_GAUSSIAN(N_NOW, M_NOW, NUM_OF_EQUATION, &
@@ -76,6 +76,10 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     ENDDO
     !-------------------------------------------------------------------
     
+!    IF(RANK == 0) THEN
+!    print *, DEL_X, DEL_Y
+!        PRINT *, SOLUTION(0, 0, 2, 0)
+!    ENDIF
     
     ! OUTPUT INITIAL SOLUTIONS------------------------------------------
     CALL SERIAL_IO(TN)
