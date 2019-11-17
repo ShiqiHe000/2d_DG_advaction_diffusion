@@ -3,6 +3,7 @@
 DIR = .
 
 TGT = main.exe
+PROFILE_NAME = profiling.txt
 
 FC = mpif90
 
@@ -16,6 +17,7 @@ WALL = -Wall
 OPT = -O3
 OG = -Og
 DEBUG = -g -fcheck=all -fimplicit-none -fbacktrace -pedantic -Wall
+PROFILING = -pg
 
 SRC =  dg_param.f90 \
        dg_mpi.f90 \
@@ -68,22 +70,22 @@ OBJ = $(addprefix $(DIR)/$(OBJDIR)/, $(notdir $(SRC:.f90=.o)))
 
 $(DIR)/$(OBJDIR)/$(TGT) : $(OBJ)
 #	$(FC) $(MOD) -o $@ $^
-	$(FC) $(OPT) $(WALL) $(MOD) -o $(TGT) $^
+	$(FC) $(OPT) $(PROFILING) $(WALL) $(MOD) -o $(TGT) $^
  
 $(DIR)/$(OBJDIR)/%.o : $(DIR)/$(SRCDIR)/%.f90
-	$(FC) $(OPT) $(WALL) $(MOD) -c $< -o $@
+	$(FC) $(OPT) $(PROFILING) $(WALL) $(MOD) -c $< -o $@
 
 
 
 .PHONY : help run clean all 
 
 all : $(DIR)/$(OBJDIR)/$(TGT)
-#	$(DIR)/$(OBJDIR)/$(TGT)
 	@echo "------------------------------"
 	@echo "Makefile succeed"
 	@echo "------------------------------"
 
 run : $(TGT)
+	export GMON_OUT_PREFIX=gmon.out-
 	mpirun -np 2 $(TGT)
 
 drun : $(TGT)
@@ -98,8 +100,16 @@ help :
 debug : 
 	make "OPT = -g -fcheck=all -fimplicit-none -fbacktrace -pedantic -Wall"
 
+profiling :
+	gprof -s $(TGT) gmon.out-*
+	rm gmon.out-*
+	gprof $(TGT) gmon.sum > $(PROFILE_NAME)
+	@echo "---------------------------------------------------"
+	@echo "Profiling data is in file 'profiling.txt'"
+	@echo "---------------------------------------------------"
+
 clean :
 	rm -rf $(OBJ) 
 	rm -rf $(DIR)/$(INCLUDEDIR)/*.mod
 	rm -rf $(OUTPUT)/*.dat
-	rm -rf *.dat *.txt $(TGT)
+	rm -rf *.dat *.txt $(TGT) *.out *.sum gmon.out-*
