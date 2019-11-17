@@ -1,7 +1,7 @@
 !-----------------------------------------------------------------------
 !> @brief
 !> Numerical flux is a combination of two fluxes on the interface.
-!! Based on the interface is an element interface or a boundary interface,
+!! Based on the interface is either an element interface or a boundary interface,
 !! the numerical flux is computed by either two correspond fluxes on the 
 !! element interfaces, or element interface and boundary condition (we 
 !! call it external state).
@@ -21,6 +21,9 @@ USE RIEMANN_SOLVER
 USE AFFINE_MAP
 USE POLY_LEVEL_AND_ORDER
 USE EXTERNAL_STATE
+USE LOCAL_STORAGE
+USE SEARCH_RANK
+USE INDEX_LOCAL_GLOBAL
 
 IMPLICIT NONE
 
@@ -29,16 +32,19 @@ CONTAINS
 !-----------------------------------------------------------------------
 ! Compute the numerical flux of current element k (direction x)
 !-----------------------------------------------------------------------
-SUBROUTINE NUMERICAL_FLUX_X(ELEM_K, T)
+SUBROUTINE NUMERICAL_FLUX_X(LELEM_K, T)
     
     IMPLICIT NONE
     
-    INTEGER, INTENT(IN) :: ELEM_K   !< ELEMENT NUMBER
+    INTEGER, INTENT(IN) :: LELEM_K   !< ELEMENT NUMBER (LOCAL)
+    INTEGER :: RELEM_K   ! ELEMENT NUMBER (ROOT)
     
     INTEGER :: NX   ! POLY ORDER IN X
     INTEGER :: MY   ! POLY ORDER IN Y
     
     INTEGER :: I, J, S
+    
+    DOUBLE PRECISION :: DEL_Y    ! ELEMENT LENGTH IN Y DIRECTION
     
     DOUBLE PRECISION :: T   !< CURRENT TIME STEP
     
@@ -47,17 +53,20 @@ SUBROUTINE NUMERICAL_FLUX_X(ELEM_K, T)
     DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:, :) :: SOLUTION_EXT ! BOUNDARY CONDITION
     
     ! GET POLY ORDER
-    CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(ELEM_K), NX)
-    CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(ELEM_K), MY)
+    CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(LELEM_K), NX)
+    CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(LELEM_K), MY)
+    
+    ! GET ELEMENT ROOT NUMBER
+    CALL INDEX_LOCAL_TO_GLOBAL(RANK, LELEM_K, RELEM_K)
     
     ! GET DUAL COORDINATE
-    CALL d2xy ( EXP_X, ELEM_K, I, J )
+    CALL d2xy ( EXP_X, RELEM_K, J, I )
     
     !-------------------------------------------------------------------
     IF (I > 0 .AND. I< NUM_OF_ELEMENT_X-1) THEN
     
         ! NOT ON THE BOUNDARY
-        CALL RIEMANN1(ELEM_K, I, J, MY)
+        CALL RIEMANN1(LELEM_K, I, J, MY)
         
     ELSEIF(I == 0) THEN !-----------------------------------------------
     
@@ -66,51 +75,57 @@ SUBROUTINE NUMERICAL_FLUX_X(ELEM_K, T)
         ALLOCATE(SOLUTION_EXT(0:MY, NUM_OF_EQUATION))
         SOLUTION_EXT = 0.0D0
         
+    
         DO S = 0, MY
         
-            CALL AFFINE_MAPPING(GL_POINT_Y_T(S, PLEVEL_Y(ELEM_K)), &
-                                Y, Y_HILBERT(1, ELEM_K), DELTA_Y(ELEM_K))
+            DEL_Y = Y_LOCAL(2, LELEM_K) - Y_LOCAL(1, LELEM_K)
+        
+            CALL AFFINE_MAPPING(GL_POINT_Y_T(S, PLEVEL_Y(LELEM_K)), &
+                                Y, Y_LOCAL(1, LELEM_K), DEL_Y)
                                 
 
             CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
                                         SOLUTION_EXT(S, :), &
-                                         T, X_HILBERT(1, ELEM_K), Y)
+                                         T, X_LOCAL(1, LELEM_K), Y)
                                          
             CALL RIEMANN_X(SOLUTION_EXT(S, :), &
-                           SOLUTION_INT_L(S, :, ELEM_K), &
-                           NFLUX_X_L(S, :, ELEM_K), -1.0D0)
-                           
+                           SOLUTION_INT_L(S, :, LELEM_K), &
+                           NFLUX_X_L(S, :, LELEM_K), -1.0D0)
+  
         ENDDO
     
         DEALLOCATE(SOLUTION_EXT)
         
     ELSEIF(I == NUM_OF_ELEMENT_X-1) THEN !------------------------------
         ! ON THE TOP BOUNDARY
-
-        CALL RIEMANN1(ELEM_K, I, J, MY)
+        
+        ! LEFT INTERFACE
+        CALL RIEMANN1(LELEM_K, I, J, MY)
         
         ALLOCATE(SOLUTION_EXT(0:MY, NUM_OF_EQUATION))
         SOLUTION_EXT = 0.0D0
         
-        
+        ! RIGHT INTERFACE
         DO S = 0, MY
         
-            CALL AFFINE_MAPPING(GL_POINT_Y_T(S, PLEVEL_Y(ELEM_K)), &
-                                Y, Y_HILBERT(4, ELEM_K), DELTA_Y(ELEM_K))
+            DEL_Y = Y_LOCAL(2, LELEM_K) - Y_LOCAL(1, LELEM_K)
             
-!            CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-!                                        SOLUTION_EXT(S, :), &
-!                                         T, X_HILBERT(4, ELEM_K), Y)
+            CALL AFFINE_MAPPING(GL_POINT_Y_T(S, PLEVEL_Y(LELEM_K)), &
+                                Y, Y_LOCAL(1, LELEM_K), DEL_Y)
+            
+            CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
+                                        SOLUTION_EXT(S, :), &
+                                         T, X_LOCAL(2, LELEM_K), Y)
 
             ! REFLECT BOUNDARY SOLUTION
-            CALL EXTERNAL_STATE_GAUSSIAN_REFLECT(NUM_OF_EQUATION, &
-                                            SOLUTION_INT_R(S, :, ELEM_K), &
-                                            SOLUTION_EXT(S, :), &
-                                            (/1.0D0, 0.0D0/))
+!            CALL EXTERNAL_STATE_GAUSSIAN_REFLECT(NUM_OF_EQUATION, &
+!                                            SOLUTION_INT_R(S, :, LELEM_K), &
+!                                            SOLUTION_EXT(S, :), &
+!                                            (/1.0D0, 0.0D0/))
                                          
-            CALL RIEMANN_X(SOLUTION_INT_R(S, :, ELEM_K), &
+            CALL RIEMANN_X(SOLUTION_INT_R(S, :, LELEM_K), &
                             SOLUTION_EXT(S, :), &
-                            NFLUX_X_R(S, :, ELEM_K), 1.0D0)
+                            NFLUX_X_R(S, :, LELEM_K), 1.0D0)
                             
         ENDDO
         
@@ -127,28 +142,72 @@ END SUBROUTINE NUMERICAL_FLUX_X
 !! pass the value of the numerical flux to the corresponding neignbor
 !! right boundary with a minus sign. Use this subroutine in x direction.
 !-----------------------------------------------------------------------
-SUBROUTINE RIEMANN1(ELEM_K, I, J, MY)
+SUBROUTINE RIEMANN1(LELEM_K, I, J, MY)
     IMPLICIT NONE 
     
-    INTEGER, INTENT(IN) :: ELEM_K
-    INTEGER, INTENT(IN) :: I, J
-    INTEGER, INTENT(IN) :: MY
+    INTEGER, INTENT(IN) :: LELEM_K   !< LOCAL ELEMENT NUMBER
+    INTEGER, INTENT(IN) :: I, J     !< ELEMENT COORDINATE
+    INTEGER, INTENT(IN) :: MY       !< ELEMENT LEFT Y INTERFACE POLYNOMIAL ORDER
     
     INTEGER :: S
-    INTEGER :: IDL, IDR ! ELEM NUMBER ON THE TWO SIDE OF THE INTERFACE
+    INTEGER :: ENTRY_COUNT  ! NUMBER OF DATA TO GET FROM THE REMOTE RANK
+    INTEGER :: IDL, IDR ! ELEM NUMBER ON THE TWO SIDE OF THE INTERFACE (LOCAL)
+    INTEGER :: IDL_G    ! ELEMENT ON THE LEFT SIDE OF THE INTERFACE: GLOBAL INDEX
     
-    IDR = ELEM_K    ! ID ON THE RIGHT SIDE OF THE INTERFACE
-        
-    CALL xy2d ( EXP_X, I-1, J, IDL )    ! ID ON THE LEFT SIDE OF THE INTERFACE
+    INTEGER :: TARGET_RANK  ! THE NEIBOURHOUR ELEMENT'S RANK
+    INTEGER(KIND=MPI_ADDRESS_KIND) :: TARGET_DISP   ! Displacement from window start to the beginning of the target buffer
+    INTEGER :: ORIGIN_COUNT ! NUMBER OF DATATO PUT ON THE REMOTE RANK
     
-    DO S = 0, MY
-        CALL RIEMANN_X(SOLUTION_INT_R(S, :, IDL), &
-                       SOLUTION_INT_L(S, :, IDR), &
-                       NFLUX_X_L(S, :, IDR), -1.0D0)
-                       
-        NFLUX_X_R(S, :, IDL) = - NFLUX_X_L(S, :, IDR)
+    DOUBLE PRECISION :: REMOTE_SOLUTION_INT_R(0:MMAX, NUM_OF_EQUATION)  ! SOLUTION_INT_L FROM REMOTE BUFFER
+    
+    REMOTE_SOLUTION_INT_R = 0.0D0
+    
+    IDR = LELEM_K    ! ID ON THE RIGHT SIDE OF THE INTERFACE (LOCAL)
         
-    ENDDO
+    CALL xy2d ( EXP_X, J, I-1, IDL_G )    ! ID ON THE LEFT SIDE OF THE INTERFACE
+    
+    ! NEED REMOTE INFORMATION
+    IF (MPI_B_FLAG(1, LELEM_K)) THEN
+    
+        ENTRY_COUNT = (MMAX + 1) * NUM_OF_EQUATION
+        
+        CALL FIND_RANK(IDL_G, TARGET_RANK)
+        
+        CALL INDEX_GLOBAL_TO_LOCAL(TARGET_RANK, IDL_G, IDL)
+        
+        TARGET_DISP = (1 + NMAX) * NUM_OF_EQUATION * IDL
+        
+        CALL MPI_GET(REMOTE_SOLUTION_INT_R, ENTRY_COUNT, &
+                        MPI_DOUBLE_PRECISION, TARGET_RANK, &
+                        TARGET_DISP, ENTRY_COUNT, MPI_DOUBLE_PRECISION, &
+                        WIN_INTERFACE_R, IERROR)
+        
+        ! NOW WE ASSUMING CONFORMING INTERFACES
+        DO S = 0, MY
+            CALL RIEMANN_X(REMOTE_SOLUTION_INT_R(S, :), &
+                           SOLUTION_INT_L(S, :, IDR), &
+                           NFLUX_X_L(S, :, IDR), -1.0D0)
+        ENDDO
+        
+        ORIGIN_COUNT = (MY + 1) * NUM_OF_EQUATION
+        
+        CALL MPI_PUT( - NFLUX_X_L(0:MY, :, IDR), ORIGIN_COUNT, &
+                    MPI_DOUBLE_PRECISION, TARGET_RANK, &
+                    TARGET_DISP, ORIGIN_COUNT, &
+                    MPI_DOUBLE_PRECISION, WIN_NFLUX_R, IERROR)
+                
+    ELSE ! NEED LOCAL INFORMATION
+        CALL INDEX_GLOBAL_TO_LOCAL(RANK, IDL_G, IDL)
+    
+        DO S = 0, MY
+            CALL RIEMANN_X(SOLUTION_INT_R(S, :, IDL), &
+                           SOLUTION_INT_L(S, :, IDR), &
+                           NFLUX_X_L(S, :, IDR), -1.0D0)
+                           
+            NFLUX_X_R(S, :, IDL) = - NFLUX_X_L(S, :, IDR)
+            
+        ENDDO
+    ENDIF
     
 END SUBROUTINE RIEMANN1
 
@@ -156,11 +215,12 @@ END SUBROUTINE RIEMANN1
 !-----------------------------------------------------------------------
 ! Compute the numerical flux of current element k (direction y)
 !-----------------------------------------------------------------------
-SUBROUTINE NUMERICAL_FLUX_Y(ELEM_K, T)
+SUBROUTINE NUMERICAL_FLUX_Y(LELEM_K, T)
     
     IMPLICIT NONE
     
-    INTEGER, INTENT(IN) :: ELEM_K   !< ELEMENT NUMBER
+    INTEGER, INTENT(IN) :: LELEM_K   !< ELEMENT NUMBER (LOCAL)
+    INTEGER :: RELEM_K   !< ELEMENT NUMBER (ROOT)
     
     INTEGER :: NX   ! POLY ORDER IN X
     INTEGER :: MY   ! POLY ORDER IN Y
@@ -170,24 +230,26 @@ SUBROUTINE NUMERICAL_FLUX_Y(ELEM_K, T)
     DOUBLE PRECISION :: T   !< CURRENT TIME STEP
     
     DOUBLE PRECISION :: X
+    DOUBLE PRECISION :: DEL_X   ! ELEMENT LENGTH IN X DIRECTION
     
     DOUBLE PRECISION, ALLOCATABLE, DIMENSION(:, :) :: SOLUTION_EXT ! BOUNDARY CONDITION
     
     ! GET POLY ORDER
-    CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(ELEM_K), NX)
-    CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(ELEM_K), MY)
+    CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(LELEM_K), NX)
+    CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(LELEM_K), MY)
+    
+    CALL INDEX_LOCAL_TO_GLOBAL(RANK, LELEM_K, RELEM_K)
     
     ! GET DUAL COORDINATE
-    CALL d2xy ( EXP_X, ELEM_K, I, J )
+    CALL d2xy ( EXP_X, RELEM_K, J, I )
     
     !-------------------------------------------------------------------
     IF (J > 0 .AND. J< NUM_OF_ELEMENT_Y-1) THEN
-    
         ! NOT ON THE BOUNDARY
-        CALL RIEMANN2(ELEM_K, I, J, NX)
+        CALL RIEMANN2(LELEM_K, I, J, NX)
         
     ELSEIF(J == 0) THEN !-----------------------------------------------
-        ! ON THE BOTTOM BOUNDARY
+        ! ON THE LEFT BOUNDARY
         
         ALLOCATE(SOLUTION_EXT(0:NX, NUM_OF_EQUATION))
         SOLUTION_EXT = 0.0D0
@@ -195,49 +257,53 @@ SUBROUTINE NUMERICAL_FLUX_Y(ELEM_K, T)
         
         DO S = 0, NX
         
-            CALL AFFINE_MAPPING(GL_POINT_X_T(S, PLEVEL_X(ELEM_K)), &
-                                X, X_HILBERT(1, ELEM_K), DELTA_X(ELEM_K))
+            DEL_X = X_LOCAL(2, LELEM_K) - X_LOCAL(1, LELEM_K)
+        
+            CALL AFFINE_MAPPING(GL_POINT_X_T(S, PLEVEL_X(LELEM_K)), &
+                                X, X_LOCAL(1, LELEM_K), DEL_X)
         
             CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
                                         SOLUTION_EXT(S, :), &
-                                         T, X, Y_HILBERT(1, ELEM_K))
+                                         T, X, Y_LOCAL(1, LELEM_K))
 
             CALL RIEMANN_Y(SOLUTION_EXT(S, :), &
-                           SOLUTION_INT_L(S, :, ELEM_K), &
-                           NFLUX_Y_D(S, :, ELEM_K), -1.0D0)
+                           SOLUTION_INT_L(S, :, LELEM_K), &
+                           NFLUX_Y_D(S, :, LELEM_K), -1.0D0)
         ENDDO
     
         DEALLOCATE(SOLUTION_EXT)
         
     ELSEIF(J == NUM_OF_ELEMENT_Y-1) THEN !------------------------------
     
-        ! ON THE TOP BOUNDARY
+        ! ON THE RIGHT BOUNDARY
         
-        CALL RIEMANN2(ELEM_K, I, J, NX)
+        CALL RIEMANN2(LELEM_K, I, J, NX)
         
         ALLOCATE(SOLUTION_EXT(0:NX, NUM_OF_EQUATION))
         SOLUTION_EXT = 0.0D0
         
         DO S = 0, NX
         
-            CALL AFFINE_MAPPING(GL_POINT_X_T(S, PLEVEL_X(ELEM_K)), &
-                                X, X_HILBERT(2, ELEM_K), DELTA_X(ELEM_K))
+            DEL_X = X_LOCAL(2, LELEM_K) - X_LOCAL(1, LELEM_K)
+        
+            CALL AFFINE_MAPPING(GL_POINT_X_T(S, PLEVEL_X(LELEM_K)), &
+                                X, X_LOCAL(1, LELEM_K), DEL_X)
             
             ! EXACT SOLUTION
-!            CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
-!                                        SOLUTION_EXT(S, :), &
-!                                         T, X, Y_HILBERT(2, ELEM_K))
+            CALL EXTERNAL_STATE_GAUSSIAN_EXACT(NUM_OF_EQUATION, &
+                                        SOLUTION_EXT(S, :), &
+                                         T, X, Y_LOCAL(2, LELEM_K))
             
             ! REFLECT BOUNDARY SOLUTION
-            CALL EXTERNAL_STATE_GAUSSIAN_REFLECT(NUM_OF_EQUATION, &
-                                            SOLUTION_INT_R(S, :, ELEM_K), &
-                                            SOLUTION_EXT(S, :), &
-                                            (/0.0D0, 1.0D0/))
+!            CALL EXTERNAL_STATE_GAUSSIAN_REFLECT(NUM_OF_EQUATION, &
+!                                            SOLUTION_INT_R(S, :, LELEM_K), &
+!                                            SOLUTION_EXT(S, :), &
+!                                            (/0.0D0, 1.0D0/))
                                          
         
-            CALL RIEMANN_Y(SOLUTION_INT_R(S, :, ELEM_K), &
+            CALL RIEMANN_Y(SOLUTION_INT_R(S, :, LELEM_K), &
                             SOLUTION_EXT(S, :), &
-                            NFLUX_Y_U(S, :, ELEM_K), 1.0D0)
+                            NFLUX_Y_U(S, :, LELEM_K), 1.0D0)
                                     
         ENDDO
         
@@ -255,32 +321,77 @@ END SUBROUTINE NUMERICAL_FLUX_Y
 !! pass the value of the numerical flux to the corresponding neignbor
 !! right boundary with a minus sign. Use this subroutine in y direction.
 !-----------------------------------------------------------------------
-SUBROUTINE RIEMANN2(ELEM_K, I, J, MX)
+SUBROUTINE RIEMANN2(LELEM_K, I, J, MX)
 
     IMPLICIT NONE 
     
-    INTEGER, INTENT(IN) :: ELEM_K
-    INTEGER, INTENT(IN) :: I, J
-    INTEGER, INTENT(IN) :: MX
+    INTEGER, INTENT(IN) :: LELEM_K   !< LOCAL ELEMENT NUMBER
+    INTEGER, INTENT(IN) :: I, J     !< ELEMENT COORDINATE
+    INTEGER, INTENT(IN) :: MX       !< ELEMENT LEFT X INTERFACE POLYNOMIAL ORDER
     
-    INTEGER :: S
-    INTEGER :: IDL, IDR ! ELEM NUMBER ON THE TWO SIDE OF THE INTERFACE
+    INTEGER :: S, ENTRY_COUNT
+    INTEGER :: IDL, IDR ! ELEM NUMBER ON THE TWO SIDE OF THE INTERFACE (ROOT)
+    INTEGER :: IDL_G    ! ELEM NUMBER (GLOABL) ON THE LEFT SIDE OF THE INTERFACE
     
-    IDR = ELEM_K    ! ID ON THE RIGHT SIDE OF THE INTERFACE
+    INTEGER :: TARGET_RANK  ! THE NEIBOURHOUR ELEMENT'S RANK
+    INTEGER(KIND=MPI_ADDRESS_KIND) :: TARGET_DISP   ! Displacement from window start to the beginning of the target buffer
+    INTEGER :: ORIGIN_COUNT ! Number of entries in origin buffer
+    
+    DOUBLE PRECISION :: REMOTE_SOLUTION_INT_R(0:NMAX, NUM_OF_EQUATION)
+    
+    REMOTE_SOLUTION_INT_R = 0.0D0
+    
+    IDR = LELEM_K    ! ID ON THE RIGHT SIDE OF THE INTERFACE
         
-    CALL xy2d ( EXP_X, I, J-1, IDL )    ! ID ON THE LEFT SIDE OF THE INTERFACE
+    CALL xy2d ( EXP_X, J-1, I, IDL_G )    ! ID ON THE LEFT SIDE OF THE INTERFACE
 
-    DO S = 0, MX
-        CALL RIEMANN_Y(SOLUTION_INT_R(S, :, IDL), &
-                       SOLUTION_INT_L(S, :, IDR), &
-                       NFLUX_Y_D(S, :, IDR), -1.0D0)
-                       
-                       
-        NFLUX_Y_U(S, :, IDL) = - NFLUX_Y_D(S, :, IDR)
+    IF (MPI_B_FLAG(3, LELEM_K)) THEN
+    
+        ENTRY_COUNT = (NMAX + 1) * NUM_OF_EQUATION
         
-    ENDDO
+        CALL FIND_RANK(IDL_G, TARGET_RANK)
+        
+        CALL INDEX_GLOBAL_TO_LOCAL(TARGET_RANK, IDL_G, IDL)
+        
+        TARGET_DISP = (1 + NMAX) * NUM_OF_EQUATION * IDL
+        
+        CALL MPI_GET(REMOTE_SOLUTION_INT_R, ENTRY_COUNT, &
+                        MPI_DOUBLE_PRECISION, TARGET_RANK, &
+                        TARGET_DISP, ENTRY_COUNT, MPI_DOUBLE_PRECISION, &
+                        WIN_INTERFACE_R, IERROR)
+
+
+        DO S = 0, MX
+            CALL RIEMANN_Y(REMOTE_SOLUTION_INT_R(S, :), &
+                           SOLUTION_INT_L(S, :, IDR), &
+                           NFLUX_Y_D(S, :, IDR), -1.0D0)
+        ENDDO
+        
+        ORIGIN_COUNT = (NMAX + 1) * NUM_OF_EQUATION
+        
+        CALL MPI_PUT( - NFLUX_Y_D(:, :, IDR), ORIGIN_COUNT, &
+                    MPI_DOUBLE_PRECISION, TARGET_RANK, &
+                    TARGET_DISP, ORIGIN_COUNT, &
+                    MPI_DOUBLE_PRECISION, WIN_NFLUX_R, IERROR)
+                    
+                
+    ELSE ! NEED LOCAL INFORMATION
+    
+        CALL INDEX_GLOBAL_TO_LOCAL(RANK, IDL_G, IDL)
+    
+        DO S = 0, MX
+            CALL RIEMANN_Y(SOLUTION_INT_R(S, :, IDL), &
+                           SOLUTION_INT_L(S, :, IDR), &
+                           NFLUX_Y_D(S, :, IDR), -1.0D0)
+                           
+                           
+            NFLUX_Y_U(S, :, IDL) = - NFLUX_Y_D(S, :, IDR)
+        
+        ENDDO
+    ENDIF
     
 END SUBROUTINE RIEMANN2
+
 
 
 END MODULE NUMERICAL_FLUX

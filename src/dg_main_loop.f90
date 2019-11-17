@@ -13,6 +13,8 @@ PROGRAM MAIN_LOOP
     USE VERIFICATION
     USE END_PROGRAM
     USE PREPARE_HILBERT_SCHEME
+    USE PARAM
+    USE DG_START_PARALLEL
 
     IMPLICIT NONE
     
@@ -24,14 +26,19 @@ PROGRAM MAIN_LOOP
     ! PREPARE HILBERT CURVE---------------------------------------------
     CALL HILBERT_NUMBERING
     !-------------------------------------------------------------------
-
+    
+    ! START PARALLEL PROCESS -------------------------------------------
+    CALL START_PARALLEL
+    !-------------------------------------------------------------------
     
     ! START GAMES-------------------------------------------------------
     CALL DRIVER_FOR_DG_APPROXIMATION
     !-------------------------------------------------------------------
     
     ! VERIFICATION------------------------------------------------------
-!    CALL GET_ERROR
+    IF (VERIFICATION_SWITCH) THEN
+        CALL GET_ERROR
+    ENDIF
     !-------------------------------------------------------------------
     
     ! FREE STORAGES-----------------------------------------------------

@@ -15,10 +15,10 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! SET POLYNOMIAL ORDER----------------------------------------------
-    INTEGER :: N = 8   !< POLYNOMIAL DEGREE IN X DIRECTION
-    INTEGER :: M = 8    !< POLYNOMIAL DEGREE IN Y DIRECTION
-    INTEGER :: NMAX = 10   !< MAXIMUM POLYNOMIAL DEGREE IN X DIRECTION
-    INTEGER :: MMAX = 10   !< MAXIMUM POLYNOMIAL DEGREE IN Y DIRECTION
+    INTEGER :: N = 4   !< POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: M = 4    !< POLYNOMIAL DEGREE IN Y DIRECTION
+    INTEGER :: NMAX = 4   !< MAXIMUM POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: MMAX = 4   !< MAXIMUM POLYNOMIAL DEGREE IN Y DIRECTION
     !-------------------------------------------------------------------
     
     ! DOMIAN BOUNDARY---------------------------------------------------
@@ -36,16 +36,15 @@ MODULE PARAM
     
     ! TIME--------------------------------------------------------------
 !    DOUBLE PRECISION :: T_TOTAL = 0.0d0     !< TOTAL TIME INTEGRAL
-!    DOUBLE PRECISION :: T_TOTAL = (2.0e-4)*2.0d0     !< TOTAL TIME INTEGRAL
-!    INTEGER :: NT = 2                    !< TIME STEP NUMBER
-!    DOUBLE PRECISION :: T_TOTAL = (2.0e-4)    !< TOTAL TIME INTEGRAL
-!    INTEGER :: NT = 1                    !< TIME STEP NUMBER
-    DOUBLE PRECISION :: T_TOTAL = 2.0D0     !< TOTAL TIME INTEGRAL
-    INTEGER :: NT = 10000                   !< TIME STEP NUMBER
+!    INTEGER :: NT = 0                   !< TIME STEP NUMBER
+    DOUBLE PRECISION :: T_TOTAL = (2.0e-4)    !< TOTAL TIME INTEGRAL
+    INTEGER :: NT = 1                    !< TIME STEP NUMBER
+!    DOUBLE PRECISION :: T_TOTAL = 2.0D0     !< TOTAL TIME INTEGRAL
+!    INTEGER :: NT = 10000                   !< TIME STEP NUMBER
     !-------------------------------------------------------------------
     
     ! OUTPUT DATA FREQUENCY---------------------------------------------
-    INTEGER :: OUTPUT_FREQUENCY = 50    !< OUTPUT DATA FREQUENCY, SHOULD <= NT
+    INTEGER :: OUTPUT_FREQUENCY = 1000    !< OUTPUT DATA FREQUENCY, SHOULD <= NT
     !-------------------------------------------------------------------
     
     !===================================================================
@@ -53,11 +52,16 @@ MODULE PARAM
     ! variables you could change =======================================
     
     !< WAVE SPEED ------------------------------------------------------
-    DOUBLE PRECISION, PARAMETER :: C=1.0D0
+    DOUBLE PRECISION, PARAMETER :: C=1.0D0  !< SOUND SPEED
     !-------------------------------------------------------------------
     
     ! SET ADAPATION ----------------------------------------------------
     INTEGER, PARAMETER :: SPLIT_MAX_NUM = 3     !< MAXIMUM SPLIT NUMBER
+    !-------------------------------------------------------------------
+    
+    ! VERIFICATION -----------------------------------------------------
+    LOGICAL :: VERIFICATION_SWITCH = .TRUE. !< VERIFICATE YOUR RESULTS. 
+                                             !< NOTE: THIS SHOULD BE TURNED OFF IF YOU ARE USING REFLECTIVE BOUNDARY CONDITION
     !-------------------------------------------------------------------
     
     !===================================================================

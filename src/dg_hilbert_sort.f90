@@ -23,9 +23,9 @@ SUBROUTINE HIBERT_SORT_2D
     INTEGER :: I, J     ! DUAL COORDINATES
     INTEGER :: D        ! HILBERT COORDINATE
     
-    !-------------------------------------------------------------------
-    ALLOCATE(X_HILBERT(4, 0:NUM_OF_ELEMENT-1), &
-             Y_HILBERT(4, 0:NUM_OF_ELEMENT-1))
+    ! ECONOMICAL STORAGE (ONLY STORE THE 2 DIAGONAL NODES)-------------------------------------------------------------------
+    ALLOCATE(X_HILBERT(2, 0:NUM_OF_ELEMENT-1), &
+             Y_HILBERT(2, 0:NUM_OF_ELEMENT-1))
     
     X_HILBERT = 0.0D0; Y_HILBERT = 0.0D0
     !-------------------------------------------------------------------
@@ -37,10 +37,12 @@ SUBROUTINE HIBERT_SORT_2D
         J = DUAL_COORD(2, K)
         
         
-        CALL xy2d ( EXP_X, I, J, D )
+        CALL xy2d ( EXP_X, J, I, D )
         
-        X_HILBERT(:, D) = ELEM_X_POSITION(:, K)
-        Y_HILBERT(:, D) = ELEM_Y_POSITION(:, K)
+        X_HILBERT(1, D) = ELEM_X_POSITION(1, K)
+        X_HILBERT(2, D) = ELEM_X_POSITION(3, K)
+        Y_HILBERT(1, D) = ELEM_Y_POSITION(1, K)
+        Y_HILBERT(2, D) = ELEM_Y_POSITION(3, K)
     
     ENDDO
     !-------------------------------------------------------------------

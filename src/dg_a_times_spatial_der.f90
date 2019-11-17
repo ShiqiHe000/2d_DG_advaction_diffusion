@@ -12,6 +12,7 @@ USE PARAM, ONLY: N, M, NUM_OF_EQUATION
 USE NODAL_2D_STORAGE
 USE FLUX_VECTORS
 USE SPACTIAL_DERIVATIVE
+USE LOCAL_STORAGE
 
 IMPLICIT NONE
 
@@ -21,12 +22,16 @@ SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_X(ELEM_K)
 
     IMPLICIT NONE 
     
-    INTEGER, INTENT(IN) :: ELEM_K   !< CURRENT ELEMENT K
+    INTEGER, INTENT(IN) :: ELEM_K   !< CURRENT ELEMENT K (LOCAL)
     INTEGER :: PORDERX, PORDERY   ! POLY ORDER
     INTEGER :: I, J, S
     
+    DOUBLE PRECISION :: DEL_X   ! ELEMENT LENGTH
+    
     CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(ELEM_K), PORDERX)
     CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(ELEM_K), PORDERY)
+    
+    DEL_X = X_LOCAL(2, ELEM_K) - X_LOCAL(1, ELEM_K)
     
     ! A * F ------------------------------------------------------------
     DO J = 0, PORDERY
@@ -47,7 +52,7 @@ SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_X(ELEM_K)
         DO S = 1, NUM_OF_EQUATION
             DO I = 0, PORDERX
                 SOLUTION_TIME_DER(I, J, S, ELEM_K) = &
-                                                - (2.0D0 / DELTA_X(ELEM_K)) &
+                                                - (2.0D0 / DEL_X) &
                                                 * FLUX_DER_X(I, J, S, ELEM_K)
             ENDDO
         
@@ -59,22 +64,26 @@ SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_X(ELEM_K)
 END SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_X
 
 SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_Y(ELEM_K)
-
+use param
     IMPLICIT NONE 
     
     INTEGER, INTENT(IN) :: ELEM_K   !< CURRENT ELEMENT K
     INTEGER :: PORDERX, PORDERY   ! POLY ORDER
     INTEGER :: I, J, S
     
+    DOUBLE PRECISION :: DEL_Y   ! ELEMENT LENGTH
+    
     CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(ELEM_K), PORDERX)
     CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(ELEM_K), PORDERY)
+    
+    DEL_Y = Y_LOCAL(2, ELEM_K) - Y_LOCAL(1, ELEM_K)
     
     ! B * F ------------------------------------------------------------
     DO I = 0, PORDERX
         DO J = 0, PORDERY
             CALL YFLUX(SOLUTION(I, J, :, ELEM_K), FLUX_Y(I, J, :, ELEM_K))
         ENDDO
-        
+ if(rank == 1) print *, "yflux"       
         ! B * F'--------------------------------------------------------
         CALL DG_SPATIAL_DERIVATIVE(PORDERY, NFLUX_Y_D(I, :, ELEM_K), &
                                     NFLUX_Y_U(I, :, ELEM_K), &
@@ -88,7 +97,7 @@ SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_Y(ELEM_K)
         DO S = 1, NUM_OF_EQUATION
             DO J = 0, PORDERY
                 SOLUTION_TIME_DER(I, J, S, ELEM_K) = SOLUTION_TIME_DER(I, J, S, ELEM_K) &
-                                                - (2.0D0 / DELTA_Y(ELEM_K)) &
+                                                - (2.0D0 / DEL_Y) &
                                                 * FLUX_DER_Y(I, J, S, ELEM_K)
             ENDDO
         

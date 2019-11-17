@@ -3,6 +3,7 @@
 DIR = .
 
 TGT = main.exe
+PROFILE_NAME = profiling.txt
 
 FC = mpif90
 
@@ -16,22 +17,29 @@ WALL = -Wall
 OPT = -O3
 OG = -Og
 DEBUG = -g -fcheck=all -fimplicit-none -fbacktrace -pedantic -Wall
+PROFILING = -pg
 
 SRC =  dg_param.f90 \
        dg_mpi.f90 \
+       dg_local_storage.f90 \
+       dg_index_local_global.f90 \
        dg_affine_map.f90 \
        dg_basis.f90 \
+       dg_search_rank.f90 \
        dg_interpolate_to_new_point.f90 \
        dg_user_defined.f90 \
        dg_external_state.f90 \
        dg_poly_level_and_order.f90 \
        dg_hilbert_curve.f90 \
        dg_nodal_2d_storage.f90 \
+       dg_construct_mpi_boundary.f90 \
        dg_get_dual_coord.f90 \
        dg_gen_dual_graph.f90 \
        dg_write_data.f90 \
        dg_read_mesh_2d.f90 \
        dg_hilbert_sort.f90 \
+       dg_distribute_elements.f90 \
+       dg_start_parallel.f90 \
        dg_prepare_hilbert_scheme.f90 \
        dg_basis_storage.f90 \
        dg_constructor.f90 \
@@ -44,6 +52,7 @@ SRC =  dg_param.f90 \
        dg_time_derivative_global.f90 \
        dg_step_by_RK3.f90 \
        dg_output.f90 \
+       dg_io.f90 	\
        dg_advection_diffusion_driver.f90 \
        dg_verification.f90 \
        dg_end_games.f90 \
@@ -61,23 +70,23 @@ OBJ = $(addprefix $(DIR)/$(OBJDIR)/, $(notdir $(SRC:.f90=.o)))
 
 $(DIR)/$(OBJDIR)/$(TGT) : $(OBJ)
 #	$(FC) $(MOD) -o $@ $^
-	$(FC) $(OPT) $(WALL) $(MOD) -o $(TGT) $^
+	$(FC) $(OPT) $(PROFILING) $(WALL) $(MOD) -o $(TGT) $^
  
 $(DIR)/$(OBJDIR)/%.o : $(DIR)/$(SRCDIR)/%.f90
-	$(FC) $(OPT) $(WALL) $(MOD) -c $< -o $@
+	$(FC) $(OPT) $(PROFILING) $(WALL) $(MOD) -c $< -o $@
 
 
 
 .PHONY : help run clean all 
 
 all : $(DIR)/$(OBJDIR)/$(TGT)
-#	$(DIR)/$(OBJDIR)/$(TGT)
 	@echo "------------------------------"
 	@echo "Makefile succeed"
 	@echo "------------------------------"
 
 run : $(TGT)
-	mpirun -np 1 $(TGT)
+	export GMON_OUT_PREFIX=gmon.out-
+	mpirun -np 2 $(TGT)
 
 drun : $(TGT)
 	mpirun -np 1 xterm -e gdb $(TGT)
@@ -91,8 +100,16 @@ help :
 debug : 
 	make "OPT = -g -fcheck=all -fimplicit-none -fbacktrace -pedantic -Wall"
 
+profiling :
+	gprof -s $(TGT) gmon.out-*
+	rm gmon.out-*
+	gprof $(TGT) gmon.sum > $(PROFILE_NAME)
+	@echo "---------------------------------------------------"
+	@echo "Profiling data is in file 'profiling.txt'"
+	@echo "---------------------------------------------------"
+
 clean :
 	rm -rf $(OBJ) 
 	rm -rf $(DIR)/$(INCLUDEDIR)/*.mod
 	rm -rf $(OUTPUT)/*.dat
-	rm -rf *.dat *.txt $(TGT)
+	rm -rf *.dat *.txt $(TGT) *.out *.sum gmon.out-*

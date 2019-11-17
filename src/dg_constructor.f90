@@ -11,6 +11,7 @@ MODULE DG_2D_CONSTRUCTOR
 USE MPI
 USE NODAL_2D_STORAGE
 USE BASIS_STORAGE
+USE LOCAL_STORAGE
 
 IMPLICIT NONE
 
@@ -24,12 +25,14 @@ SUBROUTINE CONSTRUCT_BASIS
     CALL CONSTRUCT_BASIS_STORAGE
    !-------------------------------------------------------------------
    
-   ! INITIALIZE EACH ELEMENT WITH POLY LEVEL 1--------------------------
-   ALLOCATE(PLEVEL_X(0:NUM_OF_ELEMENT-1))   ! element number start from 0 (use Hilbert scheme)
-   ALLOCATE(PLEVEL_Y(0:NUM_OF_ELEMENT-1))
    
-   PLEVEL_X = 1; PLEVEL_Y = 1
-   !--------------------------------------------------------------------
+    ! INITIALIZE FUNDAMENTAL PARAMETERS---------------------------------
+    ALLOCATE(A_LEVEL(0:LOCAL_ELEM_NUM-1))   ! element number start from 0 (use Hilbert scheme)
+    A_LEVEL = 0
+
+    ALLOCATE(PLEVEL_X(0:LOCAL_ELEM_NUM-1), PLEVEL_Y(0:LOCAL_ELEM_NUM-1))
+    PLEVEL_X = 1; PLEVEL_Y = 1;
+    !-------------------------------------------------------------------
     
 
 END SUBROUTINE CONSTRUCT_BASIS
