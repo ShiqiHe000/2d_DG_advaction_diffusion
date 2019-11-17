@@ -1,0 +1,8 @@
+language: c
+
+sudo: required
+
+
+script: 
+        - make clean && make 
+

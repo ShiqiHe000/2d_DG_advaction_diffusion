@@ -64,7 +64,7 @@ SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_X(ELEM_K)
 END SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_X
 
 SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_Y(ELEM_K)
-
+use param
     IMPLICIT NONE 
     
     INTEGER, INTENT(IN) :: ELEM_K   !< CURRENT ELEMENT K
@@ -83,7 +83,7 @@ SUBROUTINE A_TIMES_SPATIAL_DERIRATIVE_Y(ELEM_K)
         DO J = 0, PORDERY
             CALL YFLUX(SOLUTION(I, J, :, ELEM_K), FLUX_Y(I, J, :, ELEM_K))
         ENDDO
-        
+ if(rank == 1) print *, "yflux"       
         ! B * F'--------------------------------------------------------
         CALL DG_SPATIAL_DERIVATIVE(PORDERY, NFLUX_Y_D(I, :, ELEM_K), &
                                     NFLUX_Y_U(I, :, ELEM_K), &
