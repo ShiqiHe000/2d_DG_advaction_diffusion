@@ -26,6 +26,7 @@ Here, we present a 2D DG solver for a classic wave propagation problem.
    dg_numerical_fluxes
    dg_load_balancing
    dg_mpi
+   dg_other_features
    dg_reference
 
 

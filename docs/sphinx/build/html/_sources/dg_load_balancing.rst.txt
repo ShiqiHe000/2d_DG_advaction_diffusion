@@ -30,8 +30,8 @@ Graph-based Algorithm
 -------------------------------------------
 A popular choice for graph-based partition is ParMetis_.
 
-**ParMetis** performing very well for mesh partition for a long time. However, since ParMetis require global knowledge of the mesh, with an increassing number of processes, graph-based partitioning algorithms seem to reach their scalability limits. 
-The memory consumption grows linearly with teh graph size, raising the need for alternatives which could avoid this problem. Such methods are based on `space-filling curves`_ (SFCs).
+**ParMetis** performing very well for mesh partition for a long time. However, since ParMetis require global knowledge of the mesh, with an increasing number of processes, graph-based partitioning algorithms seem to reach their scalability limits. 
+The memory consumption grows linearly with the graph size, raising the need for alternatives which could avoid this problem. Such methods are based on `space-filling curves`_ (SFCs).
 
 .. _ParMetis : http://glaros.dtc.umn.edu/gkhome/metis/parmetis/overview
 
@@ -41,7 +41,7 @@ The memory consumption grows linearly with teh graph size, raising the need for 
 Space-filling curves (SFCs) based algorithm
 ----------------------------------------------
 SFCs reduce the partitioning problem from n dimension to one dimension. 
-The remaining tast, the so-called 1D patitioning problem or *chains-on-chains* partiitoning problem, is to decompose a 1D workload array into consecutive, balanced partitions. 
+The remaining tast, the so-called 1D partitioning problem or *chains-on-chains* partitioning problem, is to decompose a 1D workload array into consecutive, balanced partitions. 
 
 
 Advantages
@@ -51,7 +51,7 @@ Advantages
 
 - Acceptable communication overhead
         * SFCs ignores the edges of full graph imformation. 
-          It relies on the spatial properties of the curve to ensure a reasonable partition shape. Tirthapura et al. demonstrated that the upper limit of expected remote accesses in SFC partiiotned domains are acceptable :cite:`1`.  
+          It relies on the spatial properties of the curve to ensure a reasonable partition shape. Tirthapura et al. demonstrated that the upper limit of expected remote accesses in SFC partiotned domains are acceptable :cite:`1`.  
 
 - Low memory using
         * Taking the good locality of SFCs, the global imformation (full graph information) needed by Graph-based algorithm can be abandoned. Thus, SFCs opens a path towards low-memory partitioning strategies. 
@@ -108,7 +108,8 @@ Locate the processor who stores the target element is done by **broadcasting** t
 
 Dynamic grid Neighbour-finding algorithm
 ----------------------------------------------------
-When h-adaptivity is introuduced to the code, element splits or merge according to the error indicator. Once an element split, it generates four indentical "children" quarants. The **Octree partitioning** is motivated by octree-based mesh generation. 
+When h-adaptivity is introduced to the code, element splits or merge according to the error indicator. 
+Once an element split, it generates four identical "children" quadrants. The **Octree partitioning** is motivated by octree-based mesh generation. 
 
 .. image:: /image/quardtree_mesh.jpg
 

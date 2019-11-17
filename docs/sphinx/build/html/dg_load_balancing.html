@@ -214,13 +214,13 @@ Typical mesh-based approaches therefore rely on suitable partitioning strategies
 <div class="section" id="graph-based-algorithm">
 <h3>Graph-based Algorithm<a class="headerlink" href="#graph-based-algorithm" title="Permalink to this headline">¶</a></h3>
 <p>A popular choice for graph-based partition is <a class="reference external" href="http://glaros.dtc.umn.edu/gkhome/metis/parmetis/overview">ParMetis</a>.</p>
-<p><strong>ParMetis</strong> performing very well for mesh partition for a long time. However, since ParMetis require global knowledge of the mesh, with an increassing number of processes, graph-based partitioning algorithms seem to reach their scalability limits.
-The memory consumption grows linearly with teh graph size, raising the need for alternatives which could avoid this problem. Such methods are based on <a class="reference external" href="https://en.wikipedia.org/wiki/Space-filling_curve">space-filling curves</a> (SFCs).</p>
+<p><strong>ParMetis</strong> performing very well for mesh partition for a long time. However, since ParMetis require global knowledge of the mesh, with an increasing number of processes, graph-based partitioning algorithms seem to reach their scalability limits.
+The memory consumption grows linearly with the graph size, raising the need for alternatives which could avoid this problem. Such methods are based on <a class="reference external" href="https://en.wikipedia.org/wiki/Space-filling_curve">space-filling curves</a> (SFCs).</p>
 </div>
 <div class="section" id="space-filling-curves-sfcs-based-algorithm">
 <h3>Space-filling curves (SFCs) based algorithm<a class="headerlink" href="#space-filling-curves-sfcs-based-algorithm" title="Permalink to this headline">¶</a></h3>
 <p>SFCs reduce the partitioning problem from n dimension to one dimension.
-The remaining tast, the so-called 1D patitioning problem or <em>chains-on-chains</em> partiitoning problem, is to decompose a 1D workload array into consecutive, balanced partitions.</p>
+The remaining tast, the so-called 1D partitioning problem or <em>chains-on-chains</em> partitioning problem, is to decompose a 1D workload array into consecutive, balanced partitions.</p>
 <div class="section" id="advantages">
 <h4>Advantages<a class="headerlink" href="#advantages" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
@@ -234,7 +234,7 @@ The remaining tast, the so-called 1D patitioning problem or <em>chains-on-chains
 <li><dl class="simple">
 <dt>Acceptable communication overhead</dt><dd><ul>
 <li><p>SFCs ignores the edges of full graph imformation.
-It relies on the spatial properties of the curve to ensure a reasonable partition shape. Tirthapura et al. demonstrated that the upper limit of expected remote accesses in SFC partiiotned domains are acceptable <a class="bibtex reference internal" href="#id6" id="id1">[TSA06]</a>.</p></li>
+It relies on the spatial properties of the curve to ensure a reasonable partition shape. Tirthapura et al. demonstrated that the upper limit of expected remote accesses in SFC partiotned domains are acceptable <a class="bibtex reference internal" href="#id6" id="id1">[TSA06]</a>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -277,7 +277,8 @@ Locate the processor who stores the target element is done by <strong>broadcasti
 </div>
 <div class="section" id="dynamic-grid-neighbour-finding-algorithm">
 <h3>Dynamic grid Neighbour-finding algorithm<a class="headerlink" href="#dynamic-grid-neighbour-finding-algorithm" title="Permalink to this headline">¶</a></h3>
-<p>When h-adaptivity is introuduced to the code, element splits or merge according to the error indicator. Once an element split, it generates four indentical “children” quarants. The <strong>Octree partitioning</strong> is motivated by octree-based mesh generation.</p>
+<p>When h-adaptivity is introduced to the code, element splits or merge according to the error indicator.
+Once an element split, it generates four identical “children” quadrants. The <strong>Octree partitioning</strong> is motivated by octree-based mesh generation.</p>
 <img alt="_images/quardtree_mesh.jpg" src="_images/quardtree_mesh.jpg" />
 <p>Neighbour-finding is achieved by using a global index (k, l, j, s) to identify element.</p>
 <ul class="simple">

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Search &mdash; 2d_DG_advection 1.0 documentation</title>
+  <title>Some features in the solver &mdash; 2d_DG_advection 1.0 documentation</title>
   
 
   
@@ -26,7 +26,6 @@
         <script type="text/javascript" src="_static/doctools.js"></script>
         <script type="text/javascript" src="_static/language_data.js"></script>
         <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-        <script type="text/javascript" src="_static/searchtools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -36,7 +35,9 @@
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="#" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Reference" href="dg_reference.html" />
+    <link rel="prev" title="MPI Interface" href="dg_mpi.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -63,7 +64,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -81,14 +82,21 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="dg_motivation.html">Motivation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dg_spectral_approximation.html">Spectral Approximation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dg_wave_propagation_2d.html">Spectral Approximation on a square</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dg_numerical_fluxes.html">Numerical Flux schemes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dg_load_balancing.html">Dynamic Load-balancing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dg_mpi.html">MPI Interface</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dg_other_features.html">Some features in the solver</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Some features in the solver</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#element-node-ordering-format">Element Node-ordering Format</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-storage">Data Storage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#element-coordinates">Element coordinates</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="dg_reference.html">Reference</a></li>
 </ul>
 
@@ -135,12 +143,14 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Search</li>
+      <li>Some features in the solver</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
+            <a href="_sources/dg_other_features.rst.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -152,24 +162,36 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search
-      functionality.
-    </p>
-  </div>
-  </noscript>
+  <div class="section" id="some-features-in-the-solver">
+<h1>Some features in the solver<a class="headerlink" href="#some-features-in-the-solver" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="element-node-ordering-format">
+<h2>Element Node-ordering Format<a class="headerlink" href="#element-node-ordering-format" title="Permalink to this headline">¶</a></h2>
+<p>Element node-ordering follows the format shown below:</p>
+<img alt="_images/element_node_sequence.png" src="_images/element_node_sequence.png" />
+</div>
+<div class="section" id="data-storage">
+<h2>Data Storage<a class="headerlink" href="#data-storage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="element-coordinates">
+<h3>Element coordinates<a class="headerlink" href="#element-coordinates" title="Permalink to this headline">¶</a></h3>
+<p>For a quadrilateral mesh, only the coordinates of two diagonal modes are stored. To be specific, point 1 and point 3.</p>
+</div>
+</div>
+</div>
 
-  
-  <div id="search-results">
-  
-  </div>
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dg_reference.html" class="btn btn-neutral float-right" title="Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dg_mpi.html" class="btn btn-neutral float-left" title="MPI Interface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -202,14 +224,7 @@
   
   
     
-  
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
    
-
 
 </body>
 </html>
