@@ -54,8 +54,8 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     ENDDO
     
 ! IF (RANK == 0) THEN
-!!    PRINT *, SOLUTION(:, 0, 2, 0), "2"
-!!    PRINT *, SOLUTION(:, 0, 3, 0), "3"
+!    PRINT *, SOLUTION(:, 0, 2, 0), "2"
+!    PRINT *, SOLUTION(:, 0, 3, 0), "3"
 !    PRINT *, SOLUTION_INT_R(:, 2, 0), "2"
 !    PRINT *, SOLUTION_INT_R(:, 3, 0), "3"
 ! ENDIF
@@ -93,7 +93,6 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     
 !    IF(RANK == 0) THEN
-!    print *, NUM_OF_EQUATION
 !        PRINT *, NFLUX_X_L(:, 2, 0), "X"
 !        PRINT *, NFLUX_X_L(:, 3, 0)
     
@@ -119,8 +118,8 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
 !    IF (RANK == 0) THEN
     
-!        PRINT *, SOLUTION_TIME_DER(:, 0, 1, 0)
-!        PRINT *, SOLUTION(:, 0, 1, 0)
+!        PRINT *, SOLUTION_TIME_DER(0, 0, 3, 0)
+!!        PRINT *, SOLUTION(:, 0, 1, 0)
 !    ENDIF
     
     !-------------------------------------------------------------------
@@ -170,8 +169,8 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     !-------------------------------------------------------------------
 
 !    IF(RANK == 0) THEN
-!!        print *, RANK, NFLUX_Y_U(:, 1, 0)
-!        print *, SOLUTION_INT_R(:, 1, 0)
+!        print *, RANK, NFLUX_Y_U(:, 1, 0)
+!!        print *, SOLUTION_INT_L(:, 2, 0)
 !    ENDIF
 
     ! NEXT STEP COMPUTE NUMERICAL FLUXES--------------------------------
@@ -182,8 +181,8 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     CALL CREATE_WINDOW(NMAX, WIN_NFLUX_L, WIN_NFLUX_R, NFLUX_Y_D, NFLUX_Y_U)
     
-    CALL MPI_WIN_FENCE(MPI_MODE_NOPRECEDE, WIN_NFLUX_L, IERROR)
-    CALL MPI_WIN_FENCE(MPI_MODE_NOPRECEDE, WIN_NFLUX_R, IERROR)
+    CALL MPI_WIN_FENCE(MPI_MODE_NOPUT, WIN_NFLUX_L, IERROR)
+    CALL MPI_WIN_FENCE(MPI_MODE_NOPUT, WIN_NFLUX_R, IERROR)
     
     
     DO K = 0, LOCAL_ELEM_NUM-1
@@ -199,14 +198,15 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     CALL MPI_WIN_FENCE(MPI_MODE_NOSUCCEED, WIN_INTERFACE_L, IERROR)
     CALL MPI_WIN_FENCE(MPI_MODE_NOSUCCEED, WIN_INTERFACE_R, IERROR)
     
-!    IF(RANK == 1) THEN
-!        print *, RANK, NFLUX_Y_U(:, 1, 0)
-!        print *, SOLUTION_INT_R(:, 1, 0)
+!    IF(RANK == 0) THEN
+!        print *, NFLUX_Y_U(:, 2, 0)
+!!        print *, NFLUX_Y_D(:, 2, 1)
+!!        print *, SOLUTION_INT_R(:, 1, 0)
 !    ENDIF
     
-!    IF(RANK == 0) THEN
+!    IF(RANK == 1) THEN
 !        PRINT *, NFLUX_Y_D(:, 2, 1)
-!        PRINT *, NFLUX_Y_D(:, 3, 0), "Y"
+!!        PRINT *, NFLUX_Y_D(:, 3, 0), "Y"
 !    ENDIF
     
     ! SPACIAL DERIVATIVE------------------------------------------------

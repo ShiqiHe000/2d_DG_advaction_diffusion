@@ -372,9 +372,9 @@ SUBROUTINE RIEMANN2(LELEM_K, I, J, MX)
                            NFLUX_Y_D(S, :, IDR), -1.0D0)
         ENDDO
         
-        ORIGIN_COUNT = (MX + 1) * NUM_OF_EQUATION
+        ORIGIN_COUNT = (NMAX + 1) * NUM_OF_EQUATION
         
-        CALL MPI_PUT( - NFLUX_Y_D(0:MX, :, IDR), ORIGIN_COUNT, &
+        CALL MPI_PUT( - NFLUX_Y_D(:, :, IDR), ORIGIN_COUNT, &
                     MPI_DOUBLE_PRECISION, TARGET_RANK, &
                     TARGET_DISP, ORIGIN_COUNT, &
                     MPI_DOUBLE_PRECISION, WIN_NFLUX_R, IERROR)
