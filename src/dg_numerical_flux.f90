@@ -361,11 +361,6 @@ SUBROUTINE RIEMANN2(LELEM_K, I, J, MX)
                         WIN_INTERFACE_R, IERROR)
 
 
-!IF(IDR == 1) THEN
-!    PRINT *, REMOTE_SOLUTION_INT_R(:, 1)
-
-!ENDIF
-
         DO S = 0, MX
             CALL RIEMANN_Y(REMOTE_SOLUTION_INT_R(S, :), &
                            SOLUTION_INT_L(S, :, IDR), &

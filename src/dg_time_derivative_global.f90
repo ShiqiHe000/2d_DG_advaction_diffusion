@@ -53,14 +53,6 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
                                     SOLUTION_INT_R(0:PORDER_Y, :, K) )
     ENDDO
     
-! IF (RANK == 0) THEN
-!    PRINT *, SOLUTION(:, 0, 2, 0), "2"
-!    PRINT *, SOLUTION(:, 0, 3, 0), "3"
-!    PRINT *, SOLUTION_INT_R(:, 2, 0), "2"
-!    PRINT *, SOLUTION_INT_R(:, 3, 0), "3"
-! ENDIF
- 
- 
     CALL CREATE_WINDOW(MMAX, WIN_INTERFACE_L, WIN_INTERFACE_R, &
                         SOLUTION_INT_L, SOLUTION_INT_R)
      
@@ -91,13 +83,6 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     CALL MPI_WIN_FENCE(MPI_MODE_NOSUCCEED, WIN_INTERFACE_L, IERROR)
     CALL MPI_WIN_FENCE(MPI_MODE_NOSUCCEED, WIN_INTERFACE_R, IERROR)
     
-    
-!    IF(RANK == 0) THEN
-!        PRINT *, NFLUX_X_L(:, 2, 0), "X"
-!        PRINT *, NFLUX_X_L(:, 3, 0)
-    
-!    ENDIF
-    
     ! SPACIAL DERIVATIVE------------------------------------------------
     ALLOCATE(FLUX_X(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
     
@@ -115,12 +100,6 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
         CALL A_TIMES_SPATIAL_DERIRATIVE_X(K)
     
     ENDDO
-    
-!    IF (RANK == 0) THEN
-    
-!        PRINT *, SOLUTION_TIME_DER(0, 0, 3, 0)
-!!        PRINT *, SOLUTION(:, 0, 1, 0)
-!    ENDIF
     
     !-------------------------------------------------------------------
     
@@ -168,11 +147,6 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     CALL MPI_WIN_FENCE(MPI_MODE_NOPUT, WIN_INTERFACE_R, IERROR)
     !-------------------------------------------------------------------
 
-!    IF(RANK == 0) THEN
-!        print *, RANK, NFLUX_Y_U(:, 1, 0)
-!!        print *, SOLUTION_INT_L(:, 2, 0)
-!    ENDIF
-
     ! NEXT STEP COMPUTE NUMERICAL FLUXES--------------------------------
     ALLOCATE(NFLUX_Y_D(0:NMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
     ALLOCATE(NFLUX_Y_U(0:NMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
@@ -198,16 +172,6 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     CALL MPI_WIN_FENCE(MPI_MODE_NOSUCCEED, WIN_INTERFACE_L, IERROR)
     CALL MPI_WIN_FENCE(MPI_MODE_NOSUCCEED, WIN_INTERFACE_R, IERROR)
     
-!    IF(RANK == 0) THEN
-!        print *, NFLUX_Y_U(:, 2, 0)
-!!        print *, NFLUX_Y_D(:, 2, 1)
-!!        print *, SOLUTION_INT_R(:, 1, 0)
-!    ENDIF
-    
-!    IF(RANK == 1) THEN
-!        PRINT *, NFLUX_Y_D(:, 2, 1)
-!!        PRINT *, NFLUX_Y_D(:, 3, 0), "Y"
-!    ENDIF
     
     ! SPACIAL DERIVATIVE------------------------------------------------
     ALLOCATE(FLUX_Y(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
