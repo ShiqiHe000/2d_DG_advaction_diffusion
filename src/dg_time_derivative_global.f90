@@ -14,6 +14,7 @@ USE NUMERICAL_FLUX
 USE A_TIMES_SPATIAL_DER
 USE LOCAL_STORAGE
 USE MPI_BOUNDARY
+USE MESSAGE_EXCHAGE
 
 IMPLICIT NONE
 
@@ -37,8 +38,10 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     !FIRST GET FLUX ON THE INFERFACES, ---------------------------------
     ALLOCATE(SOLUTION_INT_L(0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
     ALLOCATE(SOLUTION_INT_R(0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
+    ALLOCATE(GHOST(0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
     
     SOLUTION_INT_L = 0.0D0; SOLUTION_INT_R = 0.0D0
+    GHOST = 0.0D0
     
     DO K = 0, LOCAL_ELEM_NUM-1
     
@@ -52,12 +55,10 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
                                     SOLUTION_INT_L(0:PORDER_Y, :, K), &
                                     SOLUTION_INT_R(0:PORDER_Y, :, K) )
     ENDDO
+    !-------------------------------------------------------------------
     
-    CALL CREATE_WINDOW(MMAX, WIN_INTERFACE_L, WIN_INTERFACE_R, &
-                        SOLUTION_INT_L, SOLUTION_INT_R)
-     
-    CALL MPI_WIN_FENCE(MPI_MODE_NOPUT , WIN_INTERFACE_L, IERROR)
-    CALL MPI_WIN_FENCE(MPI_MODE_NOPUT , WIN_INTERFACE_R, IERROR)
+    ! EXCHANGE MPI INTERFACES-------------------------------------------
+    CALL EXCHANGE_MPI_INTERFACE_X
     !-------------------------------------------------------------------
 
     ! NEXT STEP COMPUTE NUMERICAL FLUXES--------------------------------
@@ -66,22 +67,12 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     NFLUX_X_L = 0.0D0; NFLUX_X_R = 0.0D0
     
-    CALL CREATE_WINDOW(MMAX, WIN_NFLUX_L, WIN_NFLUX_R, NFLUX_X_L, NFLUX_X_R)
-    
-    CALL MPI_WIN_FENCE(MPI_MODE_NOPUT, WIN_NFLUX_L, IERROR)
-    CALL MPI_WIN_FENCE(MPI_MODE_NOPUT, WIN_NFLUX_R, IERROR)
-    
     DO K = 0, LOCAL_ELEM_NUM - 1
         CALL NUMERICAL_FLUX_X(K, T)
         
     ENDDO
     
-    CALL MPI_WIN_FENCE(MPI_MODE_NOSUCCEED, WIN_NFLUX_L, IERROR)
-    CALL MPI_WIN_FENCE(MPI_MODE_NOSUCCEED, WIN_NFLUX_R, IERROR)
     !-------------------------------------------------------------------
-    
-    CALL MPI_WIN_FENCE(MPI_MODE_NOSUCCEED, WIN_INTERFACE_L, IERROR)
-    CALL MPI_WIN_FENCE(MPI_MODE_NOSUCCEED, WIN_INTERFACE_R, IERROR)
     
     ! SPACIAL DERIVATIVE------------------------------------------------
     ALLOCATE(FLUX_X(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
@@ -103,13 +94,6 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     
     !-------------------------------------------------------------------
     
-    ! FREE REMOTELY ACCESSIBLE MEMORY-------------------------------
-    CALL MPI_WIN_FREE(WIN_INTERFACE_L, IERROR)
-    CALL MPI_WIN_FREE(WIN_INTERFACE_R, IERROR)
-    CALL MPI_WIN_FREE(WIN_NFLUX_L, IERROR)
-    CALL MPI_WIN_FREE(WIN_NFLUX_R, IERROR)
-    !-------------------------------------------------------------------
-
     !-------------------------------------------------------------------
     DEALLOCATE(SOLUTION_INT_L, SOLUTION_INT_R)
     DEALLOCATE(NFLUX_X_L, NFLUX_X_R)
