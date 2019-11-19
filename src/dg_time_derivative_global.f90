@@ -57,8 +57,8 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     ENDDO
     !-------------------------------------------------------------------
     
-    ! EXCHANGE MPI INTERFACES-------------------------------------------
-    CALL EXCHANGE_MPI_INTERFACE_X
+    ! EXCHANGE SOLUTIONS ON MPI INTERFACES-------------------------------------------
+    CALL EXCHANGE_SOLUTION_X
     !-------------------------------------------------------------------
 
     ! NEXT STEP COMPUTE NUMERICAL FLUXES--------------------------------
@@ -71,8 +71,11 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
         CALL NUMERICAL_FLUX_X(K, T)
         
     ENDDO
-    
     !-------------------------------------------------------------------
+    
+    ! EXCHANGE NUMERICAL FLUXES ON MPI INTERFACES-----------------------
+    CALL EXCHANGE_NFLUX_X
+    ! ------------------------------------------------------------------
     
     ! SPACIAL DERIVATIVE------------------------------------------------
     ALLOCATE(FLUX_X(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))

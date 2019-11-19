@@ -158,10 +158,6 @@ SUBROUTINE RIEMANN1(LELEM_K, I, J, MY)
     INTEGER(KIND=MPI_ADDRESS_KIND) :: TARGET_DISP   ! Displacement from window start to the beginning of the target buffer
     INTEGER :: ORIGIN_COUNT ! NUMBER OF DATATO PUT ON THE REMOTE RANK
     
-    DOUBLE PRECISION :: REMOTE_SOLUTION_INT_R(0:MMAX, NUM_OF_EQUATION)  ! SOLUTION_INT_L FROM REMOTE BUFFER
-    
-    REMOTE_SOLUTION_INT_R = 0.0D0
-    
     IDR = LELEM_K    ! ID ON THE RIGHT SIDE OF THE INTERFACE (LOCAL)
         
     CALL xy2d ( EXP_X, J, I-1, IDL_G )    ! ID ON THE LEFT SIDE OF THE INTERFACE
@@ -169,33 +165,14 @@ SUBROUTINE RIEMANN1(LELEM_K, I, J, MY)
     ! NEED REMOTE INFORMATION
     IF (MPI_B_FLAG(1, LELEM_K)) THEN
     
-        ENTRY_COUNT = (MMAX + 1) * NUM_OF_EQUATION
-        
-        CALL FIND_RANK(IDL_G, TARGET_RANK)
-        
-        CALL INDEX_GLOBAL_TO_LOCAL(TARGET_RANK, IDL_G, IDL)
-        
-        TARGET_DISP = (1 + NMAX) * NUM_OF_EQUATION * IDL
-        
-        CALL MPI_GET(REMOTE_SOLUTION_INT_R, ENTRY_COUNT, &
-                        MPI_DOUBLE_PRECISION, TARGET_RANK, &
-                        TARGET_DISP, ENTRY_COUNT, MPI_DOUBLE_PRECISION, &
-                        WIN_INTERFACE_R, IERROR)
-        
         ! NOW WE ASSUMING CONFORMING INTERFACES
         DO S = 0, MY
-            CALL RIEMANN_X(REMOTE_SOLUTION_INT_R(S, :), &
+            CALL RIEMANN_X(GHOST(S, :, IDR), &
                            SOLUTION_INT_L(S, :, IDR), &
                            NFLUX_X_L(S, :, IDR), -1.0D0)
         ENDDO
         
-        ORIGIN_COUNT = (MY + 1) * NUM_OF_EQUATION
-        
-        CALL MPI_PUT( - NFLUX_X_L(0:MY, :, IDR), ORIGIN_COUNT, &
-                    MPI_DOUBLE_PRECISION, TARGET_RANK, &
-                    TARGET_DISP, ORIGIN_COUNT, &
-                    MPI_DOUBLE_PRECISION, WIN_NFLUX_R, IERROR)
-                
+                        
     ELSE ! NEED LOCAL INFORMATION
         CALL INDEX_GLOBAL_TO_LOCAL(RANK, IDL_G, IDL)
     
