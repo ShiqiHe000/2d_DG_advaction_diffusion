@@ -24,6 +24,10 @@ Here, we present a 2D DG solver for a classic wave propagation problem.
    dg_spectral_approximation
    dg_wave_propagation_2d 
    dg_numerical_fluxes
+   dg_load_balancing
+   dg_mpi
+   dg_profiling
+   dg_other_features
    dg_reference
 
 

@@ -15,10 +15,17 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! SET POLYNOMIAL ORDER----------------------------------------------
+<<<<<<< HEAD
     INTEGER :: N = 2   !< POLYNOMIAL DEGREE IN X DIRECTION
     INTEGER :: M = 2    !< POLYNOMIAL DEGREE IN Y DIRECTION
     INTEGER :: NMAX = 2   !< MAXIMUM POLYNOMIAL DEGREE IN X DIRECTION
     INTEGER :: MMAX = 2   !< MAXIMUM POLYNOMIAL DEGREE IN Y DIRECTION
+=======
+    INTEGER :: N = 6   !< POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: M = 6    !< POLYNOMIAL DEGREE IN Y DIRECTION
+    INTEGER :: NMAX = 8   !< MAXIMUM POLYNOMIAL DEGREE IN X DIRECTION
+    INTEGER :: MMAX = 8   !< MAXIMUM POLYNOMIAL DEGREE IN Y DIRECTION
+>>>>>>> 4ad725b7f4530738d9692a0161cdf14fe879a4a0
     !-------------------------------------------------------------------
     
     ! DOMIAN BOUNDARY---------------------------------------------------

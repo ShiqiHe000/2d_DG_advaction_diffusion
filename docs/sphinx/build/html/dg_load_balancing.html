@@ -1,0 +1,404 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Dynamic Load-balancing &mdash; 2d_DG_advection 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="MPI Interface" href="dg_mpi.html" />
+    <link rel="prev" title="Numerical Flux schemes" href="dg_numerical_fluxes.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> 2d_DG_advection
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="dg_motivation.html">Motivation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_spectral_approximation.html">Spectral Approximation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_wave_propagation_2d.html">Spectral Approximation on a square</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_numerical_fluxes.html">Numerical Flux schemes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Dynamic Load-balancing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#goals">Goals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#two-popular-approaches">Two popular approaches</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#graph-based-algorithm">Graph-based Algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#space-filling-curves-sfcs-based-algorithm">Space-filling curves (SFCs) based algorithm</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#advantages">Advantages</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#implementing-sfc">Implementing SFC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#hilbert-curve">Hilbert Curve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#static-grid-neighbour-finding-algorithm">Static Grid Neighbour-finding algorithm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dynamic-grid-neighbour-finding-algorithm">Dynamic grid Neighbour-finding algorithm</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#partitioning-stratigy">Partitioning stratigy</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#implementation">Implementation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exchange-of-element">Exchange of Element</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dg_mpi.html">MPI Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_profiling.html">Profiling Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_other_features.html">Some features in the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_reference.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">2d_DG_advection</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Dynamic Load-balancing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/dg_load_balancing.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="dynamic-load-balancing">
+<h1>Dynamic Load-balancing<a class="headerlink" href="#dynamic-load-balancing" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
+<p>Load balance is one of the major challenges for the efficient supercomputer, especially for applications that exhibit workload variations.
+Load imbalance is an considerable impedance on the path towards higher degree of parallelism.</p>
+<p>In particular, when load conditions changes dynamically, efficient mesh partitioning becomes an indispensible part of scalable design.</p>
+</div>
+<div class="section" id="goals">
+<h2>Goals<a class="headerlink" href="#goals" title="Permalink to this headline">¶</a></h2>
+<p>Fluid dynamic application in the field of industrial engineering require high degrees of parallelism to achieve an acceptable time to solution for a large problem size.
+Typical mesh-based approaches therefore rely on suitable partitioning strategies to distribute the computational load across the set of processes.</p>
+<p>Therefore, an efficient load-balancing approach aims to achieve two goals:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>The work load should be distribute evenly</dt><dd><ul>
+<li><p>avoid waiting times of processing units</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>At the same time the interfacing boundaries between partitions should be as small as possible.</dt><dd><ul>
+<li><p>minimize the time spend in communication</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<p>The optimization problem is <strong>NP-hard</strong>.</p>
+</div>
+<div class="section" id="two-popular-approaches">
+<h2>Two popular approaches<a class="headerlink" href="#two-popular-approaches" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="graph-based-algorithm">
+<h3>Graph-based Algorithm<a class="headerlink" href="#graph-based-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>A popular choice for graph-based partition is <a class="reference external" href="http://glaros.dtc.umn.edu/gkhome/metis/parmetis/overview">ParMetis</a>.</p>
+<p><strong>ParMetis</strong> performing very well for mesh partition for a long time. However, since ParMetis require global knowledge of the mesh, with an increasing number of processes, graph-based partitioning algorithms seem to reach their scalability limits.
+The memory consumption grows linearly with the graph size, raising the need for alternatives which could avoid this problem. Such methods are based on <a class="reference external" href="https://en.wikipedia.org/wiki/Space-filling_curve">space-filling curves</a> (SFCs).</p>
+</div>
+<div class="section" id="space-filling-curves-sfcs-based-algorithm">
+<h3>Space-filling curves (SFCs) based algorithm<a class="headerlink" href="#space-filling-curves-sfcs-based-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>SFCs reduce the partitioning problem from n dimension to one dimension.
+The remaining tast, the so-called 1D partitioning problem or <em>chains-on-chains</em> partitioning problem, is to decompose a 1D workload array into consecutive, balanced partitions.</p>
+<div class="section" id="advantages">
+<h4>Advantages<a class="headerlink" href="#advantages" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><dl class="simple">
+<dt>Good Locality</dt><dd><ul>
+<li><p>SFCs map the 1D unit interval onto a higher dimensional space such that neighboring points on the unit interval are also neighboring points in the target space.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Acceptable communication overhead</dt><dd><ul>
+<li><p>SFCs ignores the edges of full graph imformation.
+It relies on the spatial properties of the curve to ensure a reasonable partition shape. Tirthapura et al. demonstrated that the upper limit of expected remote accesses in SFC partiotned domains are acceptable <a class="bibtex reference internal" href="#id6" id="id1">[TSA06]</a>.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Low memory using</dt><dd><ul>
+<li><p>Taking the good locality of SFCs, the global imformation (full graph information) needed by Graph-based algorithm can be abandoned. Thus, SFCs opens a path towards low-memory partitioning strategies.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="implementing-sfc">
+<h2>Implementing SFC<a class="headerlink" href="#implementing-sfc" title="Permalink to this headline">¶</a></h2>
+<p>The numerical approximation of wave equation is a hp-adaptive approach.
+That is, elements can split or merge (h-adaptive) according to therequired resolution. Also, they can raise or decrease the polynomial degree (p-adaptive) to adjust the convergence rate.</p>
+<p>Due to the hp-adaptivity, different element can have differernt individual computation times, load imbalance is introuduce to this application. Re-meshing and domain partitioning are not avoidable.</p>
+<p>With the help of a SFC, the 2D structured mesh partitioning problem can be reduced to a 1D chains-on-chains partitioning (CCP) problem. Knowing the index od an element, its neighbours indices can be computed locally.</p>
+<div class="section" id="hilbert-curve">
+<h3>Hilbert Curve<a class="headerlink" href="#hilbert-curve" title="Permalink to this headline">¶</a></h3>
+<p>There are many SFCs, for example <a class="reference external" href="https://en.wikipedia.org/wiki/Z-order_curve">Morton Curve</a> (z-curve) and <a class="reference external" href="https://en.wikipedia.org/wiki/Hilbert_curve">Hilbert Curve</a>.</p>
+<p>We choose Hilbert Curve as our SFC. Although Hilbert ordering is less efficient (with flip and rotation) than Morton Curve, Hilbert Curve brings out a better locality (no sudden “jump”).</p>
+<p><a class="reference internal" href="_images/motorn_curve.png"><img alt="pic1" src="_images/motorn_curve.png" style="width: 45%;" /></a>  <a class="reference internal" href="_images/Hilbert_curve.png"><img alt="pic2" src="_images/Hilbert_curve.png" style="width: 45%;" /></a></p>
+<p>(Left Morton and right Hilbert)</p>
+</div>
+<div class="section" id="static-grid-neighbour-finding-algorithm">
+<h3>Static Grid Neighbour-finding algorithm<a class="headerlink" href="#static-grid-neighbour-finding-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>In Computation Fluid Dynamics, most of the cases, elements needs to exchange information (e.g. fluxes, velocity, pressure) with their neighbour. Thus, an effective way to locate your neighbours would cut down the computation time. When the neighbour is not stored locally, communication between processors is inevitable.</p>
+<img alt="_images/hilber_numbering.svg" src="_images/hilber_numbering.svg" /><p>For instance, we are on element 31.
+The domain is partitioned into4 parts and each part is assigned to one processor.
+The integer coordingate of element 31 is (3, 4).</p>
+<p>Therefore, its neighbours coordinates can be computed easily.
+Say we want to find its North and East neighbour, their coordinates are (3, 5) and (4, 4), respectively.</p>
+<p><strong>North neighbour</strong>: We can use our <em>Hilbert-numbering function</em> to map between coordinate and element index. Then (3, 5) corresponding to element 28. We successfully locate the Neighbour.</p>
+<p><strong>East neighbour</strong>: By using the same methond, we are able to compute the east neighbour index: 32. However, this element is not stored locally.
+Locate the processor who stores the target element is done by <strong>broadcasting</strong> the element range stored in each processor after the partitioning. And <strong>one-sided communication</strong> is invoked to warrent effective MPI message-changing.</p>
+</div>
+<div class="section" id="dynamic-grid-neighbour-finding-algorithm">
+<h3>Dynamic grid Neighbour-finding algorithm<a class="headerlink" href="#dynamic-grid-neighbour-finding-algorithm" title="Permalink to this headline">¶</a></h3>
+<p>When h-adaptivity is introduced to the code, element splits or merge according to the error indicator.
+Once an element split, it generates four identical “children” quadrants. The <strong>Octree partitioning</strong> is motivated by octree-based mesh generation.</p>
+<img alt="_images/quardtree_mesh.jpg" src="_images/quardtree_mesh.jpg" />
+<p>Neighbour-finding is achieved by using a global index (k, l, j, s) to identify element.</p>
+<ul class="simple">
+<li><p>k: Root element number.</p></li>
+<li><p>l: h-refinement level (split number).</p></li>
+<li><p>j: child relative position inside a parent octant.</p></li>
+<li><p>s: element state, can be used to determined Hilbert Curve orientation.</p></li>
+</ul>
+<img alt="_images/hilbert_adaptive_mesh.png" src="_images/hilbert_adaptive_mesh.png" />
+</div>
+</div>
+<div class="section" id="partitioning-stratigy">
+<h2>Partitioning stratigy<a class="headerlink" href="#partitioning-stratigy" title="Permalink to this headline">¶</a></h2>
+<p>We consider a 2D mesh being represented by a one dimensional array using Hilbert Curve.</p>
+<div class="section" id="implementation">
+<h3>Implementation<a class="headerlink" href="#implementation" title="Permalink to this headline">¶</a></h3>
+<p>We followed the <cite>CCP</cite> strategy described in <a class="bibtex reference internal" href="#id5" id="id3">[HKR+12]</a>.
+The array has the length <span class="math notranslate nohighlight">\(N\)</span> which corresponding to the number of mesh cells.
+Weights are give as <span class="math notranslate nohighlight">\(\omega_i\)</span>, where <span class="math notranslate nohighlight">\(i\)</span> corresponding to teh global index for each element. The weights represents the computation effort of each element. In fact, the load on each element due to fluid computation is <span class="math notranslate nohighlight">\(O(N^4)\)</span><a class="bibtex reference internal" href="#id7" id="id4">[ZBMZ+18]</a>.</p>
+<a class="reference internal image-reference" href="_images/Hilbert_uniform_grid_partition.png"><img alt="_images/Hilbert_uniform_grid_partition.png" src="_images/Hilbert_uniform_grid_partition.png" style="width: 60%;" /></a>
+<p>The task of the partition step is to decide which element to move to which processor. Here, we use <span class="math notranslate nohighlight">\(p\)</span> to denote the total number of processors, and every processor can be identified by a unique number called <span class="math notranslate nohighlight">\(rank\)</span>. (<span class="math notranslate nohighlight">\(0 \leqslant rank \leqslant p\)</span>)</p>
+<p>We use an exclusive prefix sum to determine the partition.</p>
+<div class="math notranslate nohighlight" id="equation-equ5-1">
+<span class="eqno">(1)<a class="headerlink" href="#equation-equ5-1" title="Permalink to this equation">¶</a></span>\[prefix(I) = \sum_{i = 0}^{N - 1}\omega_i\]</div>
+<p>For <span class="math notranslate nohighlight">\(0 &lt; I \leqslant N\)</span> and <span class="math notranslate nohighlight">\(prefix(0) = 0\)</span>.
+Local prefix sus are calculated, and the global offsets are adjusted afterwards using <cite>MPI_EXSCAN()</cite> collective with <cite>MPI_SUM</cite> as reduction operation.
+Then each prossessor has the global prefix sum for each of its local elements.</p>
+<p>The ideal work load per partition is given by</p>
+<div class="math notranslate nohighlight" id="equation-equ5-2">
+<span class="eqno">(2)<a class="headerlink" href="#equation-equ5-2" title="Permalink to this equation">¶</a></span>\[\omega_{opt} = \frac{\omega_{globalsum}}{p}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(\omega_{globalsum}\)</span> is the global sum of all weights.
+Since the overall sum already computed through the prefix sum, we can use the last processor as a root to broadcast (<cite>MPI_BCAST</cite>) the <span class="math notranslate nohighlight">\(\omega_{opt}\)</span>.
+Then the splitting positions between balanced partitions can be computed locally.
+There is no need further information changing to decide which element to move to which processor.
+The complete message changing for the partitioning only relies on two collective operation in <cite>MPI</cite>.
+Both collectives can be implemented efficiently using asymptotic running time ad memory complexity of <span class="math notranslate nohighlight">\(O(logp)\)</span>.</p>
+<p>Assuming homogeneous processors, ideal splitters are multiples of <span class="math notranslate nohighlight">\(\omega_{opt}\)</span>, i.e., <span class="math notranslate nohighlight">\(r \cdot \omega_{opt}\)</span> for all integer <span class="math notranslate nohighlight">\(r\)</span> with <span class="math notranslate nohighlight">\(1 \leqslant r &lt; p\)</span>. The closest splitting positions between the actual elements to the ideal splitters can be found by comparing with the global prefix sum of each element.</p>
+<p>The efficiency <span class="math notranslate nohighlight">\(E\)</span> of the distribution work is bounded by the slowest process, and thus cannot better than:</p>
+<div class="math notranslate nohighlight">
+\[E = \frac{\omega_{opt}}{max_{r=0}^{p-1}(\omega_{sum}(r))}\]</div>
+</div>
+<div class="section" id="exchange-of-element">
+<h3>Exchange of Element<a class="headerlink" href="#exchange-of-element" title="Permalink to this headline">¶</a></h3>
+<p>After the splitting positions are decided, elements needs to be relocated.
+The relocation, or exchange of elements is done via communication between processors.
+The challenge part is, though, the sender knows which element to send to which processor, the receiver does not know what they will receive.</p>
+<p>Some application use a regular all-to-all collective operation to imform all processors about the their communication partners before doing teh actual exchange of the elements with an irregular all-to-all collective operation (e.g. <cite>MPI_Alltoallv</cite>).</p>
+<p>Alternatively, elements can be propagated only between neighbour processors in an iterative fasion. This method can be benigh when the re-partitioning modifies an existing distribution of element only slightly. Unfortunately, worse cases can lead to <span class="math notranslate nohighlight">\(O(p)\)</span> forwarded messages.</p>
+<p>In our implementation, <strong>One-sided Communication in MPI</strong> is invoked.
+In one-sided MPI operations, also known as <strong>RDMA</strong> or <strong>RMA</strong> (Remote Memory Access) operation.
+In RMA, the irregular communication patten can be handle easily without an extra step to determine how many sends-receives to issue.
+This makes dynamic communication easier to code in RMA, with the help of <cite>MPI_Put</cite> and <cite>MPI_Get</cite>.</p>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p id="bibtex-bibliography-dg_load_balancing-0"><dl class="citation">
+<dt class="bibtex label" id="id5"><span class="brackets"><a class="fn-backref" href="#id3">HKR+12</a></span></dt>
+<dd><p>Daniel F. Harlacher, Harald Klimach, Sabine Roller, Christian Siebert, and Felix Wolf. Dynamic load balancing for unstructured meshes on space-filling curves. <em>2012 IEEE 26th International Parallel and Distributed Processing Symposium Workshops &amp; PhD Forum</em>, pages 1661–1669, 2012.</p>
+</dd>
+<dt class="bibtex label" id="id6"><span class="brackets"><a class="fn-backref" href="#id1">TSA06</a></span></dt>
+<dd><p>Srikanta Tirthapura, Sudip Seal, and Srinivas Aluru. A formal analysis of space filling curves for parallel domain decomposition. <em>2006 International Conference on Parallel Processing (ICPP’06)</em>, pages 505–512, 2006.</p>
+</dd>
+<dt class="bibtex label" id="id7"><span class="brackets"><a class="fn-backref" href="#id4">ZBMZ+18</a></span></dt>
+<dd><p>Keke Zhai, Tania Banerjee-Mishra, David Zwick, Jason Hackl, and Sanjay Ranka. Dynamic load balancing for compressible multiphase turbulence. <em>ArXiv</em>, 2018.</p>
+</dd>
+</dl>
+</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dg_mpi.html" class="btn btn-neutral float-right" title="MPI Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dg_numerical_fluxes.html" class="btn btn-neutral float-left" title="Numerical Flux schemes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Shiqi_He
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

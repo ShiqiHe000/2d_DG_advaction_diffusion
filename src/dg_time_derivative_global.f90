@@ -156,8 +156,12 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     ENDDO
     !-------------------------------------------------------------------
     
+!            IF(RANK == 0) THEN
+!        PRINT *, NFLUX_Y_U(:, 3, 1)
+!    ENDIF
+    
 !        IF(RANK == 1) THEN
-!        PRINT *, NFLUX_Y_D(:, 2, 0)
+!        PRINT *, NFLUX_Y_D(:, 3, 0)
 !    ENDIF
     
     !-------------------------------------------------------------------
