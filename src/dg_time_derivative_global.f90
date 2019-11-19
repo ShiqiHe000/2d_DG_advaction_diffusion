@@ -101,6 +101,7 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     DEALLOCATE(SOLUTION_INT_L, SOLUTION_INT_R)
     DEALLOCATE(NFLUX_X_L, NFLUX_X_R)
     DEALLOCATE(FLUX_X, FLUX_DER_X)
+    DEALLOCATE(GHOST)
     !-------------------------------------------------------------------
     
     !===================================================================
