@@ -30,7 +30,12 @@ polynomial order: 6
 
 Parallel MPI One-sided Communication
 
+2 processors
 
 .. image:: /image/win_profiling.png
 
+Parallel MPI Non-blocking Communication 
 
+2 processors
+
+.. image:: /image/profiling_isend.png
