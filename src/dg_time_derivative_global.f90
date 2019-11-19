@@ -167,6 +167,15 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     !-------------------------------------------------------------------
     CALL EXCHANGE_NFLUX_Y
     !-------------------------------------------------------------------
+        
+!            IF(RANK == 0) THEN
+            
+!        PRINT *, NFLUX_Y_U(:, 3, 1)
+!    ENDIF
+    
+!            IF(RANK == 1) THEN
+!        PRINT *, NFLUX_Y_D(:, 3, 0)
+!    ENDIF
     
     ! SPACIAL DERIVATIVE------------------------------------------------
     ALLOCATE(FLUX_Y(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))

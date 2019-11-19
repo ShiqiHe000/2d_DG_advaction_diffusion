@@ -86,7 +86,6 @@ all : $(DIR)/$(OBJDIR)/$(TGT)
 	@echo "------------------------------"
 
 run : $(TGT)
-	export GMON_OUT_PREFIX=gmon.out-
 	mpirun -np 2 $(TGT)
 
 drun : $(TGT)
@@ -100,6 +99,10 @@ help :
 
 debug : 
 	make "OPT = -g -fcheck=all -fimplicit-none -fbacktrace -pedantic -Wall"
+
+prepare: 
+	export GMON_OUT_PREFIX=gmon.out-
+
 
 profiling :
 	gprof -s $(TGT) gmon.out-*
