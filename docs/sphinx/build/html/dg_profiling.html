@@ -93,6 +93,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#which-is-the-time-consuming-routine">Which is the Time Consuming Routine?</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#use-gprof">Use Gprof</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#typical-workflow">Typical Workflow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#example">Example</a></li>
 </ul>
 </li>
 </ul>
@@ -193,6 +194,15 @@
 </li>
 </ul>
 </div></blockquote>
+</div>
+<div class="section" id="example">
+<h4>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h4>
+<p>Serial performance
+4 elements, time step = 2.0e-4, domain [0.0, 1.0],
+polynomial order: 6</p>
+<img alt="_images/serial_profilling.png" src="_images/serial_profilling.png" />
+<p>Parallel MPI One-sided Communication</p>
+<img alt="_images/win_profiling.png" src="_images/win_profiling.png" />
 </div>
 </div>
 </div>

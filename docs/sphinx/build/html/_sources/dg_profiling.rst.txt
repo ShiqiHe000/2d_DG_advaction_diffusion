@@ -20,8 +20,17 @@ Typical Workflow
 
         *  gprof <executable> <gprof_output_file>
  
+Example
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Serial performance
+4 elements, time step = 2.0e-4, domain [0.0, 1.0], 
+polynomial order: 6
+
+.. image:: /image/serial_profilling.png
+
+Parallel MPI One-sided Communication
 
 
-
+.. image:: /image/win_profiling.png
 
 
