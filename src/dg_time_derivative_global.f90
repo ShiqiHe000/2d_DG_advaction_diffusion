@@ -134,14 +134,6 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     !-------------------------------------------------------------------
     CALL EXCHANGE_SOLUTION_Y
     !-------------------------------------------------------------------
-    
-!    IF(RANK == 1) THEN
-!        PRINT *, GHOST(:, 3, 0)
-!    ENDIF
-    
-!    IF(RANK == 0) THEN
-!        PRINT *, SOLUTION_INT_R(:, 3, 1)
-!    ENDIF
 
     ! NEXT STEP COMPUTE NUMERICAL FLUXES--------------------------------
     ALLOCATE(NFLUX_Y_D(0:NMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))
@@ -156,26 +148,11 @@ SUBROUTINE DG_TIME_DER_COMBINE(T)
     ENDDO
     !-------------------------------------------------------------------
     
-!            IF(RANK == 0) THEN
-!        PRINT *, NFLUX_Y_U(:, 3, 1)
-!    ENDIF
-    
-!        IF(RANK == 1) THEN
-!        PRINT *, NFLUX_Y_D(:, 3, 0)
-!    ENDIF
     
     !-------------------------------------------------------------------
     CALL EXCHANGE_NFLUX_Y
     !-------------------------------------------------------------------
         
-!            IF(RANK == 0) THEN
-            
-!        PRINT *, NFLUX_Y_U(:, 3, 1)
-!    ENDIF
-    
-!            IF(RANK == 1) THEN
-!        PRINT *, NFLUX_Y_D(:, 3, 0)
-!    ENDIF
     
     ! SPACIAL DERIVATIVE------------------------------------------------
     ALLOCATE(FLUX_Y(0:NMAX, 0:MMAX, NUM_OF_EQUATION, 0:LOCAL_ELEM_NUM-1))

@@ -26,24 +26,20 @@ SUBROUTINE EXCHANGE_SOLUTION_X
     IMPLICIT NONE 
     
     INTEGER, DIMENSION(LOCAL_ELEM_NUM) :: ARRAY_OF_REQUESTS_SEND ! Array of requests (array of handles). (INPUT)
-    INTEGER, DIMENSION(LOCAL_ELEM_NUM) :: ARRAY_OF_REQUESTS_RECV ! Array of requests (array of handles). (INPUT)
     INTEGER, DIMENSION(MPI_STATUS_SIZE, LOCAL_ELEM_NUM) :: ARRAY_OF_STATUSES_S ! Array of status objects (array of status). (OUTPUT)
-    INTEGER, DIMENSION(MPI_STATUS_SIZE, LOCAL_ELEM_NUM) :: ARRAY_OF_STATUSES_R ! Array of status objects (array of status). (OUTPUT)
     
     INTEGER :: NUM_ISEND
-    INTEGER :: NUM_IRECV
     INTEGER :: IERROR
     INTEGER :: K
     
-    ARRAY_OF_REQUESTS_RECV = 0; ARRAY_OF_REQUESTS_SEND = 0
-    NUM_ISEND = 0; NUM_IRECV = 0
+    ARRAY_OF_REQUESTS_SEND = 0
+    NUM_ISEND = 0
     
     DO K = 0, LOCAL_ELEM_NUM-1
         CALL NON_BLOCKING_EXCAHNGE_INTERFACE_X(MPI_B_FLAG(1, K), &
                                                MPI_B_FLAG(2, K), K, &
-                                               NUM_ISEND, NUM_IRECV, &
+                                               NUM_ISEND, &
                                                ARRAY_OF_REQUESTS_SEND, &
-                                               ARRAY_OF_REQUESTS_RECV, &
                                                SOLUTION_INT_R(:, :, K), &
                                                GHOST(:, :, K))
         
@@ -51,9 +47,6 @@ SUBROUTINE EXCHANGE_SOLUTION_X
     
     CALL MPI_WAITALL(NUM_ISEND, ARRAY_OF_REQUESTS_SEND(1:NUM_ISEND), &
                     ARRAY_OF_STATUSES_S(:, 1:NUM_ISEND), IERROR)
-    CALL MPI_WAITALL(NUM_IRECV, ARRAY_OF_REQUESTS_RECV(1:NUM_IRECV), &
-                    ARRAY_OF_STATUSES_R(:, 1:NUM_IRECV), IERROR)
-    
 
 END SUBROUTINE EXCHANGE_SOLUTION_X
 
@@ -66,24 +59,20 @@ SUBROUTINE EXCHANGE_NFLUX_X
     IMPLICIT NONE 
     
     INTEGER, DIMENSION(LOCAL_ELEM_NUM) :: ARRAY_OF_REQUESTS_SEND ! Array of requests (array of handles). (INPUT)
-    INTEGER, DIMENSION(LOCAL_ELEM_NUM) :: ARRAY_OF_REQUESTS_RECV ! Array of requests (array of handles). (INPUT)
     INTEGER, DIMENSION(MPI_STATUS_SIZE, LOCAL_ELEM_NUM) :: ARRAY_OF_STATUSES_S ! Array of status objects (array of status). (OUTPUT)
-    INTEGER, DIMENSION(MPI_STATUS_SIZE, LOCAL_ELEM_NUM) :: ARRAY_OF_STATUSES_R ! Array of status objects (array of status). (OUTPUT)
     
     INTEGER :: NUM_ISEND
-    INTEGER :: NUM_IRECV
     INTEGER :: IERROR
     INTEGER :: K
     
-    ARRAY_OF_REQUESTS_RECV = 0; ARRAY_OF_REQUESTS_SEND = 0
-    NUM_ISEND = 0; NUM_IRECV = 0
+    ARRAY_OF_REQUESTS_SEND = 0
+    NUM_ISEND = 0
     
     DO K = 0, LOCAL_ELEM_NUM-1
-        CALL NON_BLOCKING_EXCAHNGE_INTERFACE_X(MPI_B_FLAG(1, K), &
+        CALL NON_BLOCKING_EXCAHNGE_NFLUX_X(MPI_B_FLAG(1, K), &
                                                MPI_B_FLAG(2, K), K, &
-                                               NUM_ISEND, NUM_IRECV, &
+                                               NUM_ISEND, &
                                                ARRAY_OF_REQUESTS_SEND, &
-                                               ARRAY_OF_REQUESTS_RECV, &
                                                -NFLUX_X_L(:, :, K), &
                                                NFLUX_X_R(:, :, K))
         
@@ -91,9 +80,6 @@ SUBROUTINE EXCHANGE_NFLUX_X
     
     CALL MPI_WAITALL(NUM_ISEND, ARRAY_OF_REQUESTS_SEND(1:NUM_ISEND), &
                     ARRAY_OF_STATUSES_S(:, 1:NUM_ISEND), IERROR)
-    CALL MPI_WAITALL(NUM_IRECV, ARRAY_OF_REQUESTS_RECV(1:NUM_IRECV), &
-                    ARRAY_OF_STATUSES_R(:, 1:NUM_IRECV), IERROR)
-    
 
 END SUBROUTINE EXCHANGE_NFLUX_X
 
@@ -102,9 +88,8 @@ END SUBROUTINE EXCHANGE_NFLUX_X
 !! X DIRECTION
 !-----------------------------------------------------------------------
 SUBROUTINE NON_BLOCKING_EXCAHNGE_INTERFACE_X(FLAG1, FLAG2, LELEM_K, &
-                                            NUM_SEND, NUM_RECV, &
+                                            NUM_SEND, &
                                             ARRAY_OF_REQUESTS_SEND, &
-                                            ARRAY_OF_REQUESTS_RECV, &
                                             SEND_BUFF, RECV_BUFF)
     
     IMPLICIT NONE
@@ -118,9 +103,8 @@ SUBROUTINE NON_BLOCKING_EXCAHNGE_INTERFACE_X(FLAG1, FLAG2, LELEM_K, &
     INTEGER :: REQUEST  ! Communication request (handle).  
     INTEGER :: IERROR
     INTEGER :: NUM_SEND ! COUND ISEND TIMES
-    INTEGER :: NUM_RECV ! COUND IRECV TIMES
     INTEGER :: ARRAY_OF_REQUESTS_SEND(LOCAL_ELEM_NUM) ! RECORD COMMINICATION REQUEST HANDLE
-    INTEGER :: ARRAY_OF_REQUESTS_RECV(LOCAL_ELEM_NUM) ! RECORD COMMINICATION REQUEST HANDLE
+    INTEGER :: STATUS(MPI_STATUS_SIZE)
 
     LOGICAL, INTENT(IN) :: FLAG1 !< MPI BOUNDARY FLAG (FACE1/3)
     LOGICAL, INTENT(IN) :: FLAG2 !< MPI BOUNDARY FLAG (FACE2/4)
@@ -130,23 +114,19 @@ SUBROUTINE NON_BLOCKING_EXCAHNGE_INTERFACE_X(FLAG1, FLAG2, LELEM_K, &
     
     SR_COUNT = (1 + MMAX) * NUM_OF_EQUATION
 
+    CALL INDEX_LOCAL_TO_GLOBAL(RANK, LELEM_K, RELEM_K)  ! CONVERT ELEMENT LOCAL INDEX TO GLOBAL INDEX
+
     IF(FLAG1) THEN  ! RECV INFORMATION REMOTELY
         
         ! USE MPI WILDCARDS: MPI_ANY_TAG, MPI_ANY_SOURCE
-        CALL MPI_IRECV(RECV_BUFF, SR_COUNT, &
-                        MPI_DOUBLE_PRECISION, MPI_ANY_SOURCE, &
-                        MPI_ANY_TAG, MPI_COMM_WORLD, REQUEST, IERROR)
-        
-        NUM_SEND = NUM_SEND + 1
-        
-        ARRAY_OF_REQUESTS_RECV(NUM_SEND) = REQUEST
+        CALL MPI_RECV(RECV_BUFF, SR_COUNT, MPI_DOUBLE_PRECISION, &
+                        MPI_ANY_SOURCE, RELEM_K, &
+                        MPI_COMM_WORLD, STATUS, IERROR)
         
     ENDIF
     
     IF(FLAG2) THEN
     
-        CALL INDEX_LOCAL_TO_GLOBAL(RANK, LELEM_K, RELEM_K)  ! CONVERT ELEMENT LOCAL INDEX TO GLOBAL INDEX
-        
         CALL d2xy ( EXP_X, RELEM_K, J, I )  ! ELEMENT COORDINATE
         
         CALL xy2d ( EXP_X, J, I+1, NEIGHBOUR_R )    ! NEIGHBOUR ROOT ELEMENT NUMBER
@@ -154,16 +134,80 @@ SUBROUTINE NON_BLOCKING_EXCAHNGE_INTERFACE_X(FLAG1, FLAG2, LELEM_K, &
         CALL FIND_RANK(NEIGHBOUR_R, TARGET_RANK)     ! ENIGHBOUR'S RANK
     
         CALL MPI_ISEND(SEND_BUFF, SR_COUNT, MPI_DOUBLE_PRECISION, &
-                        TARGET_RANK, MPI_ANY_TAG, MPI_COMM_WORLD, &
+                        TARGET_RANK, NEIGHBOUR_R, MPI_COMM_WORLD, &
                         REQUEST, IERROR)
         
-        NUM_RECV = NUM_RECV + 1
+        NUM_SEND = NUM_SEND + 1
         
-        ARRAY_OF_REQUESTS_SEND(NUM_RECV) = REQUEST
+        ARRAY_OF_REQUESTS_SEND(NUM_SEND) = REQUEST
         
     ENDIF
     
 END SUBROUTINE NON_BLOCKING_EXCAHNGE_INTERFACE_X
+
+
+!-----------------------------------------------------------------------
+!> INSIDE ONE ELEMENT USE NON-BLOCKING COMMUNICATION TO UPDATE MPI INTERFACES
+!! X DIRECTION
+!-----------------------------------------------------------------------
+SUBROUTINE NON_BLOCKING_EXCAHNGE_NFLUX_X(FLAG1, FLAG2, LELEM_K, &
+                                            NUM_SEND, &
+                                            ARRAY_OF_REQUESTS_SEND, &
+                                            SEND_BUFF, RECV_BUFF)
+    
+    IMPLICIT NONE
+    
+    INTEGER, INTENT(IN) :: LELEM_K  !< LOCAL ELEMENT NUMBER (START WITH 0)
+    INTEGER :: RELEM_K  ! ROOT ELEMENT NUMBER (START WITH 0)
+    INTEGER :: I, J     ! ELEMENT COORDINATES
+    INTEGER :: NEIGHBOUR_R  ! NEIGHBOUR ELEMENT NUMBER (ROOT)
+    INTEGER :: TARGET_RANK  ! NEIGHBOUR'S RANK
+    INTEGER :: SR_COUNT   ! Number of elements in send/recv buffer 
+    INTEGER :: REQUEST  ! Communication request (handle).  
+    INTEGER :: IERROR
+    INTEGER :: NUM_SEND ! COUND ISEND TIMES
+    INTEGER :: ARRAY_OF_REQUESTS_SEND(LOCAL_ELEM_NUM) ! RECORD COMMINICATION REQUEST HANDLE
+    INTEGER :: STATUS(MPI_STATUS_SIZE)
+
+    LOGICAL, INTENT(IN) :: FLAG1 !< MPI BOUNDARY FLAG (FACE1/3)
+    LOGICAL, INTENT(IN) :: FLAG2 !< MPI BOUNDARY FLAG (FACE2/4)
+    
+    DOUBLE PRECISION :: SEND_BUFF(0:NMAX, NUM_OF_EQUATION)  !< SEND BUFFER
+    DOUBLE PRECISION :: RECV_BUFF(0:NMAX, NUM_OF_EQUATION)  !< RECV BUFFER
+    
+    SR_COUNT = (1 + NMAX) * NUM_OF_EQUATION
+    
+    CALL INDEX_LOCAL_TO_GLOBAL(RANK, LELEM_K, RELEM_K)  ! CONVERT ELEMENT LOCAL INDEX TO GLOBAL INDEX
+
+    IF(FLAG2) THEN  ! RECV INFORMATION REMOTELY
+    
+        ! USE MPI WILDCARDS: MPI_ANY_TAG, MPI_ANY_SOURCE
+        CALL MPI_RECV(RECV_BUFF, SR_COUNT, MPI_DOUBLE_PRECISION, &
+                        MPI_ANY_SOURCE, RELEM_K, &
+                        MPI_COMM_WORLD, STATUS, IERROR)
+        
+    ENDIF
+    
+    IF(FLAG1) THEN
+    
+        CALL d2xy ( EXP_X, RELEM_K, J, I )  ! ELEMENT COORDINATE
+        
+        CALL xy2d ( EXP_X, J, I-1, NEIGHBOUR_R )    ! NEIGHBOUR ROOT ELEMENT NUMBER
+        
+        CALL FIND_RANK(NEIGHBOUR_R, TARGET_RANK)     ! ENIGHBOUR'S RANK
+    
+        CALL MPI_ISEND(SEND_BUFF, SR_COUNT, MPI_DOUBLE_PRECISION, &
+                        TARGET_RANK, NEIGHBOUR_R, MPI_COMM_WORLD, &
+                        REQUEST, IERROR)
+        
+        NUM_SEND = NUM_SEND + 1
+        
+        ARRAY_OF_REQUESTS_SEND(NUM_SEND) = REQUEST
+        
+    ENDIF
+
+
+END SUBROUTINE NON_BLOCKING_EXCAHNGE_NFLUX_X
 
 
 !-----------------------------------------------------------------------
@@ -176,7 +220,6 @@ SUBROUTINE EXCHANGE_SOLUTION_Y
     
     INTEGER, DIMENSION(LOCAL_ELEM_NUM) :: ARRAY_OF_REQUESTS_SEND ! Array of requests (array of handles). (INPUT)
     INTEGER, DIMENSION(MPI_STATUS_SIZE, LOCAL_ELEM_NUM) :: ARRAY_OF_STATUSES_S ! Array of status objects (array of status). (OUTPUT)
-    INTEGER, DIMENSION(MPI_STATUS_SIZE, LOCAL_ELEM_NUM) :: ARRAY_OF_STATUSES_R ! Array of status objects (array of status). (OUTPUT)
     
     INTEGER :: NUM_ISEND
     INTEGER :: IERROR
@@ -184,8 +227,6 @@ SUBROUTINE EXCHANGE_SOLUTION_Y
     
     ARRAY_OF_REQUESTS_SEND = 0
     NUM_ISEND = 0
-    
-!    SOLUTION_INT_R(:, :, 1) = 1.0D0
     
     DO K = 0, LOCAL_ELEM_NUM-1
         CALL NON_BLOCKING_EXCAHNGE_INTERFACE_Y(MPI_B_FLAG(3, K), &
@@ -212,7 +253,6 @@ SUBROUTINE EXCHANGE_NFLUX_Y
     
     INTEGER, DIMENSION(LOCAL_ELEM_NUM) :: ARRAY_OF_REQUESTS_SEND ! Array of requests (array of handles). (INPUT)
     INTEGER, DIMENSION(MPI_STATUS_SIZE, LOCAL_ELEM_NUM) :: ARRAY_OF_STATUSES_S ! Array of status objects (array of status). (OUTPUT)
-    INTEGER, DIMENSION(MPI_STATUS_SIZE, LOCAL_ELEM_NUM) :: ARRAY_OF_STATUSES_R ! Array of status objects (array of status). (OUTPUT)
     
     INTEGER :: NUM_ISEND
     INTEGER :: IERROR
@@ -264,7 +304,7 @@ SUBROUTINE NON_BLOCKING_EXCAHNGE_INTERFACE_Y(FLAG1, FLAG2, LELEM_K, &
     LOGICAL, INTENT(IN) :: FLAG2 !< MPI BOUNDARY FLAG (FACE2/4)
     
     DOUBLE PRECISION :: SEND_BUFF(0:NMAX, NUM_OF_EQUATION)  !< SEND BUFFER
-    DOUBLE PRECISION :: RECV_BUFF(0:NMAX, NUM_OF_EQUATION)  !< RECV BUFFER
+    DOUBLE PRECISION :: RECV_BUFF(0:NMAX, NUM_OF_EQUATION)  !< SEND BUFFER
     
     SR_COUNT = (1 + NMAX) * NUM_OF_EQUATION
     
@@ -276,11 +316,6 @@ SUBROUTINE NON_BLOCKING_EXCAHNGE_INTERFACE_Y(FLAG1, FLAG2, LELEM_K, &
         CALL MPI_RECV(RECV_BUFF, SR_COUNT, MPI_DOUBLE_PRECISION, &
                         MPI_ANY_SOURCE, RELEM_K, &
                         MPI_COMM_WORLD, STATUS, IERROR)
-        
-!        IF(RANK == 1 .AND. LELEM_K == 0) THEN
-        
-!            PRINT *, RECV_BUFF(:, 2)
-!        ENDIF
         
     ENDIF
     
@@ -300,10 +335,6 @@ SUBROUTINE NON_BLOCKING_EXCAHNGE_INTERFACE_Y(FLAG1, FLAG2, LELEM_K, &
         
         ARRAY_OF_REQUESTS_SEND(NUM_SEND) = REQUEST
         
-!        IF(RANK == 0 .AND. LELEM_K == 1) THEN
-!!            PRINT *, NEIGHBOUR_R, TARGET_RANK, SR_COUNT
-!            PRINT *, SEND_BUFF(: ,2)
-!        ENDIF
         
     ENDIF
 
@@ -358,7 +389,7 @@ SUBROUTINE NON_BLOCKING_EXCAHNGE_NFLUX_Y(FLAG1, FLAG2, LELEM_K, &
     
         CALL d2xy ( EXP_X, RELEM_K, J, I )  ! ELEMENT COORDINATE
         
-        CALL xy2d ( EXP_X, J+1, I, NEIGHBOUR_R )    ! NEIGHBOUR ROOT ELEMENT NUMBER
+        CALL xy2d ( EXP_X, J-1, I, NEIGHBOUR_R )    ! NEIGHBOUR ROOT ELEMENT NUMBER
         
         CALL FIND_RANK(NEIGHBOUR_R, TARGET_RANK)     ! ENIGHBOUR'S RANK
     
