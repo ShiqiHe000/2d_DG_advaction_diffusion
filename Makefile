@@ -91,6 +91,10 @@ run : $(TGT)
 drun : $(TGT)
 	mpirun -np 1 xterm -e gdb $(TGT)
 
+orun : $(TGT) hostfile
+	mpirun --hostfile hostfile -np 4 $(TGT)
+
+
 help : 
 	@echo "source : $(SOURCE)"
 	@echo "src : $(SRC)"

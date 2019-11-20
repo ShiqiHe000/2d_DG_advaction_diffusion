@@ -24,6 +24,7 @@ SUBROUTINE SERIAL_IO(T)
     
     ! ONLY PROC OUTPUT RESULT SEQUENTIALLY
     DO I = 0, NUM_PROC-1
+!    DO I = 0, 2
         IF(RANK == I) THEN
             CALL WRITE_MESH(LOCAL_ELEM_NUM, X_LOCAL, Y_LOCAL, &
                             PLEVEL_X, PLEVEL_Y, &
