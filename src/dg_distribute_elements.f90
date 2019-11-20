@@ -72,7 +72,7 @@ SUBROUTINE DISTRIBUTE_ELEM
         ENDIF
         
         DO I = 2, NUM_PROC
-            DISPLS(I) = LOCAL_ELEM_NUMBER(I-1) * 2     ! 2 COORDINATES
+            DISPLS(I) = LOCAL_ELEM_NUMBER(I-1) * 2 + DISPLS(I-1)   ! 2 COORDINATES
             ELEM_RANGE(I) = ELEM_RANGE(I-1) + LOCAL_ELEM_NUMBER(I)
         ENDDO
         

@@ -11,7 +11,7 @@ MODULE PARAM
     ! variables you must change =======================================
     
     !< INITIAL MESH FILE------------------------------------------------
-    CHARACTER(LEN=*), PARAMETER :: MESHFILE = "4_elements.msh"    
+    CHARACTER(LEN=*), PARAMETER :: MESHFILE = "16_elements.msh"    
     !-------------------------------------------------------------------
     
     ! SET POLYNOMIAL ORDER----------------------------------------------
@@ -30,8 +30,8 @@ MODULE PARAM
     !-------------------------------------------------------------------
     
     ! NUMBER OF ELEMENT-------------------------------------------------
-    INTEGER :: EXP_X = 1       !< WRITE ELEMENT NUMBER IN X DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_X)
-    INTEGER :: EXP_Y = 1       !< WRITE ELEMENT NUMBER IN Y DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_Y)
+    INTEGER :: EXP_X = 2       !< WRITE ELEMENT NUMBER IN X DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_X)
+    INTEGER :: EXP_Y = 2       !< WRITE ELEMENT NUMBER IN Y DIRECTION EXPONENTIAL ORDER, I.E., 2^(EXP_Y)
     !-------------------------------------------------------------------
     
     ! TIME--------------------------------------------------------------
@@ -39,7 +39,7 @@ MODULE PARAM
 !    INTEGER :: NT = 0                   !< TIME STEP NUMBER
 !    DOUBLE PRECISION :: T_TOTAL = (2.0e-4)    !< TOTAL TIME INTEGRAL
 !    INTEGER :: NT = 1                    !< TIME STEP NUMBER
-    DOUBLE PRECISION :: T_TOTAL = 2.0D0     !< TOTAL TIME INTEGRAL
+    DOUBLE PRECISION :: T_TOTAL = 1.0D0     !< TOTAL TIME INTEGRAL
     INTEGER :: NT = 10000                   !< TIME STEP NUMBER
     !-------------------------------------------------------------------
     

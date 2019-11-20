@@ -85,7 +85,6 @@ all : $(DIR)/$(OBJDIR)/$(TGT)
 	@echo "------------------------------"
 
 run : $(TGT)
-	export GMON_OUT_PREFIX=gmon.out-
 	mpirun -np 2 $(TGT)
 
 drun : $(TGT)
