@@ -72,11 +72,10 @@ SUBROUTINE DISTRIBUTE_ELEM
         ENDIF
         
         DO I = 2, NUM_PROC
-            DISPLS(I) = LOCAL_ELEM_NUMBER(I-1) * 2 + DISPLS(I-1)   ! 2 COORDINATES
+            DISPLS(I) = LOCAL_ELEM_NUMBER(I-1) * 2 + DISPLS(I-1)    ! 2 COORDINATES
             ELEM_RANGE(I) = ELEM_RANGE(I-1) + LOCAL_ELEM_NUMBER(I)
         ENDDO
-        
-        
+
     ENDIF
     !-------------------------------------------------------------------
     
@@ -96,6 +95,7 @@ SUBROUTINE DISTRIBUTE_ELEM
         ALLOCATE(Y_HILBERT(2, ORIGINAL_ELEM_NUM))
     ENDIF
     !-------------------------------------------------------------------
+
     
     ! SCATTER DATA------------------------------------------------------
     CALL MPI_SCATTERV(X_HILBERT, SENDCOUNTS*2, DISPLS, MPI_DOUBLE_PRECISION, &
@@ -108,6 +108,8 @@ SUBROUTINE DISTRIBUTE_ELEM
                         
     CALL MPI_BCAST(ELEM_RANGE, NUM_PROC+1, MPI_INTEGER, 0, MPI_COMM_WORLD, IERROR)
     ! ------------------------------------------------------------------
+    
+    
     
     DEALLOCATE(X_HILBERT, Y_HILBERT)
     IF (RANK == 0) THEN

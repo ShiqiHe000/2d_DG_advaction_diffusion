@@ -175,7 +175,7 @@ SUBROUTINE RIEMANN1(LELEM_K, I, J, MY)
         
         CALL INDEX_GLOBAL_TO_LOCAL(TARGET_RANK, IDL_G, IDL)
         
-        TARGET_DISP = (1 + NMAX) * NUM_OF_EQUATION * IDL
+        TARGET_DISP = (1 + MMAX) * NUM_OF_EQUATION * IDL
         
         CALL MPI_GET(REMOTE_SOLUTION_INT_R, ENTRY_COUNT, &
                         MPI_DOUBLE_PRECISION, TARGET_RANK, &
@@ -189,9 +189,9 @@ SUBROUTINE RIEMANN1(LELEM_K, I, J, MY)
                            NFLUX_X_L(S, :, IDR), -1.0D0)
         ENDDO
         
-        ORIGIN_COUNT = (MY + 1) * NUM_OF_EQUATION
+        ORIGIN_COUNT = (MMAX + 1) * NUM_OF_EQUATION
         
-        CALL MPI_PUT( - NFLUX_X_L(0:MY, :, IDR), ORIGIN_COUNT, &
+        CALL MPI_PUT( - NFLUX_X_L(:, :, IDR), ORIGIN_COUNT, &
                     MPI_DOUBLE_PRECISION, TARGET_RANK, &
                     TARGET_DISP, ORIGIN_COUNT, &
                     MPI_DOUBLE_PRECISION, WIN_NFLUX_R, IERROR)
