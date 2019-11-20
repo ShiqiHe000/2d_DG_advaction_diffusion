@@ -76,11 +76,6 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     ENDDO
     !-------------------------------------------------------------------
     
-!    IF(RANK == 2) THEN
-!        PRINT *, X_LOCAL(1, 0), Y_LOCAL(1, 0)
-!        PRINT *, X_LOCAL(2, 0), Y_LOCAL(2, 0)
-!    ENDIF
-    
     ! OUTPUT INITIAL SOLUTIONS------------------------------------------
     CALL SERIAL_IO(TN)
     !-------------------------------------------------------------------

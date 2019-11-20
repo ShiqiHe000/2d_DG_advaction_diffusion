@@ -19,8 +19,6 @@ CONTAINS
 
 SUBROUTINE START_PARALLEL
 
-!    INTEGER :: I
-
     ! DISTRIBUTE THE ELEMENTS EVENLY BETWEEN PROCESSORS-----------------
     CALL DISTRIBUTE_ELEM
     !-------------------------------------------------------------------
