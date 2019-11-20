@@ -31,7 +31,6 @@ SRC =  dg_param.f90 \
        dg_external_state.f90 \
        dg_poly_level_and_order.f90 \
        dg_hilbert_curve.f90 \
-       dg_message_exchange.f90 \
        dg_nodal_2d_storage.f90 \
        dg_construct_mpi_boundary.f90 \
        dg_get_dual_coord.f90 \
