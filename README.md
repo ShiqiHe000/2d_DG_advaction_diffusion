@@ -1,5 +1,8 @@
 # Discontinuous Galerkin Wave Equation Slover
 
+### current Integration Status
+[![Documentation Status](https://readthedocs.org/projects/2d-advection/badge/?version=latest)](https://2d-advection.readthedocs.io/en/latest/?badge=latest)
+
 ## Documentation
 A detailed documentation an be found at [https://2d-advection.readthedocs.io/en/latest/]
 
