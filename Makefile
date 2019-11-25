@@ -2,11 +2,14 @@
 
 DIR = .
 
+# Targrt file
 TGT = main.exe
 PROFILE_NAME = profiling.txt
 
+# Compiler
 FC = mpif90
 
+# File folders
 OBJDIR = obj
 SRCDIR = src
 INCLUDEDIR = inc
@@ -19,6 +22,21 @@ OG = -Og
 DEBUG = -g -fcheck=all -fimplicit-none -fbacktrace -pedantic -Wall
 PROFILING = -pg
 
+# HDF5------------------------------------------------------------------
+# Location of HDF5 binaries (with include/ and lib/ underneath)
+HDF_INSTALL = /home/shiqihe/local/hdf5-1.10.5
+
+EXTLIB = -L$(HDF_INSTALL)/lib
+
+LIB       = -ldl -lsz -lz -lm
+
+FORTRANLIB=-I$(HDF_INSTALL)/include $(HDF_INSTALL)/lib/libhdf5_fortran.a
+
+LIBSHDF   = $(EXTLIB) $(FORTRANLIB) $(HDF_INSTALL)/lib/libhdf5.a
+
+#-----------------------------------------------------------------------
+
+# source files
 SRC =  dg_param.f90 \
        dg_mpi.f90 \
        dg_local_storage.f90 \
@@ -71,10 +89,10 @@ OBJ = $(addprefix $(DIR)/$(OBJDIR)/, $(notdir $(SRC:.f90=.o)))
 
 $(DIR)/$(OBJDIR)/$(TGT) : $(OBJ)
 #	$(FC) $(MOD) -o $@ $^
-	$(FC) $(OPT) $(PROFILING) $(WALL) $(MOD) -o $(TGT) $^
+	$(FC) $(OPT) $(PROFILING) $(WALL) $(MOD) -o $(TGT) $^ $(LIBSHDF) $(LIB)
  
 $(DIR)/$(OBJDIR)/%.o : $(DIR)/$(SRCDIR)/%.f90
-	$(FC) $(OPT) $(PROFILING) $(WALL) $(MOD) -c $< -o $@
+	$(FC) $(OPT) $(PROFILING) $(WALL) $(MOD) -c $< -o $@ $(LIBSHDF) $(LIB)
 
 
 
@@ -120,4 +138,6 @@ clean :
 	rm -rf $(OBJ) 
 	rm -rf $(DIR)/$(INCLUDEDIR)/*.mod
 	rm -rf $(OUTPUT)/*.dat
-	rm -rf *.dat *.txt $(TGT) *.out *.sum gmon.out-*
+	rm -rf *.dat *.txt $(TGT) 
+	rm -rf *.out *.sum gmon.out-*
+	rm -rf $(OUTPUT)/*.h5
