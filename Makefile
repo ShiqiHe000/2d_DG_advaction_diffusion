@@ -40,6 +40,7 @@ LIBSHDF   = $(EXTLIB) $(FORTRANLIB) $(HDF_INSTALL)/lib/libhdf5.a
 SRC =  dg_param.f90 \
        dg_mpi.f90 \
        dg_local_storage.f90 \
+       dg_output_hdf5.f90 \
        dg_index_local_global.f90 \
        dg_affine_map.f90 \
        dg_basis.f90 \
