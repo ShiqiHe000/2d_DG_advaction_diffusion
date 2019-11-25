@@ -17,7 +17,7 @@ CONTAINS
 
 !-----------------------------------------------------------------------
 !> Use Lagrange Polynomial Interplants to obtain the solution on the 
-!! boundaries based on the interiol collocation nodes.
+!! boundaries based on the interior collocation nodes.
 !! Also enforce the boundary conditions on the boundary elements
 !! This subroutine only construct interfaces in X direction.
 !-----------------------------------------------------------------------

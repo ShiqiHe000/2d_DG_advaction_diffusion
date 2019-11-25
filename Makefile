@@ -141,4 +141,4 @@ clean :
 	rm -rf $(OUTPUT)/*.dat
 	rm -rf *.dat *.txt $(TGT) 
 	rm -rf *.out *.sum gmon.out-*
-	rm -rf $(OUTPUT)/*.h5
+	rm -rf *.h5

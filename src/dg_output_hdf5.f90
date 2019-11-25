@@ -15,12 +15,29 @@ IMPLICIT NONE
 
 INTEGER :: FILE_NUM2 = 1 ! FILE NUMBER
 
+! HDF5--------------------------------------------------------------
+INTEGER :: ERROR
+INTEGER(HID_T) :: file_id ! File identifier 
+INTEGER(HID_T) :: prp_id  ! File Property list identifier 
+INTEGER(HID_T) :: dataspace_id  ! Dataspace identifier 
+INTEGER(HID_T) :: dset_id ! Dataset identifier
+INTEGER(HID_T) :: memspace ! memory identifier 
+    
+INTEGER(HSIZE_T), DIMENSION(2) :: data_dim  ! TOTAL DATA DIMENSSION FOR THE DATASET
+INTEGER(HSIZE_T), DIMENSION(2) :: OFFSET    ! position to write
+INTEGER(HSIZE_T), DIMENSION(2) :: local_data_dim    ! local data dimension
+
+CHARACTER(LEN=6), PARAMETER :: X_DATASET = "xcoord"
+CHARACTER(LEN=6), PARAMETER :: Y_DATASET = "ycoord"
+!-------------------------------------------------------------------
+
+
 CONTAINS
 
 !-----------------------------------------------------------------------
 !> INTERPOLATE THE SOLUTION TO 4 CORNERS OF THE CELL AND OUTPUT TO FILES
 !-----------------------------------------------------------------------
-SUBROUTINE WRITE_MESH_4(NEL_TOTAL, X_GLOBAL, Y_GLOBAL, PLEVELX, PLEVELY, &
+SUBROUTINE WRITE_MESH_P4(NEL_TOTAL, X_GLOBAL, Y_GLOBAL, PLEVELX, PLEVELY, &
                         SOLUTION_ALL, T)
     
     IMPLICIT NONE 
@@ -48,21 +65,11 @@ SUBROUTINE WRITE_MESH_4(NEL_TOTAL, X_GLOBAL, Y_GLOBAL, PLEVELX, PLEVELY, &
     DOUBLE PRECISION :: X(4, NEL_TOTAL)  ! X COORDINATES OF FOUR NODES OF ONE ELEMENT  
     DOUBLE PRECISION :: Y(4, NEL_TOTAL)  ! Y COORDINATES OF FOUR NODES OF ONE ELEMENT  
     
-    ! HDF5--------------------------------------------------------------
-    INTEGER :: ERROR
-    INTEGER(HID_T) :: file_id ! File identifier 
-    INTEGER(HID_T) :: prp_id  ! File Property list identifier 
-    INTEGER(HID_T) :: dataspace_id  ! Dataspace identifier 
-    INTEGER(HID_T) :: dset_id ! Dataset identifier
-    INTEGER(HID_T) :: memspace ! memory identifier 
-        
-    INTEGER(HSIZE_T), DIMENSION(2) :: data_dim  ! TOTAL DATA DIMENSSION FOR THE DATASET
-    INTEGER(HSIZE_T), DIMENSION(2) :: OFFSET    ! position to write
-    INTEGER(HSIZE_T), DIMENSION(2) :: local_data_dim    ! local data dimension
-
-    CHARACTER(LEN=6), PARAMETER :: X_DATASET = "xcoord"
-    !-------------------------------------------------------------------
-
+    DOUBLE PRECISION :: P(4, NEL_TOTAL) ! PRESSURE
+    DOUBLE PRECISION :: U(4, NEL_TOTAL) ! X VELOCITY COMPONENT 
+    DOUBLE PRECISION :: V(4, NEL_TOTAL) ! Y VELOCITY COMPONENT
+    
+    
     SOLU_INT_L = 0.0D0; SOLU_INT_R = 0.0D0
     X = 0.0D0; Y = 0.0D0
     
@@ -93,13 +100,70 @@ SUBROUTINE WRITE_MESH_4(NEL_TOTAL, X_GLOBAL, Y_GLOBAL, PLEVELX, PLEVELY, &
     ! OUTPUT X COORDINATES----------------------------------------------
         
     ! PREPARE THE X COORD TO WRITE
-    DO IEL = 0, NEL_TOTAL
+    DO IEL = 0, NEL_TOTAL - 1
         X(1, IEL+1) = X_GLOBAL(1, IEL)
         X(2, IEL+1) = X_GLOBAL(1, IEL)
         X(3, IEL+1) = X_GLOBAL(2, IEL)
         X(4, IEL+1) = X_GLOBAL(2, IEL)
     ENDDO
     
+    CALL WRITE_X_COORDS(NEL_TOTAL, X)
+    !-------------------------------------------------------------------
+    
+    ! OUTPUT Y COORDINATES----------------------------------------------
+        
+    ! PREPARE THE X COORD TO WRITE
+    DO IEL = 0, NEL_TOTAL - 1
+        Y(1, IEL+1) = Y_GLOBAL(1, IEL)
+        Y(2, IEL+1) = Y_GLOBAL(2, IEL)
+        Y(3, IEL+1) = Y_GLOBAL(2, IEL)
+        Y(4, IEL+1) = Y_GLOBAL(1, IEL)
+    ENDDO
+    
+    CALL WRITE_Y_COORDS(NEL_TOTAL, Y)
+    !-------------------------------------------------------------------
+    
+    ! OUTPUT SOLUTIONS -------------------------------------------------
+    DO IEL = 0, NEL_TOTAL -1
+        
+        CALL POLY_LEVEL_TO_ORDER(N, PLEVELX(IEL), PORDERX)
+        CALL POLY_LEVEL_TO_ORDER(M, PLEVELY(IEL), PORDERY)
+    
+        CALL CONSTRUCT_INTERFACES_X(PORDERX, PORDERY, &
+                                    NUM_OF_EQUATION, &
+                                    SOLUTION_ALL(0:PORDERX, 0:PORDERY, :, IEL), &
+                                    LAGRANGE_LEFT_T(0:PORDERX, PLEVELX(IEL)),&
+                                    LAGRANGE_RIGHT_T(0:PORDERX, PLEVELX(IEL)), &
+                                    SOLU_INT_L(0:PORDERY, :), &
+                                    SOLU_INT_R(0:PORDERY, :) )
+    
+    ENDDO
+    
+    
+    !-------------------------------------------------------------------
+    
+    ! close file
+    CALL h5fclose_f(file_id, error) ! file
+    
+    ! Close FORTRAN predefined datatypes.
+    CALL h5close_f(error)
+
+
+END SUBROUTINE WRITE_MESH_P4
+
+!-----------------------------------------------------------------------
+!> WRITE X COORDINATES.
+!! FOUR COLUMNS: 4 CORNER NODES
+!! EACH ROW: ONE ELEMENT
+!-----------------------------------------------------------------------
+SUBROUTINE WRITE_X_COORDS(NEL_TOTAL, X)
+    
+    IMPLICIT NONE 
+    
+    INTEGER, INTENT(IN) :: NEL_TOTAL
+    
+    DOUBLE PRECISION :: X(4, NEL_TOTAL)  ! X COORDINATES OF FOUR NODES OF ONE ELEMENT  
+
     ! create dataspace
     CALL h5screate_simple_f(2, data_dim, dataspace_id, error)
     
@@ -135,17 +199,63 @@ SUBROUTINE WRITE_MESH_4(NEL_TOTAL, X_GLOBAL, Y_GLOBAL, PLEVELX, PLEVELY, &
     CALL h5pclose_f(prp_id, error)  ! property
     
     CALL h5dclose_f(dset_id, error)   ! dataset
-    
-    !-------------------------------------------------------------------
-    
-    
-    ! close file
-    CALL h5fclose_f(file_id, error) ! file
-    
-    ! Close FORTRAN predefined datatypes.
-     CALL h5close_f(error)
 
 
-END SUBROUTINE WRITE_MESH_4
+
+END SUBROUTINE WRITE_X_COORDS
+
+
+!-----------------------------------------------------------------------
+!> WRITE Y COORDINATES.
+!! FOUR COLUMNS: 4 CORNER NODES
+!! EACH ROW: ONE ELEMENT
+!-----------------------------------------------------------------------
+SUBROUTINE WRITE_Y_COORDS(NEL_TOTAL, Y)
+    
+    IMPLICIT NONE 
+    
+    INTEGER, INTENT(IN) :: NEL_TOTAL
+    
+    DOUBLE PRECISION :: Y(4, NEL_TOTAL)  ! X COORDINATES OF FOUR NODES OF ONE ELEMENT  
+
+    ! create dataspace
+    CALL h5screate_simple_f(2, data_dim, dataspace_id, error)
+    
+    ! create dataset (Creates a new dataset and links it to a location in the file. )
+    CALL h5dcreate_f(file_id, Y_DATASET, H5T_NATIVE_DOUBLE, dataspace_id, dset_id, & 
+                    error)
+    CALL h5sclose_f(dataspace_id, error) 
+    
+    ! defines the location of write 
+    OFFSET(1) = 0
+    OFFSET(2) = (ELEM_RANGE(RANK) + 1) 
+    
+    ! Select hyperslab in the file.
+    CALL h5dget_space_f(dset_id, dataspace_id, error)
+    CALL h5sselect_hyperslab_f(dataspace_id, H5S_SELECT_SET_F, OFFSET, local_data_dim, error) 
+    
+    ! memory dataspace
+    CALL h5screate_simple_f(2, local_data_dim, memspace, error)
+    
+    ! Create property list for collective dataset write
+    CALL h5pcreate_f(H5P_DATASET_XFER_F, prp_id, error) 
+    CALL h5pset_dxpl_mpio_f(prp_id, H5FD_MPIO_COLLECTIVE_F, error)   ! Sets data transfer mode. 
+    
+    
+    ! Writes raw data from a buffer to a dataset. 
+    CALL h5dwrite_f(dset_id, H5T_NATIVE_DOUBLE, Y, local_data_dim, error, &  ! the dataset_dim here is the local dim (global dim also works)
+                      & mem_space_id = memspace, file_space_id = dataspace_id, xfer_prp = prp_id)
+
+    ! close resource
+    CALL h5sclose_f(dataspace_id, error)   ! space
+    CALL h5sclose_f(memspace, error)
+    
+    CALL h5pclose_f(prp_id, error)  ! property
+    
+    CALL h5dclose_f(dset_id, error)   ! dataset
+
+
+
+END SUBROUTINE WRITE_Y_COORDS
 
 END MODULE OUTPUT_HDF5

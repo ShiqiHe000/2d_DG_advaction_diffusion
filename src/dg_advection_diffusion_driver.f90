@@ -19,7 +19,6 @@ USE OUTPUT
 USE LOCAL_STORAGE
 USE IO
 USE MPI_BOUNDARY
-USE HDF5
 
 IMPLICIT NONE
 
@@ -77,7 +76,8 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     !-------------------------------------------------------------------
     
     ! OUTPUT INITIAL SOLUTIONS------------------------------------------
-    CALL SERIAL_IO(TN)
+!    CALL SERIAL_IO(TN)
+    CALL PARALLEL_IO(TN)
     !-------------------------------------------------------------------
     
     ! FLAG ELEMENTS ON THE MPI BOUNDARY---------------------------------
