@@ -40,10 +40,10 @@ LIBSHDF   = $(EXTLIB) $(FORTRANLIB) $(HDF_INSTALL)/lib/libhdf5.a
 SRC =  dg_param.f90 \
        dg_mpi.f90 \
        dg_local_storage.f90 \
-       dg_output_hdf5.f90 \
        dg_index_local_global.f90 \
        dg_affine_map.f90 \
        dg_basis.f90 \
+       dg_interfaces_construct.f90 \
        dg_search_rank.f90 \
        dg_interpolate_to_new_point.f90 \
        dg_user_defined.f90 \
@@ -52,6 +52,7 @@ SRC =  dg_param.f90 \
        dg_hilbert_curve.f90 \
        dg_message_exchange.f90 \
        dg_nodal_2d_storage.f90 \
+       dg_output_hdf5.f90 \
        dg_construct_mpi_boundary.f90 \
        dg_get_dual_coord.f90 \
        dg_gen_dual_graph.f90 \
@@ -64,7 +65,6 @@ SRC =  dg_param.f90 \
        dg_basis_storage.f90 \
        dg_constructor.f90 \
        dg_riemann_solver.f90 \
-       dg_interfaces_construct.f90 \
        dg_flux_vector.f90 \
        dg_numerical_flux.f90 \
        dg_spatial_derivative.f90 \

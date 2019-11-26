@@ -93,8 +93,9 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
         TN = (K+1) * DELTA_T
        
         ! OUTPUT SOLUTIONS
-!        IF(MOD(K, OUTPUT_FREQUENCY) == 0) THEN
-!            CALL SERIAL_IO(TN)
+!        IF(MOD(K+1, OUTPUT_FREQUENCY) == 0) THEN
+!!            CALL SERIAL_IO(TN)
+!            CALL PARALLEL_IO(TN)
 !        ENDIF
     ENDDO
     !-------------------------------------------------------------------
