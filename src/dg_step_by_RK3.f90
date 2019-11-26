@@ -62,7 +62,6 @@ SUBROUTINE DG_STEP_BY_RK3(TN, DELTA_T)
             CALL POLY_LEVEL_TO_ORDER(N, PLEVEL_X(ELEM_K), N1)
             CALL POLY_LEVEL_TO_ORDER(M, PLEVEL_Y(ELEM_K), M1)
             
-        
             DO L=1, NUM_OF_EQUATION
                 DO J=0,M1
                     DO I=0, N1
