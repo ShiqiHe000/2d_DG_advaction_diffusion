@@ -22,6 +22,8 @@ OG = -Og
 DEBUG = -g -fcheck=all -fimplicit-none -fbacktrace -pedantic -Wall
 PROFILING = -pg
 
+# Libraries ============================================================
+
 # HDF5------------------------------------------------------------------
 # Location of HDF5 binaries (with include/ and lib/ underneath)
 HDF_INSTALL = /home/shiqihe/local/hdf5-1.10.5
@@ -35,6 +37,15 @@ FORTRANLIB=-I$(HDF_INSTALL)/include $(HDF_INSTALL)/lib/libhdf5_fortran.a
 LIBSHDF   = $(EXTLIB) $(FORTRANLIB) $(HDF_INSTALL)/lib/libhdf5.a
 
 #-----------------------------------------------------------------------
+
+# Open_BLAS-------------------------------------------------------------
+OBLAS_INSTALL = /home/shiqihe/local/OpenBLAS-0.3.7/
+OBLAS_LIB = -I$(OBLAS_INSTALL)include/
+EXT_OBLAS = -L$(OBLAS_INSTALL)lib/
+OBLAS = -lopenblas
+OBLAS_FORTRAN = -lgfortran
+#-----------------------------------------------------------------------
+#=======================================================================
 
 # source files
 SRC =  dg_param.f90 \
@@ -89,10 +100,10 @@ OBJ = $(addprefix $(DIR)/$(OBJDIR)/, $(notdir $(SRC:.f90=.o)))
 
 
 $(DIR)/$(OBJDIR)/$(TGT) : $(OBJ)
-	$(FC) $(OPT) $(PROFILING) $(WALL) $(MOD) -o $(TGT) $^ $(LIBSHDF) $(LIB)
+	$(FC) $(OPT) $(PROFILING) $(WALL) $(MOD) -o $(TGT) $^ $(LIBSHDF) $(LIB) $(OBLAS_LIB) $(EXT_OBLAS) $(OBLAS) 
  
 $(DIR)/$(OBJDIR)/%.o : $(DIR)/$(SRCDIR)/%.f90
-	$(FC) $(OPT) $(PROFILING) $(WALL) $(MOD) -c $< -o $@ $(LIBSHDF) $(LIB)
+	$(FC) $(OPT) $(PROFILING) $(WALL) $(MOD) -c $< -o $@ $(LIBSHDF) $(LIB) $(OBLAS_LIB) $(EXT_OBLAS) $(OBLAS) 
 
 
 
