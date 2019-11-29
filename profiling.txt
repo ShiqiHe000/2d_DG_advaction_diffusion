@@ -3,55 +3,55 @@ Flat profile:
 Each sample counts as 0.01 seconds.
   %   cumulative   self              self     total           
  time   seconds   seconds    calls  us/call  us/call  name    
- 28.89      0.13     0.13   120000     1.08     1.29  __a_times_spatial_der_MOD_a_times_spatial_derirative_x
- 24.44      0.24     0.11    60000     1.83     7.50  __dg_time_der_all_MOD_dg_time_der_combine
- 11.11      0.29     0.05  1200000     0.04     0.04  __spactial_derivative_MOD_dg_spatial_derivative
-  6.67      0.32     0.03   480004     0.06     0.06  __hilbert_MOD_d2xy
-  4.44      0.34     0.02   120000     0.17     0.46  __a_times_spatial_der_MOD_a_times_spatial_derirative_y
-  4.44      0.36     0.02   120000     0.17     0.25  __interfaces_construct_MOD_construct_interfaces_y
-  4.44      0.38     0.02   120000     0.17     0.33  __numerical_flux_MOD_numerical_flux_y
-  2.22      0.39     0.01  3600000     0.00     0.00  __basis_MOD_interpolate_to_boundary
-  2.22      0.40     0.01  3000000     0.00     0.00  __flux_vectors_MOD_yflux
-  2.22      0.41     0.01  1200240     0.01     0.01  __affine_map_MOD_affine_mapping
-  2.22      0.42     0.01  1200000     0.01     0.01  __external_state_MOD_external_state_gaussian_exact
-  2.22      0.43     0.01   720000     0.01     0.01  __index_local_global_MOD_index_local_to_global
-  2.22      0.44     0.01   120000     0.08     0.16  __message_exchage_MOD_non_blocking_excahnge_nflux_y
-  2.22      0.45     0.01    60000     0.17     0.49  __message_exchage_MOD_exchange_nflux_y
-  0.00      0.45     0.00  7200000     0.00     0.00  __basis_MOD_interpolate_to_boundary_blas
-  0.00      0.45     0.00  3600000     0.00     0.00  __basis_MOD_matrix_vector_derivative_blas
-  0.00      0.45     0.00  3000000     0.00     0.00  __flux_vectors_MOD_xflux
-  0.00      0.45     0.00  1680032     0.00     0.00  __poly_level_and_order_MOD_poly_level_to_order
-  0.00      0.45     0.00   900000     0.00     0.00  __riemann_solver_MOD_riemann_x
-  0.00      0.45     0.00   900000     0.00     0.00  __riemann_solver_MOD_riemann_y
-  0.00      0.45     0.00   360012     0.00     0.00  __hilbert_MOD_xy2d
-  0.00      0.45     0.00   240000     0.00     0.00  __search_rank_MOD_find_rank
-  0.00      0.45     0.00   120000     0.00     0.00  __interfaces_construct_MOD_construct_interfaces_x
-  0.00      0.45     0.00   120000     0.00     0.01  __message_exchage_MOD_non_blocking_excahnge_nflux_x
-  0.00      0.45     0.00   120000     0.00     0.16  __numerical_flux_MOD_numerical_flux_x
-  0.00      0.45     0.00    60000     0.00     0.00  __index_local_global_MOD_index_global_to_local
-  0.00      0.45     0.00    60000     0.00     0.03  __message_exchage_MOD_exchange_nflux_x
-  0.00      0.45     0.00    60000     0.00     0.03  __message_exchage_MOD_exchange_solution_x
-  0.00      0.45     0.00    60000     0.00     0.15  __message_exchage_MOD_exchange_solution_y
-  0.00      0.45     0.00    60000     0.00     0.00  __numerical_flux_MOD_riemann1
-  0.00      0.45     0.00    60000     0.00     0.00  __numerical_flux_MOD_riemann2
-  0.00      0.45     0.00    20000     0.00    22.50  __time_step_by_rk_MOD_dg_step_by_rk3
-  0.00      0.45     0.00       32     0.00     0.00  __basis_MOD_lagrange_interpolating_polynomial
-  0.00      0.45     0.00       16     0.00     0.00  __basis_MOD_barw
-  0.00      0.45     0.00       16     0.00     0.00  __basis_MOD_gl
-  0.00      0.45     0.00       16     0.00     0.00  __basis_MOD_mth_order_polynomial_derivative_matrix
-  0.00      0.45     0.00       16     0.00     0.00  __nodal_2d_storage_MOD_get_nodal_2d_storage_basis
-  0.00      0.45     0.00       16     0.00     0.00  __nodal_2d_storage_MOD_get_nodal_2d_storage_extends
-  0.00      0.45     0.00        4     0.00     0.00  __get_dual_coord_MOD_get_dual_coord_2d
-  0.00      0.45     0.00        4     0.00     0.25  __user_defines_MOD_exact_solution_gaussian
-  0.00      0.45     0.00        4     0.00     0.25  __user_defines_MOD_initial_condition_gaussian
-  0.00      0.45     0.00        2     0.00     0.00  __basis_storage_MOD_construct_basis_storage
-  0.00      0.45     0.00        2     0.00     0.00  __dg_2d_constructor_MOD_construct_basis
-  0.00      0.45     0.00        2     0.00     0.00  __end_program_MOD_deallocate_nodal_2d_storage
-  0.00      0.45     0.00        2     0.00     0.00  __first_distribute_MOD_distribute_elem
-  0.00      0.45     0.00        2     0.00     0.12  __mpi_boundary_MOD_mpi_boundary_flag
-  0.00      0.45     0.00        1     0.00     0.00  __gen_dual_graph_MOD_gen_dual_graph_2d
-  0.00      0.45     0.00        1     0.00     0.00  __read_mesh_MOD_read_mesh_2d
-  0.00      0.45     0.00        1     0.00     0.00  __read_mesh_MOD_sort_node_ordering
+ 28.57      0.14     0.14  1200000     0.12     0.13  __spactial_derivative_MOD_dg_spatial_derivative
+ 12.24      0.20     0.06   120000     0.50     1.42  __a_times_spatial_der_MOD_a_times_spatial_derirative_x
+ 12.24      0.26     0.06    60000     1.00     8.00  __dg_time_der_all_MOD_dg_time_der_combine
+ 10.20      0.31     0.05   120000     0.42     1.17  __a_times_spatial_der_MOD_a_times_spatial_derirative_y
+  6.12      0.34     0.03  3000000     0.01     0.01  __flux_vectors_MOD_xflux
+  6.12      0.37     0.03   120000     0.25     0.48  __numerical_flux_MOD_numerical_flux_x
+  4.08      0.39     0.02  3600000     0.01     0.01  __basis_MOD_matrix_vector_derivative_blas
+  4.08      0.41     0.02  1200000     0.02     0.02  __external_state_MOD_external_state_gaussian_exact
+  4.08      0.43     0.02   120000     0.17     0.21  __interfaces_construct_MOD_construct_interfaces_y
+  2.04      0.44     0.01  7200000     0.00     0.00  __basis_MOD_interpolate_to_boundary_blas
+  2.04      0.45     0.01  3000000     0.00     0.00  __flux_vectors_MOD_yflux
+  2.04      0.46     0.01    60000     0.17     0.17  __message_exchage_MOD_exchange_nflux_y
+  2.04      0.47     0.01    60000     0.17     0.25  __numerical_flux_MOD_riemann1
+  2.04      0.48     0.01                             __basis_MOD_almostequal
+  1.02      0.49     0.01  1200240     0.00     0.00  __affine_map_MOD_affine_mapping
+  1.02      0.49     0.01    60000     0.08     0.08  __index_local_global_MOD_index_global_to_local
+  0.00      0.49     0.00  1680032     0.00     0.00  __poly_level_and_order_MOD_poly_level_to_order
+  0.00      0.49     0.00   900000     0.00     0.00  __riemann_solver_MOD_riemann_x
+  0.00      0.49     0.00   900000     0.00     0.00  __riemann_solver_MOD_riemann_y
+  0.00      0.49     0.00   720000     0.00     0.00  __index_local_global_MOD_index_local_to_global
+  0.00      0.49     0.00   480004     0.00     0.00  __hilbert_MOD_d2xy
+  0.00      0.49     0.00   360012     0.00     0.00  __hilbert_MOD_xy2d
+  0.00      0.49     0.00   240000     0.00     0.00  __search_rank_MOD_find_rank
+  0.00      0.49     0.00   120000     0.00     0.04  __interfaces_construct_MOD_construct_interfaces_x
+  0.00      0.49     0.00   120000     0.00     0.00  __message_exchage_MOD_non_blocking_excahnge_nflux_x
+  0.00      0.49     0.00   120000     0.00     0.00  __message_exchage_MOD_non_blocking_excahnge_nflux_y
+  0.00      0.49     0.00   120000     0.00     0.10  __numerical_flux_MOD_numerical_flux_y
+  0.00      0.49     0.00    60000     0.00     0.00  __message_exchage_MOD_exchange_nflux_x
+  0.00      0.49     0.00    60000     0.00     0.00  __message_exchage_MOD_exchange_solution_x
+  0.00      0.49     0.00    60000     0.00     0.00  __message_exchage_MOD_exchange_solution_y
+  0.00      0.49     0.00    60000     0.00     0.00  __numerical_flux_MOD_riemann2
+  0.00      0.49     0.00    20000     0.00    24.00  __time_step_by_rk_MOD_dg_step_by_rk3
+  0.00      0.49     0.00       32     0.00     0.00  __basis_MOD_lagrange_interpolating_polynomial
+  0.00      0.49     0.00       16     0.00     0.00  __basis_MOD_barw
+  0.00      0.49     0.00       16     0.00     0.00  __basis_MOD_gl
+  0.00      0.49     0.00       16     0.00     0.00  __basis_MOD_mth_order_polynomial_derivative_matrix
+  0.00      0.49     0.00       16     0.00     0.00  __nodal_2d_storage_MOD_get_nodal_2d_storage_basis
+  0.00      0.49     0.00       16     0.00     0.00  __nodal_2d_storage_MOD_get_nodal_2d_storage_extends
+  0.00      0.49     0.00        4     0.00     0.00  __get_dual_coord_MOD_get_dual_coord_2d
+  0.00      0.49     0.00        4     0.00     0.12  __user_defines_MOD_exact_solution_gaussian
+  0.00      0.49     0.00        4     0.00     0.12  __user_defines_MOD_initial_condition_gaussian
+  0.00      0.49     0.00        2     0.00     0.00  __basis_storage_MOD_construct_basis_storage
+  0.00      0.49     0.00        2     0.00     0.00  __dg_2d_constructor_MOD_construct_basis
+  0.00      0.49     0.00        2     0.00     0.00  __end_program_MOD_deallocate_nodal_2d_storage
+  0.00      0.49     0.00        2     0.00     0.00  __first_distribute_MOD_distribute_elem
+  0.00      0.49     0.00        2     0.00     0.00  __mpi_boundary_MOD_mpi_boundary_flag
+  0.00      0.49     0.00        1     0.00     0.00  __gen_dual_graph_MOD_gen_dual_graph_2d
+  0.00      0.49     0.00        1     0.00     0.00  __read_mesh_MOD_read_mesh_2d
+  0.00      0.49     0.00        1     0.00     0.00  __read_mesh_MOD_sort_node_ordering
 
  %         the percentage of the total running time of the
 time       program used by this function.
@@ -89,260 +89,259 @@ notice and this notice are preserved.
 		     Call graph (explanation follows)
 
 
-granularity: each sample hit covers 2 byte(s) for 2.22% of 0.45 seconds
+granularity: each sample hit covers 2 byte(s) for 2.04% of 0.49 seconds
 
 index % time    self  children    called     name
                                                  <spontaneous>
-[1]    100.0    0.00    0.45                 __advection_diffusion_driver_MOD_driver_for_dg_approximation [1]
-                0.00    0.45   20000/20000       __time_step_by_rk_MOD_dg_step_by_rk3 [3]
-                0.00    0.00       4/4           __user_defines_MOD_initial_condition_gaussian [23]
-                0.00    0.00       2/2           __mpi_boundary_MOD_mpi_boundary_flag [25]
-                0.00    0.00       8/1680032     __poly_level_and_order_MOD_poly_level_to_order [4359]
-                0.00    0.00       2/2           __dg_2d_constructor_MOD_construct_basis [4376]
+[1]     98.0    0.00    0.48                 __advection_diffusion_driver_MOD_driver_for_dg_approximation [1]
+                0.00    0.48   20000/20000       __time_step_by_rk_MOD_dg_step_by_rk3 [3]
+                0.00    0.00       4/4           __user_defines_MOD_initial_condition_gaussian [22]
+                0.00    0.00       8/1680032     __poly_level_and_order_MOD_poly_level_to_order [4354]
+                0.00    0.00       2/2           __mpi_boundary_MOD_mpi_boundary_flag [4378]
+                0.00    0.00       2/2           __dg_2d_constructor_MOD_construct_basis [4375]
 -----------------------------------------------
-                0.11    0.34   60000/60000       __time_step_by_rk_MOD_dg_step_by_rk3 [3]
-[2]    100.0    0.11    0.34   60000         __dg_time_der_all_MOD_dg_time_der_combine [2]
-                0.13    0.03  120000/120000      __a_times_spatial_der_MOD_a_times_spatial_derirative_x [4]
-                0.02    0.04  120000/120000      __a_times_spatial_der_MOD_a_times_spatial_derirative_y [5]
-                0.02    0.02  120000/120000      __numerical_flux_MOD_numerical_flux_y [7]
-                0.02    0.01  120000/120000      __interfaces_construct_MOD_construct_interfaces_y [8]
-                0.01    0.02   60000/60000       __message_exchage_MOD_exchange_nflux_y [10]
-                0.00    0.02  120000/120000      __numerical_flux_MOD_numerical_flux_x [12]
-                0.00    0.01   60000/60000       __message_exchage_MOD_exchange_solution_y [18]
-                0.00    0.00   60000/60000       __message_exchage_MOD_exchange_nflux_x [20]
-                0.00    0.00   60000/60000       __message_exchage_MOD_exchange_solution_x [21]
-                0.00    0.00  480000/1680032     __poly_level_and_order_MOD_poly_level_to_order [4359]
-                0.00    0.00  120000/120000      __interfaces_construct_MOD_construct_interfaces_x [4364]
+                0.06    0.42   60000/60000       __time_step_by_rk_MOD_dg_step_by_rk3 [3]
+[2]     98.0    0.06    0.42   60000         __dg_time_der_all_MOD_dg_time_der_combine [2]
+                0.06    0.11  120000/120000      __a_times_spatial_der_MOD_a_times_spatial_derirative_x [4]
+                0.05    0.09  120000/120000      __a_times_spatial_der_MOD_a_times_spatial_derirative_y [6]
+                0.03    0.03  120000/120000      __numerical_flux_MOD_numerical_flux_x [7]
+                0.02    0.01  120000/120000      __interfaces_construct_MOD_construct_interfaces_y [9]
+                0.00    0.01  120000/120000      __numerical_flux_MOD_numerical_flux_y [13]
+                0.01    0.00   60000/60000       __message_exchage_MOD_exchange_nflux_y [16]
+                0.00    0.01  120000/120000      __interfaces_construct_MOD_construct_interfaces_x [19]
+                0.00    0.00  480000/1680032     __poly_level_and_order_MOD_poly_level_to_order [4354]
+                0.00    0.00   60000/60000       __message_exchage_MOD_exchange_solution_y [4365]
+                0.00    0.00   60000/60000       __message_exchage_MOD_exchange_nflux_x [4363]
+                0.00    0.00   60000/60000       __message_exchage_MOD_exchange_solution_x [4364]
 -----------------------------------------------
-                0.00    0.45   20000/20000       __advection_diffusion_driver_MOD_driver_for_dg_approximation [1]
-[3]    100.0    0.00    0.45   20000         __time_step_by_rk_MOD_dg_step_by_rk3 [3]
-                0.11    0.34   60000/60000       __dg_time_der_all_MOD_dg_time_der_combine [2]
-                0.00    0.00  240000/1680032     __poly_level_and_order_MOD_poly_level_to_order [4359]
+                0.00    0.48   20000/20000       __advection_diffusion_driver_MOD_driver_for_dg_approximation [1]
+[3]     98.0    0.00    0.48   20000         __time_step_by_rk_MOD_dg_step_by_rk3 [3]
+                0.06    0.42   60000/60000       __dg_time_der_all_MOD_dg_time_der_combine [2]
+                0.00    0.00  240000/1680032     __poly_level_and_order_MOD_poly_level_to_order [4354]
 -----------------------------------------------
-                0.13    0.03  120000/120000      __dg_time_der_all_MOD_dg_time_der_combine [2]
-[4]     34.4    0.13    0.03  120000         __a_times_spatial_der_MOD_a_times_spatial_derirative_x [4]
-                0.03    0.00  600000/1200000     __spactial_derivative_MOD_dg_spatial_derivative [6]
-                0.00    0.00 3000000/3000000     __flux_vectors_MOD_xflux [4358]
-                0.00    0.00  240000/1680032     __poly_level_and_order_MOD_poly_level_to_order [4359]
+                0.06    0.11  120000/120000      __dg_time_der_all_MOD_dg_time_der_combine [2]
+[4]     34.7    0.06    0.11  120000         __a_times_spatial_der_MOD_a_times_spatial_derirative_x [4]
+                0.07    0.01  600000/1200000     __spactial_derivative_MOD_dg_spatial_derivative [5]
+                0.03    0.00 3000000/3000000     __flux_vectors_MOD_xflux [8]
+                0.00    0.00  240000/1680032     __poly_level_and_order_MOD_poly_level_to_order [4354]
 -----------------------------------------------
-                0.02    0.04  120000/120000      __dg_time_der_all_MOD_dg_time_der_combine [2]
-[5]     12.2    0.02    0.04  120000         __a_times_spatial_der_MOD_a_times_spatial_derirative_y [5]
-                0.03    0.00  600000/1200000     __spactial_derivative_MOD_dg_spatial_derivative [6]
-                0.01    0.00 3000000/3000000     __flux_vectors_MOD_yflux [14]
-                0.00    0.00  240000/1680032     __poly_level_and_order_MOD_poly_level_to_order [4359]
+                0.07    0.01  600000/1200000     __a_times_spatial_der_MOD_a_times_spatial_derirative_y [6]
+                0.07    0.01  600000/1200000     __a_times_spatial_der_MOD_a_times_spatial_derirative_x [4]
+[5]     32.7    0.14    0.02 1200000         __spactial_derivative_MOD_dg_spatial_derivative [5]
+                0.02    0.00 3600000/3600000     __basis_MOD_matrix_vector_derivative_blas [10]
 -----------------------------------------------
-                0.03    0.00  600000/1200000     __a_times_spatial_der_MOD_a_times_spatial_derirative_y [5]
-                0.03    0.00  600000/1200000     __a_times_spatial_der_MOD_a_times_spatial_derirative_x [4]
-[6]     11.1    0.05    0.00 1200000         __spactial_derivative_MOD_dg_spatial_derivative [6]
-                0.00    0.00 3600000/3600000     __basis_MOD_matrix_vector_derivative_blas [4357]
+                0.05    0.09  120000/120000      __dg_time_der_all_MOD_dg_time_der_combine [2]
+[6]     28.6    0.05    0.09  120000         __a_times_spatial_der_MOD_a_times_spatial_derirative_y [6]
+                0.07    0.01  600000/1200000     __spactial_derivative_MOD_dg_spatial_derivative [5]
+                0.01    0.00 3000000/3000000     __flux_vectors_MOD_yflux [15]
+                0.00    0.00  240000/1680032     __poly_level_and_order_MOD_poly_level_to_order [4354]
 -----------------------------------------------
-                0.02    0.02  120000/120000      __dg_time_der_all_MOD_dg_time_der_combine [2]
-[7]      8.7    0.02    0.02  120000         __numerical_flux_MOD_numerical_flux_y [7]
-                0.01    0.00  120000/480004      __hilbert_MOD_d2xy [9]
-                0.01    0.00  600000/1200000     __external_state_MOD_external_state_gaussian_exact [16]
-                0.00    0.00  600000/1200240     __affine_map_MOD_affine_mapping [15]
-                0.00    0.00  120000/720000      __index_local_global_MOD_index_local_to_global [17]
-                0.00    0.00  600000/900000      __riemann_solver_MOD_riemann_y [4361]
-                0.00    0.00  240000/1680032     __poly_level_and_order_MOD_poly_level_to_order [4359]
-                0.00    0.00   60000/60000       __numerical_flux_MOD_riemann2 [4367]
+                0.03    0.03  120000/120000      __dg_time_der_all_MOD_dg_time_der_combine [2]
+[7]     11.7    0.03    0.03  120000         __numerical_flux_MOD_numerical_flux_x [7]
+                0.01    0.01   60000/60000       __numerical_flux_MOD_riemann1 [12]
+                0.01    0.00  600000/1200000     __external_state_MOD_external_state_gaussian_exact [11]
+                0.00    0.00  600000/1200240     __affine_map_MOD_affine_mapping [18]
+                0.00    0.00  600000/900000      __riemann_solver_MOD_riemann_x [4355]
+                0.00    0.00  240000/1680032     __poly_level_and_order_MOD_poly_level_to_order [4354]
+                0.00    0.00  120000/480004      __hilbert_MOD_d2xy [4358]
+                0.00    0.00  120000/720000      __index_local_global_MOD_index_local_to_global [4357]
+-----------------------------------------------
+                0.03    0.00 3000000/3000000     __a_times_spatial_der_MOD_a_times_spatial_derirative_x [4]
+[8]      6.1    0.03    0.00 3000000         __flux_vectors_MOD_xflux [8]
 -----------------------------------------------
                 0.02    0.01  120000/120000      __dg_time_der_all_MOD_dg_time_der_combine [2]
-[8]      6.7    0.02    0.01  120000         __interfaces_construct_MOD_construct_interfaces_y [8]
-                0.01    0.00 3600000/3600000     __basis_MOD_interpolate_to_boundary [13]
-                0.00    0.00 3600000/7200000     __basis_MOD_interpolate_to_boundary_blas [4356]
+[9]      5.1    0.02    0.01  120000         __interfaces_construct_MOD_construct_interfaces_y [9]
+                0.01    0.00 3600000/7200000     __basis_MOD_interpolate_to_boundary_blas [14]
 -----------------------------------------------
-                0.00    0.00       4/480004      __mpi_boundary_MOD_mpi_boundary_flag [25]
-                0.01    0.00  120000/480004      __message_exchage_MOD_non_blocking_excahnge_nflux_y [11]
-                0.01    0.00  120000/480004      __message_exchage_MOD_exchange_solution_y [18]
-                0.01    0.00  120000/480004      __numerical_flux_MOD_numerical_flux_y [7]
-                0.01    0.00  120000/480004      __numerical_flux_MOD_numerical_flux_x [12]
-[9]      6.7    0.03    0.00  480004         __hilbert_MOD_d2xy [9]
+                0.02    0.00 3600000/3600000     __spactial_derivative_MOD_dg_spatial_derivative [5]
+[10]     4.1    0.02    0.00 3600000         __basis_MOD_matrix_vector_derivative_blas [10]
 -----------------------------------------------
-                0.01    0.02   60000/60000       __dg_time_der_all_MOD_dg_time_der_combine [2]
-[10]     6.5    0.01    0.02   60000         __message_exchage_MOD_exchange_nflux_y [10]
-                0.01    0.01  120000/120000      __message_exchage_MOD_non_blocking_excahnge_nflux_y [11]
+                0.01    0.00  600000/1200000     __numerical_flux_MOD_numerical_flux_y [13]
+                0.01    0.00  600000/1200000     __numerical_flux_MOD_numerical_flux_x [7]
+[11]     4.1    0.02    0.00 1200000         __external_state_MOD_external_state_gaussian_exact [11]
 -----------------------------------------------
-                0.01    0.01  120000/120000      __message_exchage_MOD_exchange_nflux_y [10]
-[11]     4.3    0.01    0.01  120000         __message_exchage_MOD_non_blocking_excahnge_nflux_y [11]
-                0.01    0.00  120000/480004      __hilbert_MOD_d2xy [9]
-                0.00    0.00  120000/720000      __index_local_global_MOD_index_local_to_global [17]
-                0.00    0.00  120000/240000      __search_rank_MOD_find_rank [4363]
-                0.00    0.00  120000/360012      __hilbert_MOD_xy2d [4362]
+                0.01    0.01   60000/60000       __numerical_flux_MOD_numerical_flux_x [7]
+[12]     3.1    0.01    0.01   60000         __numerical_flux_MOD_riemann1 [12]
+                0.01    0.00   60000/60000       __index_local_global_MOD_index_global_to_local [20]
+                0.00    0.00  300000/900000      __riemann_solver_MOD_riemann_x [4355]
+                0.00    0.00   60000/360012      __hilbert_MOD_xy2d [4359]
 -----------------------------------------------
-                0.00    0.02  120000/120000      __dg_time_der_all_MOD_dg_time_der_combine [2]
-[12]     4.3    0.00    0.02  120000         __numerical_flux_MOD_numerical_flux_x [12]
-                0.01    0.00  120000/480004      __hilbert_MOD_d2xy [9]
-                0.01    0.00  600000/1200000     __external_state_MOD_external_state_gaussian_exact [16]
-                0.00    0.00  600000/1200240     __affine_map_MOD_affine_mapping [15]
-                0.00    0.00  120000/720000      __index_local_global_MOD_index_local_to_global [17]
-                0.00    0.00  600000/900000      __riemann_solver_MOD_riemann_x [4360]
-                0.00    0.00  240000/1680032     __poly_level_and_order_MOD_poly_level_to_order [4359]
-                0.00    0.00   60000/60000       __numerical_flux_MOD_riemann1 [4366]
+                0.00    0.01  120000/120000      __dg_time_der_all_MOD_dg_time_der_combine [2]
+[13]     2.6    0.00    0.01  120000         __numerical_flux_MOD_numerical_flux_y [13]
+                0.01    0.00  600000/1200000     __external_state_MOD_external_state_gaussian_exact [11]
+                0.00    0.00  600000/1200240     __affine_map_MOD_affine_mapping [18]
+                0.00    0.00  600000/900000      __riemann_solver_MOD_riemann_y [4356]
+                0.00    0.00  240000/1680032     __poly_level_and_order_MOD_poly_level_to_order [4354]
+                0.00    0.00  120000/480004      __hilbert_MOD_d2xy [4358]
+                0.00    0.00  120000/720000      __index_local_global_MOD_index_local_to_global [4357]
+                0.00    0.00   60000/60000       __numerical_flux_MOD_riemann2 [4366]
 -----------------------------------------------
-                0.01    0.00 3600000/3600000     __interfaces_construct_MOD_construct_interfaces_y [8]
-[13]     2.2    0.01    0.00 3600000         __basis_MOD_interpolate_to_boundary [13]
+                0.01    0.00 3600000/7200000     __interfaces_construct_MOD_construct_interfaces_y [9]
+                0.01    0.00 3600000/7200000     __interfaces_construct_MOD_construct_interfaces_x [19]
+[14]     2.0    0.01    0.00 7200000         __basis_MOD_interpolate_to_boundary_blas [14]
 -----------------------------------------------
-                0.01    0.00 3000000/3000000     __a_times_spatial_der_MOD_a_times_spatial_derirative_y [5]
-[14]     2.2    0.01    0.00 3000000         __flux_vectors_MOD_yflux [14]
+                0.01    0.00 3000000/3000000     __a_times_spatial_der_MOD_a_times_spatial_derirative_y [6]
+[15]     2.0    0.01    0.00 3000000         __flux_vectors_MOD_yflux [15]
 -----------------------------------------------
-                0.00    0.00     120/1200240     __user_defines_MOD_exact_solution_gaussian [22]
-                0.00    0.00     120/1200240     __user_defines_MOD_initial_condition_gaussian [23]
-                0.00    0.00  600000/1200240     __numerical_flux_MOD_numerical_flux_y [7]
-                0.00    0.00  600000/1200240     __numerical_flux_MOD_numerical_flux_x [12]
-[15]     2.2    0.01    0.00 1200240         __affine_map_MOD_affine_mapping [15]
------------------------------------------------
-                0.01    0.00  600000/1200000     __numerical_flux_MOD_numerical_flux_y [7]
-                0.01    0.00  600000/1200000     __numerical_flux_MOD_numerical_flux_x [12]
-[16]     2.2    0.01    0.00 1200000         __external_state_MOD_external_state_gaussian_exact [16]
------------------------------------------------
-                0.00    0.00  120000/720000      __message_exchage_MOD_non_blocking_excahnge_nflux_y [11]
-                0.00    0.00  120000/720000      __message_exchage_MOD_exchange_solution_y [18]
-                0.00    0.00  120000/720000      __message_exchage_MOD_non_blocking_excahnge_nflux_x [19]
-                0.00    0.00  120000/720000      __message_exchage_MOD_exchange_solution_x [21]
-                0.00    0.00  120000/720000      __numerical_flux_MOD_numerical_flux_y [7]
-                0.00    0.00  120000/720000      __numerical_flux_MOD_numerical_flux_x [12]
-[17]     2.2    0.01    0.00  720000         __index_local_global_MOD_index_local_to_global [17]
------------------------------------------------
-                0.00    0.01   60000/60000       __dg_time_der_all_MOD_dg_time_der_combine [2]
-[18]     2.0    0.00    0.01   60000         __message_exchage_MOD_exchange_solution_y [18]
-                0.01    0.00  120000/480004      __hilbert_MOD_d2xy [9]
-                0.00    0.00  120000/720000      __index_local_global_MOD_index_local_to_global [17]
-                0.00    0.00  120000/240000      __search_rank_MOD_find_rank [4363]
-                0.00    0.00  120000/360012      __hilbert_MOD_xy2d [4362]
------------------------------------------------
-                0.00    0.00  120000/120000      __message_exchage_MOD_exchange_nflux_x [20]
-[19]     0.4    0.00    0.00  120000         __message_exchage_MOD_non_blocking_excahnge_nflux_x [19]
-                0.00    0.00  120000/720000      __index_local_global_MOD_index_local_to_global [17]
------------------------------------------------
-                0.00    0.00   60000/60000       __dg_time_der_all_MOD_dg_time_der_combine [2]
-[20]     0.4    0.00    0.00   60000         __message_exchage_MOD_exchange_nflux_x [20]
-                0.00    0.00  120000/120000      __message_exchage_MOD_non_blocking_excahnge_nflux_x [19]
------------------------------------------------
-                0.00    0.00   60000/60000       __dg_time_der_all_MOD_dg_time_der_combine [2]
-[21]     0.4    0.00    0.00   60000         __message_exchage_MOD_exchange_solution_x [21]
-                0.00    0.00  120000/720000      __index_local_global_MOD_index_local_to_global [17]
------------------------------------------------
-                0.00    0.00       4/4           __verification_MOD_get_error [24]
-[22]     0.0    0.00    0.00       4         __user_defines_MOD_exact_solution_gaussian [22]
-                0.00    0.00     120/1200240     __affine_map_MOD_affine_mapping [15]
------------------------------------------------
-                0.00    0.00       4/4           __advection_diffusion_driver_MOD_driver_for_dg_approximation [1]
-[23]     0.0    0.00    0.00       4         __user_defines_MOD_initial_condition_gaussian [23]
-                0.00    0.00     120/1200240     __affine_map_MOD_affine_mapping [15]
+                0.01    0.00   60000/60000       __dg_time_der_all_MOD_dg_time_der_combine [2]
+[16]     2.0    0.01    0.00   60000         __message_exchage_MOD_exchange_nflux_y [16]
+                0.00    0.00  120000/120000      __message_exchage_MOD_non_blocking_excahnge_nflux_y [4362]
 -----------------------------------------------
                                                  <spontaneous>
-[24]     0.0    0.00    0.00                 __verification_MOD_get_error [24]
-                0.00    0.00       4/4           __user_defines_MOD_exact_solution_gaussian [22]
-                0.00    0.00       8/1680032     __poly_level_and_order_MOD_poly_level_to_order [4359]
+[17]     2.0    0.01    0.00                 __basis_MOD_almostequal [17]
 -----------------------------------------------
-                0.00    0.00       2/2           __advection_diffusion_driver_MOD_driver_for_dg_approximation [1]
-[25]     0.0    0.00    0.00       2         __mpi_boundary_MOD_mpi_boundary_flag [25]
-                0.00    0.00       4/480004      __hilbert_MOD_d2xy [9]
-                0.00    0.00       8/360012      __hilbert_MOD_xy2d [4362]
+                0.00    0.00     120/1200240     __user_defines_MOD_exact_solution_gaussian [21]
+                0.00    0.00     120/1200240     __user_defines_MOD_initial_condition_gaussian [22]
+                0.00    0.00  600000/1200240     __numerical_flux_MOD_numerical_flux_y [13]
+                0.00    0.00  600000/1200240     __numerical_flux_MOD_numerical_flux_x [7]
+[18]     1.0    0.01    0.00 1200240         __affine_map_MOD_affine_mapping [18]
 -----------------------------------------------
-                0.00    0.00 3600000/7200000     __interfaces_construct_MOD_construct_interfaces_y [8]
-                0.00    0.00 3600000/7200000     __interfaces_construct_MOD_construct_interfaces_x [4364]
-[4356]   0.0    0.00    0.00 7200000         __basis_MOD_interpolate_to_boundary_blas [4356]
+                0.00    0.01  120000/120000      __dg_time_der_all_MOD_dg_time_der_combine [2]
+[19]     1.0    0.00    0.01  120000         __interfaces_construct_MOD_construct_interfaces_x [19]
+                0.01    0.00 3600000/7200000     __basis_MOD_interpolate_to_boundary_blas [14]
 -----------------------------------------------
-                0.00    0.00 3600000/3600000     __spactial_derivative_MOD_dg_spatial_derivative [6]
-[4357]   0.0    0.00    0.00 3600000         __basis_MOD_matrix_vector_derivative_blas [4357]
+                0.01    0.00   60000/60000       __numerical_flux_MOD_riemann1 [12]
+[20]     1.0    0.01    0.00   60000         __index_local_global_MOD_index_global_to_local [20]
 -----------------------------------------------
-                0.00    0.00 3000000/3000000     __a_times_spatial_der_MOD_a_times_spatial_derirative_x [4]
-[4358]   0.0    0.00    0.00 3000000         __flux_vectors_MOD_xflux [4358]
+                0.00    0.00       4/4           __verification_MOD_get_error [23]
+[21]     0.0    0.00    0.00       4         __user_defines_MOD_exact_solution_gaussian [21]
+                0.00    0.00     120/1200240     __affine_map_MOD_affine_mapping [18]
+-----------------------------------------------
+                0.00    0.00       4/4           __advection_diffusion_driver_MOD_driver_for_dg_approximation [1]
+[22]     0.0    0.00    0.00       4         __user_defines_MOD_initial_condition_gaussian [22]
+                0.00    0.00     120/1200240     __affine_map_MOD_affine_mapping [18]
+-----------------------------------------------
+                                                 <spontaneous>
+[23]     0.0    0.00    0.00                 __verification_MOD_get_error [23]
+                0.00    0.00       4/4           __user_defines_MOD_exact_solution_gaussian [21]
+                0.00    0.00       8/1680032     __poly_level_and_order_MOD_poly_level_to_order [4354]
 -----------------------------------------------
                 0.00    0.00       8/1680032     __advection_diffusion_driver_MOD_driver_for_dg_approximation [1]
-                0.00    0.00       8/1680032     __verification_MOD_get_error [24]
-                0.00    0.00      16/1680032     __basis_storage_MOD_construct_basis_storage [4375]
-                0.00    0.00  240000/1680032     __numerical_flux_MOD_numerical_flux_y [7]
-                0.00    0.00  240000/1680032     __numerical_flux_MOD_numerical_flux_x [12]
-                0.00    0.00  240000/1680032     __a_times_spatial_der_MOD_a_times_spatial_derirative_y [5]
+                0.00    0.00       8/1680032     __verification_MOD_get_error [23]
+                0.00    0.00      16/1680032     __basis_storage_MOD_construct_basis_storage [4374]
+                0.00    0.00  240000/1680032     __numerical_flux_MOD_numerical_flux_y [13]
+                0.00    0.00  240000/1680032     __numerical_flux_MOD_numerical_flux_x [7]
+                0.00    0.00  240000/1680032     __a_times_spatial_der_MOD_a_times_spatial_derirative_y [6]
                 0.00    0.00  240000/1680032     __a_times_spatial_der_MOD_a_times_spatial_derirative_x [4]
                 0.00    0.00  240000/1680032     __time_step_by_rk_MOD_dg_step_by_rk3 [3]
                 0.00    0.00  480000/1680032     __dg_time_der_all_MOD_dg_time_der_combine [2]
-[4359]   0.0    0.00    0.00 1680032         __poly_level_and_order_MOD_poly_level_to_order [4359]
+[4354]   0.0    0.00    0.00 1680032         __poly_level_and_order_MOD_poly_level_to_order [4354]
 -----------------------------------------------
-                0.00    0.00  300000/900000      __numerical_flux_MOD_riemann1 [4366]
-                0.00    0.00  600000/900000      __numerical_flux_MOD_numerical_flux_x [12]
-[4360]   0.0    0.00    0.00  900000         __riemann_solver_MOD_riemann_x [4360]
+                0.00    0.00  300000/900000      __numerical_flux_MOD_riemann1 [12]
+                0.00    0.00  600000/900000      __numerical_flux_MOD_numerical_flux_x [7]
+[4355]   0.0    0.00    0.00  900000         __riemann_solver_MOD_riemann_x [4355]
 -----------------------------------------------
-                0.00    0.00  300000/900000      __numerical_flux_MOD_riemann2 [4367]
-                0.00    0.00  600000/900000      __numerical_flux_MOD_numerical_flux_y [7]
-[4361]   0.0    0.00    0.00  900000         __riemann_solver_MOD_riemann_y [4361]
+                0.00    0.00  300000/900000      __numerical_flux_MOD_riemann2 [4366]
+                0.00    0.00  600000/900000      __numerical_flux_MOD_numerical_flux_y [13]
+[4356]   0.0    0.00    0.00  900000         __riemann_solver_MOD_riemann_y [4356]
+-----------------------------------------------
+                0.00    0.00  120000/720000      __message_exchage_MOD_non_blocking_excahnge_nflux_y [4362]
+                0.00    0.00  120000/720000      __message_exchage_MOD_exchange_solution_y [4365]
+                0.00    0.00  120000/720000      __message_exchage_MOD_non_blocking_excahnge_nflux_x [4361]
+                0.00    0.00  120000/720000      __message_exchage_MOD_exchange_solution_x [4364]
+                0.00    0.00  120000/720000      __numerical_flux_MOD_numerical_flux_y [13]
+                0.00    0.00  120000/720000      __numerical_flux_MOD_numerical_flux_x [7]
+[4357]   0.0    0.00    0.00  720000         __index_local_global_MOD_index_local_to_global [4357]
+-----------------------------------------------
+                0.00    0.00       4/480004      __mpi_boundary_MOD_mpi_boundary_flag [4378]
+                0.00    0.00  120000/480004      __message_exchage_MOD_non_blocking_excahnge_nflux_y [4362]
+                0.00    0.00  120000/480004      __message_exchage_MOD_exchange_solution_y [4365]
+                0.00    0.00  120000/480004      __numerical_flux_MOD_numerical_flux_y [13]
+                0.00    0.00  120000/480004      __numerical_flux_MOD_numerical_flux_x [7]
+[4358]   0.0    0.00    0.00  480004         __hilbert_MOD_d2xy [4358]
 -----------------------------------------------
                 0.00    0.00       4/360012      __hilbert_sort_MOD_hibert_sort_2d [4994]
-                0.00    0.00       8/360012      __mpi_boundary_MOD_mpi_boundary_flag [25]
-                0.00    0.00   60000/360012      __numerical_flux_MOD_riemann2 [4367]
-                0.00    0.00   60000/360012      __numerical_flux_MOD_riemann1 [4366]
-                0.00    0.00  120000/360012      __message_exchage_MOD_non_blocking_excahnge_nflux_y [11]
-                0.00    0.00  120000/360012      __message_exchage_MOD_exchange_solution_y [18]
-[4362]   0.0    0.00    0.00  360012         __hilbert_MOD_xy2d [4362]
+                0.00    0.00       8/360012      __mpi_boundary_MOD_mpi_boundary_flag [4378]
+                0.00    0.00   60000/360012      __numerical_flux_MOD_riemann2 [4366]
+                0.00    0.00   60000/360012      __numerical_flux_MOD_riemann1 [12]
+                0.00    0.00  120000/360012      __message_exchage_MOD_non_blocking_excahnge_nflux_y [4362]
+                0.00    0.00  120000/360012      __message_exchage_MOD_exchange_solution_y [4365]
+[4359]   0.0    0.00    0.00  360012         __hilbert_MOD_xy2d [4359]
 -----------------------------------------------
-                0.00    0.00  120000/240000      __message_exchage_MOD_non_blocking_excahnge_nflux_y [11]
-                0.00    0.00  120000/240000      __message_exchage_MOD_exchange_solution_y [18]
-[4363]   0.0    0.00    0.00  240000         __search_rank_MOD_find_rank [4363]
+                0.00    0.00  120000/240000      __message_exchage_MOD_non_blocking_excahnge_nflux_y [4362]
+                0.00    0.00  120000/240000      __message_exchage_MOD_exchange_solution_y [4365]
+[4360]   0.0    0.00    0.00  240000         __search_rank_MOD_find_rank [4360]
 -----------------------------------------------
-                0.00    0.00  120000/120000      __dg_time_der_all_MOD_dg_time_der_combine [2]
-[4364]   0.0    0.00    0.00  120000         __interfaces_construct_MOD_construct_interfaces_x [4364]
-                0.00    0.00 3600000/7200000     __basis_MOD_interpolate_to_boundary_blas [4356]
+                0.00    0.00  120000/120000      __message_exchage_MOD_exchange_nflux_x [4363]
+[4361]   0.0    0.00    0.00  120000         __message_exchage_MOD_non_blocking_excahnge_nflux_x [4361]
+                0.00    0.00  120000/720000      __index_local_global_MOD_index_local_to_global [4357]
 -----------------------------------------------
-                0.00    0.00   60000/60000       __numerical_flux_MOD_riemann1 [4366]
-[4365]   0.0    0.00    0.00   60000         __index_local_global_MOD_index_global_to_local [4365]
+                0.00    0.00  120000/120000      __message_exchage_MOD_exchange_nflux_y [16]
+[4362]   0.0    0.00    0.00  120000         __message_exchage_MOD_non_blocking_excahnge_nflux_y [4362]
+                0.00    0.00  120000/240000      __search_rank_MOD_find_rank [4360]
+                0.00    0.00  120000/360012      __hilbert_MOD_xy2d [4359]
+                0.00    0.00  120000/480004      __hilbert_MOD_d2xy [4358]
+                0.00    0.00  120000/720000      __index_local_global_MOD_index_local_to_global [4357]
 -----------------------------------------------
-                0.00    0.00   60000/60000       __numerical_flux_MOD_numerical_flux_x [12]
-[4366]   0.0    0.00    0.00   60000         __numerical_flux_MOD_riemann1 [4366]
-                0.00    0.00  300000/900000      __riemann_solver_MOD_riemann_x [4360]
-                0.00    0.00   60000/60000       __index_local_global_MOD_index_global_to_local [4365]
-                0.00    0.00   60000/360012      __hilbert_MOD_xy2d [4362]
+                0.00    0.00   60000/60000       __dg_time_der_all_MOD_dg_time_der_combine [2]
+[4363]   0.0    0.00    0.00   60000         __message_exchage_MOD_exchange_nflux_x [4363]
+                0.00    0.00  120000/120000      __message_exchage_MOD_non_blocking_excahnge_nflux_x [4361]
 -----------------------------------------------
-                0.00    0.00   60000/60000       __numerical_flux_MOD_numerical_flux_y [7]
-[4367]   0.0    0.00    0.00   60000         __numerical_flux_MOD_riemann2 [4367]
-                0.00    0.00  300000/900000      __riemann_solver_MOD_riemann_y [4361]
-                0.00    0.00   60000/360012      __hilbert_MOD_xy2d [4362]
+                0.00    0.00   60000/60000       __dg_time_der_all_MOD_dg_time_der_combine [2]
+[4364]   0.0    0.00    0.00   60000         __message_exchage_MOD_exchange_solution_x [4364]
+                0.00    0.00  120000/720000      __index_local_global_MOD_index_local_to_global [4357]
 -----------------------------------------------
-                0.00    0.00      32/32          __nodal_2d_storage_MOD_get_nodal_2d_storage_extends [4373]
-[4368]   0.0    0.00    0.00      32         __basis_MOD_lagrange_interpolating_polynomial [4368]
+                0.00    0.00   60000/60000       __dg_time_der_all_MOD_dg_time_der_combine [2]
+[4365]   0.0    0.00    0.00   60000         __message_exchage_MOD_exchange_solution_y [4365]
+                0.00    0.00  120000/720000      __index_local_global_MOD_index_local_to_global [4357]
+                0.00    0.00  120000/240000      __search_rank_MOD_find_rank [4360]
+                0.00    0.00  120000/360012      __hilbert_MOD_xy2d [4359]
+                0.00    0.00  120000/480004      __hilbert_MOD_d2xy [4358]
 -----------------------------------------------
-                0.00    0.00      16/16          __nodal_2d_storage_MOD_get_nodal_2d_storage_extends [4373]
-[4369]   0.0    0.00    0.00      16         __basis_MOD_barw [4369]
+                0.00    0.00   60000/60000       __numerical_flux_MOD_numerical_flux_y [13]
+[4366]   0.0    0.00    0.00   60000         __numerical_flux_MOD_riemann2 [4366]
+                0.00    0.00  300000/900000      __riemann_solver_MOD_riemann_y [4356]
+                0.00    0.00   60000/360012      __hilbert_MOD_xy2d [4359]
 -----------------------------------------------
-                0.00    0.00      16/16          __nodal_2d_storage_MOD_get_nodal_2d_storage_basis [4372]
-[4370]   0.0    0.00    0.00      16         __basis_MOD_gl [4370]
+                0.00    0.00      32/32          __nodal_2d_storage_MOD_get_nodal_2d_storage_extends [4372]
+[4367]   0.0    0.00    0.00      32         __basis_MOD_lagrange_interpolating_polynomial [4367]
 -----------------------------------------------
-                0.00    0.00      16/16          __basis_storage_MOD_construct_basis_storage [4375]
-[4371]   0.0    0.00    0.00      16         __basis_MOD_mth_order_polynomial_derivative_matrix [4371]
+                0.00    0.00      16/16          __nodal_2d_storage_MOD_get_nodal_2d_storage_extends [4372]
+[4368]   0.0    0.00    0.00      16         __basis_MOD_barw [4368]
 -----------------------------------------------
-                0.00    0.00      16/16          __basis_storage_MOD_construct_basis_storage [4375]
-[4372]   0.0    0.00    0.00      16         __nodal_2d_storage_MOD_get_nodal_2d_storage_basis [4372]
-                0.00    0.00      16/16          __basis_MOD_gl [4370]
+                0.00    0.00      16/16          __nodal_2d_storage_MOD_get_nodal_2d_storage_basis [4371]
+[4369]   0.0    0.00    0.00      16         __basis_MOD_gl [4369]
 -----------------------------------------------
-                0.00    0.00      16/16          __basis_storage_MOD_construct_basis_storage [4375]
-[4373]   0.0    0.00    0.00      16         __nodal_2d_storage_MOD_get_nodal_2d_storage_extends [4373]
-                0.00    0.00      32/32          __basis_MOD_lagrange_interpolating_polynomial [4368]
-                0.00    0.00      16/16          __basis_MOD_barw [4369]
+                0.00    0.00      16/16          __basis_storage_MOD_construct_basis_storage [4374]
+[4370]   0.0    0.00    0.00      16         __basis_MOD_mth_order_polynomial_derivative_matrix [4370]
+-----------------------------------------------
+                0.00    0.00      16/16          __basis_storage_MOD_construct_basis_storage [4374]
+[4371]   0.0    0.00    0.00      16         __nodal_2d_storage_MOD_get_nodal_2d_storage_basis [4371]
+                0.00    0.00      16/16          __basis_MOD_gl [4369]
+-----------------------------------------------
+                0.00    0.00      16/16          __basis_storage_MOD_construct_basis_storage [4374]
+[4372]   0.0    0.00    0.00      16         __nodal_2d_storage_MOD_get_nodal_2d_storage_extends [4372]
+                0.00    0.00      32/32          __basis_MOD_lagrange_interpolating_polynomial [4367]
+                0.00    0.00      16/16          __basis_MOD_barw [4368]
 -----------------------------------------------
                 0.00    0.00       4/4           __gen_dual_graph_MOD_gen_dual_graph_2d [4379]
-[4374]   0.0    0.00    0.00       4         __get_dual_coord_MOD_get_dual_coord_2d [4374]
+[4373]   0.0    0.00    0.00       4         __get_dual_coord_MOD_get_dual_coord_2d [4373]
 -----------------------------------------------
-                0.00    0.00       2/2           __dg_2d_constructor_MOD_construct_basis [4376]
-[4375]   0.0    0.00    0.00       2         __basis_storage_MOD_construct_basis_storage [4375]
-                0.00    0.00      16/16          __nodal_2d_storage_MOD_get_nodal_2d_storage_extends [4373]
-                0.00    0.00      16/16          __nodal_2d_storage_MOD_get_nodal_2d_storage_basis [4372]
-                0.00    0.00      16/16          __basis_MOD_mth_order_polynomial_derivative_matrix [4371]
-                0.00    0.00      16/1680032     __poly_level_and_order_MOD_poly_level_to_order [4359]
+                0.00    0.00       2/2           __dg_2d_constructor_MOD_construct_basis [4375]
+[4374]   0.0    0.00    0.00       2         __basis_storage_MOD_construct_basis_storage [4374]
+                0.00    0.00      16/16          __nodal_2d_storage_MOD_get_nodal_2d_storage_extends [4372]
+                0.00    0.00      16/16          __nodal_2d_storage_MOD_get_nodal_2d_storage_basis [4371]
+                0.00    0.00      16/16          __basis_MOD_mth_order_polynomial_derivative_matrix [4370]
+                0.00    0.00      16/1680032     __poly_level_and_order_MOD_poly_level_to_order [4354]
 -----------------------------------------------
                 0.00    0.00       2/2           __advection_diffusion_driver_MOD_driver_for_dg_approximation [1]
-[4376]   0.0    0.00    0.00       2         __dg_2d_constructor_MOD_construct_basis [4376]
-                0.00    0.00       2/2           __basis_storage_MOD_construct_basis_storage [4375]
+[4375]   0.0    0.00    0.00       2         __dg_2d_constructor_MOD_construct_basis [4375]
+                0.00    0.00       2/2           __basis_storage_MOD_construct_basis_storage [4374]
 -----------------------------------------------
                 0.00    0.00       2/2           __end_program_MOD_deallocate_all [4390]
-[4377]   0.0    0.00    0.00       2         __end_program_MOD_deallocate_nodal_2d_storage [4377]
+[4376]   0.0    0.00    0.00       2         __end_program_MOD_deallocate_nodal_2d_storage [4376]
 -----------------------------------------------
                 0.00    0.00       2/2           __dg_start_parallel_MOD_start_parallel [4387]
-[4378]   0.0    0.00    0.00       2         __first_distribute_MOD_distribute_elem [4378]
+[4377]   0.0    0.00    0.00       2         __first_distribute_MOD_distribute_elem [4377]
+-----------------------------------------------
+                0.00    0.00       2/2           __advection_diffusion_driver_MOD_driver_for_dg_approximation [1]
+[4378]   0.0    0.00    0.00       2         __mpi_boundary_MOD_mpi_boundary_flag [4378]
+                0.00    0.00       8/360012      __hilbert_MOD_xy2d [4359]
+                0.00    0.00       4/480004      __hilbert_MOD_d2xy [4358]
 -----------------------------------------------
                 0.00    0.00       1/1           __prepare_hilbert_scheme_MOD_hilbert_numbering [5020]
 [4379]   0.0    0.00    0.00       1         __gen_dual_graph_MOD_gen_dual_graph_2d [4379]
-                0.00    0.00       4/4           __get_dual_coord_MOD_get_dual_coord_2d [4374]
+                0.00    0.00       4/4           __get_dual_coord_MOD_get_dual_coord_2d [4373]
 -----------------------------------------------
                 0.00    0.00       1/1           __prepare_hilbert_scheme_MOD_hilbert_numbering [5020]
 [4380]   0.0    0.00    0.00       1         __read_mesh_MOD_read_mesh_2d [4380]
@@ -442,20 +441,20 @@ notice and this notice are preserved.
 
 Index by function name
 
-   [4] __a_times_spatial_der_MOD_a_times_spatial_derirative_x [14] __flux_vectors_MOD_yflux [4373] __nodal_2d_storage_MOD_get_nodal_2d_storage_extends
-   [5] __a_times_spatial_der_MOD_a_times_spatial_derirative_y [4379] __gen_dual_graph_MOD_gen_dual_graph_2d [12] __numerical_flux_MOD_numerical_flux_x
-  [15] __affine_map_MOD_affine_mapping [4374] __get_dual_coord_MOD_get_dual_coord_2d [7] __numerical_flux_MOD_numerical_flux_y
- [4369] __basis_MOD_barw       [9] __hilbert_MOD_d2xy   [4366] __numerical_flux_MOD_riemann1
- [4370] __basis_MOD_gl      [4362] __hilbert_MOD_xy2d   [4367] __numerical_flux_MOD_riemann2
-  [13] __basis_MOD_interpolate_to_boundary [4365] __index_local_global_MOD_index_global_to_local [4359] __poly_level_and_order_MOD_poly_level_to_order
- [4356] __basis_MOD_interpolate_to_boundary_blas [17] __index_local_global_MOD_index_local_to_global [4380] __read_mesh_MOD_read_mesh_2d
- [4368] __basis_MOD_lagrange_interpolating_polynomial [4364] __interfaces_construct_MOD_construct_interfaces_x [4381] __read_mesh_MOD_sort_node_ordering
- [4357] __basis_MOD_matrix_vector_derivative_blas [8] __interfaces_construct_MOD_construct_interfaces_y [4360] __riemann_solver_MOD_riemann_x
- [4371] __basis_MOD_mth_order_polynomial_derivative_matrix [20] __message_exchage_MOD_exchange_nflux_x [4361] __riemann_solver_MOD_riemann_y
- [4375] __basis_storage_MOD_construct_basis_storage [10] __message_exchage_MOD_exchange_nflux_y [4363] __search_rank_MOD_find_rank
- [4376] __dg_2d_constructor_MOD_construct_basis [21] __message_exchage_MOD_exchange_solution_x [6] __spactial_derivative_MOD_dg_spatial_derivative
-   [2] __dg_time_der_all_MOD_dg_time_der_combine [18] __message_exchage_MOD_exchange_solution_y [3] __time_step_by_rk_MOD_dg_step_by_rk3
- [4377] __end_program_MOD_deallocate_nodal_2d_storage [19] __message_exchage_MOD_non_blocking_excahnge_nflux_x [22] __user_defines_MOD_exact_solution_gaussian
-  [16] __external_state_MOD_external_state_gaussian_exact [11] __message_exchage_MOD_non_blocking_excahnge_nflux_y [23] __user_defines_MOD_initial_condition_gaussian
- [4378] __first_distribute_MOD_distribute_elem [25] __mpi_boundary_MOD_mpi_boundary_flag
- [4358] __flux_vectors_MOD_xflux [4372] __nodal_2d_storage_MOD_get_nodal_2d_storage_basis
+   [4] __a_times_spatial_der_MOD_a_times_spatial_derirative_x [15] __flux_vectors_MOD_yflux [4372] __nodal_2d_storage_MOD_get_nodal_2d_storage_extends
+   [6] __a_times_spatial_der_MOD_a_times_spatial_derirative_y [4379] __gen_dual_graph_MOD_gen_dual_graph_2d [7] __numerical_flux_MOD_numerical_flux_x
+  [18] __affine_map_MOD_affine_mapping [4373] __get_dual_coord_MOD_get_dual_coord_2d [13] __numerical_flux_MOD_numerical_flux_y
+  [17] __basis_MOD_almostequal [4358] __hilbert_MOD_d2xy  [12] __numerical_flux_MOD_riemann1
+ [4368] __basis_MOD_barw    [4359] __hilbert_MOD_xy2d   [4366] __numerical_flux_MOD_riemann2
+ [4369] __basis_MOD_gl        [20] __index_local_global_MOD_index_global_to_local [4354] __poly_level_and_order_MOD_poly_level_to_order
+  [14] __basis_MOD_interpolate_to_boundary_blas [4357] __index_local_global_MOD_index_local_to_global [4380] __read_mesh_MOD_read_mesh_2d
+ [4367] __basis_MOD_lagrange_interpolating_polynomial [19] __interfaces_construct_MOD_construct_interfaces_x [4381] __read_mesh_MOD_sort_node_ordering
+  [10] __basis_MOD_matrix_vector_derivative_blas [9] __interfaces_construct_MOD_construct_interfaces_y [4355] __riemann_solver_MOD_riemann_x
+ [4370] __basis_MOD_mth_order_polynomial_derivative_matrix [4363] __message_exchage_MOD_exchange_nflux_x [4356] __riemann_solver_MOD_riemann_y
+ [4374] __basis_storage_MOD_construct_basis_storage [16] __message_exchage_MOD_exchange_nflux_y [4360] __search_rank_MOD_find_rank
+ [4375] __dg_2d_constructor_MOD_construct_basis [4364] __message_exchage_MOD_exchange_solution_x [5] __spactial_derivative_MOD_dg_spatial_derivative
+   [2] __dg_time_der_all_MOD_dg_time_der_combine [4365] __message_exchage_MOD_exchange_solution_y [3] __time_step_by_rk_MOD_dg_step_by_rk3
+ [4376] __end_program_MOD_deallocate_nodal_2d_storage [4361] __message_exchage_MOD_non_blocking_excahnge_nflux_x [21] __user_defines_MOD_exact_solution_gaussian
+  [11] __external_state_MOD_external_state_gaussian_exact [4362] __message_exchage_MOD_non_blocking_excahnge_nflux_y [22] __user_defines_MOD_initial_condition_gaussian
+ [4377] __first_distribute_MOD_distribute_elem [4378] __mpi_boundary_MOD_mpi_boundary_flag
+   [8] __flux_vectors_MOD_xflux [4371] __nodal_2d_storage_MOD_get_nodal_2d_storage_basis

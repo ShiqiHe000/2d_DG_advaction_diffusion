@@ -92,10 +92,10 @@ SUBROUTINE CONSTRUCT_INTERFACES_Y(N1, M1, N_EQU, SOLUTION, &
     
         DO I=0, N1
             ! conventional vector vector multiplication
-            CALL INTERPOLATE_TO_BOUNDARY(M1, SOLUTION(I, :, S), &
-                                    LAG_1, SOLU_INT_L(I, S))
-            CALL INTERPOLATE_TO_BOUNDARY(M1, SOLUTION(I, :, S), &
-                                    LAG_2, SOLU_INT_R(I, S))
+!            CALL INTERPOLATE_TO_BOUNDARY(M1, SOLUTION(I, :, S), &
+!                                    LAG_1, SOLU_INT_L(I, S))
+!            CALL INTERPOLATE_TO_BOUNDARY(M1, SOLUTION(I, :, S), &
+!                                    LAG_2, SOLU_INT_R(I, S))
             
             ! use blas for vector vector multiplication 
             CALL INTERPOLATE_TO_BOUNDARY_BLAS(M1, SOLUTION(I, :, S), &
