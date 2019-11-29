@@ -76,8 +76,8 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
     !-------------------------------------------------------------------
     
     ! OUTPUT INITIAL SOLUTIONS------------------------------------------
-!    CALL SERIAL_IO(TN)
-    CALL PARALLEL_IO(TN)
+    CALL SERIAL_IO(TN)
+!    CALL PARALLEL_IO(TN)
     !-------------------------------------------------------------------
     
     ! FLAG ELEMENTS ON THE MPI BOUNDARY---------------------------------
@@ -94,8 +94,8 @@ SUBROUTINE DRIVER_FOR_DG_APPROXIMATION
        
         ! OUTPUT SOLUTIONS
 !        IF(MOD(K+1, OUTPUT_FREQUENCY) == 0) THEN
-!!            CALL SERIAL_IO(TN)
-!            CALL PARALLEL_IO(TN)
+!            CALL SERIAL_IO(TN)
+!!            CALL PARALLEL_IO(TN)
 !        ENDIF
     ENDDO
     !-------------------------------------------------------------------

@@ -36,9 +36,29 @@ SUBROUTINE MATRIX_VECTOR_DERIVATIVE(N, D, F, DER1)
     ENDDO
     !-------------------------------------------------------------------
     
-    
-    
 END SUBROUTINE MATRIX_VECTOR_DERIVATIVE
+
+
+!-----------------------------------------------------------------------
+!> MATRIX VECTOR MULTIPLICATION USING OPENBLAS LIBRARY
+!-----------------------------------------------------------------------
+SUBROUTINE MATRIX_VECTOR_DERIVATIVE_BLAS(N, D, F, DER1)
+    IMPLICIT NONE
+    
+    INTEGER, INTENT(IN) :: N    !< POLY ORDER
+    INTEGER :: I, J
+    
+    DOUBLE PRECISION :: D(0:N, 0:N) !< DERVATIVE MATRIX
+    DOUBLE PRECISION :: F(0:N)  !< VECTOR
+    DOUBLE PRECISION :: T   !< INTERMIDIATE VARIABLE
+    DOUBLE PRECISION :: DER1(0:N) !< THE DERIVATIVE OF THE INTEPOLATE
+    
+    CHARACTER(LEN=1) :: TRANS = "N"
+    
+    CALL DGEMV(TRANS, N+1, N+1, 1.0D0, D, N+1, F, 1, 0.0D0, DER1, 1)
+
+    
+END SUBROUTINE MATRIX_VECTOR_DERIVATIVE_BLAS
 
 !--------------------------------------------------------------------
 !       Algorithm 22 Kopriva - compute L_n (Q) and L_n' (DQ)

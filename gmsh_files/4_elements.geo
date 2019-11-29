@@ -34,9 +34,9 @@ Physical Curve("Bottom") = {2};
 Physical Surface("plane") = {1};
 
 //+Transfinite
-Transfinite Curve {1, 3} = 17 Using Progression 1;
+Transfinite Curve {1, 3} = 33 Using Progression 1;
 //+
-Transfinite Curve {4, 2} = 17 Using Progression 1;
+Transfinite Curve {4, 2} = 33 Using Progression 1;
 //+
 Transfinite Surface {1};
 

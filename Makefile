@@ -89,7 +89,6 @@ OBJ = $(addprefix $(DIR)/$(OBJDIR)/, $(notdir $(SRC:.f90=.o)))
 
 
 $(DIR)/$(OBJDIR)/$(TGT) : $(OBJ)
-#	$(FC) $(MOD) -o $@ $^
 	$(FC) $(OPT) $(PROFILING) $(WALL) $(MOD) -o $(TGT) $^ $(LIBSHDF) $(LIB)
  
 $(DIR)/$(OBJDIR)/%.o : $(DIR)/$(SRCDIR)/%.f90
