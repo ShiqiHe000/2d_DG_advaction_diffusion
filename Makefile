@@ -152,3 +152,6 @@ clean :
 	rm -rf *.dat *.txt $(TGT) 
 	rm -rf *.out *.sum gmon.out-*
 	rm -rf *.h5
+
+clean gprof :
+	rm gmon.out-.*

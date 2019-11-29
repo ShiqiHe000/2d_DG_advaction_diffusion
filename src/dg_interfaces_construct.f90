@@ -45,12 +45,17 @@ SUBROUTINE CONSTRUCT_INTERFACES_X(N1, M1, N_EQU, SOLUTION, &
     DO S=1, N_EQU
     
         DO J=0, M1
-
-            CALL INTERPOLATE_TO_BOUNDARY(N1, SOLUTION(:, J, S), &
+            ! conventional vector vector multiplication
+!            CALL INTERPOLATE_TO_BOUNDARY(N1, SOLUTION(:, J, S), &
+!                                    LAG_1, SOLU_INT_L(J, S))
+!            CALL INTERPOLATE_TO_BOUNDARY(N1, SOLUTION(:, J, S), &
+!                                    LAG_2, SOLU_INT_R(J, S))
+             
+            ! use blas for vector vector multiplication 
+            CALL INTERPOLATE_TO_BOUNDARY_BLAS(N1, SOLUTION(:, J, S), &
                                     LAG_1, SOLU_INT_L(J, S))
-            CALL INTERPOLATE_TO_BOUNDARY(N1, SOLUTION(:, J, S), &
+            CALL INTERPOLATE_TO_BOUNDARY_BLAS(N1, SOLUTION(:, J, S), &
                                     LAG_2, SOLU_INT_R(J, S))
-
         ENDDO
     ENDDO
     !-------------------------------------------------------------------
@@ -86,10 +91,16 @@ SUBROUTINE CONSTRUCT_INTERFACES_Y(N1, M1, N_EQU, SOLUTION, &
     DO S=1, N_EQU
     
         DO I=0, N1
-
+            ! conventional vector vector multiplication
             CALL INTERPOLATE_TO_BOUNDARY(M1, SOLUTION(I, :, S), &
                                     LAG_1, SOLU_INT_L(I, S))
             CALL INTERPOLATE_TO_BOUNDARY(M1, SOLUTION(I, :, S), &
+                                    LAG_2, SOLU_INT_R(I, S))
+            
+            ! use blas for vector vector multiplication 
+            CALL INTERPOLATE_TO_BOUNDARY_BLAS(M1, SOLUTION(I, :, S), &
+                                    LAG_1, SOLU_INT_L(I, S))
+            CALL INTERPOLATE_TO_BOUNDARY_BLAS(M1, SOLUTION(I, :, S), &
                                     LAG_2, SOLU_INT_R(I, S))
 
         ENDDO

@@ -38,7 +38,11 @@ SUBROUTINE DG_SPATIAL_DERIVATIVE(N_TH, FLUX_LEFT, FLUX_RIGHT, &
     
     !-------------------------------------------------------------------
     DO S=1, NUM_OF_EQUATION
-        CALL MATRIX_VECTOR_DERIVATIVE(N_TH, DER, FLUX(:, S), FLUX_DER(:, S))
+        ! use conventional matrix vector multiplication
+!        CALL MATRIX_VECTOR_DERIVATIVE(N_TH, DER, FLUX(:, S), FLUX_DER(:, S))
+            
+        ! use open_blas matrix vector multiplication (much better performance)
+        CALL MATRIX_VECTOR_DERIVATIVE_BLAS(N_TH, DER, FLUX(:, S), FLUX_DER(:, S))
     ENDDO
     !-------------------------------------------------------------------
 
