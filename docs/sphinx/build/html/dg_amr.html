@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>AMR Strategies &mdash; 2d_DG_advection 1.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Dynamic Load-balancing" href="dg_load_balancing.html" />
+    <link rel="prev" title="Numerical Flux schemes" href="dg_numerical_fluxes.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> 2d_DG_advection
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="dg_motivation.html">Motivation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_spectral_approximation.html">Spectral Approximation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_wave_propagation_2d.html">Spectral Approximation on a square</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_numerical_fluxes.html">Numerical Flux schemes</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AMR Strategies</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#why-amr">Why AMR?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#three-main-algorithms">Three main algorithms</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#uamr">UAMR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#samr">SAMR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tamr">TAMR</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#data-structure-quardtree-octree">Data structure: Quardtree/Octree</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data-structure-classifications">Data structure Classifications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#quardtree-definition">Quardtree definition</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tree-based-amr-algorithm">Tree-based AMR algorithm</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#objectives">Objectives</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#p4est">p4est</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#linear-octree">Linear octree</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#full-threaded-tree-ftt">Full Threaded Tree (FTT)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cell-based-structured-adaptive-mesh-refinement">Cell-Based Structured Adaptive Mesh Refinement</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#octant-coordinate-calculation">Octant coordinate calculation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#neighbour-finding">Neighbour finding</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dg_load_balancing.html">Dynamic Load-balancing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_mpi.html">MPI Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_profiling.html">Profiling Method</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_other_features.html">Some features in the solver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dg_reference.html">Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">2d_DG_advection</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>AMR Strategies</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/dg_amr.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="amr-strategies">
+<h1>AMR Strategies<a class="headerlink" href="#amr-strategies" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="why-amr">
+<h3>Why AMR?<a class="headerlink" href="#why-amr" title="Permalink to this headline">¶</a></h3>
+<p>In order to effectively utilize the computational resources while remaining the flexibility in solving complex geometries and the prescribed accuracy, <strong>Adaptive Mesh Refinement (AMR)</strong> is invoked to focus the computational effort and memory usage to where it is needed.</p>
+</div>
+<div class="section" id="three-main-algorithms">
+<h3>Three main algorithms<a class="headerlink" href="#three-main-algorithms" title="Permalink to this headline">¶</a></h3>
+<p>Three main algorithms have emerged overtime, which we can call them: <strong>unstructured (U), block-structured (s)</strong>, and hierarchical or <strong>tree-based (T)</strong> AMR.</p>
+<div class="section" id="uamr">
+<h4>UAMR<a class="headerlink" href="#uamr" title="Permalink to this headline">¶</a></h4>
+<p>Unstructured mesh. Traditionally use graph-based partitioning algorithm, now are supplementing by fast algorithms based on coordinate partitioning and SFCs.</p>
+</div>
+<div class="section" id="samr">
+<h4>SAMR<a class="headerlink" href="#samr" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="_images/block1.png"><img alt="pic1" src="_images/block1.png" style="width: 45%;" /></a>  <a class="reference internal" href="_images/block2.png"><img alt="pic2" src="_images/block2.png" style="width: 45%;" /></a></p>
+<p>A sequence of nested structured grids at different hierachies or levels are overlapped with or patched onto each other.</p>
+<p>A tree-like data structure is used to facilitate the communication (transfer information) between the regular Cartesian grids at the various hierachies.
+Each node in this tree-like data structure represents an entire grid rather than simply a cell.</p>
+<img alt="_images/block_intergrate_patching.png" src="_images/block_intergrate_patching.png" />
+<dl class="simple">
+<dt>Pros:</dt><dd><ul class="simple">
+<li><p>Each node in the tree structure represents an entire grid enables the solver to solve the structured grids efficiently.</p></li>
+</ul>
+</dd>
+<dt>Cons:</dt><dd><ul class="simple">
+<li><p>Communication patterns between levels can be complex.</p></li>
+<li><p>Algorithm complexity can be substantial.</p></li>
+<li><p>Due to the clustering methods used to define the sub-grids,
+portions of the cumputational dmain covered by a highly refined mesh when it is not needed, resulting a wasted computational effort.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="section" id="library">
+<h5>Library<a class="headerlink" href="#library" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li><p>Chombo</p></li>
+<li><p>PARAMESH</p></li>
+<li><p>SAMRAI</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="tamr">
+<h4>TAMR<a class="headerlink" href="#tamr" title="Permalink to this headline">¶</a></h4>
+<p><a class="reference internal" href="_images/tree1.png"><img alt="pic3" src="_images/tree1.png" style="width: 45%;" /></a>  <a class="reference internal" href="_images/tree2.png"><img alt="pic4" src="_images/tree2.png" style="width: 45%;" /></a></p>
+<p>A qurad-tree/oct-tree data structure is used in 2D/3D to represent the grid hierarchies. Each node stands for a individual cell.</p>
+<img alt="_images/quadtree_illustration.gif" src="_images/quadtree_illustration.gif" />
+<dl class="simple">
+<dt>Pros:</dt><dd><ul class="simple">
+<li><p>Mesh can be locally refined (increase storage savings)</p></li>
+<li><p>Better control of the grid resolution (comparing with SAMR)</p></li>
+</ul>
+</dd>
+<dt>Cons:</dt><dd><ul class="simple">
+<li><p>In conventional quard-tree/oct-tree discretization, the connectivity information between individual cell and its neighbours needs to be stored explicitly. (oct-tree each cell 19 words of computer memory)</p></li>
+<li><p>large memory overhead to maintain tree-data structures.</p></li>
+<li><dl class="simple">
+<dt>Difficult to parallelize.</dt><dd><ul>
+<li><p>data moving: distruct and rebuild the linker.</p></li>
+<li><p>neighbour finding: need to traverse the tree to locate the closet ancestor (what if ancestor is on another processor?).</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+<div class="section" id="id1">
+<h5>Library<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h5>
+<ul class="simple">
+<li><p>p4est</p></li>
+<li><p>Zoltan</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="data-structure-quardtree-octree">
+<h2>Data structure: Quardtree/Octree<a class="headerlink" href="#data-structure-quardtree-octree" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="data-structure-classifications">
+<h3>Data structure Classifications<a class="headerlink" href="#data-structure-classifications" title="Permalink to this headline">¶</a></h3>
+<img alt="_images/data_structure_Classification.jpg" src="_images/data_structure_Classification.jpg" />
+</div>
+<div class="section" id="quardtree-definition">
+<h3>Quardtree definition<a class="headerlink" href="#quardtree-definition" title="Permalink to this headline">¶</a></h3>
+<p>A <a class="reference external" href="https://en.wikipedia.org/wiki/Quadtree">quadtree</a> is a tree data structure in which each internal node has exactly four children. Quadtrees are the two-dimensional analog of octrees and are most often used to partition a two-dimensional space by recursively subdividing it into four quadrants or regions.</p>
+</div>
+</div>
+<div class="section" id="tree-based-amr-algorithm">
+<h2>Tree-based AMR algorithm<a class="headerlink" href="#tree-based-amr-algorithm" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="objectives">
+<h3>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Reduce the memory overhead required to maintain the information embodies in the tree structure.</p></li>
+<li><p>Rapid and easy access to the information stored in the tree.</p></li>
+</ul>
+</div>
+<div class="section" id="p4est">
+<h3>p4est<a class="headerlink" href="#p4est" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="linear-octree">
+<h4>Linear octree<a class="headerlink" href="#linear-octree" title="Permalink to this headline">¶</a></h4>
+<img alt="_images/p4est_linear_tree.png" src="_images/p4est_linear_tree.png" />
+<p>Only store the leaves of the octree (“linear” octree).</p>
+<img alt="_images/schematic_for_refinement_p4est.png" src="_images/schematic_for_refinement_p4est.png" />
+</div>
+</div>
+<div class="section" id="full-threaded-tree-ftt">
+<h3>Full Threaded Tree (FTT)<a class="headerlink" href="#full-threaded-tree-ftt" title="Permalink to this headline">¶</a></h3>
+<p>Memory requirement: <span class="math notranslate nohighlight">\(2\frac{3}{8}\)</span> words per cell (conventional 19 words per cell).</p>
+<p>The actual number of traversed levels required to find a neighbour never exceeds one.</p>
+<img alt="_images/FTT_Oct.png" src="_images/FTT_Oct.png" />
+</div>
+<div class="section" id="cell-based-structured-adaptive-mesh-refinement">
+<h3>Cell-Based Structured Adaptive Mesh Refinement<a class="headerlink" href="#cell-based-structured-adaptive-mesh-refinement" title="Permalink to this headline">¶</a></h3>
+<p>Optimized FTT.</p>
+<p>Cartesian-like indices are used to identify each cell. With these stored indices, the information on the parent, children and neighbours of a given cell can be accessed simply and efficiently.</p>
+<p>Memory requirement: <span class="math notranslate nohighlight">\(\frac{5}{8}\)</span> words per cell.</p>
+<img alt="_images/CSAMR_Oct.png" src="_images/CSAMR_Oct.png" />
+<div class="section" id="octant-coordinate-calculation">
+<h4>Octant coordinate calculation<a class="headerlink" href="#octant-coordinate-calculation" title="Permalink to this headline">¶</a></h4>
+<p>The indices of the four children octs <span class="math notranslate nohighlight">\((i_s, j_s)\)</span></p>
+<div class="math notranslate nohighlight">
+\[(i_s, j_s) = \left \{ (2i+m, 2j+n)| m = 0, 1; n = 0, 1 \right \}\]</div>
+<p>The parent of a oct <span class="math notranslate nohighlight">\((i_p, j_p)\)</span></p>
+<div class="math notranslate nohighlight">
+\[(i_p, j_p) = \left ( int[\frac{i}{2}], int[\frac{j}{2}] \right )\]</div>
+</div>
+<div class="section" id="neighbour-finding">
+<h4>Neighbour finding<a class="headerlink" href="#neighbour-finding" title="Permalink to this headline">¶</a></h4>
+<img alt="_images/three_circumstances_of_neighbour.png" src="_images/three_circumstances_of_neighbour.png" />
+<p>Cell3 find east neighbour:</p>
+<p>(1). (i+1, j) – hash table – cell exsit (Y/N)?</p>
+<dl>
+<dt>(2). If Yes.</dt><dd><ul>
+<li><p>Neighbour is the Northwest (NW) cell of cell(i+1, j) – if this cell is a leaf (Y/N)?</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Yes – over</p></li>
+<li><p>No – two neighbours (NW, SW)</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</dd>
+<dt>(3). If No.</dt><dd><ul class="simple">
+<li><p>Neighbour cell has a larger size. cell number is <span class="math notranslate nohighlight">\(\left ( int[\frac{i+1}{2}], int[\frac{j}{2}] \right )\)</span></p></li>
+</ul>
+</dd>
+</dl>
+<p>At most, two search are sufficient to find a neighbour of a give cell. Half of the neighbours can be reached without consulting the hash table. Statistically, the average number of searches required to find a neighbour of a given cell is one.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dg_load_balancing.html" class="btn btn-neutral float-right" title="Dynamic Load-balancing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dg_numerical_fluxes.html" class="btn btn-neutral float-left" title="Numerical Flux schemes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Shiqi_He
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
